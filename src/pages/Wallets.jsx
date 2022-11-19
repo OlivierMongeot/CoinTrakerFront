@@ -1,67 +1,61 @@
 import React from 'react';
-// import Navbar from '../components/Navbar';
-// import Wallet from '../components/Wallet';
-// import TotalBar from '../components/TotalBar';
-// import '../styles/app.scss';
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import TabContext from '@material-ui/lab/TabContext';
+// import TabPanel from '@material-ui/lab/TabPanel';
 import Paper from '@mui/material/Paper';
-import Chart from '../Dashboard/Chart';
-import Deposits from '../Dashboard/Deposits';
-import Ledger from '../Dashboard/Ledger';
+import Title from '../Dashboard/Title';
+import Grid from '@mui/material/Grid';
+import TabWallets from '../Dashboard/TabWallets';
+import TabPanelWallet from '../Dashboard/TabPanelWallet';
+import formatValues from '../helpers/formatValues';
 
-const Wallets = () => {
-
+const Wallets = (props) => {
+    const [exchanges] = React.useState(
+        ['kucoin', 'crypto-com', 'gateio', 'coinbase']
+    );
     const [totalAllWallet, setTotalAllWallet] = React.useState(0);
     const [arrayAmountWallets, setArrayAmountWallets] = React.useState([])
-    const [exchanges] = React.useState(
-        [
-            'kucoin',
-            'crypto-com',
-            // 'coinbase',
-            'gateio'
-        ]
-    )
+    const [totalExchange, setTotalExchange] = React.useState(0);
+
+    console.log('totalAllWallet', totalAllWallet);
+
+
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
 
     return (
+        <Grid item xs={12}>
+            <Paper sx={{ p: 2 }}>
+                <Box sx={{ width: '100%', typography: 'body1' }}>
+                    <TabContext value={value}>
 
-        <Grid container spacing={5}>
+                        <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <TabWallets exchanges={exchanges} handleChange={handleChange} />
+                            <Title>
+                                <div className='display-top-table'>
+                                    <span className="title-wallet"></span>
+                                    <span >Total {formatValues('price', totalExchange)} $
+                                    </span>
+                                </div>
+                            </Title>
+                        </Box>
 
-            <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                    sx={{
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 240,
-                    }}
-                >
-                    <Chart />
-                </Paper>
-            </Grid>
-
-            <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                    sx={{
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 240,
-                    }}
-                >
-                    <Deposits />
-                </Paper>
-            </Grid>
-
-            <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                    {/* <Ledger exchange='kucoin'
-                        arrayAmountWallets={arrayAmountWallets}
-                        setArrayAmountWallets={setArrayAmountWallets}
-                        setTotalAllWallet={setTotalAllWallet} /> */}
-                </Paper>
-            </Grid>
+                        <TabPanelWallet
+                            exchanges={exchanges}
+                            arrayAmountWallets={arrayAmountWallets}
+                            setArrayAmountWallets={setArrayAmountWallets}
+                            setTotalAllWallet={setTotalAllWallet}
+                            setTotalExchange={setTotalExchange}
+                        />
+                    </TabContext>
+                </Box>
+            </Paper >
         </Grid>
+
     );
 };
 
