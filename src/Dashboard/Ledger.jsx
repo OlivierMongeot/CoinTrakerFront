@@ -6,7 +6,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import updateWallet from '../helpers/updateWallet';
 import formatValues from '../helpers/formatValues';
-
+import Loader from '../Dashboard/Loader';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export default function Ledger(props) {
@@ -15,22 +16,36 @@ export default function Ledger(props) {
   const [exchangeName] = React.useState(props.exchange);
 
   let parentData = props.arrayAmountWallets;
+  console.log('parentdata Ledger', parentData);
 
-  const updateParentData = (parentData, exchange, total) => {
-    if (parentData.length > 0) {
-      let exchangeInArray = false;
-      for (let i = 0; i < parentData.length; i++) {
-        if (parentData[i].exchange === exchange) {
-          parentData[i].amount = total;
-          exchangeInArray = true;
-        }
+  const updateWalletsAmount = (parentData, exchange, total) => {
+    // if (parentData.length > 0) {
+    // Check if data in locatStorage
+    console.log('parentData', parentData);
+    // let localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
+    // if (localStorageWalletsAmmount) {
+    //   parentData = localStorageWalletsAmmount;
+    // }
+    // Recupere les infos en locaStorage
+    // let totalAllWallets = JSON.parse(localStorage.getItem('wallets-amount'));
+    // props.setArrayAmountWallets(totalAllWallets);
+
+    let exchangeInArray = false;
+    for (let i = 0; i < parentData.length; i++) {
+      if (parentData[i].exchange === exchange) {
+        parentData[i].amount = total;
+        exchangeInArray = true;
       }
-      if (exchangeInArray === false) {
-        parentData.push({ exchange: exchange, amount: total });
-      }
-    } else {
+    }
+    if (exchangeInArray === false) {
       parentData.push({ exchange: exchange, amount: total });
     }
+    // } 
+    // else {
+    //   parentData.push({ exchange: exchange, amount: total });
+    // }
+
+    localStorage.setItem('wallets-amount', JSON.stringify(parentData));
     props.setArrayAmountWallets(parentData);
   }
 
@@ -41,7 +56,22 @@ export default function Ledger(props) {
       acc += value;
     }
     console.log('setTotalAllWallet', acc)
+    localStorage.setItem('wallets-total', JSON.stringify(acc));
     props.setTotalAllWallet(acc);
+  }
+
+  const rotationLoader = (exchangeName) => {
+    console.log(exchangeName);
+    const idElement = '#wallet-spinner';
+    const spinnerElement = document.querySelector(idElement);
+    spinnerElement.classList.add('display');
+  }
+
+  const stopLoader = (exchangeName) => {
+    const idElement = '#wallet-spinner';
+    const spinnerElement = document.querySelector(idElement);
+    spinnerElement.classList.remove('hidde');
+    console.log('rotation loader off')
   }
 
   const getWallet = async (exchange, fromApi = true) => {
@@ -49,7 +79,11 @@ export default function Ledger(props) {
     let result = null;
     switch (fromApi) {
       case true:
+        // start loader 
+        rotationLoader(exchange);
         result = await updateWallet(exchange);
+        stopLoader(exchangeName);
+        // Stop Loader
         // Save in Local Storage
         localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
         break;
@@ -59,6 +93,9 @@ export default function Ledger(props) {
     }
     console.log('setWallet', result);
     setWallets(result);
+
+    // {formatValues('timestamp', result[0].timestamp)}
+    props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
 
     // Calcul le total 
     let arrayTotalExchange = [];
@@ -73,7 +110,7 @@ export default function Ledger(props) {
     // Set Total In Local Storage 
     localStorage.setItem('total-' + exchange, JSON.stringify(total));
 
-    updateParentData(parentData, exchange, total);
+    updateWalletsAmount(parentData, exchange, total);
 
     calculTotalGeneral(parentData);
   }
@@ -90,8 +127,11 @@ export default function Ledger(props) {
   }
 
 
-
-
+  // console.log('Calcul des totaux');
+  // Recupere les infos en locaStorage
+  // let totalAllWallets = JSON.parse(localStorage.getItem('wallets-amount'));
+  // console.log(totalAllWallets);
+  // props.setArrayAmountWallets(totalAllWallets);
 
   React.useEffect(() => {
     // Check if user is authenticated todo
@@ -118,7 +158,7 @@ export default function Ledger(props) {
       let dateLastUpdate = walletLocalStorage[0].timestamp // timestamp
       let dateNow = new Date().getTime();
       let difference = dateNow - dateLastUpdate;
-      if (difference > 6600000) {
+      if (difference > 360000) {
         console.log('Time > 6 min , update Wallet after display old value');
         getWallet(exchangeName, true,);
       } else {
@@ -127,20 +167,17 @@ export default function Ledger(props) {
         getWallet(exchangeName, false);
       }
     }
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeName]);
 
 
 
   return (
+
     <React.Fragment>
-      {/* <Title>
-        <div className='display-top-table'>
-          <span className="title-wallet"></span>
-          <span >Total {formatValues('price', totalExchange)} $
-          </span>
-        </div>
-      </Title> */}
+
       <Table className="table-wallet"
         size="small"   >
         <TableHead>
@@ -178,7 +215,9 @@ export default function Ledger(props) {
                 </TableCell>
                 {/* <TableCell>{wallet.currency}</TableCell> */}
                 <TableCell align="right" className="table-row">{formatValues('price', wallet.balance)} {wallet.code}</TableCell>
-                <TableCell align="right" className="table-row">{formatValues('price', wallet.live_price)} $</TableCell>
+                <TableCell align="right" className="table-row">
+                  {formatValues('price', wallet.live_price)} $
+                </TableCell>
                 <TableCell
                   style={{
                     textAlign: 'right',
@@ -198,10 +237,12 @@ export default function Ledger(props) {
                 <TableCell className="table-row" align="right">{formatValues('price', wallet.dollarPrice)} $</TableCell>
               </TableRow>
             ))}
+
+
         </TableBody>
+
       </Table>
-
-
+      <Loader />
     </React.Fragment >
   );
 }

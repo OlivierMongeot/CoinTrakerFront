@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import TabContext from '@material-ui/lab/TabContext';
-// import TabPanel from '@material-ui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext';
+import Tooltip from '@mui/material/Tooltip';
 import Paper from '@mui/material/Paper';
 import Title from '../Dashboard/Title';
 import Grid from '@mui/material/Grid';
@@ -13,18 +13,24 @@ const Wallets = (props) => {
     const [exchanges] = React.useState(
         ['kucoin', 'crypto-com', 'gateio', 'coinbase']
     );
-    const [totalAllWallet, setTotalAllWallet] = React.useState(0);
-    const [arrayAmountWallets, setArrayAmountWallets] = React.useState([])
+
     const [totalExchange, setTotalExchange] = React.useState(0);
 
-    console.log('totalAllWallet', totalAllWallet);
+    const [value, setValue] = React.useState('0');
 
-
-    const [value, setValue] = React.useState('1');
+    const [updatedAt, setUpdatedAt] = React.useState(0)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+
+
+    React.useEffect(() => {
+
+
+
+    })
 
 
     return (
@@ -38,18 +44,22 @@ const Wallets = (props) => {
                             <Title>
                                 <div className='display-top-table'>
                                     <span className="title-wallet"></span>
-                                    <span >Total {formatValues('price', totalExchange)} $
-                                    </span>
+                                    <Tooltip title={updatedAt}>
+                                        <span >Total {formatValues('price', totalExchange)} $
+                                        </span>
+                                    </Tooltip>
+
                                 </div>
                             </Title>
                         </Box>
 
                         <TabPanelWallet
                             exchanges={exchanges}
-                            arrayAmountWallets={arrayAmountWallets}
-                            setArrayAmountWallets={setArrayAmountWallets}
-                            setTotalAllWallet={setTotalAllWallet}
+                            arrayAmountWallets={props.arrayAmountWallets}
+                            setArrayAmountWallets={props.setArrayAmountWallets}
+                            setTotalAllWallet={props.setTotalAllWallet}
                             setTotalExchange={setTotalExchange}
+                            setUpdatedAt={setUpdatedAt}
                         />
                     </TabContext>
                 </Box>

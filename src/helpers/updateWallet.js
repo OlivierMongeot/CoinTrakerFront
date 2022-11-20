@@ -41,7 +41,7 @@ const buildWallet = async (wallet, exchange) => {
 
     const geckoMarket = getCoinGeckoMarket();
 
-    console.log('CoinGeckoMarket', geckoMarket);
+    // console.log('CoinGeckoMarket', geckoMarket);
 
     console.log('wallet to build ' + exchange);
 

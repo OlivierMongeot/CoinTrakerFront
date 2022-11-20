@@ -41,7 +41,7 @@ const Drawer = styled(MuiDrawer,
 
 export default function BarMenu(props) {
 
-  console.log(props)
+  // console.log(props)
 
   return (
     <Drawer variant="permanent" open={props.open}  >

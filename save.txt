@@ -3,11 +3,9 @@
 npm install @mui/material @mui/styled-engine-sc styled-components
 npm install @mui/icons-material
 npm install recharts       
-
+npm i --save @fortawesome/fontawesome-svg-core
 npm install @mui/lab
 
 npm install @emotion/react   
 npm install @emotion/styled   
 npm install @emotion/core
-npm install @mui/icons-material
-

@@ -1,24 +1,30 @@
 
 const formatValues = (type, value) => {
 
+  function camelize(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+      if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+      return index === 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+  }
+
   switch (type) {
     case 'price':
       value = parseFloat(value);
 
       if (value >= 1000) {
-        value = value.toFixed(0);
+        return value.toFixed(0);
       } else if (value >= 100 && value < 1000) {
-        value = value.toFixed(2);
+        return value.toFixed(2);
       } else if (value >= 10 && value < 100) {
-        value = value.toFixed(3);
+        return value.toFixed(3);
       } else if (value >= 1 && value < 10) {
-        value = value.toFixed(3);
+        return value.toFixed(3);
       } else if (value > 0.1 && value < 1) {
-        value = value.toFixed(4);
+        return value.toFixed(4);
       } else {
-        value = value.toFixed(5);
+        return value.toFixed(5);
       }
-      return value;
 
     case 'pourcent':
 
@@ -27,18 +33,30 @@ const formatValues = (type, value) => {
       }
       value = parseFloat(value);
       if (value >= 10) {
-        value = value.toFixed(1);
+        return value.toFixed(1);
       } else {
-        value = value.toFixed(2);
+        return value.toFixed(2);
       }
-      return value;
+
+    case 'camelise':
+
+      return value.charAt(0).toUpperCase() + value.slice(1);
+
+    case 'timestamp':
+      let dateFormat = new Date(value);
+      let minute = (parseInt(dateFormat.getMinutes()) < 9) ? ('0' + dateFormat.getMinutes().toString()) : dateFormat.getMinutes();
+      let seconde = (parseInt(dateFormat.getSeconds()) < 9) ?
+        ('0' + dateFormat.getSeconds()) : dateFormat.getSeconds();
+      return ("Last updated " + dateFormat.getDate() +
+        "/" + (dateFormat.getMonth() + 1) +
+        "/" + dateFormat.getFullYear() +
+        " " + dateFormat.getHours() +
+        ":" + minute +
+        ":" + seconde);
 
     default:
       return '';
   }
-
-
-
 
 
 }

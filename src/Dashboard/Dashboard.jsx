@@ -2,27 +2,31 @@ import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-// import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import Wallets from '../pages/Wallets';
-// import Copyright from './Copyright';
 import SideMenu from './SideMenu';
 import TopBar from './TopBar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Chart from '../Dashboard/Chart';
-// import Deposits from '../Dashboard/Deposits';
+import Deposits from '../Dashboard/Deposits';
+import Wallets from '../pages/Wallets';
+// import Link from '@mui/material/Link';
+// import Typography from '@mui/material/Typography';
+// import Title from './Title';
 
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import Title from './Title';
 
 const mdTheme = createTheme();
 
 function DashboardContent(props) {
 
+  let localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
+  let localStorageWalletsTotal = JSON.parse(localStorage.getItem('wallets-total'));
   const [open, setOpen] = React.useState(true);
+  const [totalAllWallet, setTotalAllWallet] = React.useState(localStorageWalletsTotal ? localStorageWalletsTotal : 0);
+  const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : [])
 
+  console.log('totalAllWallet', totalAllWallet);
+  console.log('arrayAmountWallets', arrayAmountWallets);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -30,6 +34,8 @@ function DashboardContent(props) {
 
 
   return (
+    // <WalletsContext.Provider value={contextValue} >
+
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -41,11 +47,11 @@ function DashboardContent(props) {
           component="main"
           sx={{
             backgroundColor: (theme) =>
-              theme.palette.mode === 'dark'
+              theme.palette.mode === 'light'
                 ? theme.palette.grey[100]
-                : theme.palette.grey[500],
+                : theme.palette.grey[300],
             flexGrow: 1,
-            height: '150vh',
+            height: '100vh',
             overflow: 'auto',
           }}
         >
@@ -77,27 +83,14 @@ function DashboardContent(props) {
                     height: 240,
                   }}
                 >
-                  {/* <Deposits totalExchangeSelected={totalExchangeSelected} /> */}
-
-                  <React.Fragment>
-                    <Title>Recent Deposits</Title>
-                    <Typography component="p" variant="h4">
-                      ${12235}
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ flex: 1 }}>
-                      on 15 March, 2019
-                    </Typography>
-                    <div>
-                      <Link color="primary" href="#" >
-                        View details balance
-                      </Link>
-                    </div>
-                  </React.Fragment>
+                  <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
 
 
                 </Paper>
               </Grid>
-              <Wallets />
+              <Wallets setTotalAllWallet={setTotalAllWallet}
+                arrayAmountWallets={arrayAmountWallets}
+                setArrayAmountWallets={setArrayAmountWallets} />
             </Grid >
 
           </Container>
@@ -105,8 +98,10 @@ function DashboardContent(props) {
 
           {/* <Copyright sx={{ pt: 4 }} /> */}
         </Box>
-      </Box>
+      </Box >
     </ThemeProvider >
+
+    // </WalletsContext.Provider>
   );
 }
 
