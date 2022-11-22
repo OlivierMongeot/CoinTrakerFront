@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
 import Wallets from '../pages/Wallets';
+import Loader from './Loader';
 // import Link from '@mui/material/Link';
 // import Typography from '@mui/material/Typography';
 // import Title from './Title';
@@ -88,6 +89,7 @@ function DashboardContent(props) {
 
                 </Paper>
               </Grid>
+
               <Wallets setTotalAllWallet={setTotalAllWallet}
                 arrayAmountWallets={arrayAmountWallets}
                 setArrayAmountWallets={setArrayAmountWallets} />

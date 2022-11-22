@@ -11,7 +11,7 @@ export default function TabPanelWallets(props) {
 
 
   exchanges.forEach((exchange, index) => {
-    console.log('exchange', exchange);
+    // console.log('exchange', exchange);
     results.push(
       <TabPanel key={index} value={index.toString()}>
         <Ledger

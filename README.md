@@ -11,3 +11,4 @@ npm install @emotion/styled
 npm install @emotion/core
 npm install @mui/icons-material
 
+  "proxy": "http://localhost:4000",

@@ -1,6 +1,4 @@
 
-
-
 const setupBalanceStorage = (exchange, totalAccount) => {
 
     // Get walletBalance from localStorage
@@ -12,11 +10,8 @@ const setupBalanceStorage = (exchange, totalAccount) => {
     }
     // Add new balance to walletBalance
     walletsBalances[exchange] = totalAccount;
-
     localStorage.setItem('balances', JSON.stringify(walletsBalances));
-
 }
-
 
 
 export default setupBalanceStorage;

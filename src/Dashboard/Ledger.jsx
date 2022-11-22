@@ -6,8 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import updateWallet from '../helpers/updateWallet';
 import formatValues from '../helpers/formatValues';
-import Loader from '../Dashboard/Loader';
-import DeleteIcon from '@mui/icons-material/Delete';
+
 
 
 export default function Ledger(props) {
@@ -16,12 +15,12 @@ export default function Ledger(props) {
   const [exchangeName] = React.useState(props.exchange);
 
   let parentData = props.arrayAmountWallets;
-  console.log('parentdata Ledger', parentData);
+  // console.log('parentdata Ledger', parentData);
 
   const updateWalletsAmount = (parentData, exchange, total) => {
     // if (parentData.length > 0) {
     // Check if data in locatStorage
-    console.log('parentData', parentData);
+    // console.log('parentData', parentData);
     // let localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
     // if (localStorageWalletsAmmount) {
     //   parentData = localStorageWalletsAmmount;
@@ -61,17 +60,31 @@ export default function Ledger(props) {
   }
 
   const rotationLoader = (exchangeName) => {
-    console.log(exchangeName);
+    // Hide table
+    // const classElement = '.' + exchangeName;
+    // console.log(exchangeName);
+    // const tableElement = document.querySelector(classElement);
+    // tableElement.classList.add('hide');
+
+
     const idElement = '#wallet-spinner';
     const spinnerElement = document.querySelector(idElement);
-    spinnerElement.classList.add('display');
+    spinnerElement.classList.add('show');
+    spinnerElement.classList.remove('hide');
   }
 
   const stopLoader = (exchangeName) => {
+    // show Table 
+    // const classElement = '.' + exchangeName;
+    // console.log('stop Loader ', exchangeName);
+    // const tableElement = document.querySelector(classElement);
+    // tableElement.classList.remove('hide');
+
+
     const idElement = '#wallet-spinner';
     const spinnerElement = document.querySelector(idElement);
-    spinnerElement.classList.remove('hidde');
-    console.log('rotation loader off')
+    spinnerElement.classList.remove('show');
+    spinnerElement.classList.add('hide');
   }
 
   const getWallet = async (exchange, fromApi = true) => {
@@ -79,22 +92,17 @@ export default function Ledger(props) {
     let result = null;
     switch (fromApi) {
       case true:
-        // start loader 
         rotationLoader(exchange);
         result = await updateWallet(exchange);
         stopLoader(exchangeName);
-        // Stop Loader
-        // Save in Local Storage
         localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
         break;
       default:
         result = JSON.parse(localStorage.getItem('wallet-' + exchange));
         break;
     }
-    console.log('setWallet', result);
     setWallets(result);
 
-    // {formatValues('timestamp', result[0].timestamp)}
     props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
 
     // Calcul le total 
@@ -127,12 +135,6 @@ export default function Ledger(props) {
   }
 
 
-  // console.log('Calcul des totaux');
-  // Recupere les infos en locaStorage
-  // let totalAllWallets = JSON.parse(localStorage.getItem('wallets-amount'));
-  // console.log(totalAllWallets);
-  // props.setArrayAmountWallets(totalAllWallets);
-
   React.useEffect(() => {
     // Check if user is authenticated todo
     // if(!AuthenticationService.isAuthenticated){
@@ -140,34 +142,41 @@ export default function Ledger(props) {
     //     window.location.href = '/login';
     // }
     console.log('_____________________________')
-    console.log('Wallet useEffect exchange : ', exchangeName);
+    console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
 
-    //check if get available list of tokens from LocalStorage
-    let walletLocalStorage = JSON.parse(localStorage.getItem('wallet-' + exchangeName));
+    // const itemSet = (localStorage.getItem('wallet-' + exchangeName !== null));
 
-    const isEmpty = Object.keys(walletLocalStorage != null ? walletLocalStorage : {}).length === 0;
-    // console.log('Wallet is empty', isEmpty);
 
-    if (walletLocalStorage === null || isEmpty) {
-      console.log('No wallet in storage for ' + exchangeName);
-      getWallet(exchangeName, true);
-
-    } else {
+    if ('wallet-' + exchangeName in localStorage) {
+      // const itemSet = (localStorage.getItem('wallet-' + exchangeName !== null));
+      // console.log(exchangeName + ' wallet in LS', itemSet)
+      let walletLocalStorage = JSON.parse(localStorage.getItem('wallet-' + exchangeName));
       console.log('Wallet in LocalStorage for ' + exchangeName + ', check timestamp creation');
       // check if last update > 1 hour
-      let dateLastUpdate = walletLocalStorage[0].timestamp // timestamp
-      let dateNow = new Date().getTime();
-      let difference = dateNow - dateLastUpdate;
-      if (difference > 360000) {
-        console.log('Time > 6 min , update Wallet after display old value');
-        getWallet(exchangeName, true,);
+      console.log('statut storage ' + typeof (walletLocalStorage))
+      if (walletLocalStorage.length > 0) {
+        let dateLastUpdate = walletLocalStorage[0].timestamp // timestamp
+        let dateNow = new Date().getTime();
+        let difference = dateNow - dateLastUpdate;
+        if (difference > 160000) {
+          console.log('Time > 6 min , update Wallet after display old value');
+          getWallet(exchangeName, true,);
+        } else {
+          console.log('Time < 6 min hour, Display Wallet from Local Store : ' + exchangeName);
+          // getWallet(exchangeName, false);
+          getWallet(exchangeName, false);
+        }
       } else {
-        console.log('Time < 6 min hour, Display Wallet from Local Store : ' + exchangeName);
-        // getWallet(exchangeName, false);
-        getWallet(exchangeName, false);
+        console.log('Data: wallet-' + exchangeName + ' à tableau vide');
+        getWallet(exchangeName, true);
       }
-    }
 
+
+
+    } else {
+      console.log('Data: wallet-' + exchangeName + ' n\'existe pas');
+      getWallet(exchangeName, true);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeName]);
@@ -184,14 +193,14 @@ export default function Ledger(props) {
           <TableRow align="right" >
             <TableCell  >Token</TableCell>
             {/* <TableCell>Logo</TableCell> */}
-            <TableCell align="right" >Holding</TableCell>
+            <TableCell align="right" >Balance</TableCell>
             <TableCell align="right">Price</TableCell>
             <TableCell align="right">24h</TableCell>
             <TableCell align="right">Total </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {wallets
+        <TableBody className={exchangeName + ' table-wallet'}>
+          {wallets && wallets
             .filter(token => token.balance > 0)
             .filter(token => token.dollarPrice > 0.0001)
             .sort(function (a, b) {
@@ -219,19 +228,27 @@ export default function Ledger(props) {
                   {formatValues('price', wallet.live_price)} $
                 </TableCell>
                 <TableCell
+                  // TODO REVOIR LE MODE COLORISATION
                   style={{
                     textAlign: 'right',
-                    color: `${getColorValue(wallet.variation24h ?
-                      (wallet.variation24h) :
+                    color: `${getColorValue(wallet.quoteCMC ?
+                      (wallet.quoteCMC.USD.percent_change_24h) :
                       (wallet.var24h ? (wallet.var24h.changeRate) : ''))}`
                   }}
                   className="table-row"
                 >
 
                   {
-                    wallet.variation24h ?
-                      formatValues('pourcent', wallet.variation24h) :
-                      (wallet.var24h ? formatValues('pourcent', wallet.var24h.changeRate) : '')
+                    // // TEST 2
+                    (wallet.quoteCMC) ?
+                      // TRUE 2
+                      (formatValues('pourcent', wallet.quoteCMC.USD.percent_change_24h)) :
+                      //FALSE 2
+                      (wallet.variation24h ? formatValues('pourcent', wallet.variation24h) : ((wallet.quoteAPIorigin) ?
+                        // TRUE 1
+                        (formatValues('pourcent', wallet.quoteAPIorigin.changeRate)) :
+                        //FALSE 1
+                        ('')))
                   } %
                 </TableCell>
                 <TableCell className="table-row" align="right">{formatValues('price', wallet.dollarPrice)} $</TableCell>
@@ -242,7 +259,7 @@ export default function Ledger(props) {
         </TableBody>
 
       </Table>
-      <Loader />
+
     </React.Fragment >
   );
 }

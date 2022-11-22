@@ -29,7 +29,7 @@ export default function Deposits(props) {
             {formatValues('camelise', wallet.exchange)}
           </div>
           <div>
-            ${formatValues('price', wallet.amount)}
+            {formatValues('price', wallet.amount)} $
           </div>
         </div>
 
