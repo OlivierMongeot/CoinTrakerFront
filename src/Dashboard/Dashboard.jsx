@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
 import Wallets from '../pages/Wallets';
-import Loader from './Loader';
+// import Loader from './Loader';
 // import Link from '@mui/material/Link';
 // import Typography from '@mui/material/Typography';
 // import Title from './Title';
@@ -60,7 +60,7 @@ function DashboardContent(props) {
 
           <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 4 }}>
 
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
 
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
@@ -68,7 +68,7 @@ function DashboardContent(props) {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 200,
                   }}
                 >
                   <Chart />
@@ -81,18 +81,31 @@ function DashboardContent(props) {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
+                    height: 200,
+                  }}>
                   <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
 
 
                 </Paper>
               </Grid>
+              <Grid item xs={12} md={12} lg={12}>
+                <Paper
+                  sx={{
+                    // p: 2,
+                    // display: 'flex',
+                    // flexDirection: 'column',
+                    height: 'auto',
+                  }}>
 
-              <Wallets setTotalAllWallet={setTotalAllWallet}
-                arrayAmountWallets={arrayAmountWallets}
-                setArrayAmountWallets={setArrayAmountWallets} />
+                  <Wallets
+                    sx={{ height: '100%' }}
+
+                    setTotalAllWallet={setTotalAllWallet}
+                    arrayAmountWallets={arrayAmountWallets}
+                    setArrayAmountWallets={setArrayAmountWallets} />
+
+                </Paper>
+              </Grid >
             </Grid >
 
           </Container>

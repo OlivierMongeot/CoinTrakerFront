@@ -4,7 +4,7 @@ const getCMCIdMap = async () => {
 
     // console.log(localStorage.getItem('cmcTokensList'));
     if (localStorage.getItem('cmcTokensList') == null) {
-        console.log('get CMCData all-tokens');
+        console.log('get CMCData all-tokens from api');
         const response = await axios.get('http://192.168.0.46:4000/cmc/all-tokens');
         // let exchange = "http://192.168.0.46:4000/" + ex + "/wallet";
         // save in LocalStorage
@@ -19,7 +19,7 @@ const getCMCIdMap = async () => {
         localStorage.setItem('cmcTokensList', JSON.stringify(response.data));
         return response.data;
     } else {
-        console.log('getTokenList From Store');
+        // console.log('getTokenList From Store');
         return JSON.parse(localStorage.getItem('cmcTokensList'));
 
     }

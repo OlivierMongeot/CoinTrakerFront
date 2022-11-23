@@ -19,14 +19,14 @@ const getPricesCMCApi = async (wallet, exchange) => {
     }
     currencies = currencies.slice(0, -1);
 
-    console.log('List Token to search CMC API :', currencies);
+    // console.log('List Token to search CMC API :', currencies);
 
     let url = 'http://192.168.0.46:4000/cmc/prices?symbol=' + currencies;
 
     const response = await axios.get(url);
     // Parse response.data to simplify the data
     let prices = response.data;
-    console.log('Prices CMC API ', prices);
+    // console.log('Prices CMC API ', prices);
     let pricesMap = {};
     let quoteMap = {};
     for (let i = 0; i < prices.length; i++) {

@@ -1,13 +1,6 @@
 
 const formatValues = (type, value) => {
 
-  function camelize(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
-      if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
-      return index === 0 ? match.toLowerCase() : match.toUpperCase();
-    });
-  }
-
   switch (type) {
     case 'price':
       value = parseFloat(value);
@@ -17,13 +10,15 @@ const formatValues = (type, value) => {
       } else if (value >= 100 && value < 1000) {
         return value.toFixed(2);
       } else if (value >= 10 && value < 100) {
-        return value.toFixed(3);
+        return value.toFixed(2);
       } else if (value >= 1 && value < 10) {
         return value.toFixed(3);
-      } else if (value > 0.1 && value < 1) {
+      } else if (value >= 0.01 && value < 1) {
+        return value.toFixed(3);
+      } else if (value >= 0.001 && value < 0.01) {
         return value.toFixed(4);
       } else {
-        return value.toFixed(5);
+        return value.toFixed(4);
       }
 
     case 'pourcent':
@@ -39,7 +34,6 @@ const formatValues = (type, value) => {
       }
 
     case 'camelise':
-
       return value.charAt(0).toUpperCase() + value.slice(1);
 
     case 'timestamp':
@@ -53,6 +47,15 @@ const formatValues = (type, value) => {
         " " + dateFormat.getHours() +
         ":" + minute +
         ":" + seconde);
+
+    case 'switch-color':
+      value = parseFloat(value)
+      if (value >= 0) {
+        return 'green';
+      }
+      else {
+        return 'red';
+      }
 
     default:
       return '';

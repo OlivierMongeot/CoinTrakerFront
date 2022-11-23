@@ -26,16 +26,16 @@
 }
 
 
-.css-7ur1e4 {
-  height: 100% !important;
-}
+/* .css-7ur1e4 { */
+/* height: 100% !important; */
+/* } */
 
 
 .table-wallet {
   display: flex !important;
   flex-direction: column;
   overflow-Y: auto !important;
-  height: 40vh !important;
+  height: 51vh !important;
 }
 
 .table-wallet>thead>tr>th,
@@ -116,6 +116,7 @@
   }
 }
 
-.table-wallet.hide {
+/* .table-wallet.hide {
   display: none
 }
+ */

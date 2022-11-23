@@ -9,10 +9,12 @@ import TabWallets from '../Dashboard/TabWallets';
 import TabPanelWallet from '../Dashboard/TabPanelWallet';
 import formatValues from '../helpers/formatValues';
 import Loader from '../Dashboard/Loader';
+// import { height } from '@mui/system';
 
 const Wallets = (props) => {
+
     const [exchanges] = React.useState(
-        ['kucoin', 'crypto-com', 'gateio', 'coinbase', 'binance']
+        ['crypto-com', 'gateio', 'binance', 'kucoin', 'all']
     );
 
     const [totalExchange, setTotalExchange] = React.useState(0);
@@ -29,13 +31,15 @@ const Wallets = (props) => {
     return (
         <Grid item xs={12}>
             <Paper sx={{ p: 2 }}>
-                <Box sx={{ width: '100%', typography: 'body1' }}>
+                <Box id="box-wallet" sx={{ width: '100%', height: '100%', typography: 'body1' }}>
                     <Loader />
 
-                    <TabContext value={value}>
+                    <TabContext value={value} >
 
                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
+
                             <TabWallets exchanges={exchanges} handleChange={handleChange} />
+
                             <Title>
                                 <div className='display-top-table'>
                                     <span className="title-wallet"></span>
