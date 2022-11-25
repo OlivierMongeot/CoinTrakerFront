@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import TabWallets from '../Dashboard/TabWallets';
 import TabPanelWallet from '../Dashboard/TabPanelWallet';
 import formatValues from '../helpers/formatValues';
-import Loader from '../Dashboard/Loader';
+// import Loader from '../helpers/Loader';
 // import { height } from '@mui/system';
 
 const Wallets = (props) => {
@@ -32,7 +32,7 @@ const Wallets = (props) => {
         <Grid item xs={12}>
             <Paper sx={{ p: 2 }}>
                 <Box id="box-wallet" sx={{ width: '100%', height: '100%', typography: 'body1' }}>
-                    <Loader />
+                    {/* <Loader /> */}
 
                     <TabContext value={value} >
 

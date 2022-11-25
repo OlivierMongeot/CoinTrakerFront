@@ -2,6 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../helpers/formatValues'
+import Loader from '../helpers/Loader';
 // import { width } from '@mui/system';
 
 
@@ -14,15 +15,19 @@ export default function Deposits(props) {
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
         <div key={index} className="display-grid-amount">
+
           <div>
             {formatValues('camelise', wallet.exchange)}
           </div>
           <div>
-            {Math.round(wallet.amount)} $
+            <div className="price-loader-content">
+              <Loader fontSize='30' exchange={wallet.exchange} />
+              <div>
+                {Math.round(wallet.amount)} $
+              </div>
+            </div>
           </div>
         </div>
-
-
 
       )
       )}
@@ -34,17 +39,10 @@ export default function Deposits(props) {
         alignItems: 'center',
 
       }}>
-        <Title style={{
-          // width: "100%",
-          // flexDirection: 'row',
-          // justifyContent: 'space-between'
-
-        }}>Total Wallets</Title>
+        <Title>Total Wallets</Title>
 
         <Typography component="p" variant="h4" style={{
-          // width: "100%",
-          // flexDirection: 'row',
-          // justifyContent: 'space-between'
+
 
         }}>
           ${formatValues('price', props.totalAllWallet)}

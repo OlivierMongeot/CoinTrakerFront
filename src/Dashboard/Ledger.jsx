@@ -19,23 +19,9 @@ export default function Ledger(props) {
   const exchagesEnable = props.exchanges;
 
 
-  const rotateSpinner = (exchangeName) => {
-    const idElement = '#wallet-spinner';
-    const spinnerElement = document.querySelector(idElement);
-    spinnerElement.classList.add('show');
-    spinnerElement.classList.remove('hide');
-  }
-
-  const stopSpinner = (exchangeName) => {
-    const idElement = '#wallet-spinner';
-    const spinnerElement = document.querySelector(idElement);
-    spinnerElement.classList.remove('show');
-    spinnerElement.classList.add('hide');
-  }
-
-  const valueDollarToDisplay = (exchangeName) => {
+  const minValueDollarToDisplayToken = (exchangeName) => {
     if (exchangeName === 'all') {
-      return 1;
+      return 0.1;
     } else {
       return 0.0001;
     }
@@ -44,16 +30,12 @@ export default function Ledger(props) {
 
   const getCompletedWallet = async (exchange, exchanges) => {
 
-    // console.log('All Exchanges', exchanges)
 
-    rotateSpinner(exchange);
     let result = await updateWallet(exchange, exchanges, parentData, props);
-    stopSpinner(exchangeName);
-    // localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
-    // console.log('Result updateWallet', result)
+
     setWallets(result);
 
-    // used for display time update on main page
+    // used for display last time update on main page
     props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
 
   }
@@ -91,8 +73,8 @@ export default function Ledger(props) {
         </TableHead>
         <TableBody className={exchangeName + ' table-wallet'}>
           {wallets && wallets
-            // .filter(token => token.balance > 0)
-            .filter(token => (token.balance * token.live_price) > valueDollarToDisplay(exchangeName))
+            .filter(token => token.balance > 0)
+            .filter(token => (token.balance * token.live_price) > minValueDollarToDisplayToken(exchangeName))
             .sort(function (a, b) {
               return b.balance * b.live_price - a.balance * a.live_price;
             })
@@ -140,7 +122,7 @@ export default function Ledger(props) {
                   {(wallet.quoteCMC) ?
                     (formatValues('pourcent', wallet.quoteCMC.USD.percent_change_1h)) :
                     (wallet.quoteAPIorigin ? formatValues('pourcent', wallet.quoteAPIorigin.changeRate) :
-                      (''))} %
+                      ('...'))} %
                 </TableCell>
 
 
@@ -150,13 +132,13 @@ export default function Ledger(props) {
                     textAlign: 'right',
                     color: `${formatValues('switch-color', wallet.quoteCMC ?
                       (wallet.quoteCMC.USD.percent_change_24h) :
-                      (wallet.quoteAPIorigin ? (wallet.quoteAPIorigin.changeRate) : ''))}`
+                      (wallet.quoteAPIorigin ? (wallet.quoteAPIorigin.changeRate) : '...'))}`
                   }}
                   className="table-row change">
                   {(wallet.quoteCMC) ?
                     (formatValues('pourcent', wallet.quoteCMC.USD.percent_change_24h)) :
                     (wallet.quoteAPIorigin ? formatValues('pourcent', wallet.quoteAPIorigin.changeRate) :
-                      (''))} %
+                      ('...'))} %
                 </TableCell>
                 <TableCell
                   style={{
@@ -164,13 +146,13 @@ export default function Ledger(props) {
                     textAlign: 'right',
                     color: `${formatValues('switch-color', wallet.quoteCMC ?
                       (wallet.quoteCMC.USD.percent_change_7d) :
-                      (wallet.quoteAPIorigin ? (wallet.quoteAPIorigin.changeRate) : ''))}`
+                      (wallet.quoteAPIorigin ? (wallet.quoteAPIorigin.changeRate) : '...'))}`
                   }}
                   className="table-row change">
                   {(wallet.quoteCMC) ?
                     (formatValues('pourcent', wallet.quoteCMC.USD.percent_change_7d)) :
                     (wallet.quoteAPIorigin ? formatValues('pourcent', wallet.quoteAPIorigin.changeRate) :
-                      (''))} %
+                      ('...'))} %
                 </TableCell>
 
                 <TableCell className="table-row" align="right">{formatValues('price', (wallet.live_price * wallet.balance))} $</TableCell>

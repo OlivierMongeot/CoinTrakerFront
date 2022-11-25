@@ -10,6 +10,19 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
 
     console.log('update Wallet ', exchangetoUp, ' in ', exchanges)
 
+    const rotateSpinner = (exchangeName) => {
+        const idElement = '#wallet-spinner-' + exchangeName;
+        const spinnerElement = document.querySelector(idElement);
+        spinnerElement.classList.add('show');
+        spinnerElement.classList.remove('hide');
+    }
+
+    const stopSpinner = (exchangeName) => {
+        const idElement = '#wallet-spinner-' + exchangeName;
+        const spinnerElement = document.querySelector(idElement);
+        spinnerElement.classList.remove('show');
+        spinnerElement.classList.add('hide');
+    }
 
     const completeDataWallet = async (wallet, exchange) => {
 
@@ -253,6 +266,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
             let exchange = exchanges[index];
             if (exchange !== 'all') {
                 console.log(' Mise à jour de l exchange : ', exchange);
+                rotateSpinner(exchange);
                 let result = await updateProcess(exchange);
                 // save LS
 
@@ -282,7 +296,8 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
 
 
                 localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
-                allDataExchanges = allDataExchanges.concat(result)
+                allDataExchanges = allDataExchanges.concat(result);
+                stopSpinner(exchange);
             }
 
         }

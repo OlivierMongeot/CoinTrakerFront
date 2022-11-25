@@ -3,16 +3,16 @@ import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import SideMenu from './SideMenu';
-import TopBar from './TopBar';
+import SideMenu from './main/SideMenu';
+import TopBar from './main/TopBar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Chart from '../Dashboard/Chart';
-import Deposits from '../Dashboard/Deposits';
-import Wallets from '../pages/Wallets';
+import Chart from './Dashboard/Chart';
+import Deposits from './Dashboard/Deposits';
+import Wallets from './pages/Wallets';
 
 
-export default function SubApp(props) {
+export default function AppRoots(props) {
 
   let localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
   let localStorageWalletsTotal = JSON.parse(localStorage.getItem('wallets-total'));
@@ -60,7 +60,7 @@ export default function SubApp(props) {
 
             <Grid container spacing={3}>
 
-              <Grid item xs={12} md={8} lg={8}>
+              <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
                     p: 2,
@@ -73,7 +73,7 @@ export default function SubApp(props) {
                 </Paper>
               </Grid>
 
-              <Grid item xs={12} md={4} lg={4}>
+              <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,

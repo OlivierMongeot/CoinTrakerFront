@@ -65,31 +65,20 @@
 
 
 /*  Loader spinner Btn */
-
 #container-spinner> {
   position: relative !important;
-  top: 140px !important;
-  left: 50px !important;
   transform-origin: center;
 
 }
 
 .update-btn {
-  position: absolute !important;
-  right: 40% !important;
-  top: 60%;
+  margin-right: 5px;
   -webkit-animation: spin 3s linear infinite;
   -moz-animation: spin 3s linear infinite;
   animation: spin 3s linear infinite;
-  /* transform-origin: center; */
-  /* height: 50px;
-  width: 50px; */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* text-align: center;
-  margin-top: 50%;
-  margin-bottom: 50%; */
 }
 
 .update-btn.hide {
@@ -116,7 +105,8 @@
   }
 }
 
-/* .table-wallet.hide {
-  display: none
+
+.price-loader-content {
+  display: flex;
+  flex-direction: row;
 }
- */
