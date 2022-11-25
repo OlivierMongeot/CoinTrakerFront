@@ -15,6 +15,10 @@ import { Tooltip } from '@mui/material';
 
 const drawerWidth = 250;
 
+// const colorMode = React.useContext(ColorModeContext);
+
+
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -38,9 +42,8 @@ const AppBar = styled(MuiAppBar, {
 
 export default function TopBar(props) {
 
-
   // const theme = useTheme();
-  // const colorMode = React.useContext(props.ColorModeContext);
+
 
   return (
     <AppBar position="absolute" open={props.open} >

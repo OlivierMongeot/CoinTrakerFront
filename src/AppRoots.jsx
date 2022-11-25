@@ -19,17 +19,18 @@ export default function AppRoots(props) {
   const [open, setOpen] = React.useState(true);
   const [totalAllWallet, setTotalAllWallet] = React.useState(localStorageWalletsTotal ? localStorageWalletsTotal : 0);
   const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : [])
-  const [page] = React.useState('wallets');
+  // const [page] = React.useState('wallets');
+  const page = props.page.area;
+  console.log('page ', page);
   // console.log('page ', page);
   // console.log('props ', props);
-  localStorage.setItem('theme', JSON.stringify(props.mode));
+  // localStorage.setItem('theme', JSON.stringify(props.mode));
 
 
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
 
   const theme = useTheme();
   const colorMode = React.useContext(props.ColorModeContext);

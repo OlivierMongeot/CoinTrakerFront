@@ -51,7 +51,7 @@ export default function BarMenu(props) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
-          px: [1],
+          px: [1]
         }}
       >
         <IconButton onClick={props.toggleDrawer}>
@@ -60,7 +60,7 @@ export default function BarMenu(props) {
       </Toolbar>
 
       <Divider />
-      <List component="nav">
+      <List component="nav" >
         {mainListItems}
         <Divider sx={{ my: 1 }} />
         {secondaryListItems}

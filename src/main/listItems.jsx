@@ -10,26 +10,26 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <React.Fragment>
-    {/* <Link to="/"> */}
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Markets" />
-    </ListItemButton>
-    {/* </Link> */}
-    {/* <Link to="/wallets"> */}
-    <ListItemButton>
-      <ListItemIcon>
-        <AccountBalanceWalletIcon />
-      </ListItemIcon>
-      <ListItemText primary="Wallets" />
-    </ListItemButton>
-    {/* </Link> */}
+    <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton >
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon >
+        <ListItemText className='link' primary="Markets" />
+      </ListItemButton>
+    </Link>
+    <Link to="/wallets" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AccountBalanceWalletIcon />
+        </ListItemIcon>
+        <ListItemText primary="Wallets" />
+      </ListItemButton>
+    </Link>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />

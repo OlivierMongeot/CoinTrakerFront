@@ -7,6 +7,10 @@ const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 function ThemeContent(props) {
 
+  console.log('ThemeContent', props)
+
+  let page = props.area;
+
   const [mode, setMode] = React.useState(
     (localStorage.getItem('theme')) ?
       JSON.parse(localStorage.getItem('theme')) :
@@ -16,10 +20,10 @@ function ThemeContent(props) {
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-
+        localStorage.setItem('theme', JSON.stringify(mode));
       },
     }),
-    [],
+    [mode],
   );
 
   const theme = React.useMemo(
@@ -33,9 +37,9 @@ function ThemeContent(props) {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <AppRoots ColorModeContext={ColorModeContext} colorMode={colorMode} mode={mode} />
+        <AppRoots page={page} ColorModeContext={ColorModeContext} colorMode={colorMode} mode={mode} />
       </ThemeProvider >
-    </ColorModeContext.Provider>
+    </ColorModeContext.Provider >
   );
 }
 
