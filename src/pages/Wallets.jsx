@@ -14,7 +14,7 @@ import Loader from '../Dashboard/Loader';
 const Wallets = (props) => {
 
     const [exchanges] = React.useState(
-        ['crypto-com', 'gateio', 'binance', 'kucoin', 'all']
+        ['all', 'crypto-com', 'gateio', 'coinbase', 'binance', 'kucoin']
     );
 
     const [totalExchange, setTotalExchange] = React.useState(0);

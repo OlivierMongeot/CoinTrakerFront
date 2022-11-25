@@ -15,6 +15,7 @@ export default function TabPanelWallets(props) {
     results.push(
       <TabPanel key={index} value={index.toString()}>
         <Ledger
+          exchanges={exchanges}
           exchange={exchange}
           arrayAmountWallets={props.arrayAmountWallets}
           setArrayAmountWallets={props.setArrayAmountWallets}

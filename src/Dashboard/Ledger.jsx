@@ -16,40 +16,8 @@ export default function Ledger(props) {
   const [exchangeName] = React.useState(props.exchange);
 
   let parentData = props.arrayAmountWallets;
-  // console.log('parentdata Ledger', parentData);
+  const exchagesEnable = props.exchanges;
 
-  const updateWalletsAmount = (parentData, exchange, total) => {
-
-    let exchangeInArray = false;
-    for (let i = 0; i < parentData.length; i++) {
-      if (parentData[i].exchange === exchange && exchange !== 'all') {
-        parentData[i].amount = total;
-        exchangeInArray = true;
-      }
-    }
-    if (exchangeInArray === false && exchange !== 'all') {
-      parentData.push({ exchange: exchange, amount: total });
-    }
-    if (exchange !== 'all') {
-      localStorage.setItem('wallets-amount', JSON.stringify(parentData));
-      props.setArrayAmountWallets(parentData);
-    }
-
-  }
-
-  const setAndSaveTotalAllExchanges = (parentData) => {
-    let acc = 0;
-    for (let i = 0; i < parentData.length; i++) {
-      let value = parentData[i].amount;
-      if (parentData[i].exchange !== 'all') {
-        acc += value;
-      }
-
-    }
-    console.log('setTotalAllWallet', acc)
-    localStorage.setItem('wallets-total', JSON.stringify(acc));
-    props.setTotalAllWallet(acc);
-  }
 
   const rotateSpinner = (exchangeName) => {
     const idElement = '#wallet-spinner';
@@ -65,37 +33,6 @@ export default function Ledger(props) {
     spinnerElement.classList.add('hide');
   }
 
-  const getCompletedWallet = async (exchange, exchanges) => {
-
-    // console.log('All Exchanges', exchanges)
-
-    rotateSpinner(exchange);
-    let result = await updateWallet(exchange, exchanges);
-    stopSpinner(exchangeName);
-    localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
-    console.log('Result updateWallet', result)
-    setWallets(result);
-
-    props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
-
-    // Calcul le total pour les props
-    let arrayTotalExchange = [];
-    result.forEach(element => {
-      arrayTotalExchange.push(element.balance * element.live_price);
-    });
-
-    let total = arrayTotalExchange.reduce((acc, val) => acc + val, 0)
-    console.log('Updated total exchange', total);
-
-    props.setTotalExchange(total);
-    // Set Total In Local Storage 
-    localStorage.setItem('total-' + exchange, JSON.stringify(total));
-
-    updateWalletsAmount(parentData, exchange, total);
-
-    setAndSaveTotalAllExchanges(parentData);
-  }
-
   const valueDollarToDisplay = (exchangeName) => {
     if (exchangeName === 'all') {
       return 1;
@@ -104,6 +41,24 @@ export default function Ledger(props) {
     }
 
   }
+
+  const getCompletedWallet = async (exchange, exchanges) => {
+
+    // console.log('All Exchanges', exchanges)
+
+    rotateSpinner(exchange);
+    let result = await updateWallet(exchange, exchanges, parentData, props);
+    stopSpinner(exchangeName);
+    // localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
+    // console.log('Result updateWallet', result)
+    setWallets(result);
+
+    // used for display time update on main page
+    props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
+
+  }
+
+
   React.useEffect(() => {
     // Check if user is authenticated todo
     // if(!AuthenticationService.isAuthenticated){
@@ -113,7 +68,7 @@ export default function Ledger(props) {
     console.log('_____________________________')
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
 
-    getCompletedWallet(exchangeName, parentData);
+    getCompletedWallet(exchangeName, exchagesEnable);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeName]);
@@ -136,10 +91,10 @@ export default function Ledger(props) {
         </TableHead>
         <TableBody className={exchangeName + ' table-wallet'}>
           {wallets && wallets
-            .filter(token => token.balance > 0)
+            // .filter(token => token.balance > 0)
             .filter(token => (token.balance * token.live_price) > valueDollarToDisplay(exchangeName))
             .sort(function (a, b) {
-              return b.dollarPrice - a.dollarPrice;
+              return b.balance * b.live_price - a.balance * a.live_price;
             })
             .map((wallet, key) => (
               <TableRow key={key}>

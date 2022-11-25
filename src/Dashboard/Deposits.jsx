@@ -13,8 +13,6 @@ export default function Deposits(props) {
 
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
-
-
         <div key={index} className="display-grid-amount">
           <div>
             {formatValues('camelise', wallet.exchange)}
