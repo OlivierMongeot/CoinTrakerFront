@@ -34,8 +34,22 @@
 .table-wallet {
   display: flex !important;
   flex-direction: column;
-  overflow-Y: auto !important;
-  height: 51vh !important;
+  /* overflow-Y: auto !important; */
+  height: 74vh !important;
+  scrollbar-width: thin !important;
+  overflow-y: auto !important;
+}
+
+.table-wallet::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.table-wallet {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .table-wallet>thead>tr>th,
@@ -109,4 +123,9 @@
 .price-loader-content {
   display: flex;
   flex-direction: row;
+}
+
+.logo-market {
+  width: 25px;
+  height: 25px;
 }

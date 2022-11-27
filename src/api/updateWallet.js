@@ -6,26 +6,31 @@ import setupBalanceStorage from '../helpers/setupBalanceStorage';
 
 
 
-const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
+const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWallets) => {
 
     console.log('update Wallet ', exchangetoUp, ' in ', exchanges);
-    console.log('parentData', parentData)
+
 
     const rotateSpinner = (exchangeName, parentData) => {
-        if (parentData && parentData.includes(exchangeName)) {
+        console.log('exchange: ', exchangeName, 'parentData ', parentData);
+        // if (parentData.find(e => e.exchange === exchangeName)) {
+        //     /* same result as above, but a different function return type */
+        //   }
+        if (parentData && parentData.find(e => e.exchange === exchangeName)) {
+            // if (parentData) {
             const idElement = '#wallet-spinner-' + exchangeName;
             const spinnerElement = document.querySelector(idElement);
-            spinnerElement.classList.add('show');
+            // spinnerElement.classList.add('show');
             spinnerElement.classList.remove('hide');
         }
 
     }
 
     const stopSpinner = (exchangeName, parentData) => {
-        if (parentData && parentData.includes(exchangeName)) {
+        if (parentData && parentData.find(e => e.exchange === exchangeName)) {
             const idElement = '#wallet-spinner-' + exchangeName;
             const spinnerElement = document.querySelector(idElement);
-            spinnerElement.classList.remove('show');
+            // spinnerElement.classList.remove('show');
             spinnerElement.classList.add('hide');
         }
 
@@ -169,7 +174,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
     }
 
     const updateWalletsAmount = (parentData, exchange, total, props) => {
-        console.log('updateWalletsAmount with this data : ', parentData, exchange, total)
+        // console.log('updateWalletsAmount with this data : ', parentData, exchange, total)
 
         let exchangeInArray = false;
         for (let i = 0; i < parentData.length; i++) {
@@ -183,7 +188,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
         }
         if (exchange !== 'all') {
             localStorage.setItem('wallets-amount', JSON.stringify(parentData));
-            console.log('%c Seted Array Amount Wallets ', 'background: #000; color: #bada55');
+            // console.log('%c Seted Array Amount Wallets ', 'background: #000; color: #bada55');
             props.setArrayAmountWallets(parentData);
         }
 
@@ -219,7 +224,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
             if (walletLocalStorage.length > 0) {
 
                 let difference = new Date().getTime() - walletLocalStorage[0].timestamp // timestamp
-                if (difference > 860000) {
+                if (difference > 5860000) {
                     console.log('Time > 6 min , update Wallet after display old value');
                     return true;
                 } else {
@@ -247,6 +252,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
 
 
         if (shoudI) {
+
             // console.log("data from API")
             let rowResult = await apiCall(exchange);
             // console.log("data apiCall : ", rowResult)
@@ -276,7 +282,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
                 rotateSpinner(exchange, parentData);
                 let result = await updateProcess(exchange);
                 // save LS
-
+                // setWallets(result);
                 const totalWallet = (result) => {
                     // Calcul le total pour les props
                     let arrayTotalExchange = [];
@@ -351,7 +357,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
 
         return (interRes);
     } else {
-        rotateSpinner(exchangetoUp);
+        rotateSpinner(exchangetoUp, parentData);
         let result = await updateProcess(exchangetoUp);
 
         const totalWallet = (result) => {
@@ -368,7 +374,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
         }
 
         let total = totalWallet(result);
-        console.log('props', props);
+        // console.log('props', props);
         props.setTotalExchange(total);
         // Set Total In Local Storage 
         localStorage.setItem('total-' + exchangetoUp, JSON.stringify(total));
@@ -377,9 +383,8 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props) => {
 
         setAndSaveTotalAllExchanges(parentData);
 
-
         localStorage.setItem('wallet-' + exchangetoUp, JSON.stringify(result));
-        stopSpinner(exchangetoUp);
+        stopSpinner(exchangetoUp, parentData);
         return result;
 
     }

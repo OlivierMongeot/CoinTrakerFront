@@ -31,7 +31,7 @@ export default function Ledger(props) {
   const getCompletedWallet = async (exchange, exchanges) => {
 
 
-    let result = await updateWallet(exchange, exchanges, parentData, props);
+    let result = await updateWallet(exchange, exchanges, parentData, props, setWallets);
 
     setWallets(result);
 

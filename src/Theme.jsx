@@ -1,11 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRoots from './AppRoots'
 
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+// const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+
 
 function ThemeContent(props) {
+
+
 
   console.log('ThemeContent', props)
 
@@ -35,11 +38,11 @@ function ThemeContent(props) {
 
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <AppRoots page={page} ColorModeContext={ColorModeContext} colorMode={colorMode} mode={mode} />
-      </ThemeProvider >
-    </ColorModeContext.Provider >
+    // <ColorModeContext.Provider value={colorMode}>
+    <ThemeProvider theme={theme}>
+      <AppRoots page={page} colorMode={colorMode} mode={mode} />
+    </ThemeProvider >
+    // </ColorModeContext.Provider >
   );
 }
 

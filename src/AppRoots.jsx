@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import React from 'react';
+// import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Chart from './Dashboard/Chart';
 import Deposits from './Dashboard/Deposits';
 import Wallets from './pages/Wallets';
+import Home from './pages/Home';
 
 
 export default function AppRoots(props) {
@@ -21,25 +22,24 @@ export default function AppRoots(props) {
   const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : [])
   // const [page] = React.useState('wallets');
   const page = props.page.area;
-  console.log('page ', page);
+  // console.log('page ', page);
   // console.log('page ', page);
   // console.log('props ', props);
   // localStorage.setItem('theme', JSON.stringify(props.mode));
-
 
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const theme = useTheme();
-  const colorMode = React.useContext(props.ColorModeContext);
+
+
 
   return (
 
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <TopBar open={open} toggleDrawer={toggleDrawer} props={props} theme={theme} colorMode={colorMode} />
+      <TopBar open={open} toggleDrawer={toggleDrawer} props={props} colorMode={props.colorMode} />
       <SideMenu open={open} toggleDrawer={toggleDrawer} />
 
       <Box
@@ -57,62 +57,27 @@ export default function AppRoots(props) {
         <div className="space-line"></div>
 
         {page === 'wallets' && (
-          <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 4 }}>
+          <Container className="container" maxWidth="xlg"
+            sx={{ mt: 4, mb: 4 }}>
 
-            <Grid container spacing={3}>
+            <Grid container spacing={3} columns={12}>
 
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={8} md={6} lg={8}>
                 <Paper
                   sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 200,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 200,
-                  }}>
-
-                  <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
-
-
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper
-                  sx={{
-                    height: 'auto',
+                    // height: '100%',
                   }}>
 
                   <Wallets
-                    sx={{ height: '100%' }}
+                    sx={{ height: '40vh' }}
                     setTotalAllWallet={setTotalAllWallet}
                     arrayAmountWallets={arrayAmountWallets}
                     setArrayAmountWallets={setArrayAmountWallets} >
                   </Wallets>
                 </Paper>
               </Grid >
-            </Grid >
 
-          </Container>
-        )}
-
-        {page === 'home' && (
-          <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 4 }}>
-
-            <Grid container spacing={2}>
-
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={4} md={6} lg={4}>
                 <Paper
                   sx={{
                     p: 2,
@@ -123,9 +88,21 @@ export default function AppRoots(props) {
                 >
                   <Chart />
                 </Paper>
+
+
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 200,
+                    marginTop: 2
+                  }}>
+                  <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
+                </Paper>
               </Grid>
 
-              <Grid item xs={12} md={4} lg={3}>
+              {/* <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
@@ -135,10 +112,51 @@ export default function AppRoots(props) {
                   }}>
                   <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
                 </Paper>
-              </Grid>
-            </Grid >
+              </Grid> */}
 
+            </Grid >
           </Container>
+        )}
+
+        {page === 'home' && (
+          <Home></Home>
+          // <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 4 }}>
+
+
+
+          //   <Grid item xs={12} md={8} lg={9}>
+          //     <Paper
+          //       sx={{
+          //         p: 2,
+          //         display: 'flex',
+          //         flexDirection: 'column',
+          //         height: 200,
+          //       }}
+          //     >
+          //       <Chart />
+          //     </Paper>
+          //   </Grid>
+
+          //   <Grid item xs={12} md={8} lg={9}>
+          //     <Paper
+          //       sx={{
+          //         p: 2,
+          //         display: 'flex',
+          //         flexDirection: 'column',
+          //         height: 200,
+          //         marginTop: 3
+          //       }}
+          //     >
+          //       {/* <Chart /> */}
+          //       TOTO
+          //     </Paper>
+          //   </Grid>
+
+
+
+
+
+          // </Container>
         )}
 
 

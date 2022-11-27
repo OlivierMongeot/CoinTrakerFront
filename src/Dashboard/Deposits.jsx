@@ -4,6 +4,7 @@ import Title from './Title';
 import formatValues from '../helpers/formatValues'
 import Loader from '../helpers/Loader';
 // import { width } from '@mui/system';
+import Divider from '@mui/material/Divider';
 
 
 export default function Deposits(props) {
@@ -31,20 +32,17 @@ export default function Deposits(props) {
 
       )
       )}
-
+      <Divider light />
       <div style={{
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-
+        alignItems: 'flex-end',
+        marginTop: 10
       }}>
         <Title>Total Wallets</Title>
 
-        <Typography component="p" variant="h4" style={{
-
-
-        }}>
+        <Typography component="p" variant="h4" >
           ${formatValues('price', props.totalAllWallet)}
         </Typography>
 
@@ -58,6 +56,6 @@ export default function Deposits(props) {
         </Link>
       </div> */}
 
-    </React.Fragment>
+    </React.Fragment >
   );
 }

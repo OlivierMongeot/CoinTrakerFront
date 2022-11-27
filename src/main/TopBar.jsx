@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 // import { useTheme } from '@mui/material/styles';
 // // import IconButton from '@mui/material/IconButton';
@@ -14,9 +14,6 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { Tooltip } from '@mui/material';
 
 const drawerWidth = 250;
-
-// const colorMode = React.useContext(ColorModeContext);
-
 
 
 const AppBar = styled(MuiAppBar, {
@@ -39,10 +36,9 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-
 export default function TopBar(props) {
 
-  // const theme = useTheme();
+  const theme = useTheme();
 
 
   return (
@@ -74,12 +70,13 @@ export default function TopBar(props) {
           CRYPTO WALLETS
         </Typography>
 
-
-        <Tooltip title={'Toogle to ' + props.theme.palette.mode + ' mode'}>
+        {/* <ColorModeContext.Consumer> */}
+        <Tooltip title={'Toogle to ' + theme.palette.mode + ' mode'}>
           <IconButton sx={{ ml: 1 }} onClick={props.colorMode.toggleColorMode} color="inherit">
-            {props.theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Tooltip>
+        {/* </ColorModeContext.Consumer> */}
 
 
         <IconButton color="inherit">
