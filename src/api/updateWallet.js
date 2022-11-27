@@ -1,9 +1,7 @@
 import axios from 'axios';
-import getCMCIdMap from './getCoinMarketCapIdMap';
-import addCoinMarketCapPrice from './getPricesCMCApi';
+import getIdsCMC from './getIdsCMC';
+import addCoinMarketCapQuote from './getPricesQuoteCMC';
 import setupBalanceStorage from '../helpers/setupBalanceStorage';
-
-
 
 
 const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWallets) => {
@@ -21,7 +19,9 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             const idElement = '#wallet-spinner-' + exchangeName;
             const spinnerElement = document.querySelector(idElement);
             // spinnerElement.classList.add('show');
-            spinnerElement.classList.remove('hide');
+            if (spinnerElement) {
+                spinnerElement.classList.remove('hide');
+            }
         }
 
     }
@@ -31,14 +31,18 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             const idElement = '#wallet-spinner-' + exchangeName;
             const spinnerElement = document.querySelector(idElement);
             // spinnerElement.classList.remove('show');
-            spinnerElement.classList.add('hide');
+            console.log(spinnerElement);
+            if (spinnerElement) {
+                spinnerElement.classList.add('hide');
+            }
+
         }
 
     }
 
     const completeDataWallet = async (wallet, exchange) => {
 
-        const cmcTokensList = await getCMCIdMap();
+
 
         const totalBalanceWallet = (wallet, exchange) => {
             let totalBalance = 0;
@@ -83,7 +87,10 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
         }
 
 
-        const addCoinMarketCapID = (wallet) => {
+        const addCoinMarketCapIds = async (wallet) => {
+
+            const cmcTokensList = await getIdsCMC();
+
             for (let i = 0; i < wallet.length; i++) {
                 // cherche dans cmcTokensList le token avec le code wallet[i].code pour retrouver le prix live 
                 cmcTokensList.filter(token => {
@@ -158,17 +165,21 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             return wallet.filter(item => item.hasOwnProperty('idCMC'));
         }
 
-        wallet = await addCoinMarketCapID(wallet);
-        wallet = await addCoinMarketCapPrice(wallet, exchange);
+        wallet = await addCoinMarketCapIds(wallet);
+        wallet = await addCoinMarketCapQuote(wallet, exchange);
         console.log('Wallet after price update', wallet)
         totalBalanceWallet(wallet, exchange);
-
         return wallet;
     }
 
     const apiCall = async (exchange) => {
         let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
-        let response = await axios.get(url);
+        let response = await axios.get(url, {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },
+            responseType: "json",
+        });
         console.log('response API Call', exchange, response);
         return response.data;
     }
@@ -224,7 +235,9 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             if (walletLocalStorage.length > 0) {
 
                 let difference = new Date().getTime() - walletLocalStorage[0].timestamp // timestamp
-                if (difference > 5860000) {
+                if (difference > 5360000) {
+                    console.log('Set Before call api to display old data ')
+                    setWallets(walletLocalStorage);
                     console.log('Time > 6 min , update Wallet after display old value');
                     return true;
                 } else {
@@ -248,14 +261,9 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
     const updateProcess = async (exchange) => {
 
         console.log('updateProcess', exchange)
-        let shoudI = shouldIUpdateDataFromAPI(exchange);
-
-
-        if (shoudI) {
-
-            // console.log("data from API")
+        let shoudIUpdate = shouldIUpdateDataFromAPI(exchange);
+        if (shoudIUpdate) {
             let rowResult = await apiCall(exchange);
-            // console.log("data apiCall : ", rowResult)
 
             return await completeDataWallet(rowResult, exchange);
         } else {
@@ -274,7 +282,6 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
 
         for (let index = 0; index < exchanges.length; index++) {
 
-            // console.log('exchanges', exchanges);
 
             let exchange = exchanges[index];
             if (exchange !== 'all') {
@@ -293,7 +300,6 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
                     let total = arrayTotalExchange.reduce((acc, val) => acc + val, 0)
                     console.log('Updated total exchange', total);
                     return total;
-
                 }
 
                 let total = totalWallet(result);
@@ -307,15 +313,12 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
 
                 setAndSaveTotalAllExchanges(parentData);
 
-
                 localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
                 allDataExchanges = allDataExchanges.concat(result);
                 stopSpinner(exchange, parentData);
             }
 
         }
-
-
 
         props.setTotalExchange(JSON.parse(localStorage.getItem('wallets-total')));
 
@@ -354,9 +357,12 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
         }
 
         let interRes = agregateWallet(allDataExchanges);
+        localStorage.setItem('wallet-all', JSON.stringify(interRes));
 
         return (interRes);
+
     } else {
+        // Process for individual update 
         rotateSpinner(exchangetoUp, parentData);
         let result = await updateProcess(exchangetoUp);
 

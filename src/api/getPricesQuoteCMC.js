@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getPricesCMCApi = async (wallet, exchange) => {
+const getPricesQuotesCMC = async (wallet, exchange) => {
 
 
     let currencies = '';
@@ -71,4 +71,4 @@ const getPricesCMCApi = async (wallet, exchange) => {
     return wallet;
 }
 
-export default getPricesCMCApi;
+export default getPricesQuotesCMC;

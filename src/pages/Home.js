@@ -36,25 +36,25 @@ const Home = () => {
             headerAlign: 'center',
             renderCell: (params) => <Logo url={params.value} />
         },
-        { field: 'name', headerName: 'Token', width: 120 },
+        { field: 'name', headerName: 'Token', width: 180 },
         {
-            field: 'current_price', headerName: 'Price', width: 130, align: 'right', headerAlign: 'right',
+            field: 'current_price', headerName: 'Price', width: 120, align: 'right', headerAlign: 'right',
             renderCell: (params) => <PriceFormater value={params.value} />
         },
         {
-            field: 'price_change_percentage_1h_in_currency', headerName: '1h %', width: 90, align: 'center', headerAlign: 'center',
+            field: 'price_change_percentage_1h_in_currency', headerName: '1h %', width: 100, align: 'center', headerAlign: 'center',
             renderCell: (params) => <PourcentFormater value={params.value} />
         },
         {
-            field: 'price_change_percentage_24h_in_currency', headerName: '24h %', width: 90, align: 'center', headerAlign: 'center',
+            field: 'price_change_percentage_24h_in_currency', headerName: '24h %', width: 100, align: 'center', headerAlign: 'center',
             renderCell: (params) => <PourcentFormater value={params.value} />
         },
         {
-            field: 'price_change_percentage_7d_in_currency', headerName: '7d %', width: 90, align: 'center', headerAlign: 'center',
+            field: 'price_change_percentage_7d_in_currency', headerName: '7d %', width: 100, align: 'center', headerAlign: 'center',
             renderCell: (params) => <PourcentFormater value={params.value} />
         },
         {
-            field: 'price_change_percentage_30d_in_currency', headerName: '30d %', width: 90, align: 'center', headerAlign: 'center',
+            field: 'price_change_percentage_30d_in_currency', headerName: '30d %', width: 100, align: 'center', headerAlign: 'center',
             renderCell: (params) => <PourcentFormater value={params.value} />
         },
         {
@@ -62,7 +62,7 @@ const Home = () => {
             renderCell: (params) => <PourcentFormater value={params.value} />
         },
         {
-            field: 'market_cap', headerName: 'Market Cap', width: 150, align: 'right', headerAlign: 'right',
+            field: 'market_cap', headerName: 'Market Cap', width: 150, align: 'center', headerAlign: 'center',
             renderCell: (params) => <PriceFormater value={params.value} />
         },
         // circulating_supply

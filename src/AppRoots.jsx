@@ -60,13 +60,12 @@ export default function AppRoots(props) {
           <Container className="container" maxWidth="xlg"
             sx={{ mt: 4, mb: 4 }}>
 
-            <Grid container spacing={3} columns={12}>
+            <Grid container spacing={2} columns={12}>
 
-              <Grid item xs={8} md={6} lg={8}>
-                <Paper
-                  sx={{
-                    // height: '100%',
-                  }}>
+              <Grid item xs={12} md={10} lg={8}>
+                <Paper>
+
+
 
                   <Wallets
                     sx={{ height: '40vh' }}
@@ -74,10 +73,13 @@ export default function AppRoots(props) {
                     arrayAmountWallets={arrayAmountWallets}
                     setArrayAmountWallets={setArrayAmountWallets} >
                   </Wallets>
+
+
+
                 </Paper>
               </Grid >
 
-              <Grid item xs={4} md={6} lg={4}>
+              <Grid item xs={12} md={2} lg={4}>
                 <Paper
                   sx={{
                     p: 2,
@@ -102,61 +104,13 @@ export default function AppRoots(props) {
                 </Paper>
               </Grid>
 
-              {/* <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 200,
-                  }}>
-                  <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
-                </Paper>
-              </Grid> */}
-
             </Grid >
           </Container>
         )}
 
         {page === 'home' && (
           <Home></Home>
-          // <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 4 }}>
 
-
-
-          //   <Grid item xs={12} md={8} lg={9}>
-          //     <Paper
-          //       sx={{
-          //         p: 2,
-          //         display: 'flex',
-          //         flexDirection: 'column',
-          //         height: 200,
-          //       }}
-          //     >
-          //       <Chart />
-          //     </Paper>
-          //   </Grid>
-
-          //   <Grid item xs={12} md={8} lg={9}>
-          //     <Paper
-          //       sx={{
-          //         p: 2,
-          //         display: 'flex',
-          //         flexDirection: 'column',
-          //         height: 200,
-          //         marginTop: 3
-          //       }}
-          //     >
-          //       {/* <Chart /> */}
-          //       TOTO
-          //     </Paper>
-          //   </Grid>
-
-
-
-
-
-          // </Container>
         )}
 
 

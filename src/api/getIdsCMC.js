@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getCMCIdMap = async () => {
+const getIdsCMC = async () => {
 
     // console.log(localStorage.getItem('cmcTokensList'));
     if (localStorage.getItem('cmcTokensList') == null) {
@@ -26,4 +26,4 @@ const getCMCIdMap = async () => {
 }
 
 
-export default getCMCIdMap;
+export default getIdsCMC;
