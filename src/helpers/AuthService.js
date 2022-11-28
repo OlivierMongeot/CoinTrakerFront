@@ -14,8 +14,10 @@ export default class AuthenticationService {
     }
 
     return new Promise(resolve => {
-      
-        axios.post('/login', data)
+    
+        let url = "http://192.168.0.46:4000";
+        console.log('url',url);
+        axios.post(url+'/login', data)
             .then(res => {
                 if(res.data.token){
                      console.log(res.data);
@@ -25,7 +27,7 @@ export default class AuthenticationService {
                     name: res.data.data.name,
                     id: res.data.data.id,
                     token: res.data.token,
-                    exchange: {}
+                    exchanges:res.data.exchanges
                     };
                 localStorage.setItem('user', JSON.stringify(user));
                 this.isAuthenticated = true;
@@ -37,7 +39,7 @@ export default class AuthenticationService {
             }
             )   
             .catch(err => {
-                console.log(err.response.data.error);
+                console.log('error: ',err.response.data.error);
                 this.isAuthenticated = false;
                 resolve(false);
             }

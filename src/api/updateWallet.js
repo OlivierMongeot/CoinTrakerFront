@@ -31,7 +31,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             const idElement = '#wallet-spinner-' + exchangeName;
             const spinnerElement = document.querySelector(idElement);
             // spinnerElement.classList.remove('show');
-            console.log(spinnerElement);
+            // console.log(spinnerElement);
             if (spinnerElement) {
                 spinnerElement.classList.add('hide');
             }
@@ -174,12 +174,14 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
 
     const apiCall = async (exchange) => {
         let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
-        let response = await axios.get(url, {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            responseType: "json",
-        });
+        let response = await axios.get(url,
+            //  {
+            // headers: {
+            //     'Access-Control-Allow-Origin': '*'
+            // },
+            // responseType: "json",
+            // }
+        );
         console.log('response API Call', exchange, response);
         return response.data;
     }
@@ -200,7 +202,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
         if (exchange !== 'all') {
             localStorage.setItem('wallets-amount', JSON.stringify(parentData));
             // console.log('%c Seted Array Amount Wallets ', 'background: #000; color: #bada55');
-            props.setArrayAmountWallets(parentData);
+            // props.setArrayAmountWallets(parentData);
         }
 
     }

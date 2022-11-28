@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 import { useForm } from 'react-hook-form';
-import '../styles/components/_login.scss';
+// import '../styles/components/_login.scss';
 
 import AuthenticationService from '../helpers/AuthService';
 
@@ -10,24 +10,22 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        
+
         console.log(data);
 
         AuthenticationService.login(data.name, data.password)
             .then(isAuthenticated => {
                 if (!isAuthenticated) {
-                   
+
                     console.log('🔐 Identifiant ou mot de passe incorrect.');
                     return;
                 } else {
-         
+
                     console.log('🔐 Vous êtes connecté.');
                     setTimeout(() => {
-                        window.location.href = '/';
+                        // window.location.href = '/';
                     }, 500);
                 }
-
-
             });
 
         // axios.post('/login', data)
@@ -53,7 +51,7 @@ const Login = () => {
     return (
         <div className="app-container">
             <header>
-                <Navbar />
+                {/* <Navbar /> */}
             </header>
             <div className="login-container">
                 <h1>Login</h1>

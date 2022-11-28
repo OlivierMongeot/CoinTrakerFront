@@ -56,17 +56,22 @@ export const secondaryListItems = (
     {/* <ListSubheader component="div" inset>
       Future Features reports
     </ListSubheader> */}
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Bot" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Configuration" />
-    </ListItemButton>
-  </React.Fragment>
+    <Link to="/registration" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Registration" />
+      </ListItemButton>
+    </Link>
+
+    <Link to="/login" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Login" />
+      </ListItemButton>
+    </Link>
+  </React.Fragment >
 );

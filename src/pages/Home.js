@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import Chart from '../Dashboard/Chart';
 // import formatValues from '../helpers/formatValues';
 // import { width } from '@mui/system';
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Logo from '../components/Logo';
 import PourcentFormater from '../components/PourcentFormater';
 // import { CenterFocusStrong } from '@mui/icons-material';

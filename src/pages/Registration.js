@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/components/_registration.scss';
+// import '../styles/components/_registration.scss';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ const Registration = () => {
         console.log(data);
         // make post request to api 
         // set Header
-       axios.post('/register', data)
+        axios.post('/register', data)
             .then(res => {
                 console.log(res.data);
 
@@ -50,7 +50,7 @@ const Registration = () => {
                     required: true,
                 })} placeholder="Confirm Password" />
                 {errors.confirmPassword && errors.confirmPassword?.type === "required" && <p>Confirm Password is required</p>}
-                
+
                 <div className="g-recaptcha" data-sitekey="6Lf1nvogAAAAAIaqsPlXKyoSnwo"></div>
                 <button className="btn">Sign in</button>
             </form>

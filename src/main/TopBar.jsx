@@ -71,7 +71,7 @@ export default function TopBar(props) {
         </Typography>
 
         {/* <ColorModeContext.Consumer> */}
-        <Tooltip title={'Toogle to ' + theme.palette.mode + ' mode'}>
+        <Tooltip title={'Toogle to ' + ((theme.palette.mode === 'dark') ? 'light' : 'dark') + ' mode'}>
           <IconButton sx={{ ml: 1 }} onClick={props.colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>

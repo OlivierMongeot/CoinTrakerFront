@@ -15,26 +15,29 @@ function ThemeContent(props) {
   let page = props.area;
 
   const [mode, setMode] = React.useState(
-    (localStorage.getItem('theme')) ?
-      JSON.parse(localStorage.getItem('theme')) :
+    (localStorage.getItem('colorMode')) ?
+      JSON.parse(localStorage.getItem('colorMode')) :
       'dark');
+
 
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-        localStorage.setItem('theme', JSON.stringify(mode));
       },
     }),
-    [mode],
+    [],
   );
 
   const theme = React.useMemo(
     () =>
       createTheme({
-        palette: { mode, },
+        palette: { mode },
       }), [mode],
   );
+
+  console.log(mode);
+  localStorage.setItem('colorMode', JSON.stringify(mode));
 
 
   return (
