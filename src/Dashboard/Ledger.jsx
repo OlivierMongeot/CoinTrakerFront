@@ -8,7 +8,8 @@ import updateWallet from '../api/updateWallet';
 import formatValues from '../helpers/formatValues';
 // import { width } from '@mui/system';
 // import AuthenticationService from '../helpers/AuthService';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Ledger(props) {
 
@@ -25,19 +26,19 @@ export default function Ledger(props) {
     } else {
       return 0.0001;
     }
-
   }
 
   const getCompletedWallet = async (exchange, exchanges) => {
 
-
     let result = await updateWallet(exchange, exchanges, parentData, props, setWallets);
-
-    setWallets(result);
-
-    // used for display last time update on main page
-    props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
-
+    if (result) {
+      setWallets(result);
+      // used for display last time update on main page
+      props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
+    } else {
+      // alert('jws not ok');
+      toast("Wow so easy!");
+    }
   }
 
 
@@ -56,6 +57,7 @@ export default function Ledger(props) {
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <Table className="table-wallet" size="small" >
         <TableHead>
           <TableRow align="right" >

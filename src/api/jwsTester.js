@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const jwsTester = async () => {
   let url = "http://192.168.0.46:4000/jwt";
   let user = JSON.parse(localStorage.getItem('user'));

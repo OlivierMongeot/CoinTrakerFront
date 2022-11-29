@@ -14,7 +14,7 @@ import Deposits from '../Dashboard/Deposits';
 // import Loader from '../helpers/Loader';
 // import { height } from '@mui/system';
 // import TokenService from '../helpers/TokenService';
-import jwsTester from '../api/jwsTester';
+// import jwsTester from '../api/jwsTester';
 
 import AuthenticationService from '../helpers/AuthService';
 
