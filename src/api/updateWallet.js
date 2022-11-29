@@ -3,14 +3,15 @@ import getIdsCMC from './getIdsCMC';
 import addCoinMarketCapQuote from './getPricesQuoteCMC';
 import setupBalanceStorage from '../helpers/setupBalanceStorage';
 
+const timer = 5160000;
 
 const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWallets) => {
 
-    console.log('update Wallet ', exchangetoUp, ' in ', exchanges);
+    // console.log('update Wallet ', exchangetoUp, ' in ', exchanges);
 
 
     const rotateSpinner = (exchangeName, parentData) => {
-        console.log('exchange: ', exchangeName, 'parentData ', parentData);
+        // console.log('exchange: ', exchangeName, 'parentData ', parentData);
         // if (parentData.find(e => e.exchange === exchangeName)) {
         //     /* same result as above, but a different function return type */
         //   }
@@ -174,15 +175,19 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
 
     const apiCall = async (exchange) => {
         let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
+        let user = JSON.parse(localStorage.getItem('user'));
+        let jws = user.token;
+
+        // console.log('Token useer recup ', jws);
+
         let response = await axios.get(url,
-            //  {
-            // headers: {
-            //     'Access-Control-Allow-Origin': '*'
-            // },
-            // responseType: "json",
-            // }
+            {
+                headers: {
+                    'authorization': jws
+                }
+            }
         );
-        console.log('response API Call', exchange, response);
+
         return response.data;
     }
 
@@ -214,9 +219,8 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             if (parentData[i].exchange !== 'all') {
                 acc += value;
             }
-
         }
-        console.log('setTotalAllWallet', acc)
+        // console.log('setTotalAllWallet', acc)
         localStorage.setItem('wallets-total', JSON.stringify(acc));
         props.setTotalAllWallet(acc);
     }
@@ -237,9 +241,9 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             if (walletLocalStorage.length > 0) {
 
                 let difference = new Date().getTime() - walletLocalStorage[0].timestamp // timestamp
-                if (difference > 5360000) {
-                    console.log('Set Before call api to display old data ')
-                    setWallets(walletLocalStorage);
+                if (difference > timer) {
+                    // console.log('Set Before call api to display old data ')
+                    // setWallets(walletLocalStorage);
                     console.log('Time > 6 min , update Wallet after display old value');
                     return true;
                 } else {
@@ -262,7 +266,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
 
     const updateProcess = async (exchange) => {
 
-        console.log('updateProcess', exchange)
+        // console.log('updateProcess', exchange)
         let shoudIUpdate = shouldIUpdateDataFromAPI(exchange);
         if (shoudIUpdate) {
             let rowResult = await apiCall(exchange);
@@ -290,8 +294,6 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
                 console.log(' Mise à jour de l exchange : ', exchange);
                 rotateSpinner(exchange, parentData);
                 let result = await updateProcess(exchange);
-                // save LS
-                // setWallets(result);
                 const totalWallet = (result) => {
                     // Calcul le total pour les props
                     let arrayTotalExchange = [];
@@ -300,12 +302,11 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
                     });
 
                     let total = arrayTotalExchange.reduce((acc, val) => acc + val, 0)
-                    console.log('Updated total exchange', total);
+                    // console.log('Updated total exchange', total);
                     return total;
                 }
 
                 let total = totalWallet(result);
-                console.log('props', props);
 
                 // props.setTotalExchange(total);
                 // Set Total In Local Storage 
@@ -336,24 +337,25 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
                     this[element.currency] = {
                         currency: element.currency,
                         balance: 0,
-                        code: element.code,
+                        // code: element.code,
                         live_price: element.live_price,
-                        available: 0,
+                        // available: 0,
                         urlLogo: element.urlLogo,
                         quoteCMC: element.quoteCMC,
                         name: element.name,
                         idCMC: element.idCMC,
                         dollarPrice: element.dollarPrice,
-                        id: element.idCMC,
+                        // id: element.idCMC,
                         timestamp: element.timestamp,
                         exchanges: element.exchange
 
                     };
 
+
                     result.push(this[element.currency]);
                 }
                 this[element.currency].balance += parseFloat(element.balance);
-                this[element.currency].available += parseFloat(element.balance);
+                // this[element.currency].available += parseFloat(element.balance);
             }, Object.create(null));
             return result;
         }
@@ -376,7 +378,7 @@ const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWalle
             });
 
             let total = arrayTotalExchange.reduce((acc, val) => acc + val, 0)
-            console.log('Updated total exchange', total);
+            // console.log('Updated total exchange', total);
             return total;
 
         }

@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Theme from './Theme';
-// import Registration from './pages/Registration';
+
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/login" element={<Login />} /> */}
-        <Route path="/registration" element={<Theme area="registration" />} />
+        {/* <Route path="/registration" element={<Theme area="registration" />} /> */}
         <Route path="/wallets" element={<Theme area="wallets" />} />
       </Routes>
     </Router>

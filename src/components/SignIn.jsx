@@ -3,8 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,32 +13,42 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 // import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
-
+import AuthenticationService from '../helpers/AuthService';
 // const theme = createTheme();
 
-export default function SignUp() {
+export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const dataRow = new FormData(event.currentTarget);
     const data = {
       email: dataRow.get('email'),
-      password: dataRow.get('password'),
-      firstname: dataRow.get('firstname'),
-      lastname: dataRow.get('lastname'),
-      c_password: dataRow.get('c_password')
+      password: dataRow.get('password')
     };
 
-    // Check if password match
-    if (data.c_password !== data.password) {
-      // return false;
-    }
+
 
     console.log(data);
     let url = "http://192.168.0.46:4000";
-    axios.post(url + '/register', data)
+    axios.post(url + '/login', data)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
+        if (res.data.token) {
+          console.log(res.data);
+          // console.log(res.data.token);
+          // set token in localStorage
+          const user = {
+            lastname: res.data.data.lastname,
+            email: res.data.data.email,
+            id: res.data.data.id,
+            token: res.data.token,
+            exchanges: res.data.exchanges
+          };
+          localStorage.setItem('user', JSON.stringify(user));
+          AuthenticationService.isAuthenticated = true;
+        } else {
+          AuthenticationService.isAuthenticated = false;
+        }
       }
       )
       .catch(err => {
@@ -66,31 +76,11 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Log In
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstname"
-                required
-                fullWidth
-                id="firstname"
-                label="First Name"
-                autoFocus />
-            </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastname"
-                label="Last Name"
-                name="lastname"
-                autoComplete="family-name"
-              />
-            </Grid>
 
             <Grid item xs={12}>
               <TextField
@@ -115,25 +105,6 @@ export default function SignUp() {
               />
             </Grid>
 
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="c_password"
-                label="Confirm Password"
-                type="password"
-                id="c_password"
-              />
-            </Grid>
-
-
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
-
           </Grid>
           <Button
             type="submit"
@@ -141,12 +112,12 @@ export default function SignUp() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Log In
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
-                Already have an account? Sign in
+                You don't already have an account? Sign up
               </Link>
             </Grid>
           </Grid>

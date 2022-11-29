@@ -13,7 +13,7 @@ const Login = () => {
 
         console.log(data);
 
-        AuthenticationService.login(data.name, data.password)
+        AuthenticationService.login(data.email, data.password)
             .then(isAuthenticated => {
                 if (!isAuthenticated) {
 
@@ -23,7 +23,8 @@ const Login = () => {
 
                     console.log('🔐 Vous êtes connecté.');
                     setTimeout(() => {
-                        // window.location.href = '/';
+
+                        window.location.href = '/';
                     }, 500);
                 }
             });
@@ -56,7 +57,7 @@ const Login = () => {
             <div className="login-container">
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit(onSubmit)} >
-                    <input type="text" name="name" {...register("name")} placeholder="Name" />
+                    <input type="text" eamail="email" {...register("email")} placeholder="Email" />
                     <input type="password" name="password"  {...register("password", {
                         required: true
                     })} placeholder="Password" />

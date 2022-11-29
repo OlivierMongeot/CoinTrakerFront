@@ -12,6 +12,12 @@ import MuiAppBar from '@mui/material/AppBar';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { Tooltip } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import SignUp from '../components/SignUp';
+import SignIn from '../components/SignIn';
 
 const drawerWidth = 250;
 
@@ -39,6 +45,29 @@ const AppBar = styled(MuiAppBar, {
 export default function TopBar(props) {
 
   const theme = useTheme();
+
+  const [openSignUp, setOpenSignUp] = React.useState(false);
+  const handleOpenSignUp = () => setOpenSignUp(true);
+  const handleCloseSignUp = () => setOpenSignUp(false);
+
+  const [openSignIn, setOpenSignIn] = React.useState(false);
+  const handleOpenSignIn = () => setOpenSignIn(true);
+  const handleCloseSignIn = () => setOpenSignIn(false);
+
+  const style = {
+    position: 'absolute',
+    padding: '20px',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 'auto',
+    height: 'auto',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    borderRadius: '5px',
+    boxShadow: 24,
+    p: 4,
+  };
 
 
   return (
@@ -69,6 +98,36 @@ export default function TopBar(props) {
         >
           CRYPTO WALLETS
         </Typography>
+
+        <Stack spacing={2} direction="row">
+
+
+          <Button onClick={handleOpenSignIn} variant="contained">Log-in</Button>
+          <Modal
+            open={openSignIn}
+            onClose={handleCloseSignIn}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <SignIn></SignIn>
+            </Box>
+          </Modal>
+
+
+          <Button onClick={handleOpenSignUp} variant="outlined" color="inherit">Sign-up</Button>
+          <Modal
+            open={openSignUp}
+            onClose={handleCloseSignUp}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <SignUp></SignUp>
+            </Box>
+
+          </Modal>
+        </Stack>
 
         {/* <ColorModeContext.Consumer> */}
         <Tooltip title={'Toogle to ' + ((theme.palette.mode === 'dark') ? 'light' : 'dark') + ' mode'}>

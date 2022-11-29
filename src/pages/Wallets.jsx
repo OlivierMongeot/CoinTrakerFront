@@ -13,6 +13,10 @@ import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
 // import Loader from '../helpers/Loader';
 // import { height } from '@mui/system';
+// import TokenService from '../helpers/TokenService';
+import jwsTester from '../api/jwsTester';
+
+import AuthenticationService from '../helpers/AuthService';
 
 const Wallets = (props) => {
 
@@ -30,6 +34,31 @@ const Wallets = (props) => {
         setValue(newValue);
     };
 
+    // TokenService();
+    // const isItUserKey = TokenService();
+    // let isItUserKey = localStorage.getItem('user');
+    // if (isItUserKey !== null) {
+    //     // Check if token is allways enable
+    //     // try make a cal api 
+
+    // }
+    // jwsTester();
+
+
+    if (!AuthenticationService.isAuthenticated) {
+        console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
+        alert('not loged');
+        // window.location.href = '/login';
+        return (
+            <Container className="container" maxWidth="xlg"
+                sx={{ mt: 4, mb: 4 }}>
+            </Container>
+        )
+    } else {
+
+
+    }
+
 
     return (
         <Container className="container" maxWidth="xlg"
@@ -39,8 +68,6 @@ const Wallets = (props) => {
 
                 <Grid item xs={12} md={10} lg={8}>
                     <Paper>
-
-
 
                         <Grid item xs={12}>
                             <Paper sx={{ p: 2 }}>

@@ -6,10 +6,9 @@ export default class AuthenticationService {
 
     static isAuthenticated = false;
   
-    static login(username, password) {
-
+    static login(email, password) {
     let data = {
-        name: username,
+        email: email,
         password: password
     }
 
@@ -21,10 +20,11 @@ export default class AuthenticationService {
             .then(res => {
                 if(res.data.token){
                      console.log(res.data);
-                    console.log(res.data.token);
+                    // console.log(res.data.token);
                     // set token in localStorage
                     const user = {
-                    name: res.data.data.name,
+                    lastname: res.data.data.lastname,
+                    email: res.data.data.email,
                     id: res.data.data.id,
                     token: res.data.token,
                     exchanges:res.data.exchanges
@@ -48,31 +48,3 @@ export default class AuthenticationService {
     );
     }
 }
-    //   });
-
-    // axios.post('/login', data)
-    //     .then(res => {
-    //         console.log(res.data);
-    //         console.log(res.data.token);
-    //         // set token in localStorage
-    //         const user = {  
-    //             name: res.data.data.name,
-    //             id: res.data.data.id,
-    //             token: res.data.token,
-    //             exchange: {}
-    //         };
-    //         localStorage.setItem('user', JSON.stringify(user));
-    //         this.isAuthenticated = true;
-    //         return true;
-    //     }
-    //     )
-    //     .catch(err => {
-    //         console.log(err.response.data.error);
-    //         this.isAuthenticated = false;
-    //         return false;
-    //     }
-    //     );
-
-
-    // }
-//   }

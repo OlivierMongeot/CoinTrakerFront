@@ -14,10 +14,10 @@ const Registration = () => {
         console.log(data);
         // make post request to api 
         // set Header
-        axios.post('/register', data)
+        let url = "http://192.168.0.46:4000";
+        axios.post(url + '/register', data)
             .then(res => {
                 console.log(res.data);
-
             }
             )
             .catch(err => {

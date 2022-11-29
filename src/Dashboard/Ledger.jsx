@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import updateWallet from '../api/updateWallet';
 import formatValues from '../helpers/formatValues';
 // import { width } from '@mui/system';
-
+// import AuthenticationService from '../helpers/AuthService';
 
 
 export default function Ledger(props) {
@@ -42,11 +42,8 @@ export default function Ledger(props) {
 
 
   React.useEffect(() => {
-    // Check if user is authenticated todo
-    // if(!AuthenticationService.isAuthenticated){
-    //     console.log(AuthenticationService.isAuthenticated);
-    //     window.location.href = '/login';
-    // }
+
+
     console.log('_____________________________')
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
 

@@ -9,9 +9,6 @@ import AppRoots from './AppRoots'
 function ThemeContent(props) {
 
 
-
-  console.log('ThemeContent', props)
-
   let page = props.area;
 
   const [mode, setMode] = React.useState(
@@ -36,7 +33,6 @@ function ThemeContent(props) {
       }), [mode],
   );
 
-  console.log(mode);
   localStorage.setItem('colorMode', JSON.stringify(mode));
 
 
