@@ -15,8 +15,13 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 import AuthenticationService from '../helpers/AuthService';
 // const theme = createTheme();
+import { useNavigate } from "react-router-dom";
+
 
 export default function SignIn() {
+
+  const navigate = useNavigate();
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,8 +51,11 @@ export default function SignIn() {
           };
           localStorage.setItem('user', JSON.stringify(user));
           AuthenticationService.isAuthenticated = true;
+          navigate("/");
+
         } else {
           AuthenticationService.isAuthenticated = false;
+
         }
       }
       )
@@ -62,7 +70,14 @@ export default function SignIn() {
 
   return (
     // <ThemeProvider theme={theme}>
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '80%'
+    }}
+    >
       <CssBaseline />
       <Box
         sx={{

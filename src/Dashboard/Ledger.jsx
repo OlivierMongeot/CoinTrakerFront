@@ -4,19 +4,22 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-// import updateWallet from '../api/updateWallet';
 import formatValues from '../helpers/formatValues';
-// import { width } from '@mui/system';
-// import AuthenticationService from '../helpers/AuthService';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import shouldIUpdate from '../helpers/shouldIUpdate'
 import addCoinMarketCapQuote from '../api/getPricesQuoteCMC';
 import setupBalanceStorage from '../helpers/setupBalanceStorage';
-// import formatValues from '../helpers/formatValues';
 import minValueDollarToDisplayToken from '../helpers/minValueDollarToDisplayToken';
 import addCoinMarketCapIds from '../api/addCoinMarketCapIds';
+import updateWalletAmountInLS from '../helpers/updateWalletAmountInLS';
+import setAndSaveTotalAllWallets from '../helpers/setAndSaveTotalAllWallets';
+import rotateSpinner from '../helpers/rotateSpinner';
+import stopSpinner from '../helpers/stopSpinner';
+import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Tooltip from '@mui/material/Tooltip';
+
 
 export default function Ledger(props) {
 
@@ -26,8 +29,9 @@ export default function Ledger(props) {
   let parentData = props.arrayAmountWallets;
   const exchagesEnable = props.exchanges;
 
+  const navigate = useNavigate();
 
-  const totalWallet = (result) => {
+  const totalExchange = (result) => {
     // Calcul le total pour les props
     let arrayTotalExchange = [];
     result.forEach(element => {
@@ -40,38 +44,30 @@ export default function Ledger(props) {
 
   }
 
+  const updateGeneralWallet = (newExchangeData, exchange) => {
 
-  const updateProcess = async (exchange, parentData, props) => {
+    let currentGeneralWallet = JSON.parse(localStorage.getItem('wallet-all'));
+    // console.log('currentGeneralWallet ', currentGeneralWallet);
 
-    const timer = 360000;
+    // Suprime les ancienne data de l'echange en cours d'update
+    let newDatafilterd = currentGeneralWallet.filter((element) => element.exchange !== exchange);
 
-    const rotateSpinner = (exchangeName, parentData) => {
-      if (parentData && parentData.find(e => e.exchange === exchangeName)) {
-        // if (parentData) {
-        const idElement = '#wallet-spinner-' + exchangeName;
-        const spinnerElement = document.querySelector(idElement);
-        // spinnerElement.classList.add('show');
-        if (spinnerElement) {
-          spinnerElement.classList.remove('hide');
-        }
-      }
-    }
+    // console.log('currentGeneralWallet after filter ' + exchange + ' elements', newDatafilterd);
 
-    const stopSpinner = (exchangeName, parentData) => {
-      if (parentData && parentData.find(e => e.exchange === exchangeName)) {
-        const idElement = '#wallet-spinner-' + exchangeName;
-        const spinnerElement = document.querySelector(idElement);
-        // spinnerElement.classList.remove('show');
-        // console.log(spinnerElement);
-        if (spinnerElement) {
-          spinnerElement.classList.add('hide');
-        }
-      }
-    }
+    let finalRes = newDatafilterd.concat(newExchangeData);
+    console.log('finalRes', finalRes);
+    localStorage.setItem('wallet-all', JSON.stringify(finalRes));
+    return finalRes;
+  }
+
+
+
+  const updateProcess = async (exchange, parentData, props, updateAll) => {
+    console.log('update process', exchange);
 
     const completeDataWallet = async (wallet, exchange) => {
 
-      const totalBalanceWallet = (wallet, exchange) => {
+      const setTotalBalanceWallet = (wallet, exchange) => {
         let totalBalance = 0;
         for (let i = 0; i < wallet.length; i++) {
           let value = parseFloat(wallet[i].balance) * wallet[i].live_price;
@@ -85,171 +81,129 @@ export default function Ledger(props) {
       if (wallet.length > 0) {
         wallet = await addCoinMarketCapIds(wallet, exchange);
         wallet = await addCoinMarketCapQuote(wallet, exchange);
-        console.log('Wallet after price update', wallet)
-        totalBalanceWallet(wallet, exchange);
+        setTotalBalanceWallet(wallet, exchange);
         return wallet;
       } else {
         return false;
       }
-
-
     }
 
-
-    const updateWalletsAmount = (parentData, exchange, total, props) => {
-      // console.log('updateWalletsAmount with this data : ', parentData, exchange, total)
-
-      let exchangeInArray = false;
-      for (let i = 0; i < parentData.length; i++) {
-        if (parentData[i].exchange === exchange) {
-          parentData[i].amount = total;
-          exchangeInArray = true;
-        }
-      }
-      if (exchangeInArray === false) {
-        parentData.push({ exchange: exchange, amount: total });
-      }
-      // if (exchange !== 'all') {
-      localStorage.setItem('wallets-amount', JSON.stringify(parentData));
-      // }
-
-    }
-
-    const setAndSaveTotalAllExchanges = (parentData, props) => {
-      let acc = 0;
-      for (let i = 0; i < parentData.length; i++) {
-        let value = parentData[i].amount;
-        if (parentData[i].exchange !== 'all') {
-          acc += value;
-        }
-      }
-      // console.log('setTotalAllWallet', acc)
-      localStorage.setItem('wallets-total', JSON.stringify(acc));
-      props.setTotalAllWallet(acc);
-    }
-
-
-
-    const shouldIUpdateDataFromAPI = (exchangeName) => {
-
-      if ('wallet-' + exchangeName in localStorage && (typeof (localStorage.getItem('wallet-' + exchangeName)) === 'string')) {
-
-        let walletLocalStorage = JSON.parse(localStorage.getItem('wallet-' + exchangeName));
-        if (!walletLocalStorage) {
-          console.log('Wallet vide Trouvé en local Store');
-          return false;
-        }
-        console.log('Wallet  ' + exchangeName + ' in LocalStorage for');
-
-        if (walletLocalStorage.length > 0) {
-
-          let difference = new Date().getTime() - walletLocalStorage[0].timestamp // timestamp
-          if (difference > timer) {
-
-            console.log('Time > 6 min , Update Wallet from API');
-            return true;
-          } else {
-            console.log('Recent Time update, Display Wallet ' + exchangeName + ' from Local Store');
-            return false;
-          }
-        } else {
-          console.log('Data: wallet-' + exchangeName + ' est un tableau vide');
-          return true;
-        }
-      } else {
-        console.log('Data: wallet-' + exchangeName + ' n\'existe pas');
-        return true;
-      }
-
-
-    }
 
     // console.log('updateProcess', exchange)
-    let shoudIUpdate = shouldIUpdateDataFromAPI(exchange);
+    let shoudIUpdate = shouldIUpdate(exchange);
+
     if (shoudIUpdate) {
       rotateSpinner(exchange, parentData);
       // let rowResult = await apiCall(exchange);
-      console.log('APICALL');
+      console.log('API CALL');
       let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
       let user = JSON.parse(localStorage.getItem('user'));
       let jws = user.token;
       console.log('token used for connection', jws);
 
       fetch(url, {
-        method: 'GET', // or 'PUT'
+        method: 'GET',
         headers: {
           'authorization': jws
         }
-      })
-        .then((response) => response.json())
+      }).then((response) => response.json())
         .then((data) => {
           console.log('Success:', data);
-          // if (data.data.message && data.data.message === 'jwt expired') {
-          //     console.log('token expired');
-          //     return 'jwt expired';
-          // }
-          let completeData = completeDataWallet(data, exchange);
+          if (data.data && data.data.message === 'jwt expired') {
+            // console.log('token expired', data.data);
+            toast("Token expired ! Please log in ");
+            stopSpinner(exchange, parentData);
+            console.log('redirect');
+            navigate("/login");
+            return false;
+          }
+          completeDataWallet(data, exchange)
+            .then((data) => {
+              console.log('completeData after', data);
+              let result = data;
+              if (result) {
+                let total = totalExchange(result);
+                // console.log('props', props);
+                props.setTotalExchange(total);
+                // Set Total In Local Storage 
+                localStorage.setItem('total-' + exchange, JSON.stringify(total));
 
-          completeData.then((data) => {
-            console.log('completeData after', data);
-            let result = data;
-            if (result) {
-              let total = totalWallet(result);
-              // console.log('props', props);
-              props.setTotalExchange(total);
-              // Set Total In Local Storage 
-              localStorage.setItem('total-' + exchange, JSON.stringify(total));
+                updateWalletAmountInLS(parentData, exchange, total);
 
-              updateWalletsAmount(parentData, exchange, total, props);
+                setAndSaveTotalAllWallets(parentData, props);
 
-              setAndSaveTotalAllExchanges(parentData, props);
+                localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
 
-              localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
-              stopSpinner(exchange, parentData);
+                if (updateAll === false) {
+                  console.log('displat one wallet');
+                  setWallets(result);
+                  // Traitement du wallet general 
+                  updateGeneralWallet(result, exchange);
 
-              // return result;
-              setWallets(result);
-              // used for display last time update on main page
-              props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
+                  props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
 
-            } else {
-              stopSpinner(exchange, parentData);
-              alert('this gestion is todo : Ledger ligne 217');
-              return false;
-            }
+                } else if (updateAll === true) {
 
-            // return data;
-          })
+                  let allWallet = updateGeneralWallet(result, exchange);
+                  console.log('display all wallet');
+                  setWallets(allWallet);
+                }
+                stopSpinner(exchange, parentData);
+              } else {
+                // If no result
+                stopSpinner(exchange, parentData);
+                // alert('this gestion is todo : Ledger ligne 146');
+                return false;
+              }
 
-
-          // return data;
+            })
         })
         .catch((error) => {
           console.error('Error:', error);
           return error;
         });
 
-
-
     } else {
-      // console.log("data from LOCAL STORE");
-      setWallets(JSON.parse(localStorage.getItem('wallet-' + exchange)));
+      // No update required : display from LS
+      if (updateAll) {
+        // return false;
+        console.log('set wallet all from Local store')
+        setWallets(JSON.parse(localStorage.getItem('wallet-all')));
+        props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+      } else {
+        console.log('set wallet ' + exchange + ' from Local store')
+        setWallets(JSON.parse(localStorage.getItem('wallet-' + exchange)));
+
+        props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+      }
+
     }
   }
 
 
-  const getCompletedWallet = async (exchange, exchanges) => {
+  const getCompletedExchange = async (exchange, exchanges) => {
 
-    updateProcess(exchange, parentData, props);
-    // let result = await updateWallet(exchange, exchanges, parentData, props, setWallets);
-    // if (result) {
-    //   // setWallets(result);
-    //   // // used for display last time update on main page
-    //   // props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
-    // } else {
+    switch (exchange) {
+      case 'all':
+        for (let i = 0; i < exchanges.length; i++) {
+          if (exchanges[i] !== 'all') {
+            console.log(exchanges[i])
+            updateProcess(exchanges[i], parentData, props, true);
+          }
+        }
+        // let res = JSON.parse(localStorage.getItem('wallet-all'));
+        // setWallets(res);
+        // let total = totalExchange(res);
+        // props.setTotalExchange(total);
+        // console.log('update all finish')
+        break;
 
-    //   toast("Wow so easy!");
-    // }
+      default:
+        updateProcess(exchange, parentData, props, false);
+        console.log('update simple finish')
+        break;
+    }
+
   }
 
 
@@ -258,7 +212,7 @@ export default function Ledger(props) {
     console.log('_____________________________')
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
 
-    getCompletedWallet(exchangeName, exchagesEnable);
+    getCompletedExchange(exchangeName, exchagesEnable);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeName]);
@@ -302,14 +256,18 @@ export default function Ledger(props) {
                           'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'
                       } alt={wallet.name} />
                     </div>
+                    <Tooltip title={wallet.exchange}>
+                      <div style={{
+                        fontSize: 'small'
+                      }}
+                        className="name-token">
 
-                    <div style={{
-                      fontSize: 'small'
-                    }}
-                      className="name-token">
-                      {wallet.name}
-                    </div>
+                        {wallet.name} ({wallet.exchange})
+
+                      </div>
+                    </Tooltip>
                   </div>
+
                 </TableCell>
                 <TableCell align="right" className="table-row">{formatValues('price', wallet.balance)} {wallet.code}</TableCell>
                 <TableCell align="right" className="table-row">

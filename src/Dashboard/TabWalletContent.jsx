@@ -1,13 +1,12 @@
 import * as React from 'react';
 import TabPanel from '@mui/lab/TabPanel';
-import Ledger from '../Dashboard/Ledger';
+import Ledger from './Ledger';
 
 
-export default function TabPanelWallets(props) {
+export default function TabWalletContent(props) {
 
   const exchanges = props.exchanges;
   const results = [];
-  // console.log('TabPanelWallets exchanges ', exchanges)
 
 
   exchanges.forEach((exchange, index) => {
@@ -27,11 +26,10 @@ export default function TabPanelWallets(props) {
     );
   });
 
-
   return (
-    <div>
+    <React.Fragment>
       {results}
-    </div>
+    </React.Fragment>
   )
 
 }

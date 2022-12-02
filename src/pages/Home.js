@@ -88,7 +88,6 @@ const Home = () => {
                 // set in  LocalStorage
                 localStorage.setItem('GekocoinsData', JSON.stringify(res.data));
                 // console.log(res.data);
-
             }
             ).catch
             (err => {

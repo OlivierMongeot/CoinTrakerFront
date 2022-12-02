@@ -2,7 +2,7 @@ import * as React from 'react';
 import Tab from '@mui/material/Tab';
 import TabList from '@mui/lab/TabList';
 
-export default function TabWallets(props) {
+export default function TabWalletsTitle(props) {
 
   const exchanges = props.exchanges;
   const results = [];
@@ -14,7 +14,7 @@ export default function TabWallets(props) {
   });
 
   return (
-    <TabList onChange={props.handleChange} aria-label="lab API tabs example">
+    <TabList onChange={props.handleChange}>
       {results}
     </TabList>
   )

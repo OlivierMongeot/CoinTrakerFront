@@ -1,11 +1,11 @@
 
-import getIdsCMC from '../api/getIdsCMC';
+import getIdsCMC from './getIdsCMC';
+
 
 const seturlLogo = (tokenCode, tokenId) => {
   if (tokenCode === 'ETH2') {
     return "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png";
   } else { return "https://s2.coinmarketcap.com/static/img/coins/64x64/" + tokenId + ".png"; }
-
 }
 
 const checkParticularName = (walletElement, token, exchange) => {
@@ -13,14 +13,14 @@ const checkParticularName = (walletElement, token, exchange) => {
     case 'kucoin':
       if (token.symbol === 'POL') {
         walletElement.urlLogo = seturlLogo(token.symbol, 6297);
-        walletElement.name = 'Proof of iquidity';
+        walletElement.name = 'Proof of Liquidity';
       }
       break;
 
     case 'gateio':
       if (token.symbol === 'POINT') {
         walletElement.urlLogo = seturlLogo(token.symbol, 4269);
-        walletElement.name = 'Proof of iquidity';
+        walletElement.name = 'Point';
       }
       break;
     default:
@@ -45,6 +45,7 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
             wallet[i].idCMC = token.id;
             wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
             wallet[i].name = token.name;
+
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
             wallet[i] = checkParticularName(wallet[i], token, exchange);
@@ -101,6 +102,17 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
         default:
           break;
       }
+
+      // if (token.symbol === wallet[i].currency) {
+
+      //   wallet[i].idCMC = token.id;
+      //   // wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
+      //   // wallet[i].name = token.name;
+      //   wallet[i] = checkParticularName(wallet[i], token, exchange);
+      //   wallet[i].code = token.symbol;
+      //   wallet[i].timestamp = new Date().getTime();
+      //   wallet[i].exchange = exchange;
+      // }
 
       return token.symbol === wallet[i].currency;
     });

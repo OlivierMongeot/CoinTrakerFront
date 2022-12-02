@@ -7,7 +7,6 @@ import formatValues from '../helpers/formatValues';
 
 
 
-
 // const apiCall = async (exchange) => {
 //     console.log('APICALL');
 
@@ -61,7 +60,7 @@ import formatValues from '../helpers/formatValues';
 
 const updateProcess = async (exchange, parentData, props, setWallets) => {
 
-    const timer = 360000;
+
 
     const rotateSpinner = (exchangeName, parentData) => {
         if (parentData && parentData.find(e => e.exchange === exchangeName)) {
@@ -355,28 +354,7 @@ const updateProcess = async (exchange, parentData, props, setWallets) => {
     }
 }
 
-// const updateProcess = async (exchange) => {
 
-//     // console.log('updateProcess', exchange)
-//     let shoudIUpdate = shouldIUpdateDataFromAPI(exchange);
-//     if (shoudIUpdate) {
-//         let rowResult = await apiCall(exchange);
-
-//         console.log('row result', rowResult);
-//         if (rowResult) {
-//             return await completeDataWallet(rowResult, exchange)
-//         } else {
-//             console.log("erreur");
-//             console.log(rowResult);
-//             return false;
-//         }
-
-
-//     } else {
-//         // console.log("data from LOCAL STORE");
-//         return JSON.parse(localStorage.getItem('wallet-' + exchange));
-//     }
-// }
 
 const totalWallet = (result) => {
     // Calcul le total pour les props
@@ -391,37 +369,37 @@ const totalWallet = (result) => {
 
 }
 
-// const agregateWallet = (wallet) => {
+const agregateWallet = (wallet) => {
 
-//     let result = [];
-//     // console.log('agregateWallet ', wallet);
-//     wallet.forEach(function (element) {
-//         if (!this[element.currency]) {
-//             this[element.currency] = {
-//                 currency: element.currency,
-//                 balance: 0,
-//                 // code: element.code,
-//                 live_price: element.live_price,
-//                 // available: 0,
-//                 urlLogo: element.urlLogo,
-//                 quoteCMC: element.quoteCMC,
-//                 name: element.name,
-//                 idCMC: element.idCMC,
-//                 dollarPrice: element.dollarPrice,
-//                 // id: element.idCMC,
-//                 timestamp: element.timestamp,
-//                 exchanges: element.exchange
+    let result = [];
+    // console.log('agregateWallet ', wallet);
+    wallet.forEach(function (element) {
+        if (!this[element.currency]) {
+            this[element.currency] = {
+                currency: element.currency,
+                balance: 0,
+                // code: element.code,
+                live_price: element.live_price,
+                // available: 0,
+                urlLogo: element.urlLogo,
+                quoteCMC: element.quoteCMC,
+                name: element.name,
+                idCMC: element.idCMC,
+                dollarPrice: element.dollarPrice,
+                // id: element.idCMC,
+                timestamp: element.timestamp,
+                exchange: element.exchange
 
-//             };
+            };
 
 
-//             result.push(this[element.currency]);
-//         }
-//         this[element.currency].balance += parseFloat(element.balance);
-//         // this[element.currency].available += parseFloat(element.balance);
-//     }, Object.create(null));
-//     return result;
-// }
+            result.push(this[element.currency]);
+        }
+        this[element.currency].balance += parseFloat(element.balance);
+        // this[element.currency].available += parseFloat(element.balance);
+    }, Object.create(null));
+    return result;
+}
 
 
 const updateWallet = async (exchangetoUp, exchanges, parentData, props, setWallets) => {

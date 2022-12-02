@@ -17,9 +17,12 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import SignUp from '../components/SignUp';
-import SignIn from '../components/SignIn';
+// import SignIn from '../components/SignIn';
+// import { useHistory } from 'react-router-dom';
 
+import { Link } from 'react-router-dom';
 const drawerWidth = 250;
+
 
 
 const AppBar = styled(MuiAppBar, {
@@ -50,9 +53,11 @@ export default function TopBar(props) {
   const handleOpenSignUp = () => setOpenSignUp(true);
   const handleCloseSignUp = () => setOpenSignUp(false);
 
-  const [openSignIn, setOpenSignIn] = React.useState(false);
-  const handleOpenSignIn = () => setOpenSignIn(true);
-  const handleCloseSignIn = () => setOpenSignIn(false);
+  // const [openSignIn, setOpenSignIn] = React.useState(false);
+  // const handleOpenSignIn = () => setOpenSignIn(true);
+  // const handleCloseSignIn = () => setOpenSignIn(false);
+
+
 
   const style = {
     position: 'absolute',
@@ -102,31 +107,14 @@ export default function TopBar(props) {
         <Stack spacing={2} direction="row">
 
 
-          <Button onClick={handleOpenSignIn} variant="contained">Log-in</Button>
-          <Modal
-            open={openSignIn}
-            onClose={handleCloseSignIn}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <SignIn></SignIn>
-            </Box>
-          </Modal>
+          <Button variant="contained">
+            <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to='/login'>Log-in</Link>
+          </Button>
 
+          <Button variant="outlined" >
+            <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to='/registration'>Sign-up</Link>
+          </Button>
 
-          <Button onClick={handleOpenSignUp} variant="outlined" color="inherit">Sign-up</Button>
-          <Modal
-            open={openSignUp}
-            onClose={handleCloseSignUp}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <SignUp></SignUp>
-            </Box>
-
-          </Modal>
         </Stack>
 
         {/* <ColorModeContext.Consumer> */}

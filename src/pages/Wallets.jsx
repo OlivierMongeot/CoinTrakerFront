@@ -5,20 +5,22 @@ import Tooltip from '@mui/material/Tooltip';
 import Paper from '@mui/material/Paper';
 import Title from '../Dashboard/Title';
 import Grid from '@mui/material/Grid';
-import TabWallets from '../Dashboard/TabWallets';
-import TabPanelWallet from '../Dashboard/TabPanelWallet';
+import TabWalletsTitle from '../Dashboard/TabWalletsTitle';
+import TabWalletContent from '../Dashboard/TabWalletContent';
 import formatValues from '../helpers/formatValues';
 import Container from '@mui/material/Container';
 import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
-// import Loader from '../helpers/Loader';
-// import { height } from '@mui/system';
-// import TokenService from '../helpers/TokenService';
-// import jwsTester from '../api/jwsTester';
-
 import AuthenticationService from '../helpers/AuthService';
+// import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const Wallets = (props) => {
+
+    const navigate = useNavigate();
 
     const [exchanges] = React.useState(
         ['all', 'crypto-com', 'gateio', 'coinbase', 'binance', 'kucoin']
@@ -30,9 +32,17 @@ const Wallets = (props) => {
 
     const [updatedAt, setUpdatedAt] = React.useState(0)
 
+    const setUpExchangeSelected = (value) => {
+        setExchangeSelected(exchanges[value]);
+    }
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        setUpExchangeSelected(newValue);
     };
+
+    const [exchangeSelected, setExchangeSelected] = React.useState('all');
+
 
     // TokenService();
     // const isItUserKey = TokenService();
@@ -48,15 +58,8 @@ const Wallets = (props) => {
     if (!AuthenticationService.isAuthenticated) {
         console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
         alert('not loged');
-        // window.location.href = '/login';
-        return (
-            <Container className="container" maxWidth="xlg"
-                sx={{ mt: 4, mb: 4 }}>
-            </Container>
-        )
-    } else {
 
-
+        navigate("/login");
     }
 
 
@@ -78,22 +81,25 @@ const Wallets = (props) => {
 
                                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
 
-                                            <TabWallets exchanges={exchanges} handleChange={handleChange} />
+                                            <TabWalletsTitle exchanges={exchanges} handleChange={handleChange} />
 
-                                            <Title>
-                                                <div className='display-top-table'>
-                                                    <span className="title-wallet"></span>
-                                                    {/* <Loader /> */}
-                                                    <Tooltip title={updatedAt}>
-                                                        <span >Total {formatValues('price', totalExchange)} $
-                                                        </span>
-                                                    </Tooltip>
+                                            {exchangeSelected !== 'all' && (
+                                                <Title>
+                                                    <div className='display-top-table'>
+                                                        <span className="title-wallet"></span>
 
-                                                </div>
-                                            </Title>
+                                                        <Tooltip title={updatedAt}>
+                                                            <span >Total {formatValues('price', totalExchange)} $
+                                                            </span>
+                                                        </Tooltip>
+
+                                                    </div>
+                                                </Title>
+                                            )}
+
                                         </Box>
 
-                                        <TabPanelWallet
+                                        <TabWalletContent
                                             exchanges={exchanges}
                                             arrayAmountWallets={props.arrayAmountWallets}
                                             setArrayAmountWallets={props.setArrayAmountWallets}
@@ -105,40 +111,23 @@ const Wallets = (props) => {
                                 </Box>
                             </Paper >
                         </Grid>
-
-
-
                     </Paper>
                 </Grid >
 
                 <Grid item xs={12} md={2} lg={4}>
                     <Paper
-                        sx={{
-                            p: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            height: 200,
-                        }}
-                    >
+                        sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200 }}>
                         <Chart />
                     </Paper>
 
-
                     <Paper
-                        sx={{
-                            p: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            height: 200,
-                            marginTop: 2
-                        }}>
+                        sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, marginTop: 2 }}>
                         <Deposits totalAllWallet={props.totalAllWallet} arrayAmountWallets={props.arrayAmountWallets} />
                     </Paper>
                 </Grid>
 
             </Grid >
         </Container >
-
     );
 };
 

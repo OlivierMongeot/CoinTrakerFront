@@ -16,7 +16,7 @@ function App() {
       <Route path="/transactions" element={<Transactions />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/registration" element={<Theme area="registration" />} /> */}
+        <Route path="/registration" element={<Theme area="registration" />} />
         <Route path="/wallets" element={<Theme area="wallets" />} />
       </Routes>
     </Router>
