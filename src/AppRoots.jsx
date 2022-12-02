@@ -12,6 +12,7 @@ import TopBar from './main/TopBar';
 import Wallets from './pages/Wallets';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Customize from './pages/Customize';
 // import Registration from './pages/Registration';
 import SignUp from './components/SignUp';
 
@@ -63,6 +64,7 @@ export default function AppRoots(props) {
         {page === 'home' && (<Home></Home>)}
         {page === 'login' && (<Login sx={{ height: '40vh' }}></Login>)}
         {page === 'registration' && (<SignUp></SignUp>)}
+        {page === 'customize' && (<Customize></Customize>)}
       </Box >
     </Box >
   )

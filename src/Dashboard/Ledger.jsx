@@ -18,7 +18,7 @@ import rotateSpinner from '../helpers/rotateSpinner';
 import stopSpinner from '../helpers/stopSpinner';
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 
 
 export default function Ledger(props) {
@@ -115,7 +115,7 @@ export default function Ledger(props) {
             stopSpinner(exchange, parentData);
             console.log('redirect');
             navigate("/login");
-            return false;
+            return 'token-expired';
           }
           completeDataWallet(data, exchange)
             .then((data) => {
@@ -189,6 +189,7 @@ export default function Ledger(props) {
           if (exchanges[i] !== 'all') {
             console.log(exchanges[i])
             updateProcess(exchanges[i], parentData, props, true);
+
           }
         }
         // let res = JSON.parse(localStorage.getItem('wallet-all'));
@@ -256,16 +257,16 @@ export default function Ledger(props) {
                           'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'
                       } alt={wallet.name} />
                     </div>
-                    <Tooltip title={wallet.exchange}>
-                      <div style={{
-                        fontSize: 'small'
-                      }}
-                        className="name-token">
 
-                        {wallet.name} ({wallet.exchange})
+                    <div style={{
+                      fontSize: 'small'
+                    }}
+                      className="name-token">
 
-                      </div>
-                    </Tooltip>
+                      {wallet.name} {exchangeName === 'all' ? '(' + formatValues('camelise', wallet.exchange) + ')' : ""}
+
+                    </div>
+
                   </div>
 
                 </TableCell>

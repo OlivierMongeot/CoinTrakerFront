@@ -14,13 +14,14 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { Tooltip } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import SignUp from '../components/SignUp';
+// import Box from '@mui/material/Box';
+// import Modal from '@mui/material/Modal';
+// import SignUp from '../components/SignUp';
 // import SignIn from '../components/SignIn';
 // import { useHistory } from 'react-router-dom';
-
+import AuthenticationService from '../helpers/AuthService';
 import { Link } from 'react-router-dom';
+// import Profile from './Profile';
 const drawerWidth = 250;
 
 
@@ -49,30 +50,29 @@ export default function TopBar(props) {
 
   const theme = useTheme();
 
-  const [openSignUp, setOpenSignUp] = React.useState(false);
-  const handleOpenSignUp = () => setOpenSignUp(true);
-  const handleCloseSignUp = () => setOpenSignUp(false);
+  // const [openSignUp, setOpenSignUp] = React.useState(false);
+  // const handleOpenSignUp = () => setOpenSignUp(true);
+  // const handleCloseSignUp = () => setOpenSignUp(false);
 
   // const [openSignIn, setOpenSignIn] = React.useState(false);
   // const handleOpenSignIn = () => setOpenSignIn(true);
   // const handleCloseSignIn = () => setOpenSignIn(false);
 
 
-
-  const style = {
-    position: 'absolute',
-    padding: '20px',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'auto',
-    height: 'auto',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    borderRadius: '5px',
-    boxShadow: 24,
-    p: 4,
-  };
+  // const style = {
+  //   position: 'absolute',
+  //   padding: '20px',
+  //   top: '50%',
+  //   left: '50%',
+  //   transform: 'translate(-50%, -50%)',
+  //   width: 'auto',
+  //   height: 'auto',
+  //   bgcolor: 'background.paper',
+  //   border: '2px solid #000',
+  //   borderRadius: '5px',
+  //   boxShadow: 24,
+  //   p: 4,
+  // };
 
 
   return (
@@ -103,19 +103,20 @@ export default function TopBar(props) {
         >
           CRYPTO WALLETS
         </Typography>
+        {!AuthenticationService.isAuthenticated && (
+          <Stack spacing={2} direction="row">
 
-        <Stack spacing={2} direction="row">
+            <Button variant="contained">
+              <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to='/login'>Log-in</Link>
+            </Button>
+            <Button variant="outlined" >
+              <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to='/registration'>Sign-up</Link>
+            </Button>
+          </Stack>
+        )}
 
 
-          <Button variant="contained">
-            <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to='/login'>Log-in</Link>
-          </Button>
 
-          <Button variant="outlined" >
-            <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to='/registration'>Sign-up</Link>
-          </Button>
-
-        </Stack>
 
         {/* <ColorModeContext.Consumer> */}
         <Tooltip title={'Toogle to ' + ((theme.palette.mode === 'dark') ? 'light' : 'dark') + ' mode'}>

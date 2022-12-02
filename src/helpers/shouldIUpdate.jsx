@@ -1,7 +1,7 @@
 
 const shouldIUpdateFromAPI = (exchangeName) => {
 
-  const timer = 360000;
+  const timer = 1360000;
 
   if ('wallet-' + exchangeName in localStorage && (typeof (localStorage.getItem('wallet-' + exchangeName)) === 'string')) {
 

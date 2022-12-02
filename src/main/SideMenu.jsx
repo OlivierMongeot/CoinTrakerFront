@@ -6,7 +6,8 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
-import { mainListItems } from './listItems';
+import { mainListItems, secondaryListItems } from './listItems';
+import AuthenticationService from '../helpers/AuthService';
 
 const drawerWidth = 250;
 
@@ -63,7 +64,9 @@ export default function BarMenu(props) {
       <List component="nav" >
         {mainListItems}
         <Divider sx={{ my: 1 }} />
-        {/* {secondaryListItems} */}
+
+        {AuthenticationService.isAuthenticated ? secondaryListItems
+          : ''}
       </List>
     </Drawer >
 

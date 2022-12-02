@@ -9,7 +9,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-// import AssignmentIcon from '@mui/icons-material/Assignment';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { Link } from "react-router-dom";
 
 export const mainListItems = (
@@ -48,23 +48,39 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Taxes Repport" />
     </ListItemButton>
+    <Link to="/customize" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Customize Wallet" />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
-// export const secondaryListItems = (
-//   <React.Fragment>
-//     {/* <ListSubheader component="div" inset>
-//       Future Features reports
-//     </ListSubheader> */}
+export const secondaryListItems = (
+  <React.Fragment>
+    {/* <ListSubheader component="div" inset>
+      Future Features reports
+    </ListSubheader> */}
 
 
-//     {/* <Link to="/login" style={{ color: 'inherit', textDecoration: 'inherit' }}>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <AssignmentIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Login" />
-//       </ListItemButton>
-//     </Link> */}
-//   </React.Fragment >
-// );
+    <Link to="/myaccount" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="My account" />
+      </ListItemButton>
+    </Link>
+    <Link to="/params" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Parametres" />
+      </ListItemButton>
+    </Link>
+  </React.Fragment >
+);

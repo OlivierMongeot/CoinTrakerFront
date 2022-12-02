@@ -14,8 +14,8 @@ function App() {
         <Route path="/login" element={<Theme area="login" />} />
         {/* <Route path="/wallets" element={<Wallets />} />
       <Route path="/transactions" element={<Transactions />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/login" element={<Login />} /> */}
+      <Route path="/settings" element={<Settings />} />*/}
+        <Route path="/customize" element={<Theme area="customize" />} />
         <Route path="/registration" element={<Theme area="registration" />} />
         <Route path="/wallets" element={<Theme area="wallets" />} />
       </Routes>

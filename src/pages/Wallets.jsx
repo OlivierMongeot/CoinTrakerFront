@@ -57,7 +57,7 @@ const Wallets = (props) => {
 
     if (!AuthenticationService.isAuthenticated) {
         console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
-        alert('not loged');
+
 
         navigate("/login");
     }
@@ -75,7 +75,7 @@ const Wallets = (props) => {
                         <Grid item xs={12}>
                             <Paper sx={{ p: 2 }}>
                                 <Box id="box-wallet" sx={{ width: '100%', height: '100%', typography: 'body1' }}>
-                                    {/* <Loader /> */}
+
 
                                     <TabContext value={value} >
 
@@ -113,16 +113,22 @@ const Wallets = (props) => {
                         </Grid>
                     </Paper>
                 </Grid >
+                {/* Colonne Droite */}
+                <Grid item xs={12} md={2} lg={4} sx={{ display: "flex", flexDirection: 'column' }}>
 
-                <Grid item xs={12} md={2} lg={4}>
                     <Paper
-                        sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200 }}>
+                        sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px' }}>
                         <Chart />
                     </Paper>
 
                     <Paper
-                        sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 200, marginTop: 2 }}>
+                        sx={{ p: 2, height: 200, marginTop: 2, flex: '1 1' }}>
                         <Deposits totalAllWallet={props.totalAllWallet} arrayAmountWallets={props.arrayAmountWallets} />
+                    </Paper>
+
+                    <Paper
+                        sx={{ p: 2, flex: '2 1', height: "auto", marginTop: 2 }}>
+
                     </Paper>
                 </Grid>
 

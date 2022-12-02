@@ -24,6 +24,7 @@ const checkParticularName = (walletElement, token, exchange) => {
       }
       break;
     default:
+
       break;
   }
   return walletElement;
@@ -41,26 +42,23 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
       switch (exchange) {
         case 'kucoin':
           if (token.symbol === wallet[i].currency) {
-
             wallet[i].idCMC = token.id;
-            wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
-            wallet[i].name = token.name;
-
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
+            wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
+            wallet[i].name = token.name;
             wallet[i] = checkParticularName(wallet[i], token, exchange);
             wallet[i].exchange = exchange;
-
           }
           break;
 
         case 'gateio':
           if ((token.symbol).toLowerCase() === (wallet[i].currency).toLowerCase()) {
             wallet[i].idCMC = token.id;
-            wallet[i].urlLogo = seturlLogo(wallet[i].code, token.id);
-            wallet[i].name = token.name;
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
+            wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
+            wallet[i].name = token.name;
             wallet[i] = checkParticularName(wallet[i], token, exchange);
             wallet[i].balance = parseFloat(wallet[i].available) + parseFloat(wallet[i].locked);
             wallet[i].exchange = exchange;
@@ -78,8 +76,8 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
 
         case 'crypto-com':
           if ((token.symbol).toLowerCase() === (wallet[i].currency).toLowerCase()) {
-            wallet[i].idCMC = token.id;
             wallet[i].urlLogo = seturlLogo(wallet[i].code, token.id);
+            wallet[i].idCMC = token.id;
             wallet[i].name = token.name;
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
@@ -88,8 +86,8 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
           break;
 
         case 'binance':
-          if (token.symbol === wallet[i].currency) {
 
+          if (token.symbol === wallet[i].currency) {
             wallet[i].idCMC = token.id;
             wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
             wallet[i].name = token.name;
@@ -103,18 +101,7 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
           break;
       }
 
-      // if (token.symbol === wallet[i].currency) {
-
-      //   wallet[i].idCMC = token.id;
-      //   // wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
-      //   // wallet[i].name = token.name;
-      //   wallet[i] = checkParticularName(wallet[i], token, exchange);
-      //   wallet[i].code = token.symbol;
-      //   wallet[i].timestamp = new Date().getTime();
-      //   wallet[i].exchange = exchange;
-      // }
-
-      return token.symbol === wallet[i].currency;
+      return token.symbol.toLowerCase() === wallet[i].currency.toLowerCase();
     });
   }
   return wallet.filter(item => item.hasOwnProperty('idCMC'));
