@@ -31,17 +31,14 @@ const Wallets = (props) => {
     const [value, setValue] = React.useState('0');
 
     const [updatedAt, setUpdatedAt] = React.useState(0)
+    const [exchangeSelected, setExchangeSelected] = React.useState('all');
 
-    const setUpExchangeSelected = (value) => {
-        setExchangeSelected(exchanges[value]);
-    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        setUpExchangeSelected(newValue);
+        // setUpExchangeSelected(newValue);
+        setExchangeSelected(exchanges[newValue]);
     };
-
-    const [exchangeSelected, setExchangeSelected] = React.useState('all');
 
 
     // TokenService();
@@ -128,7 +125,6 @@ const Wallets = (props) => {
 
                     <Paper
                         sx={{ p: 2, flex: '2 1', height: "auto", marginTop: 2 }}>
-
                     </Paper>
                 </Grid>
 

@@ -21,7 +21,6 @@ const getIdsCMC = async () => {
     } else {
         // console.log('getTokenList From Store');
         return JSON.parse(localStorage.getItem('cmcTokensList'));
-
     }
 }
 

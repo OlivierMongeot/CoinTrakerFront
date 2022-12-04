@@ -6,6 +6,7 @@ const getPricesQuotesCMC = async (wallet, exchange) => {
     let currencies = '';
     for (let i = 0; i < wallet.length; i++) {
         let currency = wallet[i].currency;
+        // console.log(currency);
         if (currency === 'ETH2') {
             currency = 'ETH'
             currencies += currency + ',';
@@ -19,7 +20,7 @@ const getPricesQuotesCMC = async (wallet, exchange) => {
     }
     currencies = currencies.slice(0, -1);
 
-    // console.log('List Token to search CMC API :', currencies);
+    console.log('List Token to search CMC API :', currencies);
 
     let url = 'http://192.168.0.46:4000/cmc/prices?symbol=' + currencies;
 
