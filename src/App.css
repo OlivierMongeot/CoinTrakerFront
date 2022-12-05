@@ -129,3 +129,11 @@
   width: 25px;
   height: 25px;
 }
+
+.red-btn {
+  background-color: brown !important;
+}
+
+.red-btn:hover {
+  background-color: rgb(206, 175, 175);
+}

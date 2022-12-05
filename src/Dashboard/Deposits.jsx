@@ -5,9 +5,36 @@ import formatValues from '../helpers/formatValues'
 import Loader from '../helpers/Loader';
 // import { width } from '@mui/system';
 import Divider from '@mui/material/Divider';
-
+import { useRef, useEffect } from 'react';
 
 export default function Deposits(props) {
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+
+    const handleClick = event => {
+      console.log('Button over');
+      // const spinners = document.querySelectorAll('.spinner-loader');
+      console.log(event.target);
+
+    };
+
+    const elements = document.querySelectorAll('.display-grid-inline');
+    console.log(elements);
+
+    // element.addEventListener('click', handleClick);
+    elements.forEach((element) => {
+      element.addEventListener('mouseover', handleClick);
+    })
+
+    return () => {
+      elements.forEach((element) => {
+        element.removeEventListener('mouseover', handleClick);
+      })
+    };
+  }, []);
+
   // console.log(props);
   return (
     <React.Fragment>
@@ -17,7 +44,7 @@ export default function Deposits(props) {
 
         <div key={index} className="display-grid-amount">
           <div className="display-grid-inline">
-            <Loader fontSize='30' exchange={wallet.exchange} />
+            <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' />
             <div>
               {formatValues('camelise', wallet.exchange)}
             </div>

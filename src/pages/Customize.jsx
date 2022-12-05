@@ -12,15 +12,31 @@ import InputLabel from '@mui/material/InputLabel';
 import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
-// import getPricesQuotesCMC from '../api/getPricesQuoteCMC';
-// import addCoinMarketCapIds from '../api/addCoinMarketCapIds';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { stepButtonClasses } from '@mui/material';
 // import { ToastContainer } from 'react-toastify';=
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 'auto',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const blue = {
   500: '#007FFF',
@@ -93,14 +109,44 @@ const exchanges = ['crypto-com', 'gateio', 'coinbase', 'binance', 'kucoin'];
 // const labelList = tokenListLabelise();
 
 
+const getIdExchange = (exchange) => {
+  console.log('exch', exchange);
+  let index = exchanges.indexOf(exchange)
+  console.log('index Exchange', index);
+  let IdExchange = (parseInt(index) + 1) * 10;
+  return IdExchange;
+}
+
 const Customize = () => {
 
   const [token, setToken] = React.useState('');
   const [amount, setAmount] = React.useState(0);
   const [exchange, setExchange] = React.useState('');
-  const [exchangeId, setExchangeId] = React.useState(10);
+  const [exchangeId, setExchangeId] = React.useState(20);
   const [customWallet, setCustomWallet] = React.useState([])
   const [labelList, setLabelList] = React.useState([]);
+  const [buttonValid, setButtonValid] = React.useState(false);
+  const [titleModal, setTitleModal] = React.useState('Add a new Token');
+
+  const [currentTokenUpdated, setcurrentTokenUpdated] = React.useState({});
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleOpenNewToken = () => {
+    handleOpen();
+    setExchangeId(10);
+    setToken('');
+    setAmount(0);
+    // setButtonValid(true);
+  }
+
+
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleCloseUpdate = () => setOpenUpdate(false);
+
 
   const handleChangeExchange = (event) => {
 
@@ -140,8 +186,8 @@ const Customize = () => {
     console.log('amount', amount);
     console.log('exchange', exchange);
 
-    const numberAmount = (amount);
-    let newEntries = [{ name: token, amount: amount, exchange: exchange, balance: numberAmount }];
+    // const numberAmount = (amount);
+    let newEntries = [{ name: token, exchange: exchange, balance: amount }];
 
     // Recupere le symbol avant d'aouter les data 
     // get the symbol of token 
@@ -179,6 +225,7 @@ const Customize = () => {
 
     localStorage.setItem('wallet-custom', JSON.stringify(tab));
     setCustomWallet(tab);
+    handleClose();
   }
 
   const onDelete = (e) => {
@@ -193,6 +240,34 @@ const Customize = () => {
     setCustomWallet(tab);
   }
 
+  const onUpdateDisplay = (e) => {
+    handleOpenUpdate();
+    let tab = JSON.parse(localStorage.getItem('wallet-custom'));
+
+    const index = e.currentTarget.getAttribute('index');
+
+    let IdExchange = getIdExchange(tab[index].exchange);
+    console.log('IdExchange', IdExchange);
+    console.log('index tableau', index);
+
+    setExchangeId(IdExchange);
+
+    console.log(tab[index]);
+    setcurrentTokenUpdated(tab[index]);
+
+    setToken(tab[index].name);
+    setAmount(tab[index].balance);
+    setButtonValid(true);
+    // handleClose();
+
+  }
+
+  const onValidUpdate = () => {
+
+    setButtonValid(false);
+  }
+
+
   React.useEffect(() => {
     console.log('use effect Customize');
 
@@ -206,8 +281,9 @@ const Customize = () => {
     }
 
     const listParsed = tokenListLabelise();
+    // console.log('tokenListLabelise', listParsed);
     setLabelList(listParsed);
-
+    console.log('labelList ', labelList[0]);
   }, []);
 
   return (
@@ -215,66 +291,17 @@ const Customize = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       height: '100%',
       width: '100%'
     }}>
 
       <div style={{
-        marginTop: '50px', display: 'flex',
-        flexDirection: 'row',
+        marginTop: '20px', display: 'flex',
+        flexDirection: 'row', justifyContent: 'flex-end', width: '100%'
       }} >
 
-        <FormControl sx={{
-          m: 1, width: '200px'
-        }}>
-          {/* Token */}
-          <Autocomplete
-            sx={{
-              m: 1, width: 'auto'
-            }}
-            freeSolo
-            id="combo-box-demo"
-            options={labelList}
-            onChange={handleInputToken}
-            // sx={{ width: '100%' }}
-            renderInput={(params) => <TextField {...params} label="Token" symbol="Symbol" />}
-          />
-        </FormControl>
 
-
-        <FormControl sx={{
-          m: 1, width: '200px'
-        }}>
-          {/* Amount */}
-          <TextField sx={{
-            m: 1, width: '200px'
-          }} id="outlined-basic" label="Amount" variant="outlined"
-            onChange={handleChangePrice} />
-        </FormControl>
-
-        {/* Exchange */}
-
-        <FormControl sx={{
-          m: 2, width: '200px', mt: 2
-        }}>
-          <InputLabel id="demo-simple-select-standard-label">Exchange</InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={exchangeId}
-            onChange={handleChangeExchange}
-            label="Exchange"
-          >
-            {exchanges.map((element, key) => {
-              let index = (key + 1) * 10;
-              return (
-                <MenuItem key={key} name={element} value={index}>{element}</MenuItem>
-              )
-            })}
-
-          </Select>
-        </FormControl>
 
         <FormControl sx={{
           m: 1, width: '80px'
@@ -283,10 +310,11 @@ const Customize = () => {
             mt: 2
           }}>
             <CustomButton
-              onClick={onSubmit}
+              onClick={handleOpenNewToken}
             >Add</CustomButton>
           </Stack>
         </FormControl>
+
 
       </div >
 
@@ -298,7 +326,8 @@ const Customize = () => {
               <TableCell >Token</TableCell>
               <TableCell align="right" >Balance</TableCell>
               <TableCell align="right">Exchange </TableCell>
-              <TableCell align="right">Action </TableCell>
+              <TableCell align="right">Delete </TableCell>
+              <TableCell align="right">Update </TableCell>
             </TableRow>
           </TableHead>
           <TableBody >
@@ -315,11 +344,166 @@ const Customize = () => {
                       onClick={onDelete} index={key}
                     >X</CustomButton>
                   </TableCell>
+                  <TableCell align="right" className="table-row">
+                    <CustomButton
+                      onClick={onUpdateDisplay} index={key}
+                    >-</CustomButton>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </React.Fragment >
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h5" sx={{ textAlign: 'center', mb: 2 }} component="h2">
+            {titleModal}
+          </Typography>
+          <Typography id="modal-modal-description" style={{
+            marginTop: '2px', display: 'flex',
+            flexDirection: 'row', justifyContent: 'center', width: '100%'
+          }}>
+            {/* Duis mollis, est non commodo luctus, nisi erat porttitor ligula. */}
+            <FormControl sx={{
+              m: 1, width: '200px'
+            }}>
+              {/* Token */}
+              <Autocomplete
+                sx={{
+                  m: 1, width: 'auto'
+                }}
+                freeSolo
+                id="combo-box-demo"
+                options={labelList}
+                onChange={handleInputToken}
+                // sx={{ width: '100%' }}
+                renderInput={(params) => <TextField {...params} label="Token" symbol="Symbol" />}
+                // defaultValue={labelList[1]}
+                value={token}
+              />
+            </FormControl>
+
+            <FormControl sx={{
+              m: 1, width: '200px'
+            }}>
+              {/* Amount */}
+              <TextField sx={{
+                m: 1, width: '200px'
+              }} id="outlined-basic" label="Amount" value={amount} variant="outlined"
+                onChange={handleChangePrice} />
+            </FormControl>
+
+            {/* Exchange */}
+
+            <FormControl sx={{
+              m: 2, width: '200px', mt: 2
+            }}>
+              <InputLabel id="demo-simple-select-standard-label">Exchange</InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={exchangeId}
+                onChange={handleChangeExchange}
+                label="Exchange"
+              >
+                {exchanges.map((element, key) => {
+                  let index = (key + 1) * 10;
+                  return (
+                    <MenuItem key={key} name={element} value={index}>{element}</MenuItem>
+                  )
+                })}
+
+              </Select>
+            </FormControl>
+          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }} >
+            <CustomButton
+              onClick={onSubmit}
+            >Submit</CustomButton>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openUpdate}
+        onClose={handleCloseUpdate}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h5" sx={{ textAlign: 'center', mb: 2 }} component="h2">
+            Update Token
+          </Typography>
+          <Typography id="modal-modal-description" style={{
+            marginTop: '2px', display: 'flex',
+            flexDirection: 'row', justifyContent: 'center', width: '100%'
+          }}>
+            {/* Duis mollis, est non commodo luctus, nisi erat porttitor ligula. */}
+            <FormControl sx={{
+              m: 1, width: '200px'
+            }}>
+              {/* Token */}
+              <Autocomplete
+                sx={{
+                  m: 1, width: 'auto'
+                }}
+                freeSolo
+                id="combo-box-demo"
+                options={labelList}
+                onChange={handleInputToken}
+                // sx={{ width: '100%' }}
+                renderInput={(params) => <TextField {...params} label="Token" symbol="Symbol" />}
+                // defaultValue={labelList[1]}
+                value={token}
+              />
+            </FormControl>
+
+            <FormControl sx={{
+              m: 1, width: '200px'
+            }}>
+              {/* Amount */}
+              <TextField sx={{
+                m: 1, width: '200px'
+              }} id="outlined-basic" label="Amount" value={amount} variant="outlined"
+                onChange={handleChangePrice} />
+            </FormControl>
+
+            {/* Exchange */}
+
+            <FormControl sx={{
+              m: 2, width: '200px', mt: 2
+            }}>
+              <InputLabel id="demo-simple-select-standard-label">Exchange</InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={exchangeId}
+                onChange={handleChangeExchange}
+                label="Exchange"
+              >
+                {exchanges.map((element, key) => {
+                  let index = (key + 1) * 10;
+                  return (
+                    <MenuItem key={key} name={element} value={index}>{element}</MenuItem>
+                  )
+                })}
+
+              </Select>
+            </FormControl>
+          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }} >
+            <CustomButton
+              onClick={onSubmit}
+            >Submit</CustomButton>
+          </div>
+        </Box>
+      </Modal>
 
 
     </Container >
