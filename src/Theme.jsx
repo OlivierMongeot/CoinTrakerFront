@@ -3,11 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRoots from './AppRoots'
 
 
-// const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
-
-
 function ThemeContent(props) {
-
 
   let page = props.area;
 
@@ -39,7 +35,10 @@ function ThemeContent(props) {
   return (
     // <ColorModeContext.Provider value={colorMode}>
     <ThemeProvider theme={theme}>
+
       <AppRoots page={page} colorMode={colorMode} mode={mode} />
+
+
     </ThemeProvider >
     // </ColorModeContext.Provider >
   );

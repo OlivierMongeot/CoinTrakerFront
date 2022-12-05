@@ -1,19 +1,12 @@
 import React from 'react';
-// import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-// import Container from '@mui/material/Container';
 import SideMenu from './main/SideMenu';
 import TopBar from './main/TopBar';
-// import Grid from '@mui/material/Grid';
-// import Paper from '@mui/material/Paper';
-// import Chart from './Dashboard/Chart';
-// import Deposits from './Dashboard/Deposits';
 import Wallets from './pages/Wallets';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Customize from './pages/Customize';
-// import Registration from './pages/Registration';
 import SignUp from './components/SignUp';
 
 
