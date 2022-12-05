@@ -89,16 +89,16 @@ export default function Ledger(props) {
   const completeDataWallet = async (wallet, exchange) => {
     console.log('before complete Data Wallet :  ', wallet)
     // Add custom data if exist  
-    // customTokenToAdd(exchange).map((element) => {
-    //   return wallet.push(element);
-    // });
-    // console.log('Wallet with custom coin', wallet);
+    customTokenToAdd(exchange).map((element) => {
+      return wallet.push(element);
+    });
+    console.log('Wallet with custom coin', wallet);
 
     if (wallet.length > 0) {
       wallet = await addCoinMarketCapIds(wallet, exchange);
       console.log('after completed Data Wallet :  ', wallet)
       wallet = await addCoinMarketCapQuote(wallet, exchange);
-      // setTotalBalanceWallet(wallet, exchange);
+      setTotalBalanceWallet(wallet, exchange);
 
       return wallet;
     } else {
@@ -118,7 +118,7 @@ export default function Ledger(props) {
     } else {
       shoudIUpdate = true;
     }
-    shoudIUpdate = true;
+
     switch (shoudIUpdate) {
 
       case true:
@@ -258,19 +258,14 @@ export default function Ledger(props) {
           setWallets(res);
           let total = totalExchange(res);
           props.setTotalExchange(total);
-          console.log('update all finish')
+
           break;
 
         default:
           updateProcess(exchangeName, parentData, props, false);
-          console.log('update simple finish')
           break;
       }
 
-
-
-      // getCompletedExchange(exchangeName, exchangesEnable);
-      // return;
     }
 
 

@@ -23,7 +23,7 @@ const Wallets = (props) => {
     const navigate = useNavigate();
 
     const [exchanges] = React.useState(
-        ['all', 'crypto-com', 'gateio', 'binance']
+        ['all', 'crypto-com', 'gateio', 'binance', 'kucoin']
     );
 
     const [totalExchange, setTotalExchange] = React.useState(0);

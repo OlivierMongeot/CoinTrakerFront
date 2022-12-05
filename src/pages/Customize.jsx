@@ -205,7 +205,6 @@ const Customize = () => {
     const listParsed = tokenListLabelise();
     setLabelList(listParsed);
 
-
   }, []);
 
   return (
