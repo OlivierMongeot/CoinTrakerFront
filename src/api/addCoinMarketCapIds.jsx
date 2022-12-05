@@ -54,6 +54,7 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
 
         case 'gateio':
           if ((token.symbol).toLowerCase() === (wallet[i].currency).toLowerCase()) {
+            console.log('case gateio ', wallet[i]);
             wallet[i].idCMC = token.id;
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();

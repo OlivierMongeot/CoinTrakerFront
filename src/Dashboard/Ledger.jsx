@@ -18,8 +18,8 @@ import rotateSpinner from '../helpers/rotateSpinner';
 import stopSpinner from '../helpers/stopSpinner';
 // import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import Tooltip from '@mui/material/Tooltip';
-
+import Tooltip from '@mui/material/Tooltip';
+import AuthenticationService from '../helpers/AuthService';
 
 export default function Ledger(props) {
 
@@ -27,7 +27,7 @@ export default function Ledger(props) {
   const [exchangeName] = React.useState(props.exchange);
 
   let parentData = props.arrayAmountWallets;
-  const exchagesEnable = props.exchanges;
+  const exchangesEnable = props.exchanges;
 
   const navigate = useNavigate();
 
@@ -72,44 +72,53 @@ export default function Ledger(props) {
   }
 
   const customTokenToAdd = (exchange) => {
+    console.log('token custom to add ');
     const walletCustom = JSON.parse(localStorage.getItem('wallet-custom'));
+    if (walletCustom === null) {
+      return [];
+    }
     // recupere les token de l'exchange
     const filtred = walletCustom.filter((tokenData) => {
       return tokenData.exchange === exchange;
     })
-    console.log('token custom to add ', filtred);
+    console.log(filtred);
     return filtred;
   }
 
 
-  const updateProcess = async (exchange, parentData, props, updateAllWallets, force = false) => {
+  const completeDataWallet = async (wallet, exchange) => {
+    console.log('before complete Data Wallet :  ', wallet)
+    // Add custom data if exist  
+    // customTokenToAdd(exchange).map((element) => {
+    //   return wallet.push(element);
+    // });
+    // console.log('Wallet with custom coin', wallet);
+
+    if (wallet.length > 0) {
+      wallet = await addCoinMarketCapIds(wallet, exchange);
+      console.log('after completed Data Wallet :  ', wallet)
+      wallet = await addCoinMarketCapQuote(wallet, exchange);
+      // setTotalBalanceWallet(wallet, exchange);
+
+      return wallet;
+    } else {
+      return false;
+    }
+  }
+
+
+  async function updateProcess(exchange, parentData, props, updateAllWallets, force = false) {
     console.log('update process', exchange);
 
-    const completeDataWallet = async (wallet, exchange) => {
-
-      // Add custom data if exist  
-      // customTokenToAdd(exchange).map((element) => {
-      //   return wallet.push(element);
-      // });
-
-      if (wallet.length > 0) {
-        wallet = await addCoinMarketCapIds(wallet, exchange);
-        wallet = await addCoinMarketCapQuote(wallet, exchange);
-        setTotalBalanceWallet(wallet, exchange);
-        return wallet;
-      } else {
-        return false;
-      }
-    }
 
     let shoudIUpdate = null;
-    console.log('updateProcess', exchange)
+
     if (force === false) {
       shoudIUpdate = shouldIUpdate(exchange)
     } else {
       shoudIUpdate = true;
     }
-
+    shoudIUpdate = true;
     switch (shoudIUpdate) {
 
       case true:
@@ -119,7 +128,7 @@ export default function Ledger(props) {
         let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
         let user = JSON.parse(localStorage.getItem('user'));
         let jws = user.token;
-        console.log('token used for connection', jws);
+        // console.log('token used for connection', jws);
 
         fetch(url, {
           method: 'GET',
@@ -127,8 +136,10 @@ export default function Ledger(props) {
             'authorization': jws
           }
         }).then((response) => response.json())
+
           .then((data) => {
             console.log('Success:', data);
+
             if (data.data && data.data.message === 'jwt expired') {
               toast("Token expired ! Please log in ");
               stopSpinner(exchange, parentData);
@@ -161,6 +172,7 @@ export default function Ledger(props) {
 
                     // Traitement du wallet general 
                     updateGeneralWallet(result, exchange);
+                    console.log('set Wallet ', result);
                     setWallets(result);
                     props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
 
@@ -225,39 +237,43 @@ export default function Ledger(props) {
   }
 
 
-  const getCompletedExchange = async (exchange, exchanges) => {
-
-    switch (exchange) {
-      case 'all':
-        for (let i = 0; i < exchanges.length; i++) {
-          if (exchanges[i] !== 'all') {
-            console.log(exchanges[i])
-            updateProcess(exchanges[i], parentData, props, true);
-
-          }
-        }
-        // let res = JSON.parse(localStorage.getItem('wallet-all'));
-        // setWallets(res);
-        // let total = totalExchange(res);
-        // props.setTotalExchange(total);
-        // console.log('update all finish')
-        break;
-
-      default:
-        updateProcess(exchange, parentData, props, false);
-        console.log('update simple finish')
-        break;
-    }
-
-  }
 
 
   React.useEffect(() => {
 
     console.log('_____________________________')
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
+    console.log('isAuthenticated ', AuthenticationService.isAuthenticated)
+    if (AuthenticationService.isAuthenticated) {
 
-    getCompletedExchange(exchangeName, exchagesEnable);
+      switch (exchangeName) {
+        case 'all':
+          for (let i = 0; i < exchangesEnable.length; i++) {
+            if (exchangesEnable[i] !== 'all') {
+              console.log(exchangesEnable[i])
+              updateProcess(exchangesEnable[i], parentData, props, true);
+            }
+          }
+          let res = JSON.parse(localStorage.getItem('wallet-all'));
+          setWallets(res);
+          let total = totalExchange(res);
+          props.setTotalExchange(total);
+          console.log('update all finish')
+          break;
+
+        default:
+          updateProcess(exchangeName, parentData, props, false);
+          console.log('update simple finish')
+          break;
+      }
+
+
+
+      // getCompletedExchange(exchangeName, exchangesEnable);
+      // return;
+    }
+
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeName]);
@@ -265,7 +281,7 @@ export default function Ledger(props) {
   return (
     <React.Fragment>
       <ToastContainer />
-      <Table className="table-wallet" size="small" >
+      <Table className="table-wallet" >
         <TableHead>
           <TableRow align="right" >
             <TableCell >Token</TableCell>
@@ -288,31 +304,31 @@ export default function Ledger(props) {
               <TableRow key={key}>
                 <TableCell
                   style={{
-                    display: 'flex'
+
                   }}
                   className="table-row" >
-                  <div style={{
-                    margin: '0'
-                  }}
-                    className='token-display'>
-                    <div className="image-token">
-                      <img src={
-                        wallet.urlLogo ? wallet.urlLogo :
-                          'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'
-                      } alt={wallet.name} />
-                    </div>
+                  <Tooltip title={formatValues('camelise', wallet.exchange)}>
 
                     <div style={{
-                      fontSize: 'small'
+                      margin: '0'
                     }}
-                      className="name-token">
+                      className='token-display'>
+                      <div className="image-token">
+                        <img src={
+                          wallet.urlLogo ? wallet.urlLogo :
+                            'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'
+                        } alt={wallet.name} />
+                      </div>
 
-                      {wallet.name} {exchangeName === 'all' ? '(' + formatValues('camelise', wallet.exchange) + ')' : ""}
+                      <div style={{
+                        fontSize: 'small', marginRight: '10px'
+                      }}
+                        className="name-token">
 
+                        {wallet.name}
+                      </div>
                     </div>
-
-                  </div>
-
+                  </Tooltip>
                 </TableCell>
                 <TableCell align="right" className="table-row">{formatValues('price', wallet.balance)} {wallet.code}</TableCell>
                 <TableCell align="right" className="table-row">

@@ -12,26 +12,15 @@ import InputLabel from '@mui/material/InputLabel';
 import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
-import getPricesQuotesCMC from '../api/getPricesQuoteCMC';
-import addCoinMarketCapIds from '../api/addCoinMarketCapIds';
+// import getPricesQuotesCMC from '../api/getPricesQuoteCMC';
+// import addCoinMarketCapIds from '../api/addCoinMarketCapIds';
 
-const tokenList = JSON.parse(localStorage.getItem('GekocoinsData'));
-// const tokenList = JSON.parse(localStorage.getItem('cmcTokensList'))
-// console.log(tokenList);
-
-const tokenListLabelise = () => {
-
-  let res = tokenList.map((token) => {
-    return { label: token.name, value: token.id };
-  })
-
-
-  res.push({ label: 'custom', image: 'toto', value: '0' });
-  // console.log(res);
-  return res;
-}
-const exchanges = ['crypto-com', 'gateio', 'coinbase', 'binance', 'kucoin'];
-const labelList = tokenListLabelise();
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+// import { ToastContainer } from 'react-toastify';=
 
 const blue = {
   500: '#007FFF',
@@ -80,12 +69,38 @@ const CustomButton = styled(ButtonUnstyled)(
 );
 
 
+// const tokenList = JSON.parse(localStorage.getItem('GekocoinsData'));
+const tokenList = JSON.parse(localStorage.getItem('cmcTokensList'))
+// console.log(tokenList);
+
+const tokenListLabelise = () => {
+
+  let res = tokenList.filter((token) => {
+    return token.rank < 1000;
+  })
+    .sort(function (a, b) {
+      return a.rank - b.rank;
+    })
+    .map((token) => {
+      return { label: token.name, value: token.id, symbol: token.symbol, name: token.name, idCMC: token.id };
+    })
+
+  // res.push({ label: 'custom', image: 'toto', value: '0' });
+  // console.log('token List used for form select', res);
+  return res;
+}
+const exchanges = ['crypto-com', 'gateio', 'coinbase', 'binance', 'kucoin'];
+// const labelList = tokenListLabelise();
+
+
 const Customize = () => {
 
   const [token, setToken] = React.useState('');
   const [amount, setAmount] = React.useState(0);
   const [exchange, setExchange] = React.useState('');
   const [exchangeId, setExchangeId] = React.useState(10);
+  const [customWallet, setCustomWallet] = React.useState([])
+  const [labelList, setLabelList] = React.useState([]);
 
   const handleChangeExchange = (event) => {
 
@@ -96,9 +111,21 @@ const Customize = () => {
     console.log('ex', ex);
     setExchange(ex);
   };
+
+
   // Token input 
-  const handleInput = (e) => {
-    console.log('value', e.target.textContent);
+  const handleInputToken = (e) => {
+    console.log('value token input : ', e.target.textContent);
+
+    // // get the symbol of token 
+    // const tokenName = e.target.textContent;
+
+    // const tokenListCMC = labelList.filter((token) => {
+    //   return token.label === tokenName;
+    // })
+
+    // console.log('tokenListCMC', tokenListCMC);
+
     setToken(e.target.textContent);
   }
 
@@ -108,36 +135,93 @@ const Customize = () => {
   }
 
   const onSubmit = async (e) => {
-    console.log(token, amount, exchange);
-    let newEntries = { currency: token, amount: amount, exchange: exchange, balance: parseFloat(amount) };
-    // todo recupere le tableau courant pour comparer 
-    let tab = [];
-    tab.push(newEntries);
-    console.log('tab', tab);
-    // add data id et price
-    let wallet = await addCoinMarketCapIds(tab, exchange);
-    wallet = await getPricesQuotesCMC(tab, exchange);
-    console.log('new wallet', wallet);
-    localStorage.setItem('wallet-custom', JSON.stringify(wallet));
+    // console.log('labelList', labelList);
+    console.log('token', token);
+    console.log('amount', amount);
+    console.log('exchange', exchange);
 
+    const numberAmount = (amount);
+    let newEntries = [{ name: token, amount: amount, exchange: exchange, balance: numberAmount }];
+
+    // Recupere le symbol avant d'aouter les data 
+    // get the symbol of token 
+    const tokenListCMC = labelList.filter((tok) => {
+      return tok.label === token;
+    })
+
+    // const tokenListCMCCurrencies = tokenListCMC.map((token) => {
+    //   return token.currency = token.symbol;
+    // })
+    for (let index = 0; index < tokenListCMC.length; index++) {
+      const element = tokenListCMC[index];
+      element.currency = element.symbol
+    }
+
+    console.log('NEW entry', newEntries);
+    console.log('data token CMC', tokenListCMC);
+
+    let merge = { ...newEntries[0], ...tokenListCMC[0] };
+
+    console.log('merge', merge);
+
+
+    // add data id et price
+    let wallet = [merge];
+    console.log('arrayMerged', wallet);
+    // let wallet = await addCoinMarketCapIds(arrayMerged, exchange);
+
+    // wallet = await getPricesQuotesCMC(wallet, exchange);
+    // console.log('addCoinMarketCapIds new wallet', wallet);
+
+
+    let tab = JSON.parse(localStorage.getItem('wallet-custom'));
+    console.log('Tab before push ', tab)
+    if (tab !== null) {
+      tab.push(wallet[0]);
+    } else {
+      tab = wallet;
+
+    }
+    console.log('tab', tab);
+
+    localStorage.setItem('wallet-custom', JSON.stringify(tab));
+    setCustomWallet(tab);
   }
 
+
+
   React.useEffect(() => {
-    console.log('Test use effect Customize');
-    console.log(token);
-  }, [token]);
+    console.log('use effect Customize');
+
+    let walletCustom = (localStorage.getItem('wallet-custom'));
+    // console.log('walletCustom ', walletCustom);
+    if (walletCustom === null) {
+      walletCustom = [];
+    } else {
+      walletCustom = JSON.parse(walletCustom);
+      setCustomWallet(walletCustom);
+    }
+
+    const listParsed = tokenListLabelise();
+    setLabelList(listParsed);
+
+
+  }, []);
 
   return (
     <Container component="main" sx={{
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '30%',
+      height: '100%',
       width: '100%'
     }}>
 
-      <div>
+      <div style={{
+        marginTop: '50px', display: 'flex',
+        flexDirection: 'row',
+      }} >
 
         <FormControl sx={{
           m: 1, width: '200px'
@@ -150,9 +234,9 @@ const Customize = () => {
             freeSolo
             id="combo-box-demo"
             options={labelList}
-            onChange={handleInput}
+            onChange={handleInputToken}
             // sx={{ width: '100%' }}
-            renderInput={(params) => <TextField {...params} label="Token" />}
+            renderInput={(params) => <TextField {...params} label="Token" symbol="Symbol" />}
           />
         </FormControl>
 
@@ -183,7 +267,7 @@ const Customize = () => {
             {exchanges.map((element, key) => {
               let index = (key + 1) * 10;
               return (
-                <MenuItem name={element} value={index}>{element}</MenuItem>
+                <MenuItem key={key} name={element} value={index}>{element}</MenuItem>
               )
             })}
 
@@ -202,7 +286,40 @@ const Customize = () => {
           </Stack>
         </FormControl>
 
-      </div>
+      </div >
+
+
+
+
+      <React.Fragment>
+
+        <Table className="table-wallet" >
+          <TableHead>
+            <TableRow  >
+              <TableCell >Token</TableCell>
+              <TableCell align="right" >Balance</TableCell>
+              <TableCell align="right">Exchange </TableCell>
+              <TableCell align="right">Action </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody >
+            {customWallet && customWallet
+              .map((wallet, key) => (
+                <TableRow key={key}>
+                  <TableCell className="table-row">
+                    {wallet.name}
+                  </TableCell>
+                  <TableCell align="right" className="table-row">  {wallet.balance}</TableCell>
+                  <TableCell align="right" className="table-row">  {wallet.exchange}</TableCell>
+                  <TableCell align="right" className="table-row">
+                    TdO
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </React.Fragment >
+
 
     </Container >
   );

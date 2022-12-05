@@ -23,7 +23,7 @@ const Wallets = (props) => {
     const navigate = useNavigate();
 
     const [exchanges] = React.useState(
-        ['all', 'crypto-com', 'gateio', 'coinbase', 'binance', 'kucoin']
+        ['all', 'crypto-com', 'gateio', 'binance']
     );
 
     const [totalExchange, setTotalExchange] = React.useState(0);
@@ -50,14 +50,17 @@ const Wallets = (props) => {
 
     // }
     // jwsTester();
+    React.useEffect(() => {
+        console.log('use effect wallets');
+        if (!AuthenticationService.isAuthenticated) {
+            console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
+            navigate("/login");
+            // return;
+        }
+
+    }, [navigate]);
 
 
-    if (!AuthenticationService.isAuthenticated) {
-        console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
-
-
-        navigate("/login");
-    }
 
 
     return (
