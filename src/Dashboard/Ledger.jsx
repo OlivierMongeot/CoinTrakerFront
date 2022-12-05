@@ -81,7 +81,7 @@ export default function Ledger(props) {
     const filtred = walletCustom.filter((tokenData) => {
       return tokenData.exchange === exchange;
     })
-    console.log(filtred);
+    console.log('filtred token add', filtred);
     return filtred;
   }
 
@@ -90,6 +90,7 @@ export default function Ledger(props) {
     console.log('before complete Data Wallet :  ', wallet)
     // Add custom data if exist  
     customTokenToAdd(exchange).map((element) => {
+      console.log("push", element);
       return wallet.push(element);
     });
     console.log('Wallet with custom coin', wallet);
@@ -206,7 +207,7 @@ export default function Ledger(props) {
           // return false;
           console.log('set wallet all from Local store');
           let walletLS = JSON.parse(localStorage.getItem('wallet-all'));
-          console.log('Wallet all from Local store: ', walletLS);
+          // console.log('Wallet all from Local store: ', walletLS);
           if (walletLS !== null) {
             setWallets(walletLS);
             props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));

@@ -67,7 +67,13 @@
 .display-grid-amount {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between
+}
+
+.display-grid-inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
 }
 
 

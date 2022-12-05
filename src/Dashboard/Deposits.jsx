@@ -16,13 +16,17 @@ export default function Deposits(props) {
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
         <div key={index} className="display-grid-amount">
+          <div className="display-grid-inline">
+            <Loader fontSize='30' exchange={wallet.exchange} />
+            <div>
+              {formatValues('camelise', wallet.exchange)}
+            </div>
+          </div>
+
 
           <div>
-            {formatValues('camelise', wallet.exchange)}
-          </div>
-          <div>
             <div className="price-loader-content">
-              <Loader fontSize='30' exchange={wallet.exchange} />
+              {/* <Loader fontSize='30' exchange={wallet.exchange} /> */}
               <div>
                 {Math.round(wallet.amount)} $
               </div>

@@ -149,9 +149,7 @@ const Customize = () => {
       return tok.label === token;
     })
 
-    // const tokenListCMCCurrencies = tokenListCMC.map((token) => {
-    //   return token.currency = token.symbol;
-    // })
+
     for (let index = 0; index < tokenListCMC.length; index++) {
       const element = tokenListCMC[index];
       element.currency = element.symbol
@@ -168,11 +166,6 @@ const Customize = () => {
     // add data id et price
     let wallet = [merge];
     console.log('arrayMerged', wallet);
-    // let wallet = await addCoinMarketCapIds(arrayMerged, exchange);
-
-    // wallet = await getPricesQuotesCMC(wallet, exchange);
-    // console.log('addCoinMarketCapIds new wallet', wallet);
-
 
     let tab = JSON.parse(localStorage.getItem('wallet-custom'));
     console.log('Tab before push ', tab)
@@ -188,7 +181,17 @@ const Customize = () => {
     setCustomWallet(tab);
   }
 
-
+  const onDelete = (e) => {
+    // console.log('event', e);
+    // console.log('event target ', e.currentTarget.getAttribute('index'));
+    let index = e.currentTarget.getAttribute('index');
+    let tab = JSON.parse(localStorage.getItem('wallet-custom'));
+    console.log(tab);
+    tab.splice(index, 1);
+    console.log(tab);
+    localStorage.setItem('wallet-custom', JSON.stringify(tab));
+    setCustomWallet(tab);
+  }
 
   React.useEffect(() => {
     console.log('use effect Customize');
@@ -287,9 +290,6 @@ const Customize = () => {
 
       </div >
 
-
-
-
       <React.Fragment>
 
         <Table className="table-wallet" >
@@ -311,7 +311,9 @@ const Customize = () => {
                   <TableCell align="right" className="table-row">  {wallet.balance}</TableCell>
                   <TableCell align="right" className="table-row">  {wallet.exchange}</TableCell>
                   <TableCell align="right" className="table-row">
-                    TdO
+                    <CustomButton
+                      onClick={onDelete} index={key}
+                    >X</CustomButton>
                   </TableCell>
                 </TableRow>
               ))}

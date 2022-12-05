@@ -12,9 +12,7 @@ import Container from '@mui/material/Container';
 import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
 import AuthenticationService from '../helpers/AuthService';
-// import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 
 
 
@@ -23,7 +21,7 @@ const Wallets = (props) => {
     const navigate = useNavigate();
 
     const [exchanges] = React.useState(
-        ['all', 'crypto-com', 'gateio', 'binance', 'kucoin']
+        ['all', 'crypto-com', 'gateio', 'binance', 'kucoin', 'coinbase']
     );
 
     const [totalExchange, setTotalExchange] = React.useState(0);

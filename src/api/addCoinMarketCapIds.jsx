@@ -54,13 +54,23 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
 
         case 'gateio':
           if ((token.symbol).toLowerCase() === (wallet[i].currency).toLowerCase()) {
+
+            // let balance =  parseFloat(wallet[i].available) ? parseFloat(wallet[i].available) : token.balance + parseFloat(wallet[i].locked);
+            // let balance = parseFloat(wallet[i].available) !== undefined ? parseFloat(wallet[i].available) : token.balance;
+            // // console.log('balance', token.balance);
+            // console.log('wallet[i].avail', wallet[i].available);
+            // console.log('wallet[i].balance for ' + token.symbol + ' = ', wallet[i].balance);
+            if ((wallet[i].available)) {
+              wallet[i].balance = parseFloat(wallet[i].available)
+            } else {
+              wallet[i].balance = parseFloat(wallet[i].balance)
+            }
             wallet[i].idCMC = token.id;
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
             wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
             wallet[i].name = token.name;
             wallet[i] = checkParticularName(wallet[i], token, exchange);
-            wallet[i].balance = parseFloat(wallet[i].available) + parseFloat(wallet[i].locked);
             wallet[i].exchange = exchange;
           }
           break;
