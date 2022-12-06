@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import shouldIUpdate from '../helpers/shouldIUpdate'
 import addCoinMarketCapQuote from '../api/getPricesQuoteCMC';
-import setupBalanceStorage from '../helpers/setupBalanceStorage';
+// import setupBalanceStorage from '../helpers/setupBalanceStorage';
 import addCoinMarketCapIds from '../api/addCoinMarketCapIds';
 import updateWalletAmountInLS from '../helpers/updateWalletAmountInLS';
 import setAndSaveTotalAllWallets from '../helpers/setAndSaveTotalAllWallets';
@@ -43,15 +43,15 @@ export default async function updateProcess(exchange, parentData, props, updateA
     return finalRes;
   }
 
-  const setTotalBalanceWallet = (wallet, exchange) => {
-    let totalBalance = 0;
-    for (let i = 0; i < wallet.length; i++) {
-      let value = parseFloat(wallet[i].balance) * wallet[i].live_price;
-      totalBalance += value;
-      wallet[i].dollarPrice = value;
-    }
-    setupBalanceStorage(exchange, totalBalance);
-  }
+  // const setTotalBalanceWallet = (wallet, exchange) => {
+  //   let totalBalance = 0;
+  //   for (let i = 0; i < wallet.length; i++) {
+  //     let value = parseFloat(wallet[i].balance) * wallet[i].live_price;
+  //     totalBalance += value;
+  //     wallet[i].dollarPrice = value;
+  //   }
+  //   setupBalanceStorage(exchange, totalBalance);
+  // }
 
   const addCustomToken = (exchange) => {
     // console.log('token custom to add ');
@@ -79,7 +79,7 @@ export default async function updateProcess(exchange, parentData, props, updateA
       wallet = await addCoinMarketCapIds(wallet, exchange);
       // console.log('after completed Data Wallet :  ', wallet)
       wallet = await addCoinMarketCapQuote(wallet, exchange);
-      setTotalBalanceWallet(wallet, exchange);
+      // setTotalBalanceWallet(wallet, exchange);
 
       return wallet;
     } else {
@@ -154,7 +154,7 @@ export default async function updateProcess(exchange, parentData, props, updateA
       if (data !== null) {
         let total = totalExchange(data);
         // console.log('props', props);
-        props.setTotalExchange(total);
+        // props.setTotalExchange(total);
         // Set Total In Local Storage 
         localStorage.setItem('total-' + exchange, JSON.stringify(total));
 
@@ -191,12 +191,12 @@ export default async function updateProcess(exchange, parentData, props, updateA
 
       if (updateAllWallets) {
 
-        props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+        // props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
         return JSON.parse(localStorage.getItem('wallet-all'));
 
       } else {
 
-        props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+        // props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
         return JSON.parse(localStorage.getItem('wallet-' + exchange));
       }
 

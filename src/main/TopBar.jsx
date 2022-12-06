@@ -44,7 +44,7 @@ export default function TopBar(props) {
 
   const theme = useTheme();
 
-  // console.log('props', props);
+  console.log('props Topbar', props);
   return (
     <AppBar position="absolute" open={props.open} >
       <Toolbar
@@ -87,10 +87,9 @@ export default function TopBar(props) {
 
 
 
-
         {/* <ColorModeContext.Consumer> */}
         <Tooltip title={'Toogle to ' + ((theme.palette.mode === 'dark') ? 'light' : 'dark') + ' mode'}>
-          <IconButton sx={{ ml: 1 }} onClick={props.colorMode} color="inherit">
+          <IconButton sx={{ ml: 1 }} onClick={() => props.colorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Tooltip>

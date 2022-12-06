@@ -20,7 +20,7 @@ export default function Wallet(props) {
 
   const [wallet, setWallet] = React.useState([]);
   const [exchangeName] = React.useState(props.exchange);
-
+  // const [totalExchange, setTotalExchange] = React.useState(0);
   let parentData = props.arrayAmountWallets;
   const exchangesEnable = props.exchanges;
 
@@ -75,7 +75,6 @@ export default function Wallet(props) {
     } else {
       navigate("/login");
     }
-
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

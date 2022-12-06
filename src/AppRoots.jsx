@@ -12,11 +12,8 @@ import SignUp from './components/SignUp';
 
 export default function AppRoots(props) {
 
-  let localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
-  let localStorageWalletsTotal = JSON.parse(localStorage.getItem('wallets-total'));
+
   const [open, setOpen] = React.useState(true);
-  const [totalAllWallet, setTotalAllWallet] = React.useState(localStorageWalletsTotal ? localStorageWalletsTotal : 0);
-  const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
   const page = props.page.area;
 
   const toggleDrawer = () => {
@@ -27,7 +24,9 @@ export default function AppRoots(props) {
 
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <TopBar open={open} toggleDrawer={toggleDrawer} props={props} colorMode={props.colorMode} />
+      <TopBar open={open} toggleDrawer={toggleDrawer} props={props}
+        colorMode={props.colorMode}
+      />
       <SideMenu open={open} toggleDrawer={toggleDrawer} />
 
       <Box
@@ -44,16 +43,7 @@ export default function AppRoots(props) {
       >
         <div className="space-line"></div>
 
-        {page === 'wallets' && (
-          <WalletsBoard
-            sx={{ height: '40vh' }}
-            setTotalAllWallet={setTotalAllWallet}
-            arrayAmountWallets={arrayAmountWallets}
-            setArrayAmountWallets={setArrayAmountWallets}
-            totalAllWallet={totalAllWallet}>
-          </WalletsBoard>
-        )
-        }
+        {page === 'wallets' && (<WalletsBoard></WalletsBoard>)}
         {page === 'home' && (<Home></Home>)}
         {page === 'login' && (<Login sx={{ height: '40vh' }}></Login>)}
         {page === 'registration' && (<SignUp></SignUp>)}

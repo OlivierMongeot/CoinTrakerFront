@@ -7,6 +7,7 @@ export default function TabWalletContent(props) {
 
   const exchanges = props.exchanges;
   const results = [];
+  // const [totalExchange, setTotalExchange] = React.useState(0);
 
   exchanges.forEach((exchange, index) => {
     // console.log('exchange', exchange);
@@ -18,7 +19,7 @@ export default function TabWalletContent(props) {
           arrayAmountWallets={props.arrayAmountWallets}
           setArrayAmountWallets={props.setArrayAmountWallets}
           setTotalAllWallet={props.setTotalAllWallet}
-          setTotalExchange={props.setTotalExchange}
+        // setTotalExchange={setTotalExchange}
         // setUpdatedAt={props.setUpdatedAt}
         />
       </TabPanel>

@@ -11,43 +11,41 @@ import TabWalletContent from '../Dashboard/TabWalletContent';
 import Container from '@mui/material/Container';
 import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
-import AuthenticationService from '../helpers/AuthService';
-import { useNavigate } from "react-router-dom";
+// import AuthenticationService from '../helpers/AuthService';
+// import { useNavigate } from "react-router-dom";
 
 
+const WalletsBoard = () => {
 
-const WalletsBoard = (props) => {
+    const localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
+    const localStorageWalletsTotal = JSON.parse(localStorage.getItem('wallets-total'));
 
-    const navigate = useNavigate();
-
+    const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
+    const [totalAllWallet, setTotalAllWallet] = React.useState(localStorageWalletsTotal ? localStorageWalletsTotal : 0);
     const [exchanges] = React.useState(
         ['all', 'crypto-com', 'gateio', 'binance', 'kucoin', 'coinbase']
     );
-
-    const [totalExchange, setTotalExchange] = React.useState(0);
-
+    // const [totalExchange, setTotalExchange] = React.useState(0);
     const [value, setValue] = React.useState('0');
 
     // const [updatedAt, setUpdatedAt] = React.useState(0)
-    // const [exchangeSelected, setExchangeSelected] = React.useState('all');
+
 
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        // setUpExchangeSelected(newValue);
-        // setExchangeSelected(exchanges[newValue]);
     };
 
 
     React.useEffect(() => {
+        // const navigate = useNavigate();
         console.log('use effect wallets');
-        if (!AuthenticationService.isAuthenticated) {
-            console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
-            navigate("/login");
-            // return;
-        }
+        // if (!AuthenticationService.isAuthenticated) {
+        //     console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
+        //     // navigate("/login");
+        // }
 
-    }, [navigate]);
+    }, []);
 
 
     return (
@@ -87,10 +85,10 @@ const WalletsBoard = (props) => {
 
                                         <TabWalletContent
                                             exchanges={exchanges}
-                                            arrayAmountWallets={props.arrayAmountWallets}
-                                            setArrayAmountWallets={props.setArrayAmountWallets}
-                                            setTotalAllWallet={props.setTotalAllWallet}
-                                            setTotalExchange={setTotalExchange}
+                                            arrayAmountWallets={arrayAmountWallets}
+                                            setArrayAmountWallets={setArrayAmountWallets}
+                                            setTotalAllWallet={setTotalAllWallet}
+                                        // setTotalExchange={setTotalExchange}
                                         // setUpdatedAt={setUpdatedAt}
                                         />
                                     </TabContext>
@@ -103,14 +101,14 @@ const WalletsBoard = (props) => {
                 <Grid item xs={12} md={2} lg={4} sx={{ display: "flex", flexDirection: 'column' }}>
 
                     <Paper
-                        sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px' }}>
+                        sx={{ p: 2, height: 200, marginTop: 1, flex: '1 1' }}>
+                        <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
+                    </Paper>
+                    <Paper
+                        sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px', mt: 2 }}>
                         <Chart />
                     </Paper>
 
-                    <Paper
-                        sx={{ p: 2, height: 200, marginTop: 2, flex: '1 1' }}>
-                        <Deposits totalAllWallet={props.totalAllWallet} arrayAmountWallets={props.arrayAmountWallets} />
-                    </Paper>
 
                     <Paper
                         sx={{ p: 2, flex: '2 1', height: "auto", marginTop: 2 }}>

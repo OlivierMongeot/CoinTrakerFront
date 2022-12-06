@@ -3,12 +3,10 @@ import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../helpers/formatValues'
 import Loader from '../helpers/Loader';
-// import { width } from '@mui/system';
 import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
 
 export default function Deposits(props) {
-
 
   useEffect(() => {
 
@@ -19,15 +17,10 @@ export default function Deposits(props) {
       // Make update force 
     };
 
-
-
     const elements = document.querySelectorAll('.display-grid-inline');
-    // console.log(elements);
 
-    // element.addEventListener('click', handleClick);
     elements.forEach((element) => {
       element.addEventListener('click', handleClick);
-
     })
 
     return () => {
@@ -37,10 +30,9 @@ export default function Deposits(props) {
     };
   }, []);
 
-  // console.log(props);
+
   return (
     <React.Fragment>
-
 
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
@@ -52,7 +44,6 @@ export default function Deposits(props) {
             </div>
           </div>
 
-
           <div>
             <div className="price-loader-content">
               {/* <Loader fontSize='30' exchange={wallet.exchange} /> */}
@@ -62,7 +53,6 @@ export default function Deposits(props) {
             </div>
           </div>
         </div>
-
       )
       )}
       <Divider light />
