@@ -17,7 +17,6 @@ export default function Deposits(props) {
       const exchange = $event.target.outerText;
       console.log('exchange click ', exchange);
       // Make update force 
-
     };
 
 

@@ -41,7 +41,7 @@ export default function SignIn() {
       .then(res => {
         // console.log(res.data);
         if (res.data.token) {
-          console.log(res.data);
+          // console.log(res.data);
           // console.log(res.data.token);
           // set token in localStorage
           const user = {

@@ -1,13 +1,13 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 import Paper from '@mui/material/Paper';
-import Title from '../Dashboard/Title';
+// import Title from '../Dashboard/Title';
 import Grid from '@mui/material/Grid';
 import TabWalletsTitle from '../Dashboard/TabWalletsTitle';
 import TabWalletContent from '../Dashboard/TabWalletContent';
-import formatValues from '../helpers/formatValues';
+// import formatValues from '../helpers/formatValues';
 import Container from '@mui/material/Container';
 import Chart from '../Dashboard/Chart';
 import Deposits from '../Dashboard/Deposits';
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const Wallets = (props) => {
+const WalletsBoard = (props) => {
 
     const navigate = useNavigate();
 
@@ -28,14 +28,14 @@ const Wallets = (props) => {
 
     const [value, setValue] = React.useState('0');
 
-    const [updatedAt, setUpdatedAt] = React.useState(0)
-    const [exchangeSelected, setExchangeSelected] = React.useState('all');
+    // const [updatedAt, setUpdatedAt] = React.useState(0)
+    // const [exchangeSelected, setExchangeSelected] = React.useState('all');
 
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         // setUpExchangeSelected(newValue);
-        setExchangeSelected(exchanges[newValue]);
+        // setExchangeSelected(exchanges[newValue]);
     };
 
 
@@ -48,8 +48,6 @@ const Wallets = (props) => {
         }
 
     }, [navigate]);
-
-
 
 
     return (
@@ -65,14 +63,13 @@ const Wallets = (props) => {
                             <Paper sx={{ p: 2 }}>
                                 <Box id="box-wallet" sx={{ width: '100%', height: '100%', typography: 'body1' }}>
 
-
                                     <TabContext value={value} >
 
                                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
 
                                             <TabWalletsTitle exchanges={exchanges} handleChange={handleChange} />
 
-                                            {exchangeSelected !== 'all' && (
+                                            {/* {exchangeSelected !== 'all' && (
                                                 <Title>
                                                     <div className='display-top-table'>
                                                         <span className="title-wallet"></span>
@@ -84,7 +81,7 @@ const Wallets = (props) => {
 
                                                     </div>
                                                 </Title>
-                                            )}
+                                            )} */}
 
                                         </Box>
 
@@ -94,7 +91,7 @@ const Wallets = (props) => {
                                             setArrayAmountWallets={props.setArrayAmountWallets}
                                             setTotalAllWallet={props.setTotalAllWallet}
                                             setTotalExchange={setTotalExchange}
-                                            setUpdatedAt={setUpdatedAt}
+                                        // setUpdatedAt={setUpdatedAt}
                                         />
                                     </TabContext>
                                 </Box>
@@ -125,4 +122,4 @@ const Wallets = (props) => {
     );
 };
 
-export default Wallets;
+export default WalletsBoard;

@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import SideMenu from './main/SideMenu';
 import TopBar from './main/TopBar';
-import Wallets from './pages/Wallets';
+import WalletsBoard from './pages/WalletsBoard';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Customize from './pages/Customize';
@@ -45,13 +45,13 @@ export default function AppRoots(props) {
         <div className="space-line"></div>
 
         {page === 'wallets' && (
-          <Wallets
+          <WalletsBoard
             sx={{ height: '40vh' }}
             setTotalAllWallet={setTotalAllWallet}
             arrayAmountWallets={arrayAmountWallets}
             setArrayAmountWallets={setArrayAmountWallets}
             totalAllWallet={totalAllWallet}>
-          </Wallets>
+          </WalletsBoard>
         )
         }
         {page === 'home' && (<Home></Home>)}
