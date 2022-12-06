@@ -79,7 +79,7 @@
 
 
 /*  Loader spinner Btn */
-#container-spinner> {
+.container-spinner> {
   position: relative !important;
   transform-origin: center;
 
@@ -95,9 +95,13 @@
   align-items: center;
 }
 
+
+
+
 .update-btn.hide {
   display: none;
 }
+
 
 
 @-moz-keyframes spin {

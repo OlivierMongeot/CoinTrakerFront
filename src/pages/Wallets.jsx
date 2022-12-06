@@ -39,15 +39,6 @@ const Wallets = (props) => {
     };
 
 
-    // TokenService();
-    // const isItUserKey = TokenService();
-    // let isItUserKey = localStorage.getItem('user');
-    // if (isItUserKey !== null) {
-    //     // Check if token is allways enable
-    //     // try make a cal api 
-
-    // }
-    // jwsTester();
     React.useEffect(() => {
         console.log('use effect wallets');
         if (!AuthenticationService.isAuthenticated) {

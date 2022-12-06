@@ -16,10 +16,10 @@ import updateWalletAmountInLS from '../helpers/updateWalletAmountInLS';
 import setAndSaveTotalAllWallets from '../helpers/setAndSaveTotalAllWallets';
 import rotateSpinner from '../helpers/rotateSpinner';
 import stopSpinner from '../helpers/stopSpinner';
-// import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import AuthenticationService from '../helpers/AuthService';
+
 
 export default function Ledger(props) {
 
@@ -30,6 +30,7 @@ export default function Ledger(props) {
   const exchangesEnable = props.exchanges;
 
   const navigate = useNavigate();
+
 
   const totalExchange = (result) => {
     // Calcul le total pour les props
@@ -44,72 +45,79 @@ export default function Ledger(props) {
 
   }
 
-  const updateGeneralWallet = (newExchangeData, exchange) => {
-    console.log('updateGeneralWallet ');
-    let currentGeneralWallet = JSON.parse(localStorage.getItem('wallet-all'));
-    console.log('currentGeneralWallet ', currentGeneralWallet);
-    if (currentGeneralWallet === null) {
-      localStorage.setItem('wallet-all', JSON.stringify(newExchangeData));
-      return newExchangeData;
-    }
-
-    // Suprime les ancienne data de l'echange en cours d'update
-    let newDatafilterd = currentGeneralWallet.filter((element) => element.exchange !== exchange);
-    let finalRes = newDatafilterd.concat(newExchangeData);
-    console.log('update General Wallet finalRes', finalRes);
-    localStorage.setItem('wallet-all', JSON.stringify(finalRes));
-    return finalRes;
-  }
-
-  const setTotalBalanceWallet = (wallet, exchange) => {
-    let totalBalance = 0;
-    for (let i = 0; i < wallet.length; i++) {
-      let value = parseFloat(wallet[i].balance) * wallet[i].live_price;
-      totalBalance += value;
-      wallet[i].dollarPrice = value;
-    }
-    setupBalanceStorage(exchange, totalBalance);
-  }
-
-  const customTokenToAdd = (exchange) => {
-    console.log('token custom to add ');
-    const walletCustom = JSON.parse(localStorage.getItem('wallet-custom'));
-    if (walletCustom === null) {
-      return [];
-    }
-    // recupere les token de l'exchange
-    const filtred = walletCustom.filter((tokenData) => {
-      return tokenData.exchange === exchange;
-    })
-    console.log('filtred token add', filtred);
-    return filtred;
-  }
-
-
-  const completeDataWallet = async (wallet, exchange) => {
-    console.log('before complete Data Wallet :  ', wallet)
-    // Add custom data if exist  
-    customTokenToAdd(exchange).map((element) => {
-      console.log("push", element);
-      return wallet.push(element);
-    });
-    console.log('Wallet with custom coin', wallet);
-
-    if (wallet.length > 0) {
-      wallet = await addCoinMarketCapIds(wallet, exchange);
-      console.log('after completed Data Wallet :  ', wallet)
-      wallet = await addCoinMarketCapQuote(wallet, exchange);
-      setTotalBalanceWallet(wallet, exchange);
-
-      return wallet;
-    } else {
-      return false;
-    }
-  }
-
 
   async function updateProcess(exchange, parentData, props, updateAllWallets, force = false) {
     console.log('update process', exchange);
+
+
+
+    const updateGeneralWallet = (newExchangeData, exchange) => {
+      console.log('updateGeneralWallet ');
+      let currentGeneralWallet = JSON.parse(localStorage.getItem('wallet-all'));
+      // console.log('currentGeneralWallet ', currentGeneralWallet);
+      if (currentGeneralWallet === null) {
+        localStorage.setItem('wallet-all', JSON.stringify(newExchangeData));
+        return newExchangeData;
+      }
+
+      // Suprime les ancienne data de l'echange en cours d'update
+      let newDatafilterd = currentGeneralWallet.filter((element) => element.exchange !== exchange);
+      let finalRes = newDatafilterd.concat(newExchangeData);
+      // console.log('update General Wallet finalRes', finalRes);
+      localStorage.setItem('wallet-all', JSON.stringify(finalRes));
+      return finalRes;
+    }
+
+    const setTotalBalanceWallet = (wallet, exchange) => {
+      let totalBalance = 0;
+      for (let i = 0; i < wallet.length; i++) {
+        let value = parseFloat(wallet[i].balance) * wallet[i].live_price;
+        totalBalance += value;
+        wallet[i].dollarPrice = value;
+      }
+      setupBalanceStorage(exchange, totalBalance);
+    }
+
+
+
+    const customTokenToAdd = (exchange) => {
+      console.log('token custom to add ');
+      const walletCustom = JSON.parse(localStorage.getItem('wallet-custom'));
+      if (walletCustom === null) {
+        return [];
+      }
+      // recupere les token de l'exchange
+      const filtred = walletCustom.filter((tokenData) => {
+        return tokenData.exchange === exchange;
+      })
+      console.log('filtred token add', filtred);
+      return filtred;
+    }
+
+
+
+    const completeDataWallet = async (wallet, exchange) => {
+      // console.log('before complete Data Wallet :  ', wallet)
+      // Add custom data if exist  
+      customTokenToAdd(exchange).map((element) => {
+        console.log("push", element);
+        return wallet.push(element);
+      });
+      // console.log('Wallet with custom coin', wallet);
+
+      if (wallet.length > 0) {
+        wallet = await addCoinMarketCapIds(wallet, exchange);
+        // console.log('after completed Data Wallet :  ', wallet)
+        wallet = await addCoinMarketCapQuote(wallet, exchange);
+        setTotalBalanceWallet(wallet, exchange);
+
+        return wallet;
+      } else {
+        return false;
+      }
+    }
+
+
 
 
     let shoudIUpdate = null;
@@ -252,7 +260,8 @@ export default function Ledger(props) {
           for (let i = 0; i < exchangesEnable.length; i++) {
             if (exchangesEnable[i] !== 'all') {
               console.log(exchangesEnable[i])
-              updateProcess(exchangesEnable[i], parentData, props, true);
+              let resultProccess = updateProcess(exchangesEnable[i], parentData, props, true);
+              console.log('update Process return : ', resultProccess);
             }
           }
           let res = JSON.parse(localStorage.getItem('wallet-all'));
@@ -267,6 +276,8 @@ export default function Ledger(props) {
           break;
       }
 
+    } else {
+      navigate("/login");
     }
 
 

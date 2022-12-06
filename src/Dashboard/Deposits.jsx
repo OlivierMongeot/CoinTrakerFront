@@ -5,32 +5,35 @@ import formatValues from '../helpers/formatValues'
 import Loader from '../helpers/Loader';
 // import { width } from '@mui/system';
 import Divider from '@mui/material/Divider';
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function Deposits(props) {
 
-  const ref = useRef(null);
 
   useEffect(() => {
 
-    const handleClick = event => {
-      console.log('Button over');
-      // const spinners = document.querySelectorAll('.spinner-loader');
-      console.log(event.target);
+    const handleClick = $event => {
+
+      const exchange = $event.target.outerText;
+      console.log('exchange click ', exchange);
+      // Make update force 
 
     };
 
+
+
     const elements = document.querySelectorAll('.display-grid-inline');
-    console.log(elements);
+    // console.log(elements);
 
     // element.addEventListener('click', handleClick);
     elements.forEach((element) => {
-      element.addEventListener('mouseover', handleClick);
+      element.addEventListener('click', handleClick);
+
     })
 
     return () => {
       elements.forEach((element) => {
-        element.removeEventListener('mouseover', handleClick);
+        element.removeEventListener('click', handleClick);
       })
     };
   }, []);
@@ -77,15 +80,9 @@ export default function Deposits(props) {
           ${formatValues('price', props.totalAllWallet)}
         </Typography>
 
-        {/* <Typography color="text.secondary" sx={{ flex: 1 }}>
-        </Typography> */}
+
       </div>
 
-      {/* <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View details balance
-        </Link>
-      </div> */}
 
     </React.Fragment >
   );

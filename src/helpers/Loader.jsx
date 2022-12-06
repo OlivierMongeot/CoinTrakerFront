@@ -9,7 +9,7 @@ export default function Loader(props) {
   let id = 'wallet-spinner-' + props.exchange
 
   return (
-    <div id="container-spinner" >
+    <div className="container-spinner" >
       <div
         className='update-btn hide'
         id={id}
