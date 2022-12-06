@@ -20,16 +20,21 @@ import { useNavigate } from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import AuthenticationService from '../helpers/AuthService';
 
+// import updateProcess from '../api/updateProcess';
 
 export default function Ledger(props) {
+
+  const navigate = useNavigate();
+
+  if (!AuthenticationService.isAuthenticated) {
+    navigate("/login");
+  }
 
   const [wallets, setWallets] = React.useState([]);
   const [exchangeName] = React.useState(props.exchange);
 
   let parentData = props.arrayAmountWallets;
   const exchangesEnable = props.exchanges;
-
-  const navigate = useNavigate();
 
 
   const totalExchange = (result) => {
@@ -42,17 +47,14 @@ export default function Ledger(props) {
     let total = arrayTotalExchange.reduce((acc, val) => acc + val, 0)
     // console.log('Updated total exchange', total);
     return total;
-
   }
 
-
   async function updateProcess(exchange, parentData, props, updateAllWallets, force = false) {
-    console.log('update process', exchange);
 
-
+    console.log('Update process', exchange);
 
     const updateGeneralWallet = (newExchangeData, exchange) => {
-      console.log('updateGeneralWallet ');
+      // console.log('updateGeneralWallet ');
       let currentGeneralWallet = JSON.parse(localStorage.getItem('wallet-all'));
       // console.log('currentGeneralWallet ', currentGeneralWallet);
       if (currentGeneralWallet === null) {
@@ -78,10 +80,8 @@ export default function Ledger(props) {
       setupBalanceStorage(exchange, totalBalance);
     }
 
-
-
-    const customTokenToAdd = (exchange) => {
-      console.log('token custom to add ');
+    const addCustomToken = (exchange) => {
+      // console.log('token custom to add ');
       const walletCustom = JSON.parse(localStorage.getItem('wallet-custom'));
       if (walletCustom === null) {
         return [];
@@ -90,17 +90,14 @@ export default function Ledger(props) {
       const filtred = walletCustom.filter((tokenData) => {
         return tokenData.exchange === exchange;
       })
-      console.log('filtred token add', filtred);
+      // console.log('filtred token add', filtred);
       return filtred;
     }
 
-
-
     const completeDataWallet = async (wallet, exchange) => {
       // console.log('before complete Data Wallet :  ', wallet)
-      // Add custom data if exist  
-      customTokenToAdd(exchange).map((element) => {
-        console.log("push", element);
+      addCustomToken(exchange).map((element) => {
+        // console.log("push", element);
         return wallet.push(element);
       });
       // console.log('Wallet with custom coin', wallet);
@@ -118,15 +115,33 @@ export default function Ledger(props) {
     }
 
 
+    const getFetch = async (url, jws) => {
+      console.log('fetch');
+      try {
+        const result = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'authorization': jws
+          }
+        })
+        if (!result) {
+          console.log(result);
+          console.log(result.status);
+          toast('Token is expired : please login');
+          throw new Error('no data : check token pls ' + result.data);
+        }
+        return result.json();
 
+      } catch (error) {
+        console.log('catch error');
+        toast('http error : check your connection');
+        throw new Error("HTTP error " + error.message);
+      }
+    }
 
     let shoudIUpdate = null;
+    force === false ? shoudIUpdate = shouldIUpdate(exchange) : shoudIUpdate = true;
 
-    if (force === false) {
-      shoudIUpdate = shouldIUpdate(exchange)
-    } else {
-      shoudIUpdate = true;
-    }
 
     switch (shoudIUpdate) {
 
@@ -134,117 +149,90 @@ export default function Ledger(props) {
         rotateSpinner(exchange, parentData);
         // let rowResult = await apiCall(exchange);
         console.log('API CALL');
-        let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
         let user = JSON.parse(localStorage.getItem('user'));
-        let jws = user.token;
-        // console.log('token used for connection', jws);
-
-        fetch(url, {
-          method: 'GET',
-          headers: {
-            'authorization': jws
-          }
-        }).then((response) => response.json())
-
-          .then((data) => {
-            console.log('Success:', data);
-
-            if (data.data && data.data.message === 'jwt expired') {
-              toast("Token expired ! Please log in ");
-              stopSpinner(exchange, parentData);
-              console.log('redirect');
-              navigate("/login");
-              return 'token-expired';
-            }
-
-
-            completeDataWallet(data, exchange)
-              .then((data) => {
-                console.log('completeData after for ' + exchange, data);
-                let result = data;
-                if (result) {
-                  let total = totalExchange(result);
-                  // console.log('props', props);
-                  props.setTotalExchange(total);
-                  // Set Total In Local Storage 
-                  localStorage.setItem('total-' + exchange, JSON.stringify(total));
-
-                  updateWalletAmountInLS(parentData, exchange, total);
-
-                  setAndSaveTotalAllWallets(parentData, props);
-
-                  localStorage.setItem('wallet-' + exchange, JSON.stringify(result));
-
-                  if (updateAllWallets === false) {
-
-                    console.log('display one wallet');
-
-                    // Traitement du wallet general 
-                    updateGeneralWallet(result, exchange);
-                    console.log('set Wallet ', result);
-                    setWallets(result);
-                    props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
-
-                  } else if (updateAllWallets === true) {
-
-                    console.log('display all wallet');
-                    let allWallet = updateGeneralWallet(result, exchange);
-
-                    setWallets(allWallet);
-                  }
-                  stopSpinner(exchange, parentData);
-                } else {
-                  // If no result
-                  stopSpinner(exchange, parentData);
-                  // alert('this gestion is todo : Ledger ligne 146');
-                  return false;
-                }
-
-              })
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            return error;
-          });
-        break;
-
-
-      case false:
-        // No update : take info from LS
-        if (updateAllWallets) {
-          // return false;
-          console.log('set wallet all from Local store');
-          let walletLS = JSON.parse(localStorage.getItem('wallet-all'));
-          // console.log('Wallet all from Local store: ', walletLS);
-          if (walletLS !== null) {
-            setWallets(walletLS);
-            props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
-          } else {
-
-            // update all 
-          }
-
-
+        let jws = null;
+        if (user && user.token) {
+          jws = user.token;
         } else {
+          console.log('no user in ls');
+          return 'no-user';
+        }
 
-          console.log('set wallet ' + exchange + ' from Local store');
+        // TODO if no user 
 
-          const simpleWallet = JSON.parse(localStorage.getItem('wallet-' + exchange));
-          console.log('Start Array', simpleWallet);
+        let result = await getFetch("http://192.168.0.46:4000/" + exchange + "/wallet", jws);
+        let data = null;
 
-          setWallets(simpleWallet);
+        if (result.data && result.data.name === 'TokenExpiredError') {
+          console.log('message ', result.data.name)
+          toast("Token expired ! Please log in ");
+          stopSpinner(exchange, parentData);
+          AuthenticationService.isAuthenticated = false;
+          return 'TokenExpiredError';
 
-          props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+        } else if (result) {
+          data = await completeDataWallet(result, exchange)
+        } else {
+          toast("No connection");
+        }
+
+        // console.log('data ', data)
+
+        if (data !== null) {
+          let total = totalExchange(data);
+          // console.log('props', props);
+          props.setTotalExchange(total);
+          // Set Total In Local Storage 
+          localStorage.setItem('total-' + exchange, JSON.stringify(total));
+
+          updateWalletAmountInLS(parentData, exchange, total);
+
+          setAndSaveTotalAllWallets(parentData, props);
+
+          localStorage.setItem('wallet-' + exchange, JSON.stringify(data));
+
+          stopSpinner(exchange, parentData);
+          switch (updateAllWallets) {
+            case false:
+              updateGeneralWallet(data, exchange);
+              // console.log('set Wallet ', data);
+              // setWallets(data);
+              return data;
+            // props.setUpdatedAt(formatValues('timestamp', result[0].timestamp));
+            // break;
+
+            default:
+              // console.log('display all wallet');
+              let allWallet = updateGeneralWallet(data, exchange);
+              // setWallets(allWallet);
+              return allWallet;
+            // break;
+          }
+
         }
 
         break;
+
+      // No update : take info from LocalStorage
+      case false:
+
+        if (updateAllWallets) {
+
+          props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+          return JSON.parse(localStorage.getItem('wallet-all'));
+
+        } else {
+
+          props.setTotalExchange(JSON.parse(localStorage.getItem('total-' + exchange)));
+          return JSON.parse(localStorage.getItem('wallet-' + exchange));
+        }
+
       default:
+        // Nothing
         break;
 
     }
-
   }
-
 
 
 
@@ -252,27 +240,45 @@ export default function Ledger(props) {
 
     console.log('_____________________________')
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
-    console.log('isAuthenticated ', AuthenticationService.isAuthenticated)
+
     if (AuthenticationService.isAuthenticated) {
 
       switch (exchangeName) {
         case 'all':
           for (let i = 0; i < exchangesEnable.length; i++) {
             if (exchangesEnable[i] !== 'all') {
-              console.log(exchangesEnable[i])
-              let resultProccess = updateProcess(exchangesEnable[i], parentData, props, true);
-              console.log('update Process return : ', resultProccess);
+              updateProcess(exchangesEnable[i], parentData, props, true)
+                .then(
+                  (data) => {
+                    if (data === 'TokenExpiredError') {
+                      navigate("/login");
+                      return;
+                    } else if (data === 'no-user') {
+                      navigate("/login");
+                      return;
+                    }
+
+                    setWallets(data);
+                  }
+                )
             }
           }
-          let res = JSON.parse(localStorage.getItem('wallet-all'));
-          setWallets(res);
-          let total = totalExchange(res);
-          props.setTotalExchange(total);
-
           break;
 
         default:
-          updateProcess(exchangeName, parentData, props, false);
+          updateProcess(exchangeName, parentData, props, false)
+            .then(
+              (data) => {
+                if (data === 'TokenExpiredError') {
+                  navigate("/login");
+                  return;
+                } else if (data === 'no-user') {
+                  navigate("/login");
+                  return;
+                }
+                setWallets(data);
+              }
+            )
           break;
       }
 
