@@ -34,14 +34,13 @@ export default function SignIn() {
     };
 
 
-
-    console.log(data);
+    console.log(data.email);
     let url = "http://192.168.0.46:4000";
     axios.post(url + '/login', data)
       .then(res => {
         // console.log(res.data);
         if (res.data.token) {
-          console.log(res.data);
+          // console.log(res.data);
           // console.log(res.data.token);
           // set token in localStorage
           const user = {

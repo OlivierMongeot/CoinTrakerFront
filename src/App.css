@@ -67,13 +67,19 @@
 .display-grid-amount {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between
+}
+
+.display-grid-inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
 }
 
 
 
 /*  Loader spinner Btn */
-#container-spinner> {
+.container-spinner> {
   position: relative !important;
   transform-origin: center;
 
@@ -89,9 +95,13 @@
   align-items: center;
 }
 
+
+
+
 .update-btn.hide {
   display: none;
 }
+
 
 
 @-moz-keyframes spin {
@@ -122,4 +132,12 @@
 .logo-market {
   width: 25px;
   height: 25px;
+}
+
+.red-btn {
+  background-color: brown !important;
+}
+
+.red-btn:hover {
+  background-color: rgb(206, 175, 175);
 }

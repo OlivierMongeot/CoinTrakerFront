@@ -3,33 +3,56 @@ import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../helpers/formatValues'
 import Loader from '../helpers/Loader';
-// import { width } from '@mui/system';
 import Divider from '@mui/material/Divider';
-
+import { useEffect } from 'react';
 
 export default function Deposits(props) {
-  // console.log(props);
+
+  useEffect(() => {
+
+    const handleClick = $event => {
+
+      const exchange = $event.target.outerText;
+      console.log('exchange click ', exchange);
+      // Make update force 
+    };
+
+    const elements = document.querySelectorAll('.display-grid-inline');
+
+    elements.forEach((element) => {
+      element.addEventListener('click', handleClick);
+    })
+
+    return () => {
+      elements.forEach((element) => {
+        element.removeEventListener('click', handleClick);
+      })
+    };
+  }, []);
+
+
   return (
     <React.Fragment>
-
 
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
         <div key={index} className="display-grid-amount">
+          <div className="display-grid-inline">
+            <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' />
+            <div>
+              {formatValues('camelise', wallet.exchange)}
+            </div>
+          </div>
 
           <div>
-            {formatValues('camelise', wallet.exchange)}
-          </div>
-          <div>
             <div className="price-loader-content">
-              <Loader fontSize='30' exchange={wallet.exchange} />
+              {/* <Loader fontSize='30' exchange={wallet.exchange} /> */}
               <div>
                 {Math.round(wallet.amount)} $
               </div>
             </div>
           </div>
         </div>
-
       )
       )}
       <Divider light />
@@ -46,15 +69,9 @@ export default function Deposits(props) {
           ${formatValues('price', props.totalAllWallet)}
         </Typography>
 
-        {/* <Typography color="text.secondary" sx={{ flex: 1 }}>
-        </Typography> */}
+
       </div>
 
-      {/* <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View details balance
-        </Link>
-      </div> */}
 
     </React.Fragment >
   );

@@ -2,6 +2,11 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRoots from './AppRoots'
 
+// export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+
+
+export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+
 
 function ThemeContent(props) {
 
@@ -10,7 +15,7 @@ function ThemeContent(props) {
   const [mode, setMode] = React.useState(
     (localStorage.getItem('colorMode')) ?
       JSON.parse(localStorage.getItem('colorMode')) :
-      'dark');
+      'light');
 
 
   const colorMode = React.useMemo(
@@ -34,14 +39,13 @@ function ThemeContent(props) {
 
 
   return (
-    // <ColorModeContext.Provider value={colorMode}>
+
     <ThemeProvider theme={theme}>
-
-      <AppRoots page={page} colorMode={colorMode} mode={mode} />
-
-
+      <ColorModeContext.Provider value={colorMode}>
+        <AppRoots page={page} mode={mode} />
+      </ColorModeContext.Provider >
     </ThemeProvider >
-    // </ColorModeContext.Provider >
+
   );
 }
 

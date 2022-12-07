@@ -24,7 +24,6 @@ const checkParticularName = (walletElement, token, exchange) => {
       }
       break;
     default:
-
       break;
   }
   return walletElement;
@@ -54,13 +53,18 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
 
         case 'gateio':
           if ((token.symbol).toLowerCase() === (wallet[i].currency).toLowerCase()) {
+
+            if ((wallet[i].available)) {
+              wallet[i].balance = parseFloat(wallet[i].available)
+            } else {
+              wallet[i].balance = parseFloat(wallet[i].balance)
+            }
             wallet[i].idCMC = token.id;
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
             wallet[i].urlLogo = seturlLogo(token.symbol, token.id);
             wallet[i].name = token.name;
             wallet[i] = checkParticularName(wallet[i], token, exchange);
-            wallet[i].balance = parseFloat(wallet[i].available) + parseFloat(wallet[i].locked);
             wallet[i].exchange = exchange;
           }
           break;

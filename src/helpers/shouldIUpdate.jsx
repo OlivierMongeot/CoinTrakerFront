@@ -12,7 +12,7 @@ const shouldIUpdateFromAPI = (exchangeName) => {
       console.log('Wallet vide Trouvé en local Store');
       return false;
     }
-    console.log('Wallet  ' + exchangeName + ' in LocalStorage for');
+    // console.log('Wallet  ' + exchangeName + ' in LocalStorage');
 
     if (walletLocalStorage.length > 0) {
 

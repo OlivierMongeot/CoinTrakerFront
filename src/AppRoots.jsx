@@ -3,33 +3,32 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import SideMenu from './main/SideMenu';
 import TopBar from './main/TopBar';
-import Wallets from './pages/Wallets';
+import WalletsBoard from './pages/WalletsBoard';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Customize from './pages/Customize';
 import SignUp from './components/SignUp';
 
 
+
 export default function AppRoots(props) {
 
-  let localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
-  let localStorageWalletsTotal = JSON.parse(localStorage.getItem('wallets-total'));
   const [open, setOpen] = React.useState(true);
-  const [totalAllWallet, setTotalAllWallet] = React.useState(localStorageWalletsTotal ? localStorageWalletsTotal : 0);
-  const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
   const page = props.page.area;
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  // const theme = useTheme();
+
   return (
 
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <TopBar open={open} toggleDrawer={toggleDrawer} props={props} colorMode={props.colorMode} />
+      <TopBar open={open} toggleDrawer={toggleDrawer}
+      />
       <SideMenu open={open} toggleDrawer={toggleDrawer} />
-
       <Box
         component="main"
         sx={{
@@ -44,16 +43,7 @@ export default function AppRoots(props) {
       >
         <div className="space-line"></div>
 
-        {page === 'wallets' && (
-          <Wallets
-            sx={{ height: '40vh' }}
-            setTotalAllWallet={setTotalAllWallet}
-            arrayAmountWallets={arrayAmountWallets}
-            setArrayAmountWallets={setArrayAmountWallets}
-            totalAllWallet={totalAllWallet}>
-          </Wallets>
-        )
-        }
+        {page === 'wallets' && (<WalletsBoard></WalletsBoard>)}
         {page === 'home' && (<Home></Home>)}
         {page === 'login' && (<Login sx={{ height: '40vh' }}></Login>)}
         {page === 'registration' && (<SignUp></SignUp>)}
