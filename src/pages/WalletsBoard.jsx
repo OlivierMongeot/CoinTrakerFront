@@ -5,12 +5,12 @@ import TabContext from '@mui/lab/TabContext';
 import Paper from '@mui/material/Paper';
 // import Title from '../Dashboard/Title';
 import Grid from '@mui/material/Grid';
-import TabWalletsTitle from '../Dashboard/TabWalletsTitle';
-import TabWalletContent from '../Dashboard/TabWalletContent';
+import TabWalletsTitle from '../components/Wallets/TabWalletsTitle';
+import TabWalletContent from '../components/Wallets/TabWalletContent';
 // import formatValues from '../helpers/formatValues';
 import Container from '@mui/material/Container';
-import Chart from '../Dashboard/Chart';
-import Deposits from '../Dashboard/Deposits';
+import Chart from '../components/Wallets/Chart';
+import Deposits from '../components/Wallets/Deposits';
 // import AuthenticationService from '../helpers/AuthService';
 // import { useNavigate } from "react-router-dom";
 

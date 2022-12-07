@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TabPanel from '@mui/lab/TabPanel';
-import Wallet from './Ledger';
+import Wallet from './Wallet';
 
 
 export default function TabWalletContent(props) {
@@ -19,8 +19,6 @@ export default function TabWalletContent(props) {
           arrayAmountWallets={props.arrayAmountWallets}
           setArrayAmountWallets={props.setArrayAmountWallets}
           setTotalAllWallet={props.setTotalAllWallet}
-        // setTotalExchange={setTotalExchange}
-        // setUpdatedAt={props.setUpdatedAt}
         />
       </TabPanel>
     );

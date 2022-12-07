@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const PourcentFormater = (props) => {
+const pourcentFormater = (props) => {
   if (props.value) {
     const value = (props.value).toFixed(2);
     return (
@@ -12,4 +12,4 @@ const PourcentFormater = (props) => {
 
 };
 
-export default PourcentFormater;
+export default pourcentFormater;

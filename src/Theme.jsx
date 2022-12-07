@@ -2,8 +2,6 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRoots from './AppRoots'
 
-// export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
-
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 

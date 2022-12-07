@@ -1,6 +1,6 @@
 
 
-const BigNumberFormater = (props) => {
+const bigNumberFormater = (props) => {
   if (props.value) {
     let number = props.value;
 
@@ -20,9 +20,5 @@ const BigNumberFormater = (props) => {
 
 };
 
-export default BigNumberFormater;
+export default bigNumberFormater;
 
-// 10 000        Dix mille
-// 100 000       Cent Mille
-// 1 000 000     1 Million
-// 1000 000 000  1 Milliard

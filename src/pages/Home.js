@@ -1,23 +1,16 @@
 import React from 'react';
 // import HeaderInfos from '../components/HeaderInfos';
 import axios from 'axios';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell from '@mui/material/TableCell';
-// import TableHead from '@mui/material/TableHead';
-// import TableRow from '@mui/material/TableRow'
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Chart from '../Dashboard/Chart';
-// import formatValues from '../helpers/formatValues';
-// import { width } from '@mui/system';
+import Chart from '../Wallets/Chart';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Logo from '../components/Logo';
-import PourcentFormater from '../components/PourcentFormater';
-// import { CenterFocusStrong } from '@mui/icons-material';
-import PriceFormater from '../components/PriceFormater';
-import BigNumberFormater from '../components/BigNumberFormater';
+import PourcentFormater from '../helpers/pourcentFormater';
+import PriceFormater from '../helpers/priceFormater';
+import BigNumberFormater from '../helpers/bigNumberFormater';
 
 const Home = () => {
 

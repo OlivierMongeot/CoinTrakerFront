@@ -1,13 +1,14 @@
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import SideMenu from './main/SideMenu';
-import TopBar from './main/TopBar';
+import SideMenu from './layout/SideMenu';
+import TopBar from './layout/TopBar';
 import WalletsBoard from './pages/WalletsBoard';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Customize from './pages/Customize';
-import SignUp from './components/SignUp';
+// import SignUp from '../Trash/SignUp';
+import Registration from './pages/Registration';
 
 
 
@@ -19,8 +20,6 @@ export default function AppRoots(props) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  // const theme = useTheme();
 
   return (
 
@@ -46,7 +45,7 @@ export default function AppRoots(props) {
         {page === 'wallets' && (<WalletsBoard></WalletsBoard>)}
         {page === 'home' && (<Home></Home>)}
         {page === 'login' && (<Login sx={{ height: '40vh' }}></Login>)}
-        {page === 'registration' && (<SignUp></SignUp>)}
+        {page === 'registration' && (<Registration></Registration>)}
         {page === 'customize' && (<Customize></Customize>)}
       </Box >
     </Box >

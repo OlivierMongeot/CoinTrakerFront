@@ -125,8 +125,10 @@ const Customize = () => {
   const [exchangeId, setExchangeId] = React.useState(20);
   const [customWallet, setCustomWallet] = React.useState([])
   const [labelList, setLabelList] = React.useState([]);
-  // const [buttonValid, setButtonValid] = React.useState(false);
+  const [buttonValid, setButtonValid] = React.useState(false);
   const [titleModal] = React.useState('Add a new Token');
+
+  console.log(buttonValid);
 
   // const [currentTokenUpdated, setcurrentTokenUpdated] = React.useState({});
 
@@ -139,7 +141,7 @@ const Customize = () => {
     setExchangeId(10);
     setToken('');
     setAmount(0);
-    // setButtonValid(true);
+    setButtonValid(true);
   }
 
 
@@ -257,14 +259,14 @@ const Customize = () => {
 
     setToken(tab[index].name);
     setAmount(tab[index].balance);
-    // setButtonValid(true);
+    setButtonValid(true);
     // handleClose();
 
   }
 
   // const onValidUpdate = () => {
 
-  //   // setButtonValid(false);
+  // setButtonValid(false);
   // }
 
 
@@ -272,20 +274,17 @@ const Customize = () => {
     console.log('use effect Customize');
 
     let walletCustom = (localStorage.getItem('wallet-custom'));
-    // console.log('walletCustom ', walletCustom);
+
     if (walletCustom === null) {
       walletCustom = [];
     } else {
       walletCustom = JSON.parse(walletCustom);
       setCustomWallet(walletCustom);
     }
-
     const listParsed = tokenListLabelise();
-    // console.log('tokenListLabelise', listParsed);
     setLabelList(listParsed);
-    console.log('labelList ', labelList[0]);
 
-  }, [labelList]);
+  }, []);
 
   return (
     <Container component="main" sx={{

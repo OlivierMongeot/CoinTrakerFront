@@ -16,6 +16,8 @@ import AuthenticationService from '../helpers/AuthService';
 import { Link } from 'react-router-dom';
 // import Profile from './Profile';
 import { ColorModeContext } from '../Theme';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 250;
 
@@ -40,12 +42,18 @@ const AppBar = styled(MuiAppBar, {
 
 
 
-
-
 export default function TopBar(props) {
 
+  const navigate = useNavigate();
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
+
+
+  const logout = () => {
+    AuthenticationService.isAuthenticated = false;
+    navigate("/login");
+  }
+
 
   return (
     <AppBar position="absolute" open={props.open} >
@@ -86,6 +94,15 @@ export default function TopBar(props) {
             </Button>
           </Stack>
         )}
+        {AuthenticationService.isAuthenticated && (
+          <Stack spacing={2} direction="row">
+            <Tooltip title='Logout'>
+              <LogoutIcon variant="contained" onClick={logout}>
+
+              </LogoutIcon>
+            </Tooltip>
+          </Stack>
+        )}
 
         <Tooltip title={'Toogle to ' + ((theme.palette.mode === 'dark') ? 'light' : 'dark') + ' mode'}>
           <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
@@ -98,6 +115,8 @@ export default function TopBar(props) {
             <NotificationsIcon />
           </Badge>
         </IconButton>
+
+
 
       </Toolbar>
     </AppBar >

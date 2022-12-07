@@ -4,14 +4,14 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import formatValues from '../helpers/formatValues';
+import formatValues from '../../helpers/formatValues';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import minValueDollarToDisplayToken from '../helpers/minValueDollarToDisplayToken';
+import minValueDollarToDisplayToken from '../../helpers/minValueDollarToDisplayToken';
 import { useNavigate } from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
-import AuthenticationService from '../helpers/AuthService';
-import updateProcess from '../api/updateProcess';
+import AuthenticationService from '../../helpers/AuthService';
+import updateProcess from '../../api/updateProcess';
 
 export default function Wallet(props) {
 
