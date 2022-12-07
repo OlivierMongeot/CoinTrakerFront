@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import AuthenticationService from '../helpers/AuthService';
 import { Link } from 'react-router-dom';
 // import Profile from './Profile';
-// import { ColorModeContext } from '../Theme';
+import { ColorModeContext } from '../Theme';
 
 const drawerWidth = 250;
 
@@ -41,13 +41,13 @@ const AppBar = styled(MuiAppBar, {
 
 
 
+
 export default function TopBar(props) {
 
   const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
 
-  console.log('props Topbar', props);
   return (
-    // <ColorModeContext.Consumer>
     <AppBar position="absolute" open={props.open} >
       <Toolbar
         sx={{
@@ -88,8 +88,7 @@ export default function TopBar(props) {
         )}
 
         <Tooltip title={'Toogle to ' + ((theme.palette.mode === 'dark') ? 'light' : 'dark') + ' mode'}>
-
-          <IconButton sx={{ ml: 1 }} onClick={props.colorMode.togleColorMode} color="inherit">
+          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Tooltip>
@@ -102,7 +101,7 @@ export default function TopBar(props) {
 
       </Toolbar>
     </AppBar >
-    // </ColorModeContext.Consumer>
+
   )
 
 

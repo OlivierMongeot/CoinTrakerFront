@@ -1,9 +1,11 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRoots from './AppRoots'
-// import IconButton from '@mui/material/IconButton';
+
 // export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
-// import { Button } from '@mui/material';
+
+
+export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 
 function ThemeContent(props) {
@@ -39,10 +41,9 @@ function ThemeContent(props) {
   return (
 
     <ThemeProvider theme={theme}>
-      {/* <ColorModeContext.Provider value={colorMode}> */}
-
-      <AppRoots page={page} colorMode={colorMode} mode={mode} />
-      {/* </ColorModeContext.Provider > */}
+      <ColorModeContext.Provider value={colorMode}>
+        <AppRoots page={page} mode={mode} />
+      </ColorModeContext.Provider >
     </ThemeProvider >
 
   );

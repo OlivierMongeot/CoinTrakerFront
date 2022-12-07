@@ -18,11 +18,11 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { stepButtonClasses } from '@mui/material';
+// import { stepButtonClasses } from '@mui/material';
 // import { ToastContainer } from 'react-toastify';=
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -125,10 +125,10 @@ const Customize = () => {
   const [exchangeId, setExchangeId] = React.useState(20);
   const [customWallet, setCustomWallet] = React.useState([])
   const [labelList, setLabelList] = React.useState([]);
-  const [buttonValid, setButtonValid] = React.useState(false);
-  const [titleModal, setTitleModal] = React.useState('Add a new Token');
+  // const [buttonValid, setButtonValid] = React.useState(false);
+  const [titleModal] = React.useState('Add a new Token');
 
-  const [currentTokenUpdated, setcurrentTokenUpdated] = React.useState({});
+  // const [currentTokenUpdated, setcurrentTokenUpdated] = React.useState({});
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -253,19 +253,19 @@ const Customize = () => {
     setExchangeId(IdExchange);
 
     console.log(tab[index]);
-    setcurrentTokenUpdated(tab[index]);
+    // setcurrentTokenUpdated(tab[index]);
 
     setToken(tab[index].name);
     setAmount(tab[index].balance);
-    setButtonValid(true);
+    // setButtonValid(true);
     // handleClose();
 
   }
 
-  const onValidUpdate = () => {
+  // const onValidUpdate = () => {
 
-    setButtonValid(false);
-  }
+  //   // setButtonValid(false);
+  // }
 
 
   React.useEffect(() => {
@@ -284,7 +284,8 @@ const Customize = () => {
     // console.log('tokenListLabelise', listParsed);
     setLabelList(listParsed);
     console.log('labelList ', labelList[0]);
-  }, []);
+
+  }, [labelList]);
 
   return (
     <Container component="main" sx={{
