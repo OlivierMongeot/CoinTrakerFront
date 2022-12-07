@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TabPanel from '@mui/lab/TabPanel';
-import Wallet from './Wallet';
+import Wallet from './Ledger';
 
 
 export default function TabWalletContent(props) {

@@ -26,7 +26,6 @@ export default function Wallet(props) {
 
 
 
-
   React.useEffect(() => {
 
     console.log('_____________________________')

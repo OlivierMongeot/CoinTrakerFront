@@ -34,8 +34,7 @@ export default function SignIn() {
     };
 
 
-
-    console.log(data);
+    console.log(data.email);
     let url = "http://192.168.0.46:4000";
     axios.post(url + '/login', data)
       .then(res => {

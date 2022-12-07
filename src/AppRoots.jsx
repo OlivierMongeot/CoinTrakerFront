@@ -8,8 +8,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Customize from './pages/Customize';
 import SignUp from './components/SignUp';
-
-
+// import Brightness4Icon from '@mui/icons-material/Brightness4';
+// import Brightness7Icon from '@mui/icons-material/Brightness7';
+// import IconButton from '@mui/material/IconButton';
+// import { useTheme } from '@mui/material/styles';
 export default function AppRoots(props) {
 
 
@@ -20,6 +22,8 @@ export default function AppRoots(props) {
     setOpen(!open);
   };
 
+  // const theme = useTheme();
+
   return (
 
     <Box sx={{ display: 'flex' }}>
@@ -27,8 +31,11 @@ export default function AppRoots(props) {
       <TopBar open={open} toggleDrawer={toggleDrawer} props={props}
         colorMode={props.colorMode}
       />
-      <SideMenu open={open} toggleDrawer={toggleDrawer} />
 
+      <SideMenu open={open} toggleDrawer={toggleDrawer} />
+      {/* <IconButton sx={{ ml: 1 }} onClick={() => props.colorMode} color="inherit">
+        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton> */}
       <Box
         component="main"
         sx={{

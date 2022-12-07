@@ -1,7 +1,9 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRoots from './AppRoots'
-
+// import IconButton from '@mui/material/IconButton';
+// export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+// import { Button } from '@mui/material';
 
 
 function ThemeContent(props) {
@@ -11,13 +13,14 @@ function ThemeContent(props) {
   const [mode, setMode] = React.useState(
     (localStorage.getItem('colorMode')) ?
       JSON.parse(localStorage.getItem('colorMode')) :
-      'dark');
+      'light');
 
 
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        console.log('toggle colorMode');
       },
     }),
     [],
@@ -34,11 +37,14 @@ function ThemeContent(props) {
 
 
   return (
-    // <ColorModeContext.Provider value={colorMode}>
+
     <ThemeProvider theme={theme}>
+      {/* <ColorModeContext.Provider value={colorMode}> */}
+
       <AppRoots page={page} colorMode={colorMode} mode={mode} />
+      {/* </ColorModeContext.Provider > */}
     </ThemeProvider >
-    // </ColorModeContext.Provider >
+
   );
 }
 
