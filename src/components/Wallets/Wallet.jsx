@@ -20,8 +20,7 @@ export default function Wallet(props) {
 
   const [wallet, setWallet] = React.useState([]);
   const [exchangeName] = React.useState(props.exchange);
-  // const [totalExchange, setTotalExchange] = React.useState(0);
-  let parentData = props.arrayAmountWallets;
+
   const exchangesEnable = props.exchanges;
 
 
@@ -33,11 +32,13 @@ export default function Wallet(props) {
 
     if (AuthenticationService.isAuthenticated) {
 
+      let arrayAmountWallets = props.arrayAmountWallets;
+
       switch (exchangeName) {
         case 'all':
           for (let i = 0; i < exchangesEnable.length; i++) {
             if (exchangesEnable[i] !== 'all') {
-              updateProcess(exchangesEnable[i], parentData, props, true)
+              updateProcess(exchangesEnable[i], arrayAmountWallets, true)
                 .then(
                   (data) => {
                     if (data === 'TokenExpiredError') {
@@ -55,7 +56,7 @@ export default function Wallet(props) {
           break;
 
         default:
-          updateProcess(exchangeName, parentData, props, false)
+          updateProcess(exchangeName, arrayAmountWallets, false)
             .then(
               (data) => {
                 if (data === 'TokenExpiredError') {

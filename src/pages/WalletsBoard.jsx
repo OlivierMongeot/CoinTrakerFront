@@ -14,39 +14,25 @@ import Deposits from '../components/Wallets/Deposits';
 // import AuthenticationService from '../helpers/AuthService';
 // import { useNavigate } from "react-router-dom";
 
+export const WalletsContext = React.createContext();
+
 
 const WalletsBoard = () => {
 
     const localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
-    const localStorageWalletsTotal = JSON.parse(localStorage.getItem('wallets-total'));
 
     const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
-    const [totalAllWallet, setTotalAllWallet] = React.useState(localStorageWalletsTotal ? localStorageWalletsTotal : 0);
+
     const [exchanges] = React.useState(
         ['all', 'crypto-com', 'gateio', 'binance', 'kucoin', 'coinbase']
     );
-    // const [totalExchange, setTotalExchange] = React.useState(0);
+
     const [value, setValue] = React.useState('0');
-
-    // const [updatedAt, setUpdatedAt] = React.useState(0)
-
 
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-
-    React.useEffect(() => {
-        // const navigate = useNavigate();
-        console.log('use effect wallets');
-        // if (!AuthenticationService.isAuthenticated) {
-        //     console.log('isAuthenticated ', AuthenticationService.isAuthenticated);
-        //     // navigate("/login");
-        // }
-
-    }, []);
-
 
     return (
         <Container className="container" maxWidth="xlg"
@@ -64,33 +50,16 @@ const WalletsBoard = () => {
                                     <TabContext value={value} >
 
                                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
-
                                             <TabWalletsTitle exchanges={exchanges} handleChange={handleChange} />
-
-                                            {/* {exchangeSelected !== 'all' && (
-                                                <Title>
-                                                    <div className='display-top-table'>
-                                                        <span className="title-wallet"></span>
-
-                                                        <Tooltip title={updatedAt}>
-                                                            <span >Total {formatValues('price', totalExchange)} $
-                                                            </span>
-                                                        </Tooltip>
-
-                                                    </div>
-                                                </Title>
-                                            )} */}
-
                                         </Box>
+                                        <WalletsContext.Provider value={{}}>
+                                            <TabWalletContent
+                                                exchanges={exchanges}
+                                                arrayAmountWallets={arrayAmountWallets}
+                                                setArrayAmountWallets={setArrayAmountWallets}
+                                            />
+                                        </WalletsContext.Provider>
 
-                                        <TabWalletContent
-                                            exchanges={exchanges}
-                                            arrayAmountWallets={arrayAmountWallets}
-                                            setArrayAmountWallets={setArrayAmountWallets}
-                                            setTotalAllWallet={setTotalAllWallet}
-                                        // setTotalExchange={setTotalExchange}
-                                        // setUpdatedAt={setUpdatedAt}
-                                        />
                                     </TabContext>
                                 </Box>
                             </Paper >
@@ -102,7 +71,7 @@ const WalletsBoard = () => {
 
                     <Paper
                         sx={{ p: 2, height: 200, marginTop: 1, flex: '1 1' }}>
-                        <Deposits totalAllWallet={totalAllWallet} arrayAmountWallets={arrayAmountWallets} />
+                        <Deposits arrayAmountWallets={arrayAmountWallets} />
                     </Paper>
                     <Paper
                         sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px', mt: 2 }}>

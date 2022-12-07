@@ -1,8 +1,8 @@
 // import axios from 'axios';
-import getIdsCMC from './getIdsCMC';
-import addCoinMarketCapQuote from './getPricesQuoteCMC';
-import setupBalanceStorage from '../helpers/setupBalanceStorage';
-import formatValues from '../helpers/formatValues';
+import getIdsCMC from '../src/api/getIdsCMC';
+import addCoinMarketCapQuote from '../src/api/getPricesQuoteCMC';
+import setupBalanceStorage from './setupBalanceStorage';
+import formatValues from '../src/helpers/formatValues';
 // import { FlashOnRounded } from '@mui/icons-material';
 
 

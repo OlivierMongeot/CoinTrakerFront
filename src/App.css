@@ -96,13 +96,13 @@
 }
 
 
-
-
 .update-btn.hide {
   display: none;
 }
 
-
+.exchange-total {
+  cursor: pointer;
+}
 
 @-moz-keyframes spin {
   100% {

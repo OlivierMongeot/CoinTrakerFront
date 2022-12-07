@@ -2,18 +2,36 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../../helpers/formatValues';
-import Loader from '../../helpers/Loader';
+import Loader from '../../components/Loader';
 import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
+import updateProcess from '../../api/updateProcess';
+
 
 export default function Deposits(props) {
+
+  console.log(props);
+
+  const getTotal = (wallets) => {
+    let acc = 0;
+    for (let i = 0; i < wallets.length; i++) {
+      let value = wallets[i].amount;
+      acc += value;
+    }
+    return acc;
+  }
+
+  const total = getTotal(props.arrayAmountWallets);
+
 
   useEffect(() => {
 
     const handleClick = $event => {
-
       const exchange = $event.target.outerText;
       console.log('exchange click ', exchange);
+      updateProcess(exchange, props.arrayAmountWallets, false, true)
+
+
       // Make update force 
     };
 
@@ -28,7 +46,7 @@ export default function Deposits(props) {
         element.removeEventListener('click', handleClick);
       })
     };
-  }, []);
+  }, [props.arrayAmountWallets]);
 
 
   return (
@@ -39,7 +57,7 @@ export default function Deposits(props) {
         <div key={index} className="display-grid-amount">
           <div className="display-grid-inline">
             <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' />
-            <div>
+            <div className='exchange-total'>
               {formatValues('camelise', wallet.exchange)}
             </div>
           </div>
@@ -66,7 +84,7 @@ export default function Deposits(props) {
         <Title>Total Wallets</Title>
 
         <Typography component="p" variant="h4" >
-          ${formatValues('price', props.totalAllWallet)}
+          ${formatValues('price', total)}
         </Typography>
 
 

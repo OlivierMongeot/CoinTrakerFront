@@ -1,8 +1,5 @@
-
 import React from "react";
-
 import Icon from '@mui/material/Icon';
-
 
 export default function Loader(props) {
 
@@ -10,18 +7,10 @@ export default function Loader(props) {
 
   return (
     <div className="container-spinner" >
-      <div
-        className='update-btn hide'
-        id={id}
-      >
+      <div className='update-btn hide' id={id}>
         <Icon sx={{ fontSize: props.fontSize }} >sync</Icon>
-
       </div>
     </div >
-
   )
-
-
-
 }
 

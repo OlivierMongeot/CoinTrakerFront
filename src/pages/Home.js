@@ -1,11 +1,9 @@
 import React from 'react';
-// import HeaderInfos from '../components/HeaderInfos';
 import axios from 'axios';
-
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Chart from '../Wallets/Chart';
+import Chart from '../components/Wallets/Chart';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Logo from '../components/Logo';
 import PourcentFormater from '../helpers/pourcentFormater';

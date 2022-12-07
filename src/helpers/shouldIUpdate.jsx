@@ -19,10 +19,10 @@ const shouldIUpdateFromAPI = (exchangeName) => {
       let difference = new Date().getTime() - walletLocalStorage[0].timestamp // timestamp
       if (difference > timer) {
 
-        console.log('Time > 6 min , Update Wallet from API');
+        // console.log('Time > 6 min , Update Wallet from API');
         return true;
       } else {
-        console.log('Recent Time update, Display Wallet ' + exchangeName + ' from Local Store');
+        // console.log('Recent Time update, Display Wallet ' + exchangeName + ' from Local Store');
         return false;
       }
     } else {
