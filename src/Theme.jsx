@@ -17,6 +17,7 @@ function ThemeContent(props) {
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        console.log('toggle');
       },
     }),
     [],
