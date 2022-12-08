@@ -18,7 +18,7 @@ const totalExchange = (result) => {
 
 
 export default async function updateProcess(exchange, arrayAmountWallets, updateAllWallets, force = false) {
-
+  exchange = exchange.toLowerCase();
   console.log('Update process', exchange);
 
   const updateGeneralWalletLS = (newExchangeData, exchange) => {

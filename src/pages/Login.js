@@ -1,19 +1,18 @@
 import React from 'react';
 // import Navbar from '../components/Navbar';
 // import { useForm } from 'react-hook-form';
-import SignIn from '../components/SignIn';
+import Login from '../components/Login';
 // import '../styles/components/_login.scss';
 
-// import AuthenticationService from '../helpers/AuthService';
 
-const Login = () => {
+const Log_in = () => {
 
 
     return (
-        <SignIn>
-        </SignIn>
+        <Login>
+        </Login>
     )
 
 };
 
-export default Login;
+export default Log_in;

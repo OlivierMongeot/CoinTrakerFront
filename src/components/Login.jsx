@@ -1,29 +1,37 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-// import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
 import AuthenticationService from '../helpers/AuthService';
-// const theme = createTheme();
-import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
 
 export default function SignIn() {
 
   const navigate = useNavigate();
 
+  const handleError = (err) => {
+    console.log(err);
+    toast(err.response.data.error);
+  }
 
 
+  // useEffect(() => {
+  //   // console.log('use useEffect');
+  //   // toast('use useEffect');
+
+  // }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -52,7 +60,7 @@ export default function SignIn() {
           };
           localStorage.setItem('user', JSON.stringify(user));
           AuthenticationService.isAuthenticated = true;
-          navigate("/");
+          navigate("/wallets");
 
         } else {
           AuthenticationService.isAuthenticated = false;
@@ -61,7 +69,11 @@ export default function SignIn() {
       }
       )
       .catch(err => {
-        console.log(err);
+        // toast(err.response.data.error);
+        // console.log(err.response.data.error)
+        handleError(err);
+
+
       }
       );
   };
@@ -69,6 +81,7 @@ export default function SignIn() {
 
   return (
     // <ThemeProvider theme={theme}>
+
     <Container component="main" maxWidth="xs" sx={{
       display: 'flex',
       flexDirection: 'column',
@@ -77,7 +90,9 @@ export default function SignIn() {
       height: '80%'
     }}
     >
+
       <CssBaseline />
+      <ToastContainer />
       <Box
         sx={{
           marginTop: 8,
@@ -86,6 +101,7 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
+
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -104,6 +120,7 @@ export default function SignIn() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+              // autoComplete="off"
               />
             </Grid>
 
@@ -112,9 +129,11 @@ export default function SignIn() {
                 required
                 fullWidth
                 name="password"
+                autoComplete="country"
                 label="Password"
                 type="password"
                 id="password"
+
               // autoComplete="new-password"
               />
             </Grid>
