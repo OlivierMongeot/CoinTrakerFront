@@ -12,14 +12,14 @@ function App() {
 
     <Router>
       <Routes>
-        <Route path="/" element={<Theme area="home" />} />
-        <Route path="/login" element={<Theme area="login" />} />
-        {/* <Route path="/wallets" element={<Wallets />} />
-      <Route path="/transactions" element={<Transactions />} />
-      <Route path="/settings" element={<Settings />} />*/}
-        <Route path="/customize" element={<Theme area="customize" setForceUpdate={setForceUpdate} />} />
-        <Route path="/registration" element={<Theme area="registration" />} />
-        <Route path="/wallets" element={<Theme area="wallets" />} />
+        <Route path="/" element={<Theme page="home" />} />
+        <Route path="/login" element={<Theme page="login" />} />
+        <Route path="/exchanges" element={<Theme page="exchanges" />} />
+
+        <Route path="/account" element={<Theme page="account" />} />
+        <Route path="/customize" element={<Theme page="customize" setForceUpdate={setForceUpdate} />} />
+        <Route path="/registration" element={<Theme page="registration" />} />
+        <Route path="/wallets" element={<Theme page="wallets" />} />
       </Routes>
     </Router>
   );

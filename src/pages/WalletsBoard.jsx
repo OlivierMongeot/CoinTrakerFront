@@ -22,17 +22,16 @@ const WalletsBoard = () => {
     const localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
 
     const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
-
-    const [exchanges] = React.useState(
+    const [exchangesUser] = React.useState(
         ['all', 'crypto-com', 'gateio', 'binance', 'kucoin', 'coinbase']
     );
-
     const [value, setValue] = React.useState('0');
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const [wallet, setWallet] = React.useState([]);
 
     return (
         <Container className="container" maxWidth="xlg"
@@ -40,7 +39,7 @@ const WalletsBoard = () => {
 
             <Grid container spacing={2} columns={12}>
 
-                <Grid item xs={12} md={10} lg={8}>
+                <Grid item xs={12} md={8} lg={8}>
                     <Paper>
 
                         <Grid item xs={12}>
@@ -50,13 +49,15 @@ const WalletsBoard = () => {
                                     <TabContext value={value} >
 
                                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                            <TabWalletsTitle exchanges={exchanges} handleChange={handleChange} />
+                                            <TabWalletsTitle exchanges={exchangesUser} handleChange={handleChange} />
                                         </Box>
                                         <WalletsContext.Provider value={{}}>
                                             <TabWalletContent
-                                                exchanges={exchanges}
+                                                exchanges={exchangesUser}
                                                 arrayAmountWallets={arrayAmountWallets}
                                                 setArrayAmountWallets={setArrayAmountWallets}
+                                                wallet={wallet}
+                                                setWallet={setWallet}
                                             />
                                         </WalletsContext.Provider>
 
@@ -67,11 +68,11 @@ const WalletsBoard = () => {
                     </Paper>
                 </Grid >
                 {/* Colonne Droite */}
-                <Grid item xs={12} md={2} lg={4} sx={{ display: "flex", flexDirection: 'column' }}>
+                <Grid item xs={12} md={4} lg={4} sx={{ display: "flex", flexDirection: 'column' }}>
 
                     <Paper
                         sx={{ p: 2, height: 200, marginTop: 1, flex: '1 1' }}>
-                        <Deposits arrayAmountWallets={arrayAmountWallets} />
+                        <Deposits arrayAmountWallets={arrayAmountWallets} wallet={wallet} setWallet={setWallet} />
                     </Paper>
                     <Paper
                         sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px', mt: 2 }}>

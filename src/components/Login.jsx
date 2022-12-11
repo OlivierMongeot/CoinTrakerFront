@@ -17,6 +17,7 @@ import AuthenticationService from '../helpers/AuthService';
 import { useEffect } from 'react';
 
 
+
 export default function SignIn() {
 
   const navigate = useNavigate();
@@ -26,12 +27,6 @@ export default function SignIn() {
     toast(err.response.data.error);
   }
 
-
-  // useEffect(() => {
-  //   // console.log('use useEffect');
-  //   // toast('use useEffect');
-
-  // }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,15 +44,19 @@ export default function SignIn() {
         // console.log(res.data);
         if (res.data.token) {
           // console.log(res.data);
-          // console.log(res.data.token);
+          // console.log(res.data.exchanges);
           // set token in localStorage
           const user = {
             lastname: res.data.data.lastname,
             email: res.data.data.email,
             id: res.data.data.id,
-            token: res.data.token,
-            exchanges: res.data.exchanges
+            apiKeys: res.data.data.apiKeys,
+            exchanges: res.data.data.exchanges,
+            phone: res.data.data.phone,
+            roles: res.data.data.roles,
+            token: res.data.token
           };
+          console.log('user', user);
           localStorage.setItem('user', JSON.stringify(user));
           AuthenticationService.isAuthenticated = true;
           navigate("/wallets");

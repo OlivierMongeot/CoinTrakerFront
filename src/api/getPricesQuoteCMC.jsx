@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const getPricesQuotesCMC = async (wallet, exchange) => {
-
-
+const getListCurrencies = (wallet) => {
     let currencies = '';
     for (let i = 0; i < wallet.length; i++) {
 
@@ -18,13 +16,18 @@ const getPricesQuotesCMC = async (wallet, exchange) => {
         } else {
             currencies += currency + ',';
         }
-
-
     }
     currencies = currencies.slice(0, -1);
 
     console.log('List Token to search CMC API :', currencies);
-    let url = 'http://192.168.0.46:4000/cmc/prices?symbol=' + currencies;
+    return currencies;
+}
+
+
+const getPricesQuotesCMC = async (wallet, exchange) => {
+
+
+    let url = 'http://192.168.0.46:4000/cmc/prices?symbol=' + getListCurrencies(wallet);
     const response = await axios.get(url);
 
     // Parse response.data to simplify the data
@@ -42,6 +45,7 @@ const getPricesQuotesCMC = async (wallet, exchange) => {
         let currencyWallet = wallet[i].currency;
         let live_price = pricesMap[currencyWallet];
         let quote = quoteMap[currencyWallet];
+        // Check special coin 
         if (exchange === 'gateio' && currencyWallet === 'POINT') {
             wallet[i].live_price = 0;
             wallet[i].name = 'GatePoint';
@@ -65,6 +69,7 @@ const getPricesQuotesCMC = async (wallet, exchange) => {
         }
 
         else {
+
             wallet[i].live_price = parseFloat(live_price);
             wallet[i].quoteCMC = quote;
         }

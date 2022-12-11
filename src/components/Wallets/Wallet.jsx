@@ -17,8 +17,9 @@ export default function Wallet(props) {
 
   const navigate = useNavigate();
 
-
-  const [wallet, setWallet] = React.useState([]);
+  let wallet = props.wallet;
+  let setWallet = props.setWallet
+  // const [wallet, setWallet] = React.useState([]);
   const [exchangeName] = React.useState(props.exchange);
 
   const exchangesEnable = props.exchanges;
@@ -92,6 +93,7 @@ export default function Wallet(props) {
             <TableCell align="right">1h %</TableCell>
             <TableCell align="right">24h %</TableCell>
             <TableCell align="right">7j % </TableCell>
+            <TableCell align="right">30j % </TableCell>
             <TableCell align="right">Total </TableCell>
           </TableRow>
         </TableHead>
@@ -178,6 +180,20 @@ export default function Wallet(props) {
                   className="table-row change">
                   {(walletElement.quoteCMC) ?
                     (formatValues('pourcent', walletElement.quoteCMC.USD.percent_change_7d)) :
+                    (walletElement.quoteAPIorigin ? formatValues('pourcent', walletElement.quoteAPIorigin.changeRate) :
+                      ('...'))} %
+                </TableCell>
+                <TableCell
+                  style={{
+                    width: "5%",
+                    textAlign: 'right',
+                    color: `${formatValues('switch-color', walletElement.quoteCMC ?
+                      (walletElement.quoteCMC.USD.percent_change_30d) :
+                      (walletElement.quoteAPIorigin ? (walletElement.quoteAPIorigin.changeRate) : '...'))}`
+                  }}
+                  className="table-row change">
+                  {(walletElement.quoteCMC) ?
+                    (formatValues('pourcent', walletElement.quoteCMC.USD.percent_change_30d)) :
                     (walletElement.quoteAPIorigin ? formatValues('pourcent', walletElement.quoteAPIorigin.changeRate) :
                       ('...'))} %
                 </TableCell>

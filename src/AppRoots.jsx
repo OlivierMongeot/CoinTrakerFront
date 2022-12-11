@@ -9,13 +9,15 @@ import Login from './pages/Login';
 import Customize from './pages/Customize';
 // import SignUp from '../Trash/SignUp';
 import Registration from './pages/Registration';
+import Account from './pages/Account';
+import Exchanges from './pages/Exchanges';
 
 
 
 export default function AppRoots(props) {
 
   const [open, setOpen] = React.useState(true);
-  const page = props.page.area;
+  const page = props.page.page;
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -47,6 +49,10 @@ export default function AppRoots(props) {
         {page === 'login' && (<Login sx={{ height: '40vh' }}></Login>)}
         {page === 'registration' && (<Registration></Registration>)}
         {page === 'customize' && (<Customize></Customize>)}
+        {page === 'account' && <Account></Account>}
+        {page === 'exchanges' && <Exchanges></Exchanges>}
+
+
       </Box >
     </Box >
   )

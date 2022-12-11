@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <React.Fragment>
+
     <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton >
         <ListItemIcon>
@@ -22,6 +23,7 @@ export const mainListItems = (
         <ListItemText className='link' primary="Markets" />
       </ListItemButton>
     </Link>
+
     <Link to="/wallets" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>
@@ -30,24 +32,30 @@ export const mainListItems = (
         <ListItemText primary="Wallets" />
       </ListItemButton>
     </Link>
+
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Transactions" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Exchanges" />
-    </ListItemButton>
+
+    <Link to="/exchanges" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Exchanges" />
+      </ListItemButton>
+    </Link>
+
     <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Taxes Repport" />
     </ListItemButton>
+
     <Link to="/customize" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>
@@ -56,6 +64,7 @@ export const mainListItems = (
         <ListItemText primary="Customize Wallet" />
       </ListItemButton>
     </Link>
+
   </React.Fragment>
 );
 
@@ -66,7 +75,7 @@ export const secondaryListItems = (
     </ListSubheader> */}
 
 
-    <Link to="/myaccount" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+    <Link to="/account" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>
           <AssignmentIcon />
