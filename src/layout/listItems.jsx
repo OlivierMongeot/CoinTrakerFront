@@ -49,12 +49,12 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
-    <ListItemButton>
+    {/* <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Taxes Repport" />
-    </ListItemButton>
+    </ListItemButton> */}
 
     <Link to="/customize" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
@@ -83,13 +83,13 @@ export const secondaryListItems = (
         <ListItemText primary="My account" />
       </ListItemButton>
     </Link>
-    <Link to="/params" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+    {/* <Link to="/params" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Parametres" />
       </ListItemButton>
-    </Link>
+    </Link> */}
   </React.Fragment >
 );

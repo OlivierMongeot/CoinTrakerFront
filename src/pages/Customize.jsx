@@ -164,16 +164,6 @@ const Customize = () => {
   // Token input 
   const handleInputToken = (e) => {
     console.log('value token input : ', e.target.textContent);
-
-    // // get the symbol of token 
-    // const tokenName = e.target.textContent;
-
-    // const tokenListCMC = labelList.filter((token) => {
-    //   return token.label === tokenName;
-    // })
-
-    // console.log('tokenListCMC', tokenListCMC);
-
     setToken(e.target.textContent);
   }
 
@@ -183,16 +173,11 @@ const Customize = () => {
   }
 
   const onSubmit = async (e) => {
-    // console.log('labelList', labelList);
-    console.log('token', token);
-    console.log('amount', amount);
-    console.log('exchange', exchange);
 
     // const numberAmount = (amount);
     let newEntries = [{ name: token, exchange: exchange, balance: amount }];
 
     // Recupere le symbol avant d'aouter les data 
-    // get the symbol of token 
     const tokenListCMC = labelList.filter((tok) => {
       return tok.label === token;
     })
@@ -205,11 +190,8 @@ const Customize = () => {
 
     console.log('NEW entry', newEntries);
     console.log('data token CMC', tokenListCMC);
-
     let merge = { ...newEntries[0], ...tokenListCMC[0] };
-
     console.log('merge', merge);
-
 
     // add data id et price
     let wallet = [merge];
@@ -223,7 +205,6 @@ const Customize = () => {
       tab = wallet;
 
     }
-    console.log('tab', tab);
 
     localStorage.setItem('wallet-custom', JSON.stringify(tab));
     setCustomWallet(tab);

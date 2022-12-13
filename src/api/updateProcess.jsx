@@ -82,7 +82,6 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         throw new Error('no data : check token pls ' + result.data);
       }
       return result.json();
-
     } catch (error) {
       console.log('catch error');
       toast('http error : check your connection');

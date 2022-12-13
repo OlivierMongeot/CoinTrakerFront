@@ -25,11 +25,11 @@ export default function Wallet(props) {
   const exchangesEnable = props.exchanges;
 
 
-
   React.useEffect(() => {
 
     console.log('_____________________________')
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
+    console.log('isAuthenticated : ', AuthenticationService.isAuthenticated)
 
     if (AuthenticationService.isAuthenticated) {
 

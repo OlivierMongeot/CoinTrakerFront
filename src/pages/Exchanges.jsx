@@ -1,141 +1,54 @@
 import React from 'react';
-// import { useForm } from 'react-hook-form';
-import axios from 'axios';
+
 import config from '../config';
 import CssBaseline from '@mui/material/CssBaseline';
-
 import Box from '@mui/material/Box';
-
 import Container from '@mui/material/Container';
+// import Typography from '@mui/material/Typography';
+import AuthenticationService from '../helpers/AuthService';
+import { useNavigate } from "react-router-dom";
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-
+import CardExchange from '../components/CardExchange';
 
 const Exchanges = () => {
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
 
-    event.preventDefault();
+  const userData = JSON.parse(localStorage.getItem('user'));
 
-    const dataRow = new FormData(event.currentTarget);
-    const data = {
-      email: dataRow.get('email'),
-      password: dataRow.get('password'),
-      firstname: dataRow.get('firstname'),
-      lastname: dataRow.get('lastname'),
-      c_password: dataRow.get('c_password')
-    };
+  const [exchangesAvailables, setExchangesAvailables] = React.useState(userData.exchangesAvailable);
 
-    // Check if password match
-    if (data.c_password !== data.password) {
-      // return false;
-    }
-
-    console.log(data);
-    // let url = "http://192.168.0.46:4000";
-    // axios.post(url + '/register', data)
-    //     .then(res => {
-    //         console.log(res.data);
-    //     }
-    //     )
-    //     .catch(err => {
-    //         console.log(err);
-    //     }
-    //     );
-
-
-
-
-
-  };
-
+  const [apiArray, setApiArray] = React.useState([]);
 
   React.useEffect(() => {
-    console.log(config)
+    // console.log(config)
 
-    // Get  All exchanges from config env 
+    if (!AuthenticationService.isAuthenticated) {
+      navigate("/login");
+    }
+
+
   }, []);
 
 
-  // const { register, handleSubmit, formState: { errors } } = useForm();
 
-  // //send data to server
-  // const onSubmit = data => {
-
-  //     console.log(data);
-  //     // make post request to api 
-  //     // set Header
-  //     let url = "http://192.168.0.46:4000";
-  //     axios.post(url + '/register', data)
-  //         .then(res => {
-  //             console.log(res.data);
-  //         }
-  //         )
-  //         .catch(err => {
-  //             console.log(err);
-  //         }
-  //         );
-  // }
-  // // console.log(watch('email'));
 
   return (
 
-    <Container component="main" maxWidth="xl">
+    <Container component="main" >
       <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
           display: 'flex',
           flexDirection: 'row',
-          flexWrap: 'nowrap',
+          flexWrap: 'wrap',
           alignItems: 'center',
         }}
       >
-        <Card sx={{ maxWidth: 345, m: 1 }}>
-          <CardMedia
-            component="img"
-            alt="green iguana"
-            height="130"
-            width="300"
-            image={config.urlServer + ':' + config.port + "/images/coinbase.png"}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Coinbase
-            </Typography>
-
-          </CardContent>
-          <CardActions>
-            <Button size="small">Connect</Button>
-
-          </CardActions>
-        </Card>
-
-        <Card sx={{ maxWidth: 345, m: 1 }}>
-          <CardMedia
-            component="img"
-            alt="green iguana"
-            height="130"
-            image={config.urlServer + ':' + config.port + "/images/binance.png"}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Binance
-            </Typography>
-
-          </CardContent>
-          <CardActions>
-            <Button size="small">Connect</Button>
-          </CardActions>
-        </Card>
-
-
+        {exchangesAvailables && exchangesAvailables.map((exchange, index) => (
+          <CardExchange key={index} exchange={exchange} userData={userData} />
+        ))}
 
       </Box>
 

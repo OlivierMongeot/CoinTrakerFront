@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
-import AuthenticationService from '../helpers/AuthService';
+import AuthenticationService from '../src/helpers/AuthService';
 import { useEffect } from 'react';
 
 
@@ -36,16 +36,13 @@ export default function SignIn() {
       password: dataRow.get('password')
     };
 
-
     console.log(data.email);
     let url = "http://192.168.0.46:4000";
     axios.post(url + '/login', data)
       .then(res => {
         // console.log(res.data);
         if (res.data.token) {
-          // console.log(res.data);
-          // console.log(res.data.exchanges);
-          // set token in localStorage
+
           const user = {
             lastname: res.data.data.lastname,
             email: res.data.data.email,
