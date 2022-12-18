@@ -11,7 +11,7 @@ import Customize from './pages/Customize';
 import Registration from './pages/Registration';
 import Account from './pages/Account';
 import Exchanges from './pages/Exchanges';
-
+import Withdraws from './pages/Withdraws';
 
 
 export default function AppRoots(props) {
@@ -51,7 +51,7 @@ export default function AppRoots(props) {
         {page === 'customize' && (<Customize></Customize>)}
         {page === 'account' && <Account></Account>}
         {page === 'exchanges' && <Exchanges></Exchanges>}
-
+        {page === 'withdraws' && <Withdraws></Withdraws>}
 
       </Box >
     </Box >

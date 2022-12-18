@@ -81,7 +81,7 @@ export default function TopBar(props) {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          CRYPTO WALLETS
+          CoinTr3ck
         </Typography>
         {!AuthenticationService.isAuthenticated && (
           <Stack spacing={2} direction="row">

@@ -1,7 +1,4 @@
-// import getCoinMarketCapTokens from '../api/CoinMarketCap';
-
 import React from 'react';
-// import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,17 +9,12 @@ import InputLabel from '@mui/material/InputLabel';
 import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-// import { stepButtonClasses } from '@mui/material';
-// import { ToastContainer } from 'react-toastify';
-
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -85,9 +77,7 @@ const CustomButton = styled(ButtonUnstyled)(
 );
 
 
-// const tokenList = JSON.parse(localStorage.getItem('GekocoinsData'));
 const tokenList = JSON.parse(localStorage.getItem('cmcTokensList'))
-// console.log(tokenList);
 
 const tokenListLabelise = () => {
 
@@ -266,6 +256,8 @@ const Customize = () => {
     setLabelList(listParsed);
 
   }, []);
+
+
 
   return (
     <Container component="main" sx={{

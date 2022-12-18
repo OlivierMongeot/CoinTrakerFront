@@ -6,7 +6,6 @@ import Theme from './Theme';
 
 function App() {
 
-  const [forceUpdate, setForceUpdate] = React.useState(false);
 
   return (
 
@@ -15,9 +14,9 @@ function App() {
         <Route path="/" element={<Theme page="home" />} />
         <Route path="/login" element={<Theme page="login" />} />
         <Route path="/exchanges" element={<Theme page="exchanges" />} />
-
+        <Route path="/withdraws" element={<Theme page="withdraws" />} />
         <Route path="/account" element={<Theme page="account" />} />
-        <Route path="/customize" element={<Theme page="customize" setForceUpdate={setForceUpdate} />} />
+        <Route path="/customize" element={<Theme page="customize" />} />
         <Route path="/registration" element={<Theme page="registration" />} />
         <Route path="/wallets" element={<Theme page="wallets" />} />
       </Routes>

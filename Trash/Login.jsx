@@ -14,9 +14,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 import AuthenticationService from '../src/helpers/AuthService';
-import { useEffect } from 'react';
-
-
 
 export default function SignIn() {
 
@@ -65,18 +62,13 @@ export default function SignIn() {
       }
       )
       .catch(err => {
-        // toast(err.response.data.error);
-        // console.log(err.response.data.error)
         handleError(err);
-
-
       }
       );
   };
 
 
   return (
-    // <ThemeProvider theme={theme}>
 
     <Container component="main" maxWidth="xs" sx={{
       display: 'flex',
@@ -115,8 +107,7 @@ export default function SignIn() {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
-              // autoComplete="off"
+                autoComplete=""
               />
             </Grid>
 
@@ -125,12 +116,14 @@ export default function SignIn() {
                 required
                 fullWidth
                 name="password"
-                autoComplete="country"
+                autoComplete='nope'
                 label="Password"
-                type="password"
+                // type="password"
                 id="password"
-
-              // autoComplete="new-password"
+                inputProps={{
+                  // type: "password",
+                  autoComplete: 'nope',
+                }}
               />
             </Grid>
 

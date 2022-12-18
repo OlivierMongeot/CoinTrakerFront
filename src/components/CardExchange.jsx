@@ -9,68 +9,30 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import CloudQueueIcon from '@mui/icons-material/CloudQueue';
+// import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
-import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
-import { styled } from '@mui/system';
-
+// import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
+// import { styled } from '@mui/system';
+// import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+import AuthenticationService from '../helpers/AuthService';
 
 const CardExchange = (props) => {
   // console.log('props', props);
-
-  const blue = {
-    500: '#007FFF',
-    600: '#0072E5',
-    700: '#0059B2',
-  };
-
-  const grey = {
-    100: '#eaeef2',
-    300: '#afb8c1',
-    900: '#24292f',
-  };
-
-  const CustomButton = styled(ButtonUnstyled)(
-    ({ theme }) => `
-    font-family: IBM Plex Sans, sans-serif;
-    font-weight: bold;
-    font-size: 0.875rem;
-    background-color: ${blue[500]};
-    padding: 12px 24px;
-    margin-top: 15px;
-    width: 100%;
-    border-radius: 12px;
-    color: white;
-    transition: all 150ms ease;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0px 4px 30px ${theme.palette.mode === 'dark' ? grey[900] : grey[100]};
-  
-    &:hover {
-      background-color: ${blue[600]};
-    }
-  
-    &.${buttonUnstyledClasses.active} {
-      background-color: ${blue[700]};
-    }
-  
-    &.${buttonUnstyledClasses.focusVisible} {
-      box-shadow: 0 3px 20px 0 rgba(61, 71, 82, 0.1), 0 0 0 5px rgba(0, 127, 255, 0.5);
-      outline: none;
-    }
-  
-    &.${buttonUnstyledClasses.disabled} {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    `,
-  );
+  const navigate = useNavigate();
 
   const exchangeData = props.exchange;
+  // console.log(exchangeData);
 
   const styleModal = {
     position: 'absolute',
@@ -84,22 +46,24 @@ const CardExchange = (props) => {
     p: 4,
   };
 
-
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true)
     onOpenModal();
-
-
   }
+
   const handleClose = () => setOpen(false);
 
   const [enable, setEnable] = React.useState(false);
   const [apiKey, setApiKey] = React.useState('');
   const [apiSecret, setApiSecret] = React.useState('');
+  const [passPhrase, setPassPhrase] = React.useState('');
+  const [showToken, setShowToken] = React.useState(false);
+
 
   const onOpenModal = () => {
+
 
     axios({
       url: config.urlServer + ':' + config.port + '/apikeys',
@@ -113,17 +77,32 @@ const CardExchange = (props) => {
       }
     })
       .then(res => {
-        // console.log('Result DB request ', res.data, res.data.apiSecret, res.data.apiKey);
+
+        console.log('Result DB request ', res);
+        if (res.data === '') {
+          // no api key : exchange not synchronised
+          console.log('no api key : exchange not synchronised')
+          return;
+        }
         setApiSecret(res.data.apiSecret);
         setApiKey(res.data.apiKey);
+        setPassPhrase(res.data.passPhrase);
       }
       )
       .catch(err => {
         console.log(err);
+        if (err.response && err.response.request.status === 401) {
+
+          AuthenticationService.isAuthenticated = false;
+          navigate("/login");
+        }
       }
       );
   }
 
+  const handleShowToken = () => {
+    setShowToken(showToken === true ? false : true)
+  }
 
   const handleInputApiKey = (e) => {
     if (e.target.value) {
@@ -135,10 +114,17 @@ const CardExchange = (props) => {
     if (e.target.value) {
       setApiSecret(e.target.value);
     }
-
   }
 
-  const sendData = (data) => {
+  const handleInputPassPhrase = (e) => {
+    if (e.target.value) {
+      setPassPhrase(e.target.value);
+    }
+  }
+
+
+
+  const saveData = (data) => {
 
     axios({
       url: config.urlServer + ':' + config.port + '/setapikeys',
@@ -149,49 +135,69 @@ const CardExchange = (props) => {
       data: data
     })
       .then(res => {
-        // console.log(res.data);
-        // setApiKey(res.data.apiKey);
-        // setApiSecret(res.data.apiSecret);
+        // console.log('Res data save :', res.data);
+        if (!res.data) {
+          toast.error('Connection fail : API keys are not good')
+        } else {
+          toast.success('Connection API is OK', {
+            position: "bottom-right"
+          })
+          handleClose();
+          setShowToken(false);
+        }
+        // console.log('data save', res);
+
       }
       )
       .catch(err => {
-        console.log(err);
+        if (err.response) {
+          toast.error('Error : ' + err.response.data.error, {
+            position: "bottom-right"
+          })
+        }
+
+        console.log('saveData error : ', err);
       }
       );
   }
 
   const submitApiKeys = (event) => {
-    console.log('submit');
-    console.log(apiKey, apiSecret, exchangeData.name);
+    // console.log('submit : ');
+    // console.log(apiKey, apiSecret, exchangeData.name);
     // Send Data to server
     const data = {
-      apiKey: apiKey, apiSecret: apiSecret, name: exchangeData.name, email: props.userData.email
+      apiKey: apiKey, apiSecret: apiSecret, name: exchangeData.name, email: props.userData.email, passPhrase: passPhrase
     }
-    sendData(data)
+    saveData(data)
   }
 
 
   React.useEffect(() => {
 
     // Chek if exchange is enable
-    const exchangesEnable = props.userData.exchangesEnable.actived
-    // console.log(exchangesEnable);
+    const exchangesEnable = props.userData.exchangesActive;
+
 
     if (exchangesEnable.includes(exchangeData.name)) {
-      // console.log('is enable: ', exchange.name)
+      console.log('is enable: ', exchangeData.name)
       setEnable(true)
-    } else {
+    }
+    else {
+      console.log('is disable: ', exchangeData.name)
       setEnable(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
   return (
+
     <Box>
+      <ToastContainer />
       <Card sx={{ width: 300, m: 1 }}>
         <CardMedia
           component="img"
-          alt="green iguana"
+          alt="exchange"
           height="130"
           image={config.urlServer + ':' + config.port + "/images/" + exchangeData.name + ".png"}
         />
@@ -221,51 +227,131 @@ const CardExchange = (props) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={styleModal}>
-          <Typography component={'span'} id="modal-modal-title" variant="h6" component="h2">
-            Setup API keys {(exchangeData.name).toUpperCase()}
-          </Typography>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }} >
+            <Typography component={'span'} id="modal-modal-title" variant="h6" >
+              Setup API keys {(exchangeData.name).toUpperCase()}
+            </Typography>
+            <FormGroup>
+              {showToken && (
+                <FormControlLabel
+                  control={<VisibilityIcon onClick={handleShowToken} />}
+                />
+              )}
+              {!showToken && (
+                <FormControlLabel
+                  control={<VisibilityOffIcon onClick={handleShowToken} />}
+                />
+              )}
+            </FormGroup>
+          </div>
+
           <Typography component={'span'} id="modal-modal-description" sx={{ mt: 1 }}>
 
             <Box component="form" noValidate sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    name="apiKey"
-                    // disabled
-                    // fullWidth
-                    id="apiKey"
-                    label="Api Key"
-                    // autoFocus
-                    defaultValue=''
-                    value={apiKey}
-                    onChange={handleInputApiKey}
-                  />
+                  {showToken && (
+                    <TextField
+                      name="apiKey"
+                      // disabled
+                      fullWidth
+                      id="apiKey"
+                      label="Api Key"
+                      // autoFocus
+                      // defaultValue=''
+                      value={apiKey}
+                      onChange={handleInputApiKey}
+                    />)}
+                  {!showToken && (
+                    <TextField
+                      name="apiKey"
+                      // disabled
+                      fullWidth
+                      id="apiKey"
+                      label="Api Key"
+                      // autoFocus
+                      // defaultValue=''
+                      value={apiKey}
+                      onChange={handleInputApiKey}
+                      type="password"
+                    />)}
+
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    // required
-                    // fullWidth
-                    id="apiSecret"
-                    label="Api Secret"
-                    name="apiSecret"
-                    defaultValue=''
-                    value={apiSecret}
-                    onChange={handleInputApiSecret}
-                  />
+                  {showToken && (
+                    <TextField
+                      // required
+                      fullWidth
+                      id="apiSecret"
+                      label="Api Secret"
+                      name="apiSecret"
+                      // defaultValue=''
+                      value={apiSecret}
+                      onChange={handleInputApiSecret}
+                    />
+                  )}
+                  {!showToken && (
+                    <TextField
+                      // required
+                      fullWidth
+                      id="apiSecret"
+                      label="Api Secret"
+                      name="apiSecret"
+                      // defaultValue=''
+                      value={apiSecret}
+                      onChange={handleInputApiSecret}
+                      type="password"
+                    />
+                  )}
+
                 </Grid>
+                {exchangeData.data.passPhrase && (
+                  <Grid item xs={12} sm={6}>
+                    {showToken && (
+                      <TextField
+                        // required
+                        fullWidth
+                        id="passPhrase"
+                        label="Pass Phrase"
+                        name="passPhrase"
+                        // defaultValue=''
+                        value={passPhrase}
+                        onChange={handleInputPassPhrase}
+                      />
+                    )}
+                    {!showToken && (
+                      <TextField
+                        // required
+                        fullWidth
+                        id="passPhrase"
+                        label="Pass Phrase"
+                        name="passPhrase"
+                        // defaultValue=''
+                        value={passPhrase}
+                        onChange={handleInputPassPhrase}
+                        type="password"
+                      />
+                    )}
+                  </Grid>
+                )}
+
+
               </Grid>
-              <Button
-
-                onClick={submitApiKeys} >
-                Valider
-              </Button>
+              <Grid sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                <Button sx={{ mt: 2 }}
+                  onClick={submitApiKeys} >
+                  Valider
+                </Button>
+              </Grid>
             </Box>
-
           </Typography>
         </Box>
-      </Modal>
-
-    </Box>
+      </Modal >
+    </Box >
   )
 }
 

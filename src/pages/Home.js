@@ -3,12 +3,13 @@ import axios from 'axios';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Chart from '../components/Wallets/Chart';
+// import Chart from '../components/Wallets/Chart';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Logo from '../components/Logo';
 import PourcentFormater from '../helpers/pourcentFormater';
 import PriceFormater from '../helpers/priceFormater';
 import BigNumberFormater from '../helpers/bigNumberFormater';
+import CoinChart from '../components/CoinChart';
 
 const Home = () => {
 
@@ -73,11 +74,13 @@ const Home = () => {
     ];
 
     React.useEffect(() => {
+
+
         axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C14d%2C30d%2C200d%2C1y`)
             .then(res => {
                 setCoinsData(res.data);
                 // set in  LocalStorage
-                localStorage.setItem('GekocoinsData', JSON.stringify(res.data));
+                // localStorage.setItem('GekocoinsData', JSON.stringify(res.data));
                 // console.log(res.data);
             }
             ).catch
@@ -85,26 +88,19 @@ const Home = () => {
                 console.log(err);
             }
             )
-
     }, [])
 
 
-
     return (
-        <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 4 }}>
-
-
+        <Container className="container" maxWidth="xlg" sx={{ mt: 3, mb: 2 }}>
 
             <Grid item xs={12} md={8} lg={9}>
                 <Paper
-                    sx={{
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 200,
-                    }}
-                >
-                    <Chart />
+                    sx={{ p: 1 }}>
+                    {/* <Chart /> */}
+                    <div className="chart-container" >
+                        <CoinChart coinId='bitcoin' coinName='bitcoin' />
+                    </div>
                 </Paper>
             </Grid>
 
@@ -118,89 +114,11 @@ const Home = () => {
                         marginTop: 3
                     }}
                 >
-                    <React.Fragment>
-                        <div style={{ height: '100%', width: '100%' }}>
-                            <DataGrid rows={coinsData} columns={columns}
-                            // components={{
-                            //     Toolbar: GridToolbar,
-                            // }}
-                            />
-                        </div>
-                        {/* <Table className="table-wallet" size="small" >
-                            <TableHead>
-                                <TableRow align="right" >
-                                    <TableCell style={{ width: '10px' }}>#</TableCell>
-                                    <TableCell >Token</TableCell>
 
-                                    <TableCell align="right">Price</TableCell>
-                                    <TableCell align="right">1h %</TableCell>
-                                    <TableCell align="right">24h %</TableCell>
-                                    <TableCell align="right">7j % </TableCell>
+                    <div style={{ height: '100%', width: '100%' }}>
+                        <DataGrid rows={coinsData} columns={columns} />
+                    </div>
 
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {coinsData && coinsData
-
-
-                                    .map((token, key) => (
-                                        <TableRow key={key}>
-                                            <TableCell style={{ width: '10px' }}>
-                                                {key + 1}
-                                            </TableCell>
-                                            <TableCell
-                                                style={{
-                                                    display: 'flex'
-                                                }}
-                                                className="table-row" >
-                                                <div style={{
-                                                    margin: '0'
-                                                }}
-                                                    className='token-display'>
-                                                    <div className="image-token">
-                                                        <img src={
-                                                            token.image
-                                                        } alt={token.name} />
-                                                    </div>
-
-                                                    <div style={{
-                                                        fontSize: 'small'
-                                                    }}
-                                                        className="name-token">
-                                                        {token.name}
-                                                    </div>
-                                                </div>
-                                            </TableCell>
-
-
-                                            <TableCell align="right" className="table-row">
-                                                $
-                                            </TableCell>
-
-                                            <TableCell
-                                                className="table-row change">
-                                                %
-                                            </TableCell>
-
-
-                                            <TableCell
-                                                className="table-row change">
-                                                %
-                                            </TableCell>
-                                            <TableCell
-                                                style={{
-
-                                                    textAlign: 'right'
-                                                }}
-                                                className="table-row change">
-                                                %
-                                            </TableCell>
-
-                                        </TableRow>
-                                    ))}
-                            </TableBody>
-                        </Table> */}
-                    </React.Fragment >
                 </Paper>
             </Grid>
         </Container >

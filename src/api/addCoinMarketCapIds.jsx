@@ -31,7 +31,7 @@ const checkParticularName = (walletElement, token, exchange) => {
 
 
 const addCoinMarketCapIds = async (wallet, exchange) => {
-
+  console.log('addCoinMarketCapIds', exchange);
   const cmcTokensList = await getIdsCMC();
 
   for (let i = 0; i < wallet.length; i++) {
@@ -53,9 +53,8 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
 
         case 'gateio':
           if ((token.symbol).toLowerCase() === (wallet[i].currency).toLowerCase()) {
-
             if ((wallet[i].available)) {
-              wallet[i].balance = parseFloat(wallet[i].available)
+              wallet[i].balance = parseFloat(wallet[i].available) + parseFloat(wallet[i].locked)
             } else {
               wallet[i].balance = parseFloat(wallet[i].balance)
             }
@@ -98,7 +97,9 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
             wallet[i].code = token.symbol;
             wallet[i].timestamp = new Date().getTime();
             wallet[i].exchange = exchange;
+            wallet[i].balance = wallet[i].balance + wallet[i].locked;
           }
+          // console.log(wallet[i])
           break;
 
         default:
@@ -108,6 +109,7 @@ const addCoinMarketCapIds = async (wallet, exchange) => {
       return token.symbol.toLowerCase() === wallet[i].currency.toLowerCase();
     });
   }
+  console.log(wallet);
   return wallet.filter(item => item.hasOwnProperty('idCMC'));
 }
 

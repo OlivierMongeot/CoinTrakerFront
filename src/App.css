@@ -141,3 +141,107 @@
 .red-btn:hover {
   background-color: rgb(206, 175, 175);
 }
+
+
+/* Chart */
+
+.chart-container {
+  position: relative;
+  /* z-index: 1000; */
+  width: '100%';
+  top: 0px;
+  left: 0px;
+  /* background: rgba(82, 82, 82, 0); */
+  /* backdrop-filter: blur(3px); */
+  /* border-radius: 5px; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.548); */
+  /* overflow: hidden; */
+}
+
+.chart-container .coin-chart {
+  /* padding: 5px; */
+  position: relative;
+}
+
+.chart-container .coin-chart p {
+  /* text-transform: capitalize; */
+  font-size: 1rem;
+  text-align: center;
+}
+
+.chart-container .coin-chart .btn-container {
+  margin: 5px auto;
+  display: grid;
+  grid-template-columns: repeat(8, 2fr);
+  align-items: center;
+  cursor: default;
+  /* width: 90%; */
+}
+
+.chart-container .coin-chart .btn-container:hover div:not(:hover) {
+  /* opacity: 0.5; */
+  background: none;
+}
+
+.chart-container .coin-chart .btn-container div {
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.chart-container .coin-chart .btn-container div.active-btn {
+  background: rgb(39, 55, 194);
+  padding: 2px 2px;
+}
+
+.chart-container .coin-chart .btn-container div:hover {
+  background: rgb(29, 27, 160)
+}
+
+.chart-container .coin-chart .recharts-wrapper {
+  margin-left: -60px;
+}
+
+.chart-container .coin-chart .recharts-wrapper text {
+  fill: rgb(252, 252, 252);
+  font-size: 0.9rem;
+}
+
+.chart-container .coin-chart .recharts-wrapper .recharts-tooltip-wrapper {
+  color: rgb(104, 88, 88);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.chart-container .coin-chart .recharts-wrapper .recharts-tooltip-wrapper .recharts-tooltip-label {
+  font-size: 1rem;
+}
+
+.chart-container .coin-chart .recharts-wrapper .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: rgba(148, 23, 23, 0.866);
+}
+
+.chart-container .coin-chart .recharts-wrapper .recharts-tooltip-wrapper .recharts-default-tooltip .recharts-tooltip-item-value,
+.chart-container .coin-chart .recharts-wrapper .recharts-tooltip-wrapper .recharts-default-tooltip .recharts-tooltip-item-name {
+  color: #000 !important;
+}
+
+/* Chart End */
+
+
+.custom-tooltip {
+  color: azure;
+  font-size: small;
+  /* margin: 0; */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: aqua; */
+}

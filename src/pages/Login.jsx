@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 import AuthenticationService from '../helpers/AuthService';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 
 const Log_in = () => {
@@ -46,12 +46,12 @@ const Log_in = () => {
                         lastname: res.data.data.lastname,
                         email: res.data.data.email,
                         id: res.data.data.id,
-                        apiKeys: res.data.data.apiKeys,
-                        exchangesEnable: res.data.data.exchanges,
+                        // apiKeys: res.data.data.apiKeys,
+                        // exchangesEnable: res.data.data.exchanges,
                         phone: res.data.data.phone,
                         roles: res.data.data.roles,
                         token: res.data.token,
-                        exchangesAvailable: res.data.allExchanges
+                        exchangesActive: res.data.data.exchangesActive
                     };
                     console.log('user', user);
                     localStorage.setItem('user', JSON.stringify(user));

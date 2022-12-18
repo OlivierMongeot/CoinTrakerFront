@@ -23,7 +23,12 @@ const WalletsBoard = () => {
 
     const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
     const [exchangesUser] = React.useState(
-        ['all', 'crypto-com', 'gateio', 'binance', 'kucoin', 'coinbase']
+        ['all',
+            'crypto-com',
+            'gateio',
+            'binance',
+            'kucoin',
+            'coinbase']
     );
     const [value, setValue] = React.useState('0');
 
@@ -71,9 +76,11 @@ const WalletsBoard = () => {
                 <Grid item xs={12} md={4} lg={4} sx={{ display: "flex", flexDirection: 'column' }}>
 
                     <Paper
-                        sx={{ p: 2, height: 200, marginTop: 1, flex: '1 1' }}>
+                        sx={{ p: 2, height: "auto", marginTop: 1, flex: '1 1' }}>
                         <Deposits arrayAmountWallets={arrayAmountWallets} wallet={wallet} setWallet={setWallet} />
                     </Paper>
+
+
                     <Paper
                         sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px', mt: 2 }}>
                         <Chart />

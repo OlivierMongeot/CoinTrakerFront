@@ -48,14 +48,14 @@ export const mainListItems = (
         <ListItemText primary="Exchanges" />
       </ListItemButton>
     </Link>
-
-    {/* <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Taxes Repport" />
-    </ListItemButton> */}
-
+    <Link to="/withdraws" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Withdraws" />
+      </ListItemButton>
+    </Link>
     <Link to="/customize" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>

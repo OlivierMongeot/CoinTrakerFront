@@ -7,11 +7,15 @@ import updateWalletAmountInLS from '../helpers/updateWalletAmountInLS';
 import rotateSpinner from '../helpers/rotateSpinner';
 import stopSpinner from '../helpers/stopSpinner';
 import AuthenticationService from '../helpers/AuthService';
+// import axios from 'axios';
 
 const totalExchange = (result) => {
   let arrayTotals = [];
   result.forEach(element => {
-    arrayTotals.push(element.balance * element.live_price);
+    const value = element.balance * element.live_price;
+
+    // console.log('totalExchange value ' + element.currency, value)
+    arrayTotals.push(value);
   });
   return arrayTotals.reduce((acc, val) => acc + val, 0);
 }
@@ -55,36 +59,53 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
     addCustomToken(exchange).map((element) => {
       return wallet.push(element);
     });
-    // console.log('Wallet with custom coin', wallet);
+
+
 
     if (wallet.length > 0) {
       wallet = await addCoinMarketCapIds(wallet, exchange);
-      return await addCoinMarketCapQuote(wallet, exchange);
+      // console.log('Wallet with addCoinMarketCapIds', wallet);
+      wallet = await addCoinMarketCapQuote(wallet, exchange);
+      // console.log('Wallet with addCoinMarketCapQuote', wallet);
+      return wallet
     } else {
+      console.log('wallet.length < 0')
       return false;
     }
   }
 
+  const getAPIData = async (url, user, exchange) => {
 
-  const getAPIData = async (url, jws) => {
-    console.log('fetch');
+    console.log('getAPIData for ', user.email);
+
+    const data = JSON.stringify({
+      email: user.email,
+      exchange: exchange
+    });
+
+    // console.log('user to fetch ', data);
+    // console.log('usertoken ', user.token);
     try {
-      const result = await fetch(url, {
-        method: 'GET',
+      const response = await fetch(url, {
+        method: 'POST',
         headers: {
-          'authorization': jws
-        }
+          'Content-Type': 'application/json',
+          'Authorization': user.token
+        },
+        body: data
       })
+      const result = await response.json();
+
       if (!result) {
         console.log(result);
-        console.log(result.status);
-        toast('Token is expired : please login');
-        throw new Error('no data : check token pls ' + result.data);
+        // toast('Token is expired : please login');
+        throw new Error('no data : check token pls ');
       }
-      return result.json();
+      // console.log('result row', result)
+      return result;
+
     } catch (error) {
-      console.log('catch error');
-      toast('http error : check your connection');
+      console.log('catch error', error);
       throw new Error("HTTP error " + error.message);
     }
   }
@@ -94,52 +115,70 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
 
   switch (shoudIUpdate) {
 
+
     case true:
       rotateSpinner(exchange, arrayAmountWallets);
-      // let rowResult = await apiCall(exchange);
+
       console.log('API CALL');
-      let user = JSON.parse(localStorage.getItem('user'));
-      let jws = null;
+      const user = JSON.parse(localStorage.getItem('user'));
+
       if (user && user.token) {
-        jws = user.token;
+        // jws = user.token;
+        let result = await getAPIData("http://192.168.0.46:4000/" + exchange + "/wallet", user, exchange);
+        let data = null;
+        console.log('result getAPIData ', result)
+
+        if (result.data && result.data.name === 'TokenExpiredError') {
+          console.log('message ', result.data.name)
+          stopSpinner(exchange, arrayAmountWallets);
+          AuthenticationService.isAuthenticated = false;
+          return 'TokenExpiredError';
+
+        } else if (result) {
+
+          if (result.message
+            && result.message.label === "INVALID_SIGNATURE") {
+            console.log('Error : ', result.message.label)
+            toast("API keys not good for " + exchange)
+            throw new Error('INVALID_SIGNATURE for ' + exchange);
+          }
+
+          console.log('result  await getAPIData', result)
+          data = await completeDataWallet(result, exchange)
+          console.log('await completeDataWallet', data);
+        } else {
+          toast("No connection");
+        }
+
+        if (data !== null) {
+
+          const total = totalExchange(data);
+          updateWalletAmountInLS(arrayAmountWallets, exchange, total);
+          localStorage.setItem('wallet-' + exchange, JSON.stringify(data));
+
+          stopSpinner(exchange, arrayAmountWallets);
+
+          switch (updateAllWallets) {
+            case false:
+              updateGeneralWalletLS(data, exchange);
+              return data;
+
+            default:
+              // return the result : all wallet 
+              return updateGeneralWalletLS(data, exchange);
+          }
+        } else {
+          console.log('No data in wallet ')
+          throw new Error('no data : ', data);
+        }
+
+
       } else {
         console.log('no user in ls');
-        return 'no-user';
+        throw new Error('no user : ', user);
       }
 
-      // TODO if no user 
-      let result = await getAPIData("http://192.168.0.46:4000/" + exchange + "/wallet", jws);
-      let data = null;
 
-      if (result.data && result.data.name === 'TokenExpiredError') {
-        console.log('message ', result.data.name)
-
-        stopSpinner(exchange, arrayAmountWallets);
-        AuthenticationService.isAuthenticated = false;
-        return 'TokenExpiredError';
-
-      } else if (result) {
-        data = await completeDataWallet(result, exchange)
-      } else {
-        toast("No connection");
-      }
-
-      if (data !== null) {
-
-        const total = totalExchange(data);
-        updateWalletAmountInLS(arrayAmountWallets, exchange, total);
-        localStorage.setItem('wallet-' + exchange, JSON.stringify(data));
-
-        stopSpinner(exchange, arrayAmountWallets);
-        switch (updateAllWallets) {
-          case false:
-            updateGeneralWalletLS(data, exchange);
-            return data;
-
-          default:
-            return updateGeneralWalletLS(data, exchange);
-        }
-      }
       break;
 
     // No update : take info from LocalStorage
