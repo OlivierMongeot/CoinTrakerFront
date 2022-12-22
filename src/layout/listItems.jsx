@@ -32,14 +32,14 @@ export const mainListItems = (
         <ListItemText primary="Wallets" />
       </ListItemButton>
     </Link>
-
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Transactions" />
-    </ListItemButton>
-
+    <Link to="/transactions" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+      <ListItemButton>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Transactions" />
+      </ListItemButton>
+    </Link>
     <Link to="/exchanges" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>

@@ -24,10 +24,9 @@ const getListCurrencies = (wallet) => {
 }
 
 
-const getPricesQuotesCMC = async (wallet, exchange) => {
+const getPricesQuotesCMC = async (wallet, exchange, ip) => {
 
-
-    let url = 'http://192.168.0.46:4000/cmc/prices?symbol=' + getListCurrencies(wallet);
+    const url = 'http://' + ip + '/cmc/prices?symbol=' + getListCurrencies(wallet);
     const response = await axios.get(url);
 
     // Parse response.data to simplify the data

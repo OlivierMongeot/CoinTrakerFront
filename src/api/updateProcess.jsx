@@ -8,6 +8,8 @@ import rotateSpinner from '../helpers/rotateSpinner';
 import stopSpinner from '../helpers/stopSpinner';
 import AuthenticationService from '../helpers/AuthService';
 // import axios from 'axios';
+import config from '../config';
+
 
 const totalExchange = (result) => {
   let arrayTotals = [];
@@ -54,18 +56,17 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
     return filtred;
   }
 
-  const completeDataWallet = async (wallet, exchange) => {
+  const completeDataWallet = async (wallet, exchange, ip) => {
     // console.log('before complete Data Wallet :  ', wallet)
     addCustomToken(exchange).map((element) => {
       return wallet.push(element);
     });
 
 
-
     if (wallet.length > 0) {
-      wallet = await addCoinMarketCapIds(wallet, exchange);
+      wallet = await addCoinMarketCapIds(wallet, exchange, ip);
       // console.log('Wallet with addCoinMarketCapIds', wallet);
-      wallet = await addCoinMarketCapQuote(wallet, exchange);
+      wallet = await addCoinMarketCapQuote(wallet, exchange, ip);
       // console.log('Wallet with addCoinMarketCapQuote', wallet);
       return wallet
     } else {
@@ -123,8 +124,11 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
       const user = JSON.parse(localStorage.getItem('user'));
 
       if (user && user.token) {
-        // jws = user.token;
-        let result = await getAPIData("http://192.168.0.46:4000/" + exchange + "/wallet", user, exchange);
+        // jws = user.token;'
+        const ip = config.urlServer;
+        const url = "http://" + ip + "/" + exchange + "/wallet";
+        // let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
+        let result = await getAPIData(url, user, exchange);
         let data = null;
         console.log('result getAPIData ', result)
 
@@ -137,14 +141,14 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         } else if (result) {
 
           if (result.message
-            && result.message.label === "INVALID_SIGNATURE") {
+            && result.message.label) {
             console.log('Error : ', result.message.label)
             toast("API keys not good for " + exchange)
             throw new Error('INVALID_SIGNATURE for ' + exchange);
           }
 
           console.log('result  await getAPIData', result)
-          data = await completeDataWallet(result, exchange)
+          data = await completeDataWallet(result, exchange, ip)
           console.log('await completeDataWallet', data);
         } else {
           toast("No connection");
@@ -178,8 +182,7 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         throw new Error('no user : ', user);
       }
 
-
-      break;
+    // break;
 
     // No update : take info from LocalStorage
     case false:

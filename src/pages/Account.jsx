@@ -2,20 +2,20 @@ import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 import AuthenticationService from '../helpers/AuthService';
-import { useEffect } from 'react';
-
+// import { useEffect } from 'react';
+import config from '../config';
 
 
 export default function Account() {
@@ -27,6 +27,8 @@ export default function Account() {
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
 
+
+  const url = "http://" + config.urlServer;
 
   const [fieldAvaildable, setFieldAvaildable] = React.useState(true);
 
@@ -40,8 +42,6 @@ export default function Account() {
     const userData = JSON.parse(localStorage.getItem("user"))
 
 
-
-    let url = "http://192.168.0.46:4000";
     axios.post(url + '/user', {
       email: userData.email
     })
@@ -91,7 +91,7 @@ export default function Account() {
       phone: e.target.phone.value,
     };
 
-    let url = "http://192.168.0.46:4000";
+
     axios.post(url + '/updateuser', data)
       .then(res => {
         console.log(res.data);

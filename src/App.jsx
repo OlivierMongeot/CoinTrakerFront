@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Theme page="home" />} />
         <Route path="/login" element={<Theme page="login" />} />
         <Route path="/exchanges" element={<Theme page="exchanges" />} />
+        <Route path="/transactions" element={<Theme page="transactions" />} />
         <Route path="/withdraws" element={<Theme page="withdraws" />} />
         <Route path="/account" element={<Theme page="account" />} />
         <Route path="/customize" element={<Theme page="customize" />} />

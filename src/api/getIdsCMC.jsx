@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const getIdsCMC = async () => {
+const getIdsCMC = async (ip) => {
 
     // console.log(localStorage.getItem('cmcTokensList'));
     if (localStorage.getItem('cmcTokensList') == null) {
         console.log('get CMCData all-tokens from api');
-        const response = await axios.get('http://192.168.0.46:4000/cmc/all-tokens');
-        // let exchange = "http://192.168.0.46:4000/" + ex + "/wallet";
+
+        const response = await axios.get('http://' + ip + '/cmc/all-tokens');
+
         // save in LocalStorage
         console.log("response CMC DATA ", response)
         response.data.push({

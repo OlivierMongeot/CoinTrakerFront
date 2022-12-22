@@ -81,7 +81,7 @@ const Home = () => {
                 setCoinsData(res.data);
                 // set in  LocalStorage
                 // localStorage.setItem('GekocoinsData', JSON.stringify(res.data));
-                // console.log(res.data);
+                console.log(res.data);
             }
             ).catch
             (err => {
@@ -127,6 +127,3 @@ const Home = () => {
 
 export default Home;
 
-// https://api.coingecko.com/api/v3/simple/price?vs_currency=usd,btc
-
-// https://api.coingecko.com/api/v3/simple/supported_vs_currency

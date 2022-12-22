@@ -14,8 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 import AuthenticationService from '../helpers/AuthService';
-// import { useEffect } from 'react';
-
+import config from '../config';
 
 const Log_in = () => {
 
@@ -36,10 +35,10 @@ const Log_in = () => {
         };
 
         console.log(data.email);
-        let url = "http://192.168.0.46:4000";
+        let url = "http://" + config.urlServer;
         axios.post(url + '/login', data)
             .then(res => {
-                // console.log(res.data);
+
                 if (res.data.token) {
 
                     const user = {

@@ -132,7 +132,15 @@
 .logo-market {
   width: 25px;
   height: 25px;
+
 }
+
+.logo-transac {
+  width: 25px;
+  height: 25px;
+  margin-left: 7px;
+}
+
 
 .red-btn {
   background-color: brown !important;

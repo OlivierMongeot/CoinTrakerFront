@@ -14,7 +14,7 @@ export default class AuthenticationService {
 
     //     return new Promise(resolve => {
 
-    //         let url = "http://192.168.0.46:4000";
+    //         let url = "http://192. 168.0.46:4000";
     //         console.log('url', url);
     //         axios.post(url + '/login', data)
     //             .then(res => {

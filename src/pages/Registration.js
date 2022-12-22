@@ -13,6 +13,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import config from '../config';
+
 
 const Registration = () => {
 
@@ -37,7 +39,7 @@ const Registration = () => {
         }
 
         console.log(data);
-        let url = "http://192.168.0.46:4000";
+        let url = "http://" + config.urlServer;
         axios.post(url + '/register', data)
             .then(res => {
                 console.log(res.data);

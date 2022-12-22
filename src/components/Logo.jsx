@@ -8,7 +8,7 @@ const Logo = (props) => {
       <img
         className="logo-market"
         src={props.url}
-        alt="toto" />
+        alt="Token" />
     </React.Fragment>
   )
 };

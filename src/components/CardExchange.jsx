@@ -2,7 +2,7 @@ import React from 'react';
 import config from '../config';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+// import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import AuthenticationService from '../helpers/AuthService';
 
 const CardExchange = (props) => {
-  // console.log('props', props);
+  console.log('props', props);
   const navigate = useNavigate();
 
   const exchangeData = props.exchange;
@@ -55,7 +55,7 @@ const CardExchange = (props) => {
 
   const handleClose = () => setOpen(false);
 
-  const [enable, setEnable] = React.useState(false);
+  const [enable, setEnable] = React.useState(props.exchange.synchro);
   const [apiKey, setApiKey] = React.useState('');
   const [apiSecret, setApiSecret] = React.useState('');
   const [passPhrase, setPassPhrase] = React.useState('');
@@ -66,7 +66,7 @@ const CardExchange = (props) => {
 
 
     axios({
-      url: config.urlServer + ':' + config.port + '/apikeys',
+      url: config.urlServer + '/apikeys',
       method: 'post',
       headers: {
         authorization: props.userData.token
@@ -127,7 +127,7 @@ const CardExchange = (props) => {
   const saveData = (data) => {
 
     axios({
-      url: config.urlServer + ':' + config.port + '/setapikeys',
+      url: config.urlServer + '/setapikeys',
       method: 'post',
       headers: {
         authorization: props.userData.token
@@ -175,38 +175,34 @@ const CardExchange = (props) => {
   React.useEffect(() => {
 
     // Chek if exchange is enable
-    const exchangesEnable = props.userData.exchangesActive;
+    const isExchangeSynchro = props.exchange.synchro;
 
-
-    if (exchangesEnable.includes(exchangeData.name)) {
-      console.log('is enable: ', exchangeData.name)
+    if (isExchangeSynchro) {
       setEnable(true)
     }
     else {
-      console.log('is disable: ', exchangeData.name)
       setEnable(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    //// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
 
 
   return (
-
     <Box>
       <ToastContainer />
-      <Card sx={{ width: 300, m: 1 }}>
+      <Card sx={{ width: 250, m: 1 }}>
         <CardMedia
           component="img"
           alt="exchange"
-          height="130"
-          image={config.urlServer + ':' + config.port + "/images/" + exchangeData.name + ".png"}
+          height="120"
+          image={"http://localhost:4000/images/" + exchangeData.name + ".png"}
         />
-        <CardContent>
+        {/* <CardContent>
           <Typography gutterBottom variant="h5" component="span">
             {exchangeData.name}
           </Typography>
 
-        </CardContent>
+        </CardContent> */}
         <CardActions sx={{ m: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {enable && (
             <span style={{ color: 'green' }}><PublishedWithChangesIcon /></span>
@@ -257,24 +253,18 @@ const CardExchange = (props) => {
                   {showToken && (
                     <TextField
                       name="apiKey"
-                      // disabled
                       fullWidth
                       id="apiKey"
                       label="Api Key"
-                      // autoFocus
-                      // defaultValue=''
                       value={apiKey}
                       onChange={handleInputApiKey}
                     />)}
                   {!showToken && (
                     <TextField
                       name="apiKey"
-                      // disabled
                       fullWidth
                       id="apiKey"
                       label="Api Key"
-                      // autoFocus
-                      // defaultValue=''
                       value={apiKey}
                       onChange={handleInputApiKey}
                       type="password"
@@ -284,24 +274,20 @@ const CardExchange = (props) => {
                 <Grid item xs={12} sm={6}>
                   {showToken && (
                     <TextField
-                      // required
                       fullWidth
                       id="apiSecret"
                       label="Api Secret"
                       name="apiSecret"
-                      // defaultValue=''
                       value={apiSecret}
                       onChange={handleInputApiSecret}
                     />
                   )}
                   {!showToken && (
                     <TextField
-                      // required
                       fullWidth
                       id="apiSecret"
                       label="Api Secret"
                       name="apiSecret"
-                      // defaultValue=''
                       value={apiSecret}
                       onChange={handleInputApiSecret}
                       type="password"
@@ -313,12 +299,10 @@ const CardExchange = (props) => {
                   <Grid item xs={12} sm={6}>
                     {showToken && (
                       <TextField
-                        // required
                         fullWidth
                         id="passPhrase"
                         label="Pass Phrase"
                         name="passPhrase"
-                        // defaultValue=''
                         value={passPhrase}
                         onChange={handleInputPassPhrase}
                       />

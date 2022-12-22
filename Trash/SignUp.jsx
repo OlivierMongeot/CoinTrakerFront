@@ -34,17 +34,17 @@ export default function SignUp() {
       // return false;
     }
 
-    console.log(data);
-    let url = "http://192.168.0.46:4000";
-    axios.post(url + '/register', data)
-      .then(res => {
-        console.log(res.data);
-      }
-      )
-      .catch(err => {
-        console.log(err);
-      }
-      );
+    // console.log(data);
+    // let url = "http://192.168.0.46:4000";
+    // axios.post(url + '/register', data)
+    //   .then(res => {
+    //     console.log(res.data);
+    //   }
+    //   )
+    //   .catch(err => {
+    //     console.log(err);
+    //   }
+    //   );
 
 
 

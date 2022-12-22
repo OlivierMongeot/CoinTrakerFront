@@ -30,9 +30,9 @@ const checkParticularName = (walletElement, token, exchange) => {
 }
 
 
-const addCoinMarketCapIds = async (wallet, exchange) => {
+const addCoinMarketCapIds = async (wallet, exchange, ip) => {
   console.log('addCoinMarketCapIds', exchange);
-  const cmcTokensList = await getIdsCMC();
+  const cmcTokensList = await getIdsCMC(ip);
 
   for (let i = 0; i < wallet.length; i++) {
     // cherche dans cmcTokensList le token avec le code wallet[i].code pour retrouver le prix live 

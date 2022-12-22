@@ -14,30 +14,29 @@ const Exchanges = () => {
   const navigate = useNavigate();
 
   const userData = JSON.parse(localStorage.getItem('user'));
-  console.log('userData', userData);
-  // const [exchangesAvailables] = React.useState(userData.exchangesAvailable);
 
-  const url = config.urlServer + ':' + config.port + '/exchanges'
-  // recupere le tableau des exchanges 
 
   const [allExchanges, setAllExchanges] = React.useState([]);
-
 
   console.log('exchanges');
 
   React.useEffect(() => {
-    // console.log(config)
 
     if (!AuthenticationService.isAuthenticated) {
       navigate("/login");
     }
 
-    fetch(url, {
-      method: 'get',
+    const data = JSON.stringify({
+      email: userData.email
+    });
+
+    fetch('http://' + config.urlServer + '/exchanges', {
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': userData.token
       },
+      body: data
     }).then(res => res.json())
       .then(data => {
         console.log(data);
@@ -66,12 +65,11 @@ const Exchanges = () => {
           <CardExchange key={index}
             exchange={exchange}
             userData={userData}
-          // exchangesAvailables={exchangesAvailables}
+
           />
         ))}
 
       </Box>
-
     </Container >
   )
 

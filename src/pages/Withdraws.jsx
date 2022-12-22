@@ -14,7 +14,7 @@ const Withdraws = () => {
 
 
     axios({
-      url: config.urlServer + ':' + config.port + '/coinbase/withdraws',
+      url: config.urlServer + '/coinbase/withdraws',
       method: 'post',
       headers: {
         authorization: userData.token

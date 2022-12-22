@@ -12,6 +12,7 @@ import Registration from './pages/Registration';
 import Account from './pages/Account';
 import Exchanges from './pages/Exchanges';
 import Withdraws from './pages/Withdraws';
+import Transactions from './pages/Transactions'
 
 
 export default function AppRoots(props) {
@@ -52,6 +53,7 @@ export default function AppRoots(props) {
         {page === 'account' && <Account></Account>}
         {page === 'exchanges' && <Exchanges></Exchanges>}
         {page === 'withdraws' && <Withdraws></Withdraws>}
+        {page === 'transactions' && <Transactions></Transactions>}
 
       </Box >
     </Box >
