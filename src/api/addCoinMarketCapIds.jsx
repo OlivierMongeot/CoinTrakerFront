@@ -109,7 +109,7 @@ const addCoinMarketCapIds = async (wallet, exchange, ip) => {
       return token.symbol.toLowerCase() === wallet[i].currency.toLowerCase();
     });
   }
-  console.log(wallet);
+  // console.log(wallet);
   return wallet.filter(item => item.hasOwnProperty('idCMC'));
 }
 

@@ -18,6 +18,7 @@ export default function Wallet(props) {
   const navigate = useNavigate();
 
   let wallet = props.wallet;
+  console.log('wallet ', wallet)
   let setWallet = props.setWallet
   // const [wallet, setWallet] = React.useState([]);
   const [exchangeName] = React.useState(props.exchange);
@@ -60,14 +61,20 @@ export default function Wallet(props) {
           updateProcess(exchangeName, arrayAmountWallets, false)
             .then(
               (data) => {
+                // console.log('updateProccess ', data)
                 if (data === 'TokenExpiredError') {
                   navigate("/login");
                   return;
                 } else if (data === 'no-user') {
                   navigate("/login");
                   return;
+
+                } else if (data === 'ip_blocked') {
+                  // setWallet([]);
+                  return;
+                } else {
+                  setWallet(data);
                 }
-                setWallet(data);
               }
             )
           break;
@@ -98,7 +105,7 @@ export default function Wallet(props) {
           </TableRow>
         </TableHead>
         <TableBody className={exchangeName + ' table-wallet'}>
-          {wallet && wallet
+          {wallet && wallet.length > 0 && wallet
             .filter(token => token.balance > 0)
             .filter(token => (token.balance * token.live_price) > minValueDollarToDisplayToken(exchangeName))
             .sort(function (a, b) {

@@ -84,9 +84,10 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
       exchange: exchange
     });
 
-    // console.log('user to fetch ', data);
+    console.log('user to fetch ', data);
     // console.log('usertoken ', user.token);
     try {
+      console.log('try fetch')
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -95,6 +96,8 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         },
         body: data
       })
+
+      console.log('result response ', response)
       const result = await response.json();
 
       if (!result) {
@@ -102,7 +105,8 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         // toast('Token is expired : please login');
         throw new Error('no data : check token pls ');
       }
-      // console.log('result row', result)
+      console.log('result row', result);
+
       return result;
 
     } catch (error) {
@@ -136,9 +140,17 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
           console.log('message ', result.data.name)
           stopSpinner(exchange, arrayAmountWallets);
           AuthenticationService.isAuthenticated = false;
-          return 'TokenExpiredError';
+          return [];
 
-        } else if (result) {
+        } else if (result[0].id === 'authentication_error') {
+          stopSpinner(exchange, arrayAmountWallets);
+          console.log('authentication_error ' + result[0].message);
+          return [];
+
+        }
+
+
+        else if (result) {
 
           if (result.message
             && result.message.label) {
@@ -147,9 +159,9 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
             throw new Error('INVALID_SIGNATURE for ' + exchange);
           }
 
-          console.log('result  await getAPIData', result)
+          // console.log('result  await getAPIData', result)
           data = await completeDataWallet(result, exchange, ip)
-          console.log('await completeDataWallet', data);
+          // console.log('await completeDataWallet', data);
         } else {
           toast("No connection");
         }

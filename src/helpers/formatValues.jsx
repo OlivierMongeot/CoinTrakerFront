@@ -34,7 +34,7 @@ const formatValues = (type, value) => {
       }
 
     case 'camelise':
-      return value.charAt(0).toUpperCase() + value.slice(1);
+      return value;
 
     case 'timestamp':
       let dateFormat = new Date(value);

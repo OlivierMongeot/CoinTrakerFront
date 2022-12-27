@@ -5,16 +5,16 @@ import formatValues from '../../helpers/formatValues';
 import Loader from '../../components/Loader';
 import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
-import updateProcess from '../../api/updateProcess';
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import updateProcess from '../../api/updateProcess';
+// import { useNavigate } from "react-router-dom";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Deposits(props) {
 
   // console.log(props);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const getTotal = (wallets) => {
     let acc = 0;
@@ -33,19 +33,7 @@ export default function Deposits(props) {
     const handleClick = $event => {
       const exchange = $event.target.outerText;
       console.log('exchange click ', exchange);
-      // updateProcess(exchange, props.arrayAmountWallets, false, true)
-      //   .then(
-      //     (data) => {
-      //       if (data === 'TokenExpiredError') {
-      //         // navigate("/login");
-      //         return;
-      //       } else if (data === 'no-user') {
-      //         navigate("/login");
-      //         return;
-      //       }
-      //       props.setWallet(data);
-      //     }
-      //   )
+
       let classCss = '.' + exchange.toLowerCase();
       const elementToClick = document.querySelectorAll(classCss);
       console.log(elementToClick);
@@ -55,33 +43,6 @@ export default function Deposits(props) {
       // tabsElement.forEach(element => {
       //   // console.log(element.classList);
       console.log('index after', elementToClick.tabIndex);
-      //   if (element.classList.contains(exchange)) {
-      //     // tabsElement[key].tabIndex = '-1'
-      //   } else {
-      //     // tabsElement[key].tabIndex = '0'
-      //   }
-      // })
-
-      // for (let index = 0; index < tabsElements.length; index++) {
-      //   const element = tabsElements[index];
-      //   // element.setAttribute('tabIndex', '0');
-      //   // element.setAttribute('tabindex', '0');
-      //   element.tabIndex = 0;
-      // }
-      // for (let index = 0; index < tabsElements.length; index++) {
-      //   const element = tabsElements[index];
-      //   console.log('element.classList', element.classList);
-      //   console.log('index', element.tabindex);
-      //   console.log('element', element);
-      //   if (element.classList.contains(exchange.toLowerCase())) {
-      //     console.log('set to active tab ' + exchange);
-      //     // element.setAttribute('tabIndex', '-1');
-      //     // element.setAttribute('tabindex', '-1');
-      //     element.tabIndex = 1;
-      //   }
-
-      // }
-
 
     };
 
@@ -101,7 +62,7 @@ export default function Deposits(props) {
 
   return (
     <React.Fragment>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
         <div key={index} className="display-grid-amount">
@@ -111,7 +72,6 @@ export default function Deposits(props) {
               {formatValues('camelise', wallet.exchange)}
             </div>
           </div>
-
           <div>
             <div className="price-loader-content">
               {/* <Loader fontSize='30' exchange={wallet.exchange} /> */}
@@ -132,15 +92,10 @@ export default function Deposits(props) {
         marginTop: 10
       }}>
         <Title>Total Wallets</Title>
-
         <Typography component="p" variant="h4" >
           ${formatValues('price', total)}
         </Typography>
-
-
       </div>
-
-
     </React.Fragment >
   );
 }

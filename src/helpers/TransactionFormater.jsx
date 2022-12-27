@@ -18,7 +18,7 @@ const TransacFormater = (props) => {
               className="logo-transac"
               src={LogoDeposit}
               alt="Token" />
-            <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Dépot</div>
+            <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Deposit</div>
           </React.Fragment>
 
         )
@@ -30,10 +30,10 @@ const TransacFormater = (props) => {
             <img
               className="logo-transac"
               src={LogoWithdraw}
-              alt="Token" />   <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Retrait</div>
+              alt="Token" />   <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Withdraw</div>
           </React.Fragment>
         )
-      case 'echange':
+      case 'trade':
 
         return (
           <React.Fragment>

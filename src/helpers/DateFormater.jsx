@@ -1,4 +1,3 @@
-import * as React from 'react';
 
 const DateFormater = (props) => {
   // console.log('props', props);

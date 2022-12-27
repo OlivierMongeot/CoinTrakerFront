@@ -2,11 +2,10 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-// import ListSubheader from '@mui/material/ListSubheader';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -35,7 +34,7 @@ export const mainListItems = (
     <Link to="/transactions" style={{ color: 'inherit', textDecoration: 'inherit' }}>
       <ListItemButton>
         <ListItemIcon>
-          <PeopleIcon />
+          <SwapHorizIcon />
         </ListItemIcon>
         <ListItemText primary="Transactions" />
       </ListItemButton>

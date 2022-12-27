@@ -3,7 +3,7 @@ import LogoUSD from '../images/usd.svg';
 import LogoEUR from '../images/eur.svg';
 
 const BadgeFormater = (props) => {
-  console.log('props', props);
+  // console.log('props', props);
   if (props) {
     // 2022-08-03T08:53:58Z
     const amount = props.value.amount;
@@ -45,7 +45,6 @@ const BadgeFormater = (props) => {
         </React.Fragment>
       )
     }
-
 
     return (
       <React.Fragment>

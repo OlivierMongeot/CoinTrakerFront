@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 // import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -34,13 +34,11 @@ export default function Account() {
 
   React.useEffect(() => {
 
-
     if (!AuthenticationService.isAuthenticated) {
       navigate("/login");
     }
 
     const userData = JSON.parse(localStorage.getItem("user"))
-
 
     axios.post(url + '/user', {
       email: userData.email
@@ -68,6 +66,7 @@ export default function Account() {
         }
       }
       )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -151,7 +150,7 @@ export default function Account() {
     >
 
       <CssBaseline />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Box
         sx={{
           marginTop: 8,
