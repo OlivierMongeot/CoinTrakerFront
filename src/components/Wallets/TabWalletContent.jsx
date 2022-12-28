@@ -17,7 +17,6 @@ export default function TabWalletContent(props) {
           exchange={exchange}
           arrayAmountWallets={props.arrayAmountWallets}
           setArrayAmountWallets={props.setArrayAmountWallets}
-          // setTotalAllWallet={props.setTotalAllWallet}
           wallet={props.wallet}
           setWallet={props.setWallet}
         />

@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-const getIdsCMC = async (ip) => {
+import config from '../config';
 
+const getIdsCMC = async () => {
+
+    let ip = config.urlServer;
     // console.log(localStorage.getItem('cmcTokensList'));
     if (localStorage.getItem('cmcTokensList') == null) {
         console.log('get CMCData all-tokens from api');
@@ -10,12 +13,12 @@ const getIdsCMC = async (ip) => {
 
         // save in LocalStorage
         console.log("response CMC DATA ", response)
-        response.data.push({
-            "id": 0,
-            "name": "Ethereum 2",
-            "symbol": "ETH2",
-            "slug": "eth2"
-        });
+        // response.data.push({
+        //     "id": 0,
+        //     "name": "Ethereum 2",
+        //     "symbol": "ETH2",
+        //     "slug": "eth2"
+        // });
 
         localStorage.setItem('cmcTokensList', JSON.stringify(response.data));
         return response.data;

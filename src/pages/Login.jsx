@@ -52,7 +52,7 @@ const Log_in = () => {
                         token: res.data.token,
                         exchangesActive: res.data.data.exchangesActive
                     };
-                    console.log('user', user);
+                    console.log('user Logged OK', user);
                     localStorage.setItem('user', JSON.stringify(user));
                     AuthenticationService.isAuthenticated = true;
                     console.log('navigate to wallet');

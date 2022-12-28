@@ -5,12 +5,13 @@ import config from '../config';
 import DateFormater from '../helpers/DateFormater';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import TokenFormater from '../helpers/TokenFormater';
 import BadgeFormater from '../helpers/BadgeFormater';
 import getIdsCMC from '../api/getIdsCMC';
 import TransactionFormater from '../helpers/TransactionFormater';
 import NativeAmountormater from '../helpers/NativeAmountormater';
+import DescriptionFormater from '../helpers/DescriptionFormater';
 import Button from '@mui/material/Button';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,44 +24,54 @@ const Transactions = () => {
     const [transactions, setTransactions] = React.useState([]);
 
     const columns: GridColDef[] = [
-
+        {
+            field: 'exchange', headerName: 'Exchange', align: 'center', headerAlign: 'center', minWidth: 90,
+            flex: 1, maxWidth: 120,
+            renderCell: (params) => (params.value).toUpperCase()
+        },
         {
             field: 'token', headerName: 'Token', width:
                 160, align: 'left', headerAlign: 'center', hide: true,
             renderCell: (params) => <TokenFormater value={params.value} />
         },
         {
-            field: 'transaction', headerName: 'Type', width:
-                100, align: 'left', headerAlign: 'center',
+            field: 'transaction', headerName: 'Type', align: 'left', headerAlign: 'center', resizable: true, minWidth: 90,
+            flex: 1,
             renderCell: (params) => <TransactionFormater value={params.value} />
 
         },
         {
+            field: 'smartTitle', headerName: 'Info', minWidth: 80, align: 'center', resizable: true,
+            flex: 1,
+            headerAlign: 'center', renderCell: (params) => <DescriptionFormater value={params.value} />
+        },
+        {
             field: 'entry', headerName: 'Entrée(+)',
-            minWidth: 200, align: 'right', headerAlign: 'center',
+            minWidth: 160, align: 'right', headerAlign: 'center', resizable: true, flex: 1,
             renderCell: (params) => <BadgeFormater value={params.value} type='cashin' />
         },
 
         {
-            field: 'exit', headerName: 'Sortie(-)', minWidth: 180, align: 'right', headerAlign: 'center',
+            field: 'exit', headerName: 'Sortie(-)', minWidth: 160, flex: 1, align: 'right', headerAlign: 'center',
             renderCell: (params) => <BadgeFormater value={params.value} type='cashout' />
         },
         {
-            field: 'updated_at', headerName: 'Date', width: 260, align: 'center',
+            field: 'updated_at', headerName: 'Date', align: 'center', flex: 2, minWidth: 200,
             headerAlign: 'center', renderCell: (params) => <DateFormater value={params.value} />
         },
+
         {
-            field: 'title', headerName: 'Description', minWidth: 550, align: 'right',
-            headerAlign: 'center'
-        },
-        {
-            field: 'native_amount', headerName: 'Native Amount', width: 120, align: 'right',
-            headerAlign: 'center',
+            field: 'native_amount', headerName: 'Native Amount', minWidth: 100, align: 'right',
+            headerAlign: 'center', flex: 1,
             renderCell: (params) => <NativeAmountormater value={params.value} />
-        },
-        {
-            field: 'smartType', headerName: 'Status', width: 130, align: 'center', headerAlign: 'center'
-        },
+        }
+        // ,
+        // {
+        //     field: 'smartType', headerName: 'Info', minWidth: 120, align: 'center',
+        //     headerAlign: 'center'
+        // }
+        ,
+
         {
             field: 'id', headerName: 'ID', width:
                 300, align: 'center', headerAlign: 'center',
@@ -80,8 +91,7 @@ const Transactions = () => {
             else { return "https://s2.coinmarketcap.com/static/img/coins/64x64/" + tokenId + ".png"; }
         }
 
-        let ip = config.urlServer;
-        const cmcTokensList = await getIdsCMC(ip);
+        const cmcTokensList = await getIdsCMC();
 
         for (let i = 0; i < data.length; i++) {
             cmcTokensList.filter(token => {
@@ -139,9 +149,11 @@ const Transactions = () => {
         }
     }
 
-    const rebuildData = (data) => {
-
+    const rebuildData = async (data, exchange) => {
+        console.log('rebuild data');
         data.forEach(element => {
+
+            element.exchange = exchange;
 
             if (element.details.subtitle !== null) {
                 element.title = element.details.title + ' ' + (element.details.subtitle).toLowerCase();
@@ -153,6 +165,7 @@ const Transactions = () => {
             }
 
             element.smartType = getSmartType(element.type, element.amount.amount);
+            element.smartTitle = { info: element.title, type: element.smartType }
             element.token = element.amount.currency;
 
             if (parseFloat(element.amount.amount) > 0) {
@@ -229,16 +242,20 @@ const Transactions = () => {
                 }
             }
 
+            if (element.type === "buy") {
+                element.buy_data = { price: 'eur' };
+            }
+
         })
 
         return data;
     }
 
-    const postProcess = async (data) => {
+    const postProcess = async (data, exchange) => {
         let result = await addUrlImage(data)
         // rebuild data for table datagrid
         if (result.length > 0) {
-            result = rebuildData(result);
+            result = await rebuildData(result, exchange);
             setTransactions(result);
             localStorage.setItem('transactions', JSON.stringify(result));
         } else {
@@ -249,6 +266,7 @@ const Transactions = () => {
 
 
     const getNewTransactions = async (currentTokensWithTransaction, findNewAccount, full) => {
+        console.log('get New TRX');
 
         const exchange = 'coinbase'; //todo
         const data = {
@@ -260,7 +278,7 @@ const Transactions = () => {
         };
 
         try {
-            let result = await fetch('http://' + config.urlServer + '/coinbase/new-transactions', {
+            let response = await fetch('http://' + config.urlServer + '/coinbase/new-transactions', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -268,39 +286,41 @@ const Transactions = () => {
                 },
                 body: JSON.stringify(data)
             })
-            console.log('result', result);
-            if (result) {
-
-                return result.json()
+            console.log('response', response);
+            if (response.ok) {
+                return response.json()
             } else {
-                return ('error').json();
+                console.log('error:', response)
+                return ('error response ').json();
             }
         } catch (error) {
-            console.log('error', error);
+            console.log('error catched : ', error);
             return false;
         }
     }
 
     const findNewAccount = () => {
-        completeProccesTransaction(true, true)
+        completeProccesTransactionCoinbase(true, true)
     }
 
     const fullUpdateCurrentAccountTrx = () => {
         console.log('full current update')
-        completeProccesTransaction(true, false, true)
+        completeProccesTransactionCoinbase(true, false, true)
     }
 
-    const updateCurrentAccountTrx = () => {
-        completeProccesTransaction(true, false)
+    const updateCurrentAccountTrx = async () => {
+        await completeProccesTransactionCoinbase(true, false);
     }
 
 
-    const getLastestTransactions = (savedTrxs) => {
+    const getLastestTransactions = (savedTrxs, exchange) => {
 
         let currentTokensWithTransaction = [];
 
         savedTrxs.forEach((transaction, index) => {
 
+            // TODO selectionneer seulemment les exchanges
+            // if (transaction.exchange === exchange) {
             let resource = transaction.resource_path;
             let resourceArray = resource.split('/');
             let idAccount = resourceArray[3]
@@ -308,6 +328,8 @@ const Transactions = () => {
             if (!currentTokensWithTransaction.includes(idAccount)) {
                 currentTokensWithTransaction.push(idAccount)
             }
+            // }
+
         })
 
         currentTokensWithTransaction.forEach((id, index) => {
@@ -331,7 +353,8 @@ const Transactions = () => {
     }
 
 
-    const completeProccesTransaction = async (update, findNewAccount, full = false) => {
+    const completeProccesTransactionCoinbase = async (update, findNewAccount, full = false) => {
+
 
         const savedTrxs = JSON.parse(localStorage.getItem('transactions'));
 
@@ -339,8 +362,8 @@ const Transactions = () => {
 
             if (update === true) {
                 // Recupere la liste des token deja la avec la derniere transac 
-                const lastTokensWithTransaction = getLastestTransactions(savedTrxs);
-                // console.log('currentTokensWithTransaction after ', lastTokensWithTransaction);
+                const lastTokensWithTransaction = getLastestTransactions(savedTrxs, 'coinbase');
+                console.log('currentTokensWithTransaction after ', lastTokensWithTransaction);
 
                 // Verifier si de nouvelles transac sur ces tokens avec l'ID di token et l'id de la derniere transaction
                 let newTransaction = await getNewTransactions(lastTokensWithTransaction, findNewAccount, full);
@@ -349,12 +372,13 @@ const Transactions = () => {
 
                 if (newTransaction && newTransaction.length > 0) {
                     newTransaction = await addUrlImage(newTransaction)
-                    newTransaction = rebuildData(newTransaction);
+                    newTransaction = rebuildData(newTransaction, 'coinbase');
 
                     // Ajouter les token au ancien en memoire
                     let updatedTransactions = [...savedTrxs, ...newTransaction]
 
                     // Verifie si doublon, il y a 
+                    console.log('erase doublon')
                     updatedTransactions = eraseDoublon(updatedTransactions)
                     toast('New transaction added')
                     // make ckeck if new transaction 
@@ -365,6 +389,8 @@ const Transactions = () => {
                 }
 
             } else {
+                // let res = rebuildData(savedTrxs, 'coinbase');
+                // localStorage.setItem('transactions', JSON.stringify(res));
                 setTransactions(savedTrxs);
             }
 
@@ -394,7 +420,7 @@ const Transactions = () => {
                 })
                     .then(data => {
                         console.log('data', data);
-                        postProcess(data);
+                        postProcess(data, 'coinbase');
                     }).catch(error => {
                         console.log(error);
                     })
@@ -448,7 +474,7 @@ const Transactions = () => {
             navigate("/login");
         }
 
-        completeProccesTransaction(false, false);
+        completeProccesTransactionCoinbase(false, false);
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -492,7 +518,7 @@ const Transactions = () => {
                     }} >
                     {transactions && (
                         <div style={{ height: '100%', width: '100%' }}>
-                            <DataGrid initialState={{
+                            <DataGrid disableColumnResize={false} components={{ Toolbar: GridToolbar }} initialState={{
                                 sorting: {
                                     sortModel: [{ field: 'updated_at', sort: 'desc' }],
                                 },

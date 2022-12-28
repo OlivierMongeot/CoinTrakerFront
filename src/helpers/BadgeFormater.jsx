@@ -22,39 +22,62 @@ const BadgeFormater = (props) => {
     } else {
       value = value.toFixed(2)
     }
+    let color = 'black'
+    if (props.type === 'cashin') {
+      color = 'green'
+    } else {
+      color = 'red'
+    }
+
+    const style = {
+      // backgroundColor: color,
+      border: '1px solid black',
+      borderRadius: '50px',
+      padding: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      boxShadow: '2px 2px 5px ' + color
+    }
 
     if (currency === 'EUR') {
       return (
-        <React.Fragment>
-          <span > {value} {currency}</span >
+        <div style={style}>
+          <span >{value} {currency}</span >
           <img
             className="logo-transac"
             src={LogoEUR}
             alt="Token" />
-        </React.Fragment>
+        </div>
       )
     }
     if (currency === 'USD') {
       return (
-        <React.Fragment>
+        <div style={style}>
           <span > {value} {currency}</span >
           <img
             className="logo-transac"
             src={LogoUSD}
             alt="Token" />
-        </React.Fragment>
+        </div>
       )
     }
 
+
     return (
-      <React.Fragment>
+      <div style={style}>
         <span > {value} {currency}</span >
         <img
           className="logo-transac"
           src={url}
           alt="Token" />
-      </React.Fragment>
+      </div>
+
+
     )
+
+
+
+
 
 
   }
