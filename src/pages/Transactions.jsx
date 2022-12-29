@@ -17,6 +17,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 const Transactions = () => {
 
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Transactions = () => {
         {
             field: 'exchange', headerName: 'Exchange', align: 'center', headerAlign: 'center', minWidth: 90,
             flex: 1, maxWidth: 120,
-            renderCell: (params) => (params.value).toUpperCase()
+            renderCell: (params) => (params.value)
         },
         {
             field: 'token', headerName: 'Token', width:
@@ -35,19 +36,18 @@ const Transactions = () => {
             renderCell: (params) => <TokenFormater value={params.value} />
         },
         {
-            field: 'transaction', headerName: 'Type', align: 'left', headerAlign: 'center', resizable: true, minWidth: 90,
+            field: 'transaction', headerName: 'Type', align: 'left', headerAlign: 'center', minWidth: 90,
             flex: 1,
             renderCell: (params) => <TransactionFormater value={params.value} />
 
         },
         {
-            field: 'smartTitle', headerName: 'Info', minWidth: 80, align: 'center', resizable: true,
-            flex: 1,
+            field: 'smartTitle', headerName: 'Info', minWidth: 80, align: 'center', flex: 1,
             headerAlign: 'center', renderCell: (params) => <DescriptionFormater value={params.value} />
         },
         {
             field: 'entry', headerName: 'Entrée(+)',
-            minWidth: 160, align: 'right', headerAlign: 'center', resizable: true, flex: 1,
+            minWidth: 160, align: 'right', headerAlign: 'center', flex: 1,
             renderCell: (params) => <BadgeFormater value={params.value} type='cashin' />
         },
 
@@ -320,15 +320,15 @@ const Transactions = () => {
         savedTrxs.forEach((transaction, index) => {
 
             // TODO selectionneer seulemment les exchanges
-            // if (transaction.exchange === exchange) {
-            let resource = transaction.resource_path;
-            let resourceArray = resource.split('/');
-            let idAccount = resourceArray[3]
+            if (transaction.exchange === exchange) {
+                let resource = transaction.resource_path;
+                let resourceArray = resource.split('/');
+                let idAccount = resourceArray[3]
 
-            if (!currentTokensWithTransaction.includes(idAccount)) {
-                currentTokensWithTransaction.push(idAccount)
+                if (!currentTokensWithTransaction.includes(idAccount)) {
+                    currentTokensWithTransaction.push(idAccount)
+                }
             }
-            // }
 
         })
 
@@ -339,14 +339,15 @@ const Transactions = () => {
                 const path = transaction.resource_path;
                 const pathArray = path.split('/');
                 let idAcc = pathArray[3]
+
                 return idAcc === id;
             })
 
             const lastTransaction = transactionsByToken.reduce((r, o) => new Date(o.created_at) > new Date(r.created_at) ? o : r);
-
+            const token = lastTransaction.amount.currency;
             const path = lastTransaction.resource_path;
             const pathArray = path.split('/');
-            currentTokensWithTransaction[index] = { id_account: pathArray[3], id_last_trx: pathArray[5] }
+            currentTokensWithTransaction[index] = { id_account: pathArray[3], id_last_trx: pathArray[5], token: token }
         })
 
         return currentTokensWithTransaction;
@@ -440,33 +441,205 @@ const Transactions = () => {
         return r;
     }
 
-    // const deleteLastTrx = () => {
 
-    //     let transactions = JSON.parse(localStorage.getItem('transactions'));
+    const fetchAllAccount = async () => {
 
-    //     const trxs = ['33602c97-2d22-5502-ba70-8a66daae0a7a'];
 
-    //     console.log(transactions);
+        let nexPageAccounUri = null;
+        let accounts = [];
 
-    //     transactions.forEach((trx, index) => {
-    //         if (trx && trx.id) {
-    //             if (trxs.includes(trx.id)) {
-    //                 console.log('find', transactions[index], index)
-    //                 delete transactions[index];
-    //             }
-    //         }
-    //     })
-    //     let compactArray = transactions.filter(function (item) {
-    //         return item !== null;
-    //     });
-    //     localStorage.setItem('transactions', JSON.stringify(compactArray))
-    // }
+        async function fetchAccount(path) {
+
+            const data = {
+                email: userData.email,
+                exchange: 'coinbase',
+                path: path
+            };
+
+            const response = await fetch('http://' + config.urlServer + '/coinbase/accounts', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': userData.token
+                },
+                body: JSON.stringify(data)
+            })
+
+            if (!response.ok) {
+                const message = `An error has occured: ${response.status}`;
+                throw new Error(message);
+            }
+            const accountsPage = await response.json();
+            console.log('Account Page', accountsPage);
+            console.log('Account Page', accountsPage.pagination);
+            nexPageAccounUri = accountsPage.pagination.next_uri;
+            return accountsPage;
+
+        }
+
+
+
+
+
+
+        try {
+            const data = await fetchAccount('/v2/accounts');
+            accounts = accounts.concat(data.data);
+        } catch (error) {
+            console.log('error catched :', error);
+        }
+
+        while (nexPageAccounUri !== null) {
+            const dataNextPage = await fetchAccount(nexPageAccounUri);
+            accounts = accounts.concat(dataNextPage.data);
+        }
+        // Lenght of allAccounts
+        console.log('Nbr de tokens', accounts.length);
+        // console.log('accounts', accounts);
+        // let tokenList = [];
+
+        localStorage.setItem('accounts-coinbase', JSON.stringify(accounts));
+        return accounts;
+    }
+
+    const fetchAllTransactions = async (accounts) => {
+
+
+
+        async function fetchAllTransac(path) {
+
+            let nexPageTrxUri = null;
+
+            async function fetchTransac(path) {
+
+                const data = {
+                    email: userData.email,
+                    exchange: 'coinbase',
+                    path: path
+                };
+
+                const response = await fetch('http://' + config.urlServer + '/coinbase/transactions', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': userData.token
+                    },
+                    body: JSON.stringify(data)
+                })
+
+                if (!response.ok) {
+                    const message = `An error has occured: ${response.status}`;
+                    throw new Error(message);
+                }
+                const trxPage = await response.json();
+                if (trxPage.data.length > 0) {
+                    toast('New Transaction find for ' + trxPage.data[0].amount.currency);
+                    console.log('trx data', trxPage.data);
+                    console.log('trx Page', trxPage.pagination);
+                }
+                nexPageTrxUri = trxPage.pagination.next_uri;
+                return trxPage;
+            }
+
+            let accountTransactions = [];
+
+            // let path = '/v2/accounts/' + accountId + "/transactions";
+            const data = await fetchTransac(path);
+            accountTransactions = accountTransactions.concat(data.data);
+
+            if (nexPageTrxUri !== null) {
+                console.log('There is a next page');
+            }
+            while (nexPageTrxUri !== null) {
+                const dataNextPage = await fetchTransac(nexPageTrxUri);
+                accountTransactions = accountTransactions.concat(dataNextPage.data);
+            }
+            return accountTransactions;
+        }
+
+
+        let transactions = [];
+
+        // Boucle sur toules account 
+        let index = 0;
+
+        while (index < accounts.length) {
+
+            // console.log(accounts[index]);
+            let account = accounts[index];
+            try {
+                let path = '/v2/accounts/' + account.id + "/transactions";
+                const data = await fetchAllTransac(path);
+                transactions = [...transactions, ...data]
+
+            } catch (error) {
+                console.log('error catched :', error);
+            }
+            index++;
+        }
+
+        return transactions;
+    }
+
+    const proccesTransactionCoinbase = async () => {
+
+        const accountSaved = JSON.parse(localStorage.getItem('accounts-coinbase'));
+        let accounts = []
+        if (accountSaved && accountSaved.length > 0) {
+            console.log(' get account saved LS')
+            accounts = accountSaved;
+        } else {
+            accounts = await fetchAllAccount();
+        }
+
+        // recupere la liste des account ( wallet + fault );
+        const trxSaved = JSON.parse(localStorage.getItem('transactions'));
+        // const trxSaved = false;
+        let transactions = null;
+        if (trxSaved && trxSaved.length > 0) {
+            transactions = trxSaved;
+        } else {
+            transactions = await fetchAllTransactions(accounts)
+        }
+        console.log('Final trx : ', transactions);
+        if (transactions.length > 0) {
+
+            await postProcess(transactions, "coinbase");
+        }
+
+        // Test 
+        let lastTrx = getLastestTransactions(trxSaved, 'coinbase');
+        console.log('last TRX', lastTrx)
+
+        // 
+        // Boucle sur les accounts activé avec la derbiere trx
+
+        // let index = 0;
+        // while (index < lastTrx.length) {
+
+
+
+        //     index++;
+        // }
+
+
+    }
+
+    const deleteLastTrx = () => {
+        const trxSaved = JSON.parse(localStorage.getItem('transactions'));
+
+        let idTrxToDelete = '';
+
+
+
+
+    }
+
 
 
     const style = {
         marginLeft: '10px'
     }
-
 
     React.useEffect(() => {
 
@@ -474,7 +647,9 @@ const Transactions = () => {
             navigate("/login");
         }
 
-        completeProccesTransactionCoinbase(false, false);
+        // proccesTransactionCoinbase();
+
+        // completeProccesTransactionCoinbase(false, false);
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -493,7 +668,7 @@ const Transactions = () => {
                     pauseOnHover
                     theme="dark"
                 />
-                <Button sx={style} variant="outlined" onClick={updateCurrentAccountTrx} >
+                <Button sx={style} variant="outlined" onClick={proccesTransactionCoinbase} >
                     Quick Update
                 </Button>
                 <Button sx={style} variant="outlined" onClick={fullUpdateCurrentAccountTrx} >
@@ -503,9 +678,9 @@ const Transactions = () => {
                     Find new account
                 </Button>
 
-                {/* <Button variant="outlined" onClick={deleteLastTrx} >
+                <Button variant="outlined" onClick={deleteLastTrx} >
                     Delete  Last transactions
-                </Button> */}
+                </Button>
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
                 <Paper
@@ -518,7 +693,7 @@ const Transactions = () => {
                     }} >
                     {transactions && (
                         <div style={{ height: '100%', width: '100%' }}>
-                            <DataGrid disableColumnResize={false} components={{ Toolbar: GridToolbar }} initialState={{
+                            <DataGrid components={{ Toolbar: GridToolbar }} initialState={{
                                 sorting: {
                                     sortModel: [{ field: 'updated_at', sort: 'desc' }],
                                 },
