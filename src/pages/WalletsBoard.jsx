@@ -13,6 +13,7 @@ import AuthenticationService from '../helpers/AuthService';
 import { useNavigate } from "react-router-dom";
 import config from '../config';
 import LastOrders from '../components/LastOrders';
+import Loader from '../components/Loader';
 
 export const WalletsContext = React.createContext();
 
@@ -136,7 +137,7 @@ const WalletsBoard = () => {
                         <LastOrders orders={orders}></LastOrders>
                     </Paper>
                 </Grid>
-
+                <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' />
             </Grid >
         </Container >
     );

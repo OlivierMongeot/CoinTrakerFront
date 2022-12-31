@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Tooltip from '@mui/material/Tooltip';
-
+import InfoIcon from '@mui/icons-material/Info';
 
 const Formater = (props) => {
 
@@ -8,10 +8,9 @@ const Formater = (props) => {
   if (props.value) {
 
     return (
-      <Tooltip title={props.value?.info}>
-        <span style={{ fontSize: '0.9rem' }}>
-          {props.value?.type}
-        </span >
+      <Tooltip title={props.value}>
+        <InfoIcon>
+        </InfoIcon>
       </Tooltip>
     )
   }

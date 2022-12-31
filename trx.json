@@ -36,8 +36,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/22142.png",
+        "exchange": "coinbase",
         "title": "00 Token reçus de inconnu (1,56825844 00 reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "00 Token reçus de inconnu (1,56825844 00 reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "00",
         "entry": {
             "amount": "1.56825844",
@@ -87,8 +92,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/22142.png",
+        "exchange": "coinbase",
         "title": "00 Token reçus de inconnu (1,55376009 00 reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "00 Token reçus de inconnu (1,55376009 00 reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "00",
         "entry": {
             "amount": "1.55376009",
@@ -138,8 +148,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/22142.png",
+        "exchange": "coinbase",
         "title": "00 Token reçus de inconnu (1,55581485 00 reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "00 Token reçus de inconnu (1,55581485 00 reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "00",
         "entry": {
             "amount": "1.55581485",
@@ -185,8 +200,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png",
+        "exchange": "coinbase",
         "title": "NEAR Protocol alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "NEAR Protocol alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "NEAR",
         "entry": {
             "amount": 1.35,
@@ -197,7 +217,7 @@
             "currency": "NEAR",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "cc039be3-5cb4-5c2d-9da1-866429613b0b",
@@ -236,8 +256,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png",
+        "exchange": "coinbase",
         "title": "NEAR Protocol reçus de coinbase (0,23573786 NEAR reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "NEAR Protocol reçus de coinbase (0,23573786 NEAR reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "NEAR",
         "entry": {
             "amount": "0.2357378595002357",
@@ -287,8 +312,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png",
+        "exchange": "coinbase",
         "title": "NEAR Protocol reçus de coinbase (0,23551578 NEAR reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "NEAR Protocol reçus de coinbase (0,23551578 NEAR reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "NEAR",
         "entry": {
             "amount": "0.2355157795572303",
@@ -338,8 +368,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png",
+        "exchange": "coinbase",
         "title": "NEAR Protocol reçus de coinbase (0,23501763 NEAR reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "NEAR Protocol reçus de coinbase (0,23501763 NEAR reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "NEAR",
         "entry": {
             "amount": "0.2350176263219741",
@@ -385,8 +420,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/11877.png",
+        "exchange": "coinbase",
         "title": "Galxe alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Galxe alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "GAL",
         "entry": {
             "amount": 1.17,
@@ -397,7 +437,7 @@
             "currency": "GAL",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/11877.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "652c8238-8dc4-5446-b0ec-c42e22d20bd1",
@@ -436,8 +476,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/11877.png",
+        "exchange": "coinbase",
         "title": "Galxe reçus de coinbase earn (0,27236824 GAL reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Galxe reçus de coinbase earn (0,27236824 GAL reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "GAL",
         "entry": {
             "amount": "0.27236824",
@@ -487,8 +532,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/11877.png",
+        "exchange": "coinbase",
         "title": "Galxe reçus de coinbase earn (0,27281407 GAL reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Galxe reçus de coinbase earn (0,27281407 GAL reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "GAL",
         "entry": {
             "amount": "0.27281407",
@@ -538,8 +588,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/11877.png",
+        "exchange": "coinbase",
         "title": "Galxe reçus de coinbase earn (0,27255382 GAL reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Galxe reçus de coinbase earn (0,27255382 GAL reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "GAL",
         "entry": {
             "amount": "0.27255382",
@@ -589,8 +644,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/5821.png",
+        "exchange": "coinbase",
         "title": "Aleph.im reçus de coinbase earn (3,83068377 ALEPH reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Aleph.im reçus de coinbase earn (3,83068377 ALEPH reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "ALEPH",
         "entry": {
             "amount": "3.83068377",
@@ -640,8 +700,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/5821.png",
+        "exchange": "coinbase",
         "title": "Aleph.im reçus de coinbase earn (3,82921692 ALEPH reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Aleph.im reçus de coinbase earn (3,82921692 ALEPH reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "ALEPH",
         "entry": {
             "amount": "3.82921692",
@@ -691,8 +756,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/5821.png",
+        "exchange": "coinbase",
         "title": "Aleph.im reçus de coinbase earn (3,83141762 ALEPH reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Aleph.im reçus de coinbase earn (3,83141762 ALEPH reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "ALEPH",
         "entry": {
             "amount": "3.83141762",
@@ -738,8 +808,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6520.png",
+        "exchange": "coinbase",
         "title": "HOPR alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "HOPR alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "HOPR",
         "entry": {
             "amount": 1.9,
@@ -750,7 +825,7 @@
             "currency": "HOPR",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6520.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "e86b9f22-f4c4-57a9-ae24-b97d0ae2c5b7",
@@ -789,8 +864,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6520.png",
+        "exchange": "coinbase",
         "title": "HOPR reçus de coinbase earn (11,0619469 HOPR reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "HOPR reçus de coinbase earn (11,0619469 HOPR reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "HOPR",
         "entry": {
             "amount": "11.06194690",
@@ -840,8 +920,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6520.png",
+        "exchange": "coinbase",
         "title": "HOPR reçus de coinbase earn (11,0619469 HOPR reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "HOPR reçus de coinbase earn (11,0619469 HOPR reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "HOPR",
         "entry": {
             "amount": "11.06194690",
@@ -891,8 +976,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6520.png",
+        "exchange": "coinbase",
         "title": "HOPR reçus de coinbase earn (11,0619469 HOPR reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "HOPR reçus de coinbase earn (11,0619469 HOPR reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "HOPR",
         "entry": {
             "amount": "11.06194690",
@@ -938,8 +1028,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png",
+        "exchange": "coinbase",
         "title": "Chain alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Chain alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "XCN",
         "entry": {
             "amount": 1.74,
@@ -950,7 +1045,7 @@
             "currency": "XCN",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "6face176-a18e-5a0c-8c73-e2d073824200",
@@ -985,8 +1080,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png",
+        "exchange": "coinbase",
         "title": "Chain alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Chain alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "XCN",
         "entry": {
             "amount": 0.26,
@@ -997,7 +1097,7 @@
             "currency": "XCN",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "e6339f14-fed7-5864-a76e-37cee0b75ec1",
@@ -1036,8 +1136,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png",
+        "exchange": "coinbase",
         "title": "Chain reçus de coinbase (14,05777746 XCN reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Chain reçus de coinbase (14,05777746 XCN reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "XCN",
         "entry": {
             "amount": "14.05777746",
@@ -1087,8 +1192,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png",
+        "exchange": "coinbase",
         "title": "Chain reçus de coinbase (14,05777746 XCN reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Chain reçus de coinbase (14,05777746 XCN reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "XCN",
         "entry": {
             "amount": "14.05777746",
@@ -1138,8 +1248,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/18679.png",
+        "exchange": "coinbase",
         "title": "Chain reçus de coinbase (14,05777746 XCN reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Chain reçus de coinbase (14,05777746 XCN reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "XCN",
         "entry": {
             "amount": "14.05777746",
@@ -1185,8 +1300,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6210.png",
+        "exchange": "coinbase",
         "title": "The Sandbox alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "The Sandbox alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "SAND",
         "entry": {
             "amount": 1.83,
@@ -1197,7 +1317,7 @@
             "currency": "SAND",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6210.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "89103354-33b5-5357-af5a-9e8478fd2015",
@@ -1236,8 +1356,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6210.png",
+        "exchange": "coinbase",
         "title": "The Sandbox reçus de coinbase (1,05915373 SAND reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Sandbox reçus de coinbase (1,05915373 SAND reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "SAND",
         "entry": {
             "amount": "1.05915373",
@@ -1287,8 +1412,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6210.png",
+        "exchange": "coinbase",
         "title": "The Sandbox reçus de coinbase (1,05937814 SAND reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Sandbox reçus de coinbase (1,05937814 SAND reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "SAND",
         "entry": {
             "amount": "1.05937814",
@@ -1338,8 +1468,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6210.png",
+        "exchange": "coinbase",
         "title": "The Sandbox reçus de coinbase (1,05904156 SAND reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Sandbox reçus de coinbase (1,05904156 SAND reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "SAND",
         "entry": {
             "amount": "1.05904156",
@@ -1385,8 +1520,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/8615.png",
+        "exchange": "coinbase",
         "title": "Ethernity Chain alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Ethernity Chain alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "ERN",
         "entry": {
             "amount": 4.53,
@@ -1397,7 +1537,7 @@
             "currency": "ERN",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/8615.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "ff02661f-8ea8-5350-bd81-4670dca1f510",
@@ -1436,8 +1576,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/8615.png",
+        "exchange": "coinbase",
         "title": "Ethernity Chain reçus de coinbase earn (0,54347826 ERN reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Ethernity Chain reçus de coinbase earn (0,54347826 ERN reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "ERN",
         "entry": {
             "amount": "0.54347826",
@@ -1487,8 +1632,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/8615.png",
+        "exchange": "coinbase",
         "title": "Ethernity Chain reçus de coinbase earn (0,54200542 ERN reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Ethernity Chain reçus de coinbase earn (0,54200542 ERN reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "ERN",
         "entry": {
             "amount": "0.54200542",
@@ -1538,8 +1688,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/8615.png",
+        "exchange": "coinbase",
         "title": "Ethernity Chain reçus de coinbase earn (0,54200542 ERN reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Ethernity Chain reçus de coinbase earn (0,54200542 ERN reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "ERN",
         "entry": {
             "amount": "0.54200542",
@@ -1587,18 +1742,24 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Fonds retirés vers portefeuille en doge (Retrait de 800,0000 DOGE (92,44 $))",
-        "smartType": "Retrait Wallet Externe",
+        "smartType": "Retrait Externe",
+        "smartTitle": {
+            "info": "Fonds retirés vers portefeuille en doge (Retrait de 800,0000 DOGE (92,44 $))",
+            "type": "Retrait Externe"
+        },
         "token": "DOGE",
         "entry": {
-            "amount": 92.44,
-            "currency": "USD"
-        },
-        "exit": {
             "amount": 0,
             "currency": ""
         },
-        "transaction": "deposit"
+        "exit": {
+            "amount": 800,
+            "currency": "DOGE",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"
+        },
+        "transaction": "withdraw"
     },
     {
         "id": "348b507b-c12c-5e9f-8013-b9240cc37f9a",
@@ -1632,8 +1793,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Transfert de Dogecoin de portefeuille en doge (Transfert de 800,0000 DOGE (105,96 $))",
         "smartType": "Transfert",
+        "smartTitle": {
+            "info": "Transfert de Dogecoin de portefeuille en doge (Transfert de 800,0000 DOGE (105,96 $))",
+            "type": "Transfert"
+        },
         "token": "DOGE",
         "entry": {
             "amount": "800.00000000",
@@ -1681,18 +1847,24 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Fonds retirés vers fet wallet (Retrait de 10,0000 FET (0,89 $))",
-        "smartType": "Retrait Wallet Externe",
+        "smartType": "Retrait Externe",
+        "smartTitle": {
+            "info": "Fonds retirés vers fet wallet (Retrait de 10,0000 FET (0,89 $))",
+            "type": "Retrait Externe"
+        },
         "token": "FET",
         "entry": {
-            "amount": 0.89,
-            "currency": "USD"
-        },
-        "exit": {
             "amount": 0,
             "currency": ""
         },
-        "transaction": "deposit"
+        "exit": {
+            "amount": 10,
+            "currency": "FET",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png"
+        },
+        "transaction": "withdraw"
     },
     {
         "id": "8eb84180-1b26-56ae-978a-9940c02c1566",
@@ -1726,8 +1898,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Transfert de Fetch.ai de fet wallet (Transfert de 10,0000 FET (3,49 $))",
         "smartType": "Transfert",
+        "smartTitle": {
+            "info": "Transfert de Fetch.ai de fet wallet (Transfert de 10,0000 FET (3,49 $))",
+            "type": "Transfert"
+        },
         "token": "FET",
         "entry": {
             "amount": "10.00000000",
@@ -1772,8 +1949,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003062 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003062 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003062",
@@ -1818,8 +2000,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003214 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003214 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003214",
@@ -1864,8 +2051,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,0000322 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,0000322 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003220",
@@ -1910,8 +2102,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002971 ETH2 reçus (0,03 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002971 ETH2 reçus (0,03 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002971",
@@ -1956,8 +2153,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003027 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003027 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003027",
@@ -2002,8 +2204,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002998 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002998 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002998",
@@ -2048,8 +2255,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002933 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002933 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002933",
@@ -2094,8 +2306,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003105 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003105 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003105",
@@ -2140,8 +2357,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003101 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003101 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003101",
@@ -2186,8 +2408,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003391 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003391 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003391",
@@ -2232,8 +2459,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003403 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003403 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003403",
@@ -2278,8 +2510,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003403 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003403 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003403",
@@ -2324,8 +2561,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003602 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003602 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003602",
@@ -2370,8 +2612,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00004382 ETH2 reçus (0,05 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00004382 ETH2 reçus (0,05 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00004382",
@@ -2416,8 +2663,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00006173 ETH2 reçus (0,08 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00006173 ETH2 reçus (0,08 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00006173",
@@ -2462,8 +2714,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003115 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003115 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003115",
@@ -2508,8 +2765,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003354 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003354 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003354",
@@ -2554,8 +2816,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002896 ETH2 reçus (0,05 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002896 ETH2 reçus (0,05 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002896",
@@ -2600,8 +2867,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002889 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002889 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002889",
@@ -2646,8 +2918,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002963 ETH2 reçus (0,05 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002963 ETH2 reçus (0,05 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002963",
@@ -2692,8 +2969,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002745 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002745 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002745",
@@ -2738,8 +3020,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002838 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002838 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002838",
@@ -2784,8 +3071,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002744 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002744 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002744",
@@ -2830,8 +3122,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002829 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002829 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002829",
@@ -2876,8 +3173,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002755 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002755 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002755",
@@ -2922,8 +3224,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002815 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002815 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002815",
@@ -2968,8 +3275,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002776 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002776 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002776",
@@ -3014,8 +3326,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002806 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002806 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002806",
@@ -3060,8 +3377,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002943 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002943 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002943",
@@ -3106,8 +3428,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002865 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002865 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002865",
@@ -3152,8 +3479,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003106 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003106 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003106",
@@ -3198,8 +3530,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002903 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002903 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002903",
@@ -3244,8 +3581,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00003044 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00003044 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00003044",
@@ -3290,8 +3632,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002467 ETH2 reçus (0,03 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002467 ETH2 reçus (0,03 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002467",
@@ -3336,8 +3683,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,0000247 ETH2 reçus (0,03 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,0000247 ETH2 reçus (0,03 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002470",
@@ -3382,8 +3734,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002448 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002448 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002448",
@@ -3428,8 +3785,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002489 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002489 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002489",
@@ -3474,8 +3836,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00001657 ETH2 reçus (0,03 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00001657 ETH2 reçus (0,03 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00001657",
@@ -3520,8 +3887,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002492 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002492 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002492",
@@ -3566,8 +3938,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002507 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002507 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002507",
@@ -3612,8 +3989,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,0000502 ETH2 reçus (0,08 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,0000502 ETH2 reçus (0,08 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00005020",
@@ -3658,8 +4040,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00002546 ETH2 reçus (0,04 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00002546 ETH2 reçus (0,04 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00002546",
@@ -3704,8 +4091,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Récompense en Ethereum 2 de coinbase (0,00131558 ETH2 reçus (2,29 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Ethereum 2 de coinbase (0,00131558 ETH2 reçus (2,29 $))",
+            "type": "Intérêt"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.00131558",
@@ -3750,8 +4142,13 @@
         },
         "hide_native_amount": true,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01554187 ETH2 converti)",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01554187 ETH2 converti)",
+            "type": "Swap"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.01554187",
@@ -3762,7 +4159,7 @@
             "amount": "53.68",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "5c220627-06af-5d5f-ac52-2456b2e8b124",
@@ -3796,8 +4193,13 @@
         },
         "hide_native_amount": true,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01678239 ETH2 converti)",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01678239 ETH2 converti)",
+            "type": "Swap"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.01678239",
@@ -3808,7 +4210,7 @@
             "amount": "44.15",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "4c51edb3-dcc0-567a-b200-9cf6b3d9c3f5",
@@ -3842,8 +4244,13 @@
         },
         "hide_native_amount": true,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01916698 ETH2 converti)",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01916698 ETH2 converti)",
+            "type": "Swap"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.01916698",
@@ -3854,7 +4261,7 @@
             "amount": "48.85",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "12df37ca-ae1e-51b4-b2c8-50cbfce84ff6",
@@ -3888,8 +4295,13 @@
         },
         "hide_native_amount": true,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01810841 ETH2 converti)",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,01810841 ETH2 converti)",
+            "type": "Swap"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.01810841",
@@ -3900,7 +4312,7 @@
             "amount": "47.25",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "25576207-14de-549a-98fb-fc4390b559dd",
@@ -3934,8 +4346,13 @@
         },
         "hide_native_amount": true,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,02295242 ETH2 converti)",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum 2 en utilisant portefeuille en eth (0,02295242 ETH2 converti)",
+            "type": "Swap"
+        },
         "token": "ETH2",
         "entry": {
             "amount": "0.02295242",
@@ -3946,7 +4363,7 @@
             "amount": "60.01",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "48667a9f-d40c-5c30-a590-5b160e869296",
@@ -3980,8 +4397,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01554187 ETH convertis (53,68 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01554187 ETH convertis (53,68 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": 53.68,
@@ -3992,7 +4414,7 @@
             "currency": "ETH",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "9b9dea69-6009-59d4-9dfa-ab4b00023563",
@@ -4026,8 +4448,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum en utilisant portefeuille en algo (0,01554187 ETH convertis (53,68 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum en utilisant portefeuille en algo (0,01554187 ETH convertis (53,68 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": "0.01554187",
@@ -4038,7 +4465,7 @@
             "amount": "53.68",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "6d8b61e0-c68b-57ff-b232-ec1ef666b09f",
@@ -4072,8 +4499,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01678239 ETH convertis (44,15 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01678239 ETH convertis (44,15 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": 44.15,
@@ -4084,7 +4516,7 @@
             "currency": "ETH",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "25bdd662-6d9c-5ce6-b244-73fdffc3e97c",
@@ -4118,8 +4550,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum en utilisant portefeuille en doge (0,01678239 ETH convertis (44,15 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum en utilisant portefeuille en doge (0,01678239 ETH convertis (44,15 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": "0.01678239",
@@ -4130,7 +4567,7 @@
             "amount": "44.15",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "df73e8fd-7614-5fc6-80e5-21cfee5bfd66",
@@ -4164,8 +4601,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01916698 ETH convertis (48,85 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01916698 ETH convertis (48,85 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": 48.85,
@@ -4176,7 +4618,7 @@
             "currency": "ETH",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "5bf66eae-a573-5860-b54d-e313ae5bba48",
@@ -4210,8 +4652,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum en utilisant portefeuille en doge (0,01916698 ETH convertis (49,02 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum en utilisant portefeuille en doge (0,01916698 ETH convertis (49,02 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": "0.01916698",
@@ -4222,7 +4669,7 @@
             "amount": "49.02",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "253338d0-d33a-5d21-9164-5405779aff33",
@@ -4256,8 +4703,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01810841 ETH convertis (47,25 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,01810841 ETH convertis (47,25 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": 47.25,
@@ -4268,7 +4720,7 @@
             "currency": "ETH",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "2ffcc016-267a-5aaf-af21-b42ef3e937cf",
@@ -4302,8 +4754,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum en utilisant portefeuille en matic (0,01810841 ETH convertis (47,26 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum en utilisant portefeuille en matic (0,01810841 ETH convertis (47,26 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": "0.01810841",
@@ -4314,7 +4771,7 @@
             "amount": "47.26",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "14f60a64-8344-5ea7-854c-f5395fdf5a75",
@@ -4348,8 +4805,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,02295242 ETH convertis (60,01 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Ethereum en utilisant portefeuille en eth (0,02295242 ETH convertis (60,01 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": 60.01,
@@ -4360,7 +4822,7 @@
             "currency": "ETH",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "9f07a25c-9134-58e1-a543-19985bf1abfa",
@@ -4399,8 +4861,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Ethereum reçus de coinbase earn (0,00154009 ETH reçus (4,00 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Ethereum reçus de coinbase earn (0,00154009 ETH reçus (4,00 $))",
+            "type": "Dépôt"
+        },
         "token": "ETH",
         "entry": {
             "amount": "0.00154009",
@@ -4445,8 +4912,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+        "exchange": "coinbase",
         "title": "Converti en Ethereum en utilisant portefeuille en btc (0,02141233 ETH convertis (55,63 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Ethereum en utilisant portefeuille en btc (0,02141233 ETH convertis (55,63 $))",
+            "type": "Swap"
+        },
         "token": "ETH",
         "entry": {
             "amount": "0.02141233",
@@ -4457,7 +4929,7 @@
             "amount": "55.63",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "93efe133-6b39-55bc-9a35-2fa8031ea7f5",
@@ -4509,8 +4981,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens envoyés vers stellar lumens address on stellar network (690,8264006 XLM envoyés (132,77 $))",
         "smartType": "Retrait",
+        "smartTitle": {
+            "info": "Stellar Lumens envoyés vers stellar lumens address on stellar network (690,8264006 XLM envoyés (132,77 $))",
+            "type": "Retrait"
+        },
         "token": "XLM",
         "entry": {
             "amount": 0,
@@ -4559,8 +5036,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens reçus de adresse de stellar lumens (636,3230 XLM reçus (119,02 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Stellar Lumens reçus de adresse de stellar lumens (636,3230 XLM reçus (119,02 $))",
+            "type": "Dépôt"
+        },
         "token": "XLM",
         "entry": {
             "amount": "636.3230000",
@@ -4610,8 +5092,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens reçus de coinbase earn (10,8777235 XLM reçus (2,00 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Stellar Lumens reçus de coinbase earn (10,8777235 XLM reçus (2,00 $))",
+            "type": "Dépôt"
+        },
         "token": "XLM",
         "entry": {
             "amount": "10.8777235",
@@ -4661,8 +5148,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens reçus de coinbase earn (10,8462811 XLM reçus (2,00 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Stellar Lumens reçus de coinbase earn (10,8462811 XLM reçus (2,00 $))",
+            "type": "Dépôt"
+        },
         "token": "XLM",
         "entry": {
             "amount": "10.8462811",
@@ -4712,8 +5204,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens reçus de coinbase earn (10,9624481 XLM reçus (2,01 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Stellar Lumens reçus de coinbase earn (10,9624481 XLM reçus (2,01 $))",
+            "type": "Dépôt"
+        },
         "token": "XLM",
         "entry": {
             "amount": "10.9624481",
@@ -4763,8 +5260,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens reçus de coinbase earn (10,9470873 XLM reçus (2,01 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Stellar Lumens reçus de coinbase earn (10,9470873 XLM reçus (2,01 $))",
+            "type": "Dépôt"
+        },
         "token": "XLM",
         "entry": {
             "amount": "10.9470873",
@@ -4814,8 +5316,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/512.png",
+        "exchange": "coinbase",
         "title": "Stellar Lumens reçus de coinbase earn (10,8698606 XLM reçus (2,00 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Stellar Lumens reçus de coinbase earn (10,8698606 XLM reçus (2,00 $))",
+            "type": "Dépôt"
+        },
         "token": "XLM",
         "entry": {
             "amount": "10.8698606",
@@ -4861,8 +5368,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png",
+        "exchange": "coinbase",
         "title": "Polygon alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Polygon alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "MATIC",
         "entry": {
             "amount": 4.28,
@@ -4873,7 +5385,7 @@
             "currency": "MATIC",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "0db9d762-de2f-541e-8271-32c5fb19a9b6",
@@ -4908,8 +5420,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png",
+        "exchange": "coinbase",
         "title": "Polygon alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Polygon alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "MATIC",
         "entry": {
             "amount": "4.73000000",
@@ -4920,7 +5437,7 @@
             "amount": "4.57",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "c8139d84-8b60-5584-809a-e56751945772",
@@ -4954,8 +5471,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Polygon en utilisant portefeuille en matic (33,39088934 MATIC convertis (48,19 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Polygon en utilisant portefeuille en matic (33,39088934 MATIC convertis (48,19 $))",
+            "type": "Swap"
+        },
         "token": "MATIC",
         "entry": {
             "amount": 48.19,
@@ -4966,7 +5488,7 @@
             "currency": "MATIC",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "e5bd9ff6-4cf0-52c6-b38e-632d5cd2f45c",
@@ -5000,8 +5522,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png",
+        "exchange": "coinbase",
         "title": "Converti en Polygon en utilisant portefeuille en usdt (33,39088934 MATIC convertis (51,74 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Polygon en utilisant portefeuille en usdt (33,39088934 MATIC convertis (51,74 $))",
+            "type": "Swap"
+        },
         "token": "MATIC",
         "entry": {
             "amount": "33.39088934",
@@ -5012,7 +5539,109 @@
             "amount": "51.74",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
+    },
+    {
+        "id": "7861b9b8-ebe3-549c-b408-e8cacda47823",
+        "type": "interest",
+        "status": "completed",
+        "amount": {
+            "amount": "0.000631",
+            "currency": "USDT"
+        },
+        "native_amount": {
+            "amount": "0.00",
+            "currency": "USD"
+        },
+        "description": null,
+        "created_at": "2022-12-29T08:12:33Z",
+        "updated_at": "2022-12-29T08:12:33Z",
+        "resource": "transaction",
+        "resource_path": "/v2/accounts/649ebb4b-891d-5f47-b65c-4d39e27e999e/transactions/7861b9b8-ebe3-549c-b408-e8cacda47823",
+        "instant_exchange": false,
+        "from": {
+            "id": "1d5c070c-0c79-5b33-9b8d-46a846983edf",
+            "resource": "user",
+            "resource_path": "/v2/users/1d5c070c-0c79-5b33-9b8d-46a846983edf",
+            "currency": "USDT"
+        },
+        "details": {
+            "title": "Récompense en Tether",
+            "subtitle": "De Coinbase",
+            "header": "0,000631 USDT reçus (0,00 $)",
+            "health": "positive"
+        },
+        "hide_native_amount": false,
+        "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
+        "title": "Récompense en Tether de coinbase (0,000631 USDT reçus (0,00 $))",
+        "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000631 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
+        "token": "USDT",
+        "entry": {
+            "amount": "0.000631",
+            "currency": "USDT",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+        },
+        "exit": {
+            "amount": 0,
+            "currency": ""
+        },
+        "transaction": "deposit"
+    },
+    {
+        "id": "966a21f8-7bc8-57d1-8d7f-34f2ee54e86b",
+        "type": "interest",
+        "status": "completed",
+        "amount": {
+            "amount": "0.000644",
+            "currency": "USDT"
+        },
+        "native_amount": {
+            "amount": "0.00",
+            "currency": "USD"
+        },
+        "description": null,
+        "created_at": "2022-12-28T08:12:29Z",
+        "updated_at": "2022-12-28T08:12:29Z",
+        "resource": "transaction",
+        "resource_path": "/v2/accounts/649ebb4b-891d-5f47-b65c-4d39e27e999e/transactions/966a21f8-7bc8-57d1-8d7f-34f2ee54e86b",
+        "instant_exchange": false,
+        "from": {
+            "id": "1d5c070c-0c79-5b33-9b8d-46a846983edf",
+            "resource": "user",
+            "resource_path": "/v2/users/1d5c070c-0c79-5b33-9b8d-46a846983edf",
+            "currency": "USDT"
+        },
+        "details": {
+            "title": "Récompense en Tether",
+            "subtitle": "De Coinbase",
+            "header": "0,000644 USDT reçus (0,00 $)",
+            "health": "positive"
+        },
+        "hide_native_amount": false,
+        "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
+        "title": "Récompense en Tether de coinbase (0,000644 USDT reçus (0,00 $))",
+        "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000644 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
+        "token": "USDT",
+        "entry": {
+            "amount": "0.000644",
+            "currency": "USDT",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+        },
+        "exit": {
+            "amount": 0,
+            "currency": ""
+        },
+        "transaction": "deposit"
     },
     {
         "id": "21c77ac1-0cea-52a6-8263-05c9af8d101a",
@@ -5046,8 +5675,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000644 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000644 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000644",
@@ -5092,8 +5726,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000642 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000642 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000642",
@@ -5138,8 +5777,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000641 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000641 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000641",
@@ -5184,8 +5828,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000647 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000647 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000647",
@@ -5230,8 +5879,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000646 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000646 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000646",
@@ -5276,8 +5930,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000645 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000645 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000645",
@@ -5322,8 +5981,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000642 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000642 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000642",
@@ -5368,8 +6032,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000639 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000639 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000639",
@@ -5414,8 +6083,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000628 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000628 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000628",
@@ -5460,8 +6134,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000623 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000623 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000623",
@@ -5506,8 +6185,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000624 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000624 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000624",
@@ -5552,8 +6236,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000608 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000608 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000608",
@@ -5598,8 +6287,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000601 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000601 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000601",
@@ -5644,8 +6338,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000612 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000612 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000612",
@@ -5690,8 +6389,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000608 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000608 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000608",
@@ -5736,8 +6440,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000611 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000611 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000611",
@@ -5782,8 +6491,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000611 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000611 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000611",
@@ -5828,8 +6542,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000621 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000621 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000621",
@@ -5874,8 +6593,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000689 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000689 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000689",
@@ -5920,8 +6644,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000688 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000688 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000688",
@@ -5966,8 +6695,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000684 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000684 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000684",
@@ -6012,8 +6746,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000609 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000609 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000609",
@@ -6058,8 +6797,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000607 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000607 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000607",
@@ -6104,8 +6848,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000607 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000607 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000607",
@@ -6150,8 +6899,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000591 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000591 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000591",
@@ -6196,8 +6950,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000565 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000565 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000565",
@@ -6242,8 +7001,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000433 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000433 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000433",
@@ -6289,8 +7053,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "4.313760",
@@ -6301,7 +7070,7 @@
             "amount": "4.28",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "74790394-5fb5-5257-9303-b15dca890a60",
@@ -6335,8 +7104,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000402 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000402 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000402",
@@ -6381,8 +7155,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,0004 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,0004 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000400",
@@ -6427,8 +7206,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000401 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000401 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000401",
@@ -6473,8 +7257,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000394 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000394 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000394",
@@ -6519,8 +7308,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000416 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000416 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000416",
@@ -6565,8 +7359,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000738 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000738 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000738",
@@ -6611,8 +7410,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000725 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000725 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000725",
@@ -6657,8 +7461,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000752 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000752 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000752",
@@ -6703,8 +7512,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,0006 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,0006 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000600",
@@ -6749,8 +7563,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000512 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000512 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000512",
@@ -6795,8 +7614,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000474 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000474 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000474",
@@ -6841,8 +7665,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000431 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000431 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000431",
@@ -6887,8 +7716,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000435 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000435 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000435",
@@ -6933,8 +7767,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Récompense en Tether de coinbase (0,000167 USDT reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Tether de coinbase (0,000167 USDT reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.000167",
@@ -6980,8 +7819,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "1.919800",
@@ -6992,7 +7836,7 @@
             "amount": "1.91",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "4d464005-e421-5b3f-969e-041858bf3924",
@@ -7027,8 +7871,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.644480",
@@ -7039,7 +7888,7 @@
             "amount": "0.63",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "e3822e98-eeae-5240-8768-349f09a3c38c",
@@ -7074,8 +7923,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "1.838600",
@@ -7086,7 +7940,7 @@
             "amount": "1.83",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "42d84eff-f3fe-506f-8ec4-6af5ba1c7290",
@@ -7121,8 +7975,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "1.744722",
@@ -7133,7 +7992,7 @@
             "amount": "1.73",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "6d4087ad-2012-5a5d-b991-c126de850f13",
@@ -7168,8 +8027,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "0.262185",
@@ -7180,7 +8044,7 @@
             "amount": "0.26",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "f4c7c056-078b-59c4-bc41-5d913900340a",
@@ -7215,8 +8079,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "1.183833",
@@ -7227,7 +8096,7 @@
             "amount": "1.17",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "fc1b00dc-818f-51d5-9b77-5baf16d4f166",
@@ -7262,8 +8131,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "1.362580",
@@ -7274,7 +8148,7 @@
             "amount": "1.35",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "38f71496-d358-511e-95e1-24254e0b5f9b",
@@ -7309,8 +8183,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à la vente",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à la vente",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": 4.52,
@@ -7321,7 +8200,7 @@
             "currency": "USDT",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "dac26686-b7aa-5956-a023-b4e67695126e",
@@ -7356,8 +8235,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether alimenté à l'achat",
-        "smartType": "Trade avancé",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Tether alimenté à l'achat",
+            "type": "Trade"
+        },
         "token": "USDT",
         "entry": {
             "amount": "4.588140",
@@ -7368,7 +8252,7 @@
             "amount": "4.57",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "6ce77c6a-3004-51ec-b541-8431a359f73a",
@@ -7402,8 +8286,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Tether en utilisant portefeuille en usdt (52,735843 USDT convertis (52,76 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Tether en utilisant portefeuille en usdt (52,735843 USDT convertis (52,76 $))",
+            "type": "Swap"
+        },
         "token": "USDT",
         "entry": {
             "amount": 52.76,
@@ -7414,7 +8303,7 @@
             "currency": "USDT",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "d2288c08-d427-5132-920b-546a5c5c4e63",
@@ -7447,7 +8336,7 @@
                 "amount": "104.952771",
                 "currency": "USDT"
             },
-            "confirmations": 1992776
+            "confirmations": 2007326
         },
         "to": {
             "resource": "ethereum_address",
@@ -7466,8 +8355,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether envoyés vers adresse de tether (108,761162 USDT envoyés (105,00 $))",
         "smartType": "Retrait",
+        "smartTitle": {
+            "info": "Tether envoyés vers adresse de tether (108,761162 USDT envoyés (105,00 $))",
+            "type": "Retrait"
+        },
         "token": "USDT",
         "entry": {
             "amount": 0,
@@ -7512,8 +8406,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+        "exchange": "coinbase",
         "title": "Tether achetés en utilisant 4977********2957 (161,497005 USDT achetés (169,10 $))",
         "smartType": "Achat",
+        "smartTitle": {
+            "info": "Tether achetés en utilisant 4977********2957 (161,497005 USDT achetés (169,10 $))",
+            "type": "Achat"
+        },
         "token": "USDT",
         "entry": {
             "amount": "161.497005",
@@ -7524,7 +8423,59 @@
             "amount": "169.10",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade",
+        "buy_data": {
+            "price": "eur"
+        },
+        "data_buy": {
+            "id": "de1211a4-13d9-5ff4-a0ff-a50de236737f",
+            "status": "completed",
+            "transaction": {
+                "id": "ebcdbeab-11c9-5830-976c-0ba2a321f1ef",
+                "resource": "transaction",
+                "resource_path": "/v2/accounts/649ebb4b-891d-5f47-b65c-4d39e27e999e/transactions/ebcdbeab-11c9-5830-976c-0ba2a321f1ef"
+            },
+            "user_reference": "Z5TH4JEM",
+            "created_at": "2022-02-26T15:49:33Z",
+            "updated_at": "2022-02-26T15:50:21Z",
+            "resource": "buy",
+            "resource_path": "/v2/accounts/649ebb4b-891d-5f47-b65c-4d39e27e999e/buys/de1211a4-13d9-5ff4-a0ff-a50de236737f",
+            "payment_method": {
+                "id": "65fd23ba-3259-5161-bde7-fb4a6d8c35e1",
+                "resource": "payment_method",
+                "resource_path": "/v2/payment-methods/65fd23ba-3259-5161-bde7-fb4a6d8c35e1"
+            },
+            "committed": true,
+            "payout_at": "2022-02-26T15:49:38Z",
+            "instant": true,
+            "fee": {
+                "amount": "5.76",
+                "currency": "EUR"
+            },
+            "amount": {
+                "amount": "161.497005",
+                "currency": "USDT"
+            },
+            "total": {
+                "amount": "150.00",
+                "currency": "EUR"
+            },
+            "subtotal": {
+                "amount": "144.24",
+                "currency": "EUR"
+            },
+            "unit_price": {
+                "amount": "0.8931",
+                "currency": "EUR",
+                "scale": 4
+            },
+            "hold_until": null,
+            "hold_days": 0,
+            "idem": "d71152a5-1946-4a45-b5de-9068292d9d55",
+            "next_step": null,
+            "is_first_buy": false,
+            "requires_completion_step": false
+        }
     },
     {
         "id": "8aa3e4e5-4370-5845-a24c-1de28df7ae34",
@@ -7563,8 +8514,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6719.png",
+        "exchange": "coinbase",
         "title": "The Graph reçus de coinbase earn (2,34686693 GRT reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Graph reçus de coinbase earn (2,34686693 GRT reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "GRT",
         "entry": {
             "amount": "2.34686693",
@@ -7614,8 +8570,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6719.png",
+        "exchange": "coinbase",
         "title": "The Graph reçus de coinbase earn (2,34521575 GRT reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Graph reçus de coinbase earn (2,34521575 GRT reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "GRT",
         "entry": {
             "amount": "2.34521575",
@@ -7665,8 +8626,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6719.png",
+        "exchange": "coinbase",
         "title": "The Graph reçus de coinbase earn (2,3430178 GRT reçus (0,99 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Graph reçus de coinbase earn (2,3430178 GRT reçus (0,99 $))",
+            "type": "Earn"
+        },
         "token": "GRT",
         "entry": {
             "amount": "2.34301780",
@@ -7716,8 +8682,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6719.png",
+        "exchange": "coinbase",
         "title": "The Graph reçus de coinbase earn (2,34549079 GRT reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "The Graph reçus de coinbase earn (2,34549079 GRT reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "GRT",
         "entry": {
             "amount": "2.34549079",
@@ -7781,8 +8752,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/16116.png",
+        "exchange": "coinbase",
         "title": "Solana envoyés vers solana address on solana network (1,63252329 SOL envoyés (149,11 $))",
         "smartType": "Retrait",
+        "smartTitle": {
+            "info": "Solana envoyés vers solana address on solana network (1,63252329 SOL envoyés (149,11 $))",
+            "type": "Retrait"
+        },
         "token": "SOL",
         "entry": {
             "amount": 0,
@@ -7827,8 +8803,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/16116.png",
+        "exchange": "coinbase",
         "title": "Solana achetés en utilisant 4977********2957 (1,15168021 SOL achetés (110,10 $))",
         "smartType": "Achat",
+        "smartTitle": {
+            "info": "Solana achetés en utilisant 4977********2957 (1,15168021 SOL achetés (110,10 $))",
+            "type": "Achat"
+        },
         "token": "SOL",
         "entry": {
             "amount": "1.151680212",
@@ -7839,7 +8820,59 @@
             "amount": "110.10",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade",
+        "buy_data": {
+            "price": "eur"
+        },
+        "data_buy": {
+            "id": "98693df2-5fcd-5598-845c-39722e952b6d",
+            "status": "completed",
+            "transaction": {
+                "id": "69cbb559-b457-5eb3-a187-cf45acb5b962",
+                "resource": "transaction",
+                "resource_path": "/v2/accounts/b15fb45b-5c12-52ed-8cbe-d4031f032087/transactions/69cbb559-b457-5eb3-a187-cf45acb5b962"
+            },
+            "user_reference": "FE8DH34T",
+            "created_at": "2022-03-22T12:59:28Z",
+            "updated_at": "2022-03-22T13:00:24Z",
+            "resource": "buy",
+            "resource_path": "/v2/accounts/b15fb45b-5c12-52ed-8cbe-d4031f032087/buys/98693df2-5fcd-5598-845c-39722e952b6d",
+            "payment_method": {
+                "id": "65fd23ba-3259-5161-bde7-fb4a6d8c35e1",
+                "resource": "payment_method",
+                "resource_path": "/v2/payment-methods/65fd23ba-3259-5161-bde7-fb4a6d8c35e1"
+            },
+            "committed": true,
+            "payout_at": "2022-03-22T12:59:33Z",
+            "instant": true,
+            "fee": {
+                "amount": "3.84",
+                "currency": "EUR"
+            },
+            "amount": {
+                "amount": "1.151680212",
+                "currency": "SOL"
+            },
+            "total": {
+                "amount": "100.00",
+                "currency": "EUR"
+            },
+            "subtotal": {
+                "amount": "96.16",
+                "currency": "EUR"
+            },
+            "unit_price": {
+                "amount": "83.50",
+                "currency": "EUR",
+                "scale": 2
+            },
+            "hold_until": null,
+            "hold_days": 0,
+            "idem": "14101dad-059f-40ca-a039-f3101feea330",
+            "next_step": null,
+            "is_first_buy": false,
+            "requires_completion_step": false
+        }
     },
     {
         "id": "051d6545-2d3a-57d8-a978-9f0de36ca107",
@@ -7873,8 +8906,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/16116.png",
+        "exchange": "coinbase",
         "title": "Converti en Solana en utilisant portefeuille en algo (0,48084307 SOL convertis (48,96 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Solana en utilisant portefeuille en algo (0,48084307 SOL convertis (48,96 $))",
+            "type": "Swap"
+        },
         "token": "SOL",
         "entry": {
             "amount": "0.480843074",
@@ -7885,7 +8923,7 @@
             "amount": "48.96",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "112bcd5a-319d-5e4c-9d19-ce92f154270d",
@@ -7918,7 +8956,7 @@
                 "amount": "4.77830629",
                 "currency": "LINK"
             },
-            "confirmations": 1847156
+            "confirmations": 1861705
         },
         "to": {
             "resource": "ethereum_address",
@@ -7937,8 +8975,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1975.png",
+        "exchange": "coinbase",
         "title": "Chainlink envoyés vers chainlink address on ethereum network (4,91569055 LINK envoyés (72,53 $))",
         "smartType": "Retrait",
+        "smartTitle": {
+            "info": "Chainlink envoyés vers chainlink address on ethereum network (4,91569055 LINK envoyés (72,53 $))",
+            "type": "Retrait"
+        },
         "token": "LINK",
         "entry": {
             "amount": 0,
@@ -7983,8 +9026,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1975.png",
+        "exchange": "coinbase",
         "title": "Converti en Chainlink en utilisant portefeuille en ltc (1,06628328 LINK convertis (15,50 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Chainlink en utilisant portefeuille en ltc (1,06628328 LINK convertis (15,50 $))",
+            "type": "Swap"
+        },
         "token": "LINK",
         "entry": {
             "amount": "1.06628328",
@@ -7995,7 +9043,7 @@
             "amount": "15.50",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "061aa750-1f80-5fcb-b69e-4670a08d327d",
@@ -8029,8 +9077,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1975.png",
+        "exchange": "coinbase",
         "title": "Chainlink achetés en utilisant 4977********2957 (3,84940727 LINK achetés (56,12 $))",
         "smartType": "Achat",
+        "smartTitle": {
+            "info": "Chainlink achetés en utilisant 4977********2957 (3,84940727 LINK achetés (56,12 $))",
+            "type": "Achat"
+        },
         "token": "LINK",
         "entry": {
             "amount": "3.84940727",
@@ -8041,7 +9094,59 @@
             "amount": "56.12",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade",
+        "buy_data": {
+            "price": "eur"
+        },
+        "data_buy": {
+            "id": "5af5e138-1001-5e45-a551-cab10cc0d366",
+            "status": "completed",
+            "transaction": {
+                "id": "061aa750-1f80-5fcb-b69e-4670a08d327d",
+                "resource": "transaction",
+                "resource_path": "/v2/accounts/3b954b69-d30b-5855-97ba-f9d747278db7/transactions/061aa750-1f80-5fcb-b69e-4670a08d327d"
+            },
+            "user_reference": "N7KSVSLR",
+            "created_at": "2022-02-25T15:49:00Z",
+            "updated_at": "2022-02-25T15:49:52Z",
+            "resource": "buy",
+            "resource_path": "/v2/accounts/3b954b69-d30b-5855-97ba-f9d747278db7/buys/5af5e138-1001-5e45-a551-cab10cc0d366",
+            "payment_method": {
+                "id": "65fd23ba-3259-5161-bde7-fb4a6d8c35e1",
+                "resource": "payment_method",
+                "resource_path": "/v2/payment-methods/65fd23ba-3259-5161-bde7-fb4a6d8c35e1"
+            },
+            "committed": true,
+            "payout_at": "2022-02-25T15:49:06Z",
+            "instant": true,
+            "fee": {
+                "amount": "1.99",
+                "currency": "EUR"
+            },
+            "amount": {
+                "amount": "3.84940727",
+                "currency": "LINK"
+            },
+            "total": {
+                "amount": "50.00",
+                "currency": "EUR"
+            },
+            "subtotal": {
+                "amount": "48.01",
+                "currency": "EUR"
+            },
+            "unit_price": {
+                "amount": "12.47",
+                "currency": "EUR",
+                "scale": 2
+            },
+            "hold_until": null,
+            "hold_days": 0,
+            "idem": "c849b3dc-3feb-4057-a148-58d53be8e97f",
+            "next_step": null,
+            "is_first_buy": false,
+            "requires_completion_step": false
+        }
     },
     {
         "id": "9dfe71a2-e4bd-5f5d-a506-8a280651100c",
@@ -8074,7 +9179,7 @@
                 "amount": "0.00698869",
                 "currency": "LTC"
             },
-            "confirmations": 156523
+            "confirmations": 157674
         },
         "to": {
             "resource": "litecoin_address",
@@ -8094,8 +9199,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin envoyés vers litecoin address on litecoin network (0,00699289 LTC envoyés (0,91 $))",
         "smartType": "Retrait",
+        "smartTitle": {
+            "info": "Litecoin envoyés vers litecoin address on litecoin network (0,00699289 LTC envoyés (0,91 $))",
+            "type": "Retrait"
+        },
         "token": "LTC",
         "entry": {
             "amount": 0,
@@ -8144,8 +9254,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,00699289 LTC reçus (0,86 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,00699289 LTC reçus (0,86 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.00699289",
@@ -8190,8 +9305,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Litecoin en utilisant portefeuille en ltc (0,14033975 LTC convertis (15,83 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Litecoin en utilisant portefeuille en ltc (0,14033975 LTC convertis (15,83 $))",
+            "type": "Swap"
+        },
         "token": "LTC",
         "entry": {
             "amount": 15.83,
@@ -8202,7 +9322,7 @@
             "currency": "LTC",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "caed31e0-5867-53e7-9b8a-cb66452b1d71",
@@ -8240,8 +9360,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,02713412 LTC reçus (2,95 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,02713412 LTC reçus (2,95 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.02713412",
@@ -8290,8 +9415,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,00616487 LTC reçus (0,68 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,00616487 LTC reçus (0,68 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.00616487",
@@ -8340,8 +9470,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,01995572 LTC reçus (2,15 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,01995572 LTC reçus (2,15 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.01995572",
@@ -8390,8 +9525,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,02114169 LTC reçus (2,28 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,02114169 LTC reçus (2,28 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.02114169",
@@ -8440,8 +9580,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,0306185 LTC reçus (3,26 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,0306185 LTC reçus (3,26 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.03061850",
@@ -8490,8 +9635,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,01286682 LTC reçus (1,36 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,01286682 LTC reçus (1,36 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.01286682",
@@ -8540,8 +9690,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,01042459 LTC reçus (1,03 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,01042459 LTC reçus (1,03 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.01042459",
@@ -8590,8 +9745,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/2.png",
+        "exchange": "coinbase",
         "title": "Litecoin reçus de adresse de litecoin (0,01203344 LTC reçus (1,20 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Litecoin reçus de adresse de litecoin (0,01203344 LTC reçus (1,20 $))",
+            "type": "Dépôt"
+        },
         "token": "LTC",
         "entry": {
             "amount": "0.01203344",
@@ -8636,8 +9796,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (33,53242506 DOGE convertis (4,55 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (33,53242506 DOGE convertis (4,55 $))",
+            "type": "Swap"
+        },
         "token": "DOGE",
         "entry": {
             "amount": 4.55,
@@ -8648,7 +9813,7 @@
             "currency": "DOGE",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "69b33d26-68fc-52ff-8bc1-1dee55cfe66e",
@@ -8682,8 +9847,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (399,11308204 DOGE convertis (45,00 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (399,11308204 DOGE convertis (45,00 $))",
+            "type": "Swap"
+        },
         "token": "DOGE",
         "entry": {
             "amount": 45,
@@ -8694,7 +9864,7 @@
             "currency": "DOGE",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "f70e163c-0644-5a62-bccf-8821d386ee4e",
@@ -8728,8 +9898,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (443,06601684 DOGE convertis (50,00 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (443,06601684 DOGE convertis (50,00 $))",
+            "type": "Swap"
+        },
         "token": "DOGE",
         "entry": {
             "amount": 50,
@@ -8740,7 +9915,7 @@
             "currency": "DOGE",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "898407d8-fb35-559b-b058-59fffd6f029e",
@@ -8776,8 +9951,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Fonds retirés de doge vault (Retrait de 800,0000 DOGE (92,44 $))",
-        "smartType": "Retrait Wallet Externe",
+        "smartType": "Retrait Externe",
+        "smartTitle": {
+            "info": "Fonds retirés de doge vault (Retrait de 800,0000 DOGE (92,44 $))",
+            "type": "Retrait Externe"
+        },
         "token": "DOGE",
         "entry": {
             "amount": "800.00000000",
@@ -8822,18 +10002,24 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Transfert de Dogecoin vers doge vault (Transfert de 800,0000 DOGE (105,96 $))",
         "smartType": "Transfert",
+        "smartTitle": {
+            "info": "Transfert de Dogecoin vers doge vault (Transfert de 800,0000 DOGE (105,96 $))",
+            "type": "Transfert"
+        },
         "token": "DOGE",
         "entry": {
-            "amount": 105.96,
-            "currency": "USD"
-        },
-        "exit": {
             "amount": 0,
             "currency": ""
         },
-        "transaction": "deposit"
+        "exit": {
+            "amount": 800,
+            "currency": "DOGE",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"
+        },
+        "transaction": "withdraw"
     },
     {
         "id": "af972825-e75d-5432-85a6-f30a796a96ee",
@@ -8867,8 +10053,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (749,90626172 DOGE convertis (100,00 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Dogecoin en utilisant portefeuille en doge (749,90626172 DOGE convertis (100,00 $))",
+            "type": "Swap"
+        },
         "token": "DOGE",
         "entry": {
             "amount": 100,
@@ -8879,7 +10070,7 @@
             "currency": "DOGE",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "6fb58dc2-0120-5fd8-8f58-4a7facea8791",
@@ -8913,8 +10104,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/74.png",
+        "exchange": "coinbase",
         "title": "Dogecoin achetés en utilisant portefeuille en euro (1 625,61778566 DOGE achetés (224,45 $))",
         "smartType": "Achat",
+        "smartTitle": {
+            "info": "Dogecoin achetés en utilisant portefeuille en euro (1 625,61778566 DOGE achetés (224,45 $))",
+            "type": "Achat"
+        },
         "token": "DOGE",
         "entry": {
             "amount": "1625.61778566",
@@ -8925,7 +10121,59 @@
             "amount": "224.45",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade",
+        "buy_data": {
+            "price": "eur"
+        },
+        "data_buy": {
+            "id": "d2c9bdc0-7001-5dff-9526-8d0431ca4e49",
+            "status": "completed",
+            "transaction": {
+                "id": "6fb58dc2-0120-5fd8-8f58-4a7facea8791",
+                "resource": "transaction",
+                "resource_path": "/v2/accounts/ea4a1d03-20a1-52c5-9431-7a734c415329/transactions/6fb58dc2-0120-5fd8-8f58-4a7facea8791"
+            },
+            "user_reference": "U2SR3EE7",
+            "created_at": "2022-03-01T15:26:39Z",
+            "updated_at": "2022-03-01T15:26:52Z",
+            "resource": "buy",
+            "resource_path": "/v2/accounts/ea4a1d03-20a1-52c5-9431-7a734c415329/buys/d2c9bdc0-7001-5dff-9526-8d0431ca4e49",
+            "payment_method": {
+                "id": "5540b5c0-2b90-5f53-ab37-eaa4e3672527",
+                "resource": "payment_method",
+                "resource_path": "/v2/payment-methods/5540b5c0-2b90-5f53-ab37-eaa4e3672527"
+            },
+            "committed": true,
+            "payout_at": "2022-03-02T15:26:47Z",
+            "instant": false,
+            "fee": {
+                "amount": "2.99",
+                "currency": "EUR"
+            },
+            "amount": {
+                "amount": "1625.61778566",
+                "currency": "DOGE"
+            },
+            "total": {
+                "amount": "201.00",
+                "currency": "EUR"
+            },
+            "subtotal": {
+                "amount": "198.01",
+                "currency": "EUR"
+            },
+            "unit_price": {
+                "amount": "0.1218",
+                "currency": "EUR",
+                "scale": 4
+            },
+            "hold_until": null,
+            "hold_days": 0,
+            "idem": "0b056841-a744-43e2-a4ba-2344b69e21d6",
+            "next_step": null,
+            "is_first_buy": false,
+            "requires_completion_step": false
+        }
     },
     {
         "id": "e24aeed8-8983-577b-9de0-228bb8bd9aff",
@@ -8959,8 +10207,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,00235 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,00235 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.002350",
@@ -9005,8 +10258,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,002035 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,002035 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.002035",
@@ -9051,8 +10309,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,246157 ALGO reçus (0,16 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,246157 ALGO reçus (0,16 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.246157",
@@ -9097,8 +10360,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,00071 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,00071 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000710",
@@ -9143,8 +10411,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Algorand en utilisant portefeuille en algo (57,720852 ALGO convertis (54,75 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Algorand en utilisant portefeuille en algo (57,720852 ALGO convertis (54,75 $))",
+            "type": "Swap"
+        },
         "token": "ALGO",
         "entry": {
             "amount": 54.75,
@@ -9155,7 +10428,7 @@
             "currency": "ALGO",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "37033583-7f35-5e55-bee9-b4db3257402f",
@@ -9189,8 +10462,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,00071 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,00071 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000710",
@@ -9235,8 +10513,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,00071 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,00071 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000710",
@@ -9281,8 +10564,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000674 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000674 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000674",
@@ -9327,8 +10615,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Converti en Algorand en utilisant portefeuille en doge (4,815032 ALGO convertis (4,45 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Algorand en utilisant portefeuille en doge (4,815032 ALGO convertis (4,45 $))",
+            "type": "Swap"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "4.815032",
@@ -9339,7 +10632,7 @@
             "amount": "4.45",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "a22eefbf-9d61-5bc2-b358-58793156ae17",
@@ -9373,8 +10666,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9419,8 +10717,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9465,8 +10768,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9511,8 +10819,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9557,8 +10870,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9603,8 +10921,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9649,8 +10972,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9695,8 +11023,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9741,8 +11074,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9787,8 +11125,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9833,8 +11176,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9879,8 +11227,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9925,8 +11278,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -9971,8 +11329,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -10017,8 +11380,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -10063,8 +11431,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,000651 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.000651",
@@ -10109,8 +11482,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,005683 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,005683 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.005683",
@@ -10155,8 +11533,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,005682 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,005682 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.005682",
@@ -10201,8 +11584,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,005682 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,005682 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.005682",
@@ -10247,8 +11635,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,005681 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,005681 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.005681",
@@ -10293,8 +11686,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,00568 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,00568 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.005680",
@@ -10339,8 +11737,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,005679 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,005679 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.005679",
@@ -10385,8 +11788,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,009925 ALGO reçus (0,01 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,009925 ALGO reçus (0,01 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.009925",
@@ -10431,8 +11839,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Algorand en utilisant portefeuille en algo (60,997926 ALGO convertis (50,00 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Algorand en utilisant portefeuille en algo (60,997926 ALGO convertis (50,00 $))",
+            "type": "Swap"
+        },
         "token": "ALGO",
         "entry": {
             "amount": 50,
@@ -10443,7 +11856,7 @@
             "currency": "ALGO",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "b59d4746-e03e-53a7-bcba-4eadfcc13f8b",
@@ -10477,8 +11890,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Récompense en Algorand de coinbase (0,003955 ALGO reçus (0,00 $))",
         "smartType": "Intérêt",
+        "smartTitle": {
+            "info": "Récompense en Algorand de coinbase (0,003955 ALGO reçus (0,00 $))",
+            "type": "Intérêt"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "0.003955",
@@ -10523,8 +11941,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png",
+        "exchange": "coinbase",
         "title": "Converti en Algorand en utilisant portefeuille en doge (113,843269 ALGO convertis (97,90 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Converti en Algorand en utilisant portefeuille en doge (113,843269 ALGO convertis (97,90 $))",
+            "type": "Swap"
+        },
         "token": "ALGO",
         "entry": {
             "amount": "113.843269",
@@ -10535,7 +11958,7 @@
             "amount": "97.90",
             "currency": "USD"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "596fd321-fec1-57d8-983d-90576cab9935",
@@ -10574,8 +11997,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6945.png",
+        "exchange": "coinbase",
         "title": "Amp reçus de coinbase earn (37,89314134 AMP reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Amp reçus de coinbase earn (37,89314134 AMP reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "AMP",
         "entry": {
             "amount": "37.89314134",
@@ -10625,8 +12053,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6945.png",
+        "exchange": "coinbase",
         "title": "Amp reçus de coinbase earn (37,90750568 AMP reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Amp reçus de coinbase earn (37,90750568 AMP reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "AMP",
         "entry": {
             "amount": "37.90750568",
@@ -10676,8 +12109,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/6945.png",
+        "exchange": "coinbase",
         "title": "Amp reçus de coinbase earn (37,90750568 AMP reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Amp reçus de coinbase earn (37,90750568 AMP reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "AMP",
         "entry": {
             "amount": "37.90750568",
@@ -10689,6 +12127,58 @@
             "currency": ""
         },
         "transaction": "deposit"
+    },
+    {
+        "id": "33602c97-2d22-5502-ba70-8a66daae0a7a",
+        "type": "advanced_trade_fill",
+        "status": "completed",
+        "amount": {
+            "amount": "-10.60000000",
+            "currency": "FET"
+        },
+        "native_amount": {
+            "amount": "-0.63",
+            "currency": "USD"
+        },
+        "description": null,
+        "created_at": "2022-11-16T16:48:30Z",
+        "updated_at": "2022-11-16T16:48:30Z",
+        "resource": "transaction",
+        "resource_path": "/v2/accounts/df5603cc-959b-520b-b649-ee348bbc092e/transactions/33602c97-2d22-5502-ba70-8a66daae0a7a",
+        "instant_exchange": false,
+        "advanced_trade_fill": {
+            "fill_price": "0.0608",
+            "product_id": "FET-USDT",
+            "order_id": "c059e15a-b0b4-4079-85d9-85999755a350",
+            "commission": "0.00257792",
+            "order_side": "sell"
+        },
+        "details": {
+            "title": "Fetch.ai alimenté à la vente",
+            "subtitle": null,
+            "header": null,
+            "health": "positive"
+        },
+        "hide_native_amount": false,
+        "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
+        "title": "Fetch.ai alimenté à la vente",
+        "smartType": "Trade",
+        "smartTitle": {
+            "info": "Fetch.ai alimenté à la vente",
+            "type": "Trade"
+        },
+        "token": "FET",
+        "entry": {
+            "amount": 0.63,
+            "currency": "USD"
+        },
+        "exit": {
+            "amount": 10.6,
+            "currency": "FET",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png"
+        },
+        "transaction": "trade"
     },
     {
         "id": "e4dccaf6-9b29-57e6-8bee-a0789b57c4bc",
@@ -10724,8 +12214,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Fonds retirés de fet vault (Retrait de 10,0000 FET (0,89 $))",
-        "smartType": "Retrait Wallet Externe",
+        "smartType": "Retrait Externe",
+        "smartTitle": {
+            "info": "Fonds retirés de fet vault (Retrait de 10,0000 FET (0,89 $))",
+            "type": "Retrait Externe"
+        },
         "token": "FET",
         "entry": {
             "amount": "10.00000000",
@@ -10770,18 +12265,24 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Transfert de Fetch.ai vers fet vault (Transfert de 10,0000 FET (3,49 $))",
         "smartType": "Transfert",
+        "smartTitle": {
+            "info": "Transfert de Fetch.ai vers fet vault (Transfert de 10,0000 FET (3,49 $))",
+            "type": "Transfert"
+        },
         "token": "FET",
         "entry": {
-            "amount": 3.49,
-            "currency": "USD"
-        },
-        "exit": {
             "amount": 0,
             "currency": ""
         },
-        "transaction": "deposit"
+        "exit": {
+            "amount": 10,
+            "currency": "FET",
+            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png"
+        },
+        "transaction": "withdraw"
     },
     {
         "id": "3fa510cd-6eb4-5110-b354-5b6cf95073db",
@@ -10820,8 +12321,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Fetch.ai reçus de coinbase earn (3,54484225 FET reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Fetch.ai reçus de coinbase earn (3,54484225 FET reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "FET",
         "entry": {
             "amount": "3.54484225",
@@ -10871,8 +12377,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Fetch.ai reçus de coinbase earn (3,53232073 FET reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Fetch.ai reçus de coinbase earn (3,53232073 FET reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "FET",
         "entry": {
             "amount": "3.53232073",
@@ -10922,8 +12433,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
+        "exchange": "coinbase",
         "title": "Fetch.ai reçus de coinbase earn (3,52422907 FET reçus (1,00 $))",
-        "smartType": "Dépôt",
+        "smartType": "Earn",
+        "smartTitle": {
+            "info": "Fetch.ai reçus de coinbase earn (3,52422907 FET reçus (1,00 $))",
+            "type": "Earn"
+        },
         "token": "FET",
         "entry": {
             "amount": "3.52422907",
@@ -10968,8 +12484,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/0.png",
+        "exchange": "coinbase",
         "title": "Dogecoin achetés en utilisant portefeuille en euro (201,00 € EUR achetés (223,95 $))",
         "smartType": "Achat",
+        "smartTitle": {
+            "info": "Dogecoin achetés en utilisant portefeuille en euro (201,00 € EUR achetés (223,95 $))",
+            "type": "Achat"
+        },
         "token": "EUR",
         "entry": {
             "amount": 223.95,
@@ -10980,7 +12501,59 @@
             "currency": "EUR",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/0.png"
         },
-        "transaction": "echange"
+        "transaction": "trade",
+        "buy_data": {
+            "price": "eur"
+        },
+        "data_buy": {
+            "id": "d2c9bdc0-7001-5dff-9526-8d0431ca4e49",
+            "status": "completed",
+            "transaction": {
+                "id": "6fb58dc2-0120-5fd8-8f58-4a7facea8791",
+                "resource": "transaction",
+                "resource_path": "/v2/accounts/ea4a1d03-20a1-52c5-9431-7a734c415329/transactions/6fb58dc2-0120-5fd8-8f58-4a7facea8791"
+            },
+            "user_reference": "U2SR3EE7",
+            "created_at": "2022-03-01T15:26:39Z",
+            "updated_at": "2022-03-01T15:26:52Z",
+            "resource": "buy",
+            "resource_path": "/v2/accounts/ea4a1d03-20a1-52c5-9431-7a734c415329/buys/d2c9bdc0-7001-5dff-9526-8d0431ca4e49",
+            "payment_method": {
+                "id": "5540b5c0-2b90-5f53-ab37-eaa4e3672527",
+                "resource": "payment_method",
+                "resource_path": "/v2/payment-methods/5540b5c0-2b90-5f53-ab37-eaa4e3672527"
+            },
+            "committed": true,
+            "payout_at": "2022-03-02T15:26:47Z",
+            "instant": false,
+            "fee": {
+                "amount": "2.99",
+                "currency": "EUR"
+            },
+            "amount": {
+                "amount": "1625.61778566",
+                "currency": "DOGE"
+            },
+            "total": {
+                "amount": "201.00",
+                "currency": "EUR"
+            },
+            "subtotal": {
+                "amount": "198.01",
+                "currency": "EUR"
+            },
+            "unit_price": {
+                "amount": "0.1218",
+                "currency": "EUR",
+                "scale": 4
+            },
+            "hold_until": null,
+            "hold_days": 0,
+            "idem": "0b056841-a744-43e2-a4ba-2344b69e21d6",
+            "next_step": null,
+            "is_first_buy": false,
+            "requires_completion_step": false
+        }
     },
     {
         "id": "29fb3584-eb9e-540c-b742-3a304161ea27",
@@ -11014,8 +12587,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/0.png",
+        "exchange": "coinbase",
         "title": "Fonds versés de credit mutuel banque federativ (fr76 1027 8035 0000 0150 4664 042) (223,29 $ déposés)",
         "smartType": "Dépôt FIAT",
+        "smartTitle": {
+            "info": "Fonds versés de credit mutuel banque federativ (fr76 1027 8035 0000 0150 4664 042) (223,29 $ déposés)",
+            "type": "Dépôt FIAT"
+        },
         "token": "EUR",
         "entry": {
             "amount": "200.00",
@@ -11060,8 +12638,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/0.png",
+        "exchange": "coinbase",
         "title": "Fonds versés de ccm illkirch graffenstaden (fr76 1027 8012 2700 0203 0950 103) (1,12 $ déposés)",
         "smartType": "Dépôt FIAT",
+        "smartTitle": {
+            "info": "Fonds versés de ccm illkirch graffenstaden (fr76 1027 8012 2700 0203 0950 103) (1,12 $ déposés)",
+            "type": "Dépôt FIAT"
+        },
         "token": "EUR",
         "entry": {
             "amount": "1.00",
@@ -11105,7 +12688,7 @@
                 "amount": "0.00152824",
                 "currency": "BTC"
             },
-            "confirmations": 35908
+            "confirmations": 36206
         },
         "to": {
             "resource": "bitcoin_address",
@@ -11125,8 +12708,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+        "exchange": "coinbase",
         "title": "Bitcoin envoyés vers bitcoin address on bitcoin network (0,00153061 BTC envoyés (60,78 $))",
         "smartType": "Retrait",
+        "smartTitle": {
+            "info": "Bitcoin envoyés vers bitcoin address on bitcoin network (0,00153061 BTC envoyés (60,78 $))",
+            "type": "Retrait"
+        },
         "token": "BTC",
         "entry": {
             "amount": 0,
@@ -11171,8 +12759,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+        "exchange": "coinbase",
         "title": "Convertis à partir de Bitcoin en utilisant portefeuille en btc (0,001507 BTC convertis (56,69 $))",
         "smartType": "Swap",
+        "smartTitle": {
+            "info": "Convertis à partir de Bitcoin en utilisant portefeuille en btc (0,001507 BTC convertis (56,69 $))",
+            "type": "Swap"
+        },
         "token": "BTC",
         "entry": {
             "amount": 56.69,
@@ -11183,7 +12776,7 @@
             "currency": "BTC",
             "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png"
         },
-        "transaction": "echange"
+        "transaction": "trade"
     },
     {
         "id": "f46c41ee-ffe2-5705-b43f-36e03d82dd67",
@@ -11222,8 +12815,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+        "exchange": "coinbase",
         "title": "Bitcoin reçus de coinbase (0,00015096 BTC reçus (5,66 $))",
         "smartType": "Dépôt",
+        "smartTitle": {
+            "info": "Bitcoin reçus de coinbase (0,00015096 BTC reçus (5,66 $))",
+            "type": "Dépôt"
+        },
         "token": "BTC",
         "entry": {
             "amount": "0.00015096",
@@ -11268,8 +12866,13 @@
         },
         "hide_native_amount": false,
         "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
+        "exchange": "coinbase",
         "title": "Bitcoin achetés en utilisant 4977********2957 (0,00288665 BTC achetés (113,42 $))",
         "smartType": "Achat",
+        "smartTitle": {
+            "info": "Bitcoin achetés en utilisant 4977********2957 (0,00288665 BTC achetés (113,42 $))",
+            "type": "Achat"
+        },
         "token": "BTC",
         "entry": {
             "amount": "0.00288665",
@@ -11280,53 +12883,58 @@
             "amount": "113.42",
             "currency": "USD"
         },
-        "transaction": "echange"
-    },
-    {
-        "id": "33602c97-2d22-5502-ba70-8a66daae0a7a",
-        "type": "advanced_trade_fill",
-        "status": "completed",
-        "amount": {
-            "amount": "-10.60000000",
-            "currency": "FET"
+        "transaction": "trade",
+        "buy_data": {
+            "price": "eur"
         },
-        "native_amount": {
-            "amount": "-0.63",
-            "currency": "USD"
-        },
-        "description": null,
-        "created_at": "2022-11-16T16:48:30Z",
-        "updated_at": "2022-11-16T16:48:30Z",
-        "resource": "transaction",
-        "resource_path": "/v2/accounts/df5603cc-959b-520b-b649-ee348bbc092e/transactions/33602c97-2d22-5502-ba70-8a66daae0a7a",
-        "instant_exchange": false,
-        "advanced_trade_fill": {
-            "fill_price": "0.0608",
-            "product_id": "FET-USDT",
-            "order_id": "c059e15a-b0b4-4079-85d9-85999755a350",
-            "commission": "0.00257792",
-            "order_side": "sell"
-        },
-        "details": {
-            "title": "Fetch.ai alimenté à la vente",
-            "subtitle": null,
-            "header": null,
-            "health": "positive"
-        },
-        "hide_native_amount": false,
-        "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png",
-        "title": "Fetch.ai alimenté à la vente",
-        "smartType": "Trade avancé",
-        "token": "FET",
-        "entry": {
-            "amount": 0.63,
-            "currency": "USD"
-        },
-        "exit": {
-            "amount": 10.6,
-            "currency": "FET",
-            "urlLogo": "https://s2.coinmarketcap.com/static/img/coins/64x64/3773.png"
-        },
-        "transaction": "echange"
+        "data_buy": {
+            "id": "b8819402-e4d9-547f-8378-7587f6b2538a",
+            "status": "completed",
+            "transaction": {
+                "id": "e57b3a15-eaa3-5bba-a713-30023d21202c",
+                "resource": "transaction",
+                "resource_path": "/v2/accounts/194a8daf-e12b-5c96-84a3-16db4e361bf0/transactions/e57b3a15-eaa3-5bba-a713-30023d21202c"
+            },
+            "user_reference": "W7L2JDX5",
+            "created_at": "2022-02-21T23:13:11Z",
+            "updated_at": "2022-02-21T23:14:07Z",
+            "resource": "buy",
+            "resource_path": "/v2/accounts/194a8daf-e12b-5c96-84a3-16db4e361bf0/buys/b8819402-e4d9-547f-8378-7587f6b2538a",
+            "payment_method": {
+                "id": "65fd23ba-3259-5161-bde7-fb4a6d8c35e1",
+                "resource": "payment_method",
+                "resource_path": "/v2/payment-methods/65fd23ba-3259-5161-bde7-fb4a6d8c35e1"
+            },
+            "committed": true,
+            "payout_at": "2022-02-21T23:13:19Z",
+            "instant": true,
+            "fee": {
+                "amount": "3.84",
+                "currency": "EUR"
+            },
+            "amount": {
+                "amount": "0.00288665",
+                "currency": "BTC"
+            },
+            "total": {
+                "amount": "100.00",
+                "currency": "EUR"
+            },
+            "subtotal": {
+                "amount": "96.16",
+                "currency": "EUR"
+            },
+            "unit_price": {
+                "amount": "33311.97",
+                "currency": "EUR",
+                "scale": 2
+            },
+            "hold_until": null,
+            "hold_days": 0,
+            "idem": "49f5772d-66b5-402f-99e8-c8b55bb1396e",
+            "next_step": null,
+            "is_first_buy": true,
+            "requires_completion_step": false
+        }
     }
 ]

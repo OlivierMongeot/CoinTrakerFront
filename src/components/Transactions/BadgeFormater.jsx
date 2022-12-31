@@ -1,6 +1,8 @@
 import * as React from 'react';
-import LogoUSD from '../images/usd.svg';
-import LogoEUR from '../images/eur.svg';
+import LogoUSD from '../../images/usd.svg';
+import LogoEUR from '../../images/eur.svg'
+import LogoUSDT from '../../images/usdt.svg';
+import LogoKCS from '../../images/kcs.svg';
 
 const BadgeFormater = (props) => {
   // console.log('props', props);
@@ -24,9 +26,9 @@ const BadgeFormater = (props) => {
     }
     let color = 'black'
     if (props.type === 'cashin') {
-      color = 'green'
+      color = '#7CE400'
     } else {
-      color = 'red'
+      color = '#E1472E'
     }
 
     const style = {
@@ -36,7 +38,8 @@ const BadgeFormater = (props) => {
       padding: '8px',
       display: 'flex',
       alignItems: 'center',
-      boxShadow: '2px 2px 5px ' + color
+      boxShadow: '2px 2px 5px ' + color,
+      height: '1.9rem'
     }
 
     if (currency === 'EUR') {
@@ -62,6 +65,29 @@ const BadgeFormater = (props) => {
       )
     }
 
+    if (currency === 'USDT') {
+      return (
+        <div style={style}>
+          <span > {value} {currency}</span >
+          <img
+            className="logo-transac"
+            src={LogoUSDT}
+            alt="Token" />
+        </div>
+      )
+    }
+
+    if (currency === 'KCS') {
+      return (
+        <div style={style}>
+          <span > {value} {currency}</span >
+          <img
+            className="logo-transac"
+            src={LogoKCS}
+            alt="Token" />
+        </div>
+      )
+    }
 
     return (
       <div style={style}>
@@ -71,17 +97,9 @@ const BadgeFormater = (props) => {
           src={url}
           alt="Token" />
       </div>
-
-
     )
 
-
-
-
-
-
   }
-
 
 };
 
