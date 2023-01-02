@@ -3,7 +3,7 @@ import config from '../config';
 
 const saveLastTimeChecked = (exchange, type, time) => {
 
-  console.log('save Last Time Checked', exchange, type);
+  // console.log('save Last Time Checked', exchange, type);
 
   const exchangesList = config.exchanges;
   // console.log(exchangesList);

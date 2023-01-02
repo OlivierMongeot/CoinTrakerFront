@@ -55,8 +55,8 @@ const Log_in = () => {
                     console.log('user Logged OK', user);
                     localStorage.setItem('user', JSON.stringify(user));
                     AuthenticationService.isAuthenticated = true;
-                    console.log('navigate to wallet');
-                    navigate("/wallets");
+                    console.log('navigate to last page');
+                    navigate(-1);
 
                 } else {
                     AuthenticationService.isAuthenticated = false;

@@ -6,11 +6,13 @@ import getHumanDateTime from '../helpers/getHumanDate';
 
 const depositKucoin = async (mode, userData) => {
 
+  console.log('----------START DEPOSITS FETCH---------------')
+
   let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
-  console.log('Deposit kucoin saved ', savedDepositsKucoin);
+  console.log('Deposit kucoin saved ', savedDepositsKucoin.length);
 
   const rebuildDataKucoin = (deposits) => {
-    // console.log('rebuild Deposit kucoin')
+    console.log('rebuild Deposit kucoin')
     deposits.forEach(element => {
 
       element.title = 'Address deposit : ' + element.address;
@@ -40,7 +42,8 @@ const depositKucoin = async (mode, userData) => {
   }
 
   let start = null;
-  let deposits = [];
+  let newDeposits = [];
+  let allDeposits = []
 
   if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'no-update') {
     return savedDepositsKucoin;
@@ -54,7 +57,7 @@ const depositKucoin = async (mode, userData) => {
     const timeTable = JSON.parse(localStorage.getItem('time-table'))
     // console.log('timeTable', timeTable);
     start = timeTable?.kucoin.deposit ? timeTable.kucoin.deposit : 1640908800000
-    console.log('start from last Deposit check saved ', getHumanDateTime(start))
+    // console.log('start from last Deposit check saved ', getHumanDateTime(start))
 
   } else {
     console.log('no data : fetch trx from 01/01/22')
@@ -111,16 +114,16 @@ const depositKucoin = async (mode, userData) => {
 
   let index = 0;
   while (index < sevenDayPeriode) {
-    console.log('index', index);
+    // console.log('index', index);
 
     let time = start + (oneWeek * index)
     index++;
     if (time < now) {
-      console.log('check deposits for this time + 7d: ', getHumanDateTime(time));
+      console.log('Start fetch DEPOSIT for this time : ', getHumanDateTime(time));
       try {
         const data = await fetchDepositsKucoin(time);
         if (data.items) {
-          deposits = deposits.concat(data.items);
+          newDeposits = newDeposits.concat(data.items);
         } else {
           console.log('result raw', data)
         }
@@ -137,17 +140,19 @@ const depositKucoin = async (mode, userData) => {
       break;
     }
   }
+  // let newDeposits = []
+  console.log('NEW deposit', newDeposits)
+  if (newDeposits.length > 0) {
+    newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposit')
+    newDeposits = await rebuildDataKucoin(newDeposits)
+  }
 
+  allDeposits = [...newDeposits, ...savedDepositsKucoin]
+  // allDeposits = await rebuildDataKucoin(allDeposits)
 
-  let res = await addUrlImage(deposits, 'kucoin', 'deposit')
-  res = await rebuildDataKucoin(deposits)
-
-  res = [...res, ...savedDepositsKucoin]
-  res = await rebuildDataKucoin(res)
-
-  console.log('res parsed', res);
-  localStorage.setItem('deposits-kucoin', JSON.stringify(res));
-  return res;
+  console.log('All Kucoin Deposits', allDeposits.length);
+  localStorage.setItem('deposits-kucoin', JSON.stringify(allDeposits));
+  return allDeposits;
 }
 
 export default depositKucoin;

@@ -6,7 +6,7 @@ import eraseDoublon from '../helpers/eraseDoublon';
 import getLastestTransactionsCoinbase from '../helpers/getLastestTransactionsCoinbase';
 
 const proccesTransactionCoinbase = async (mode, userData) => {
-
+  console.log('process Coinbase trx ')
 
   const postProcess = async (trx, exchange) => {
 
@@ -423,7 +423,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
   // trxSaved = await postProcess(trxSaved, "coinbase");
 
-  console.log('trx saved', trxSaved)
+  // console.log('trx saved', trxSaved)
   if (trxSaved === null || (mode === 'force')) {
     console.log('no trx in ls : restart all')
     newTransactions = await fetchAllTransactions(accounts);
@@ -434,7 +434,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
   let totalTrx = []
 
-  console.log('mode ', mode);
+  console.log('Mode ', mode);
 
   switch (mode) {
     case 'quick':

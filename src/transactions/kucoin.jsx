@@ -7,12 +7,12 @@ import getHumanDateTime from '../helpers/getHumanDate';
 
 const proccesTransactionKucoin = async (mode, userData) => {
 
-  console.log('proccesTransactionKucoin');
+  console.log('Start fetch Transaction Kucoin');
 
   const savedTrxKucoin = JSON.parse(localStorage.getItem('transactions-kucoin'));
 
   const rebuildDataKucoin = (transactions) => {
-    console.log('rebuild kucoin')
+    console.log('Rebuild kucoin data')
     transactions.forEach(element => {
 
       element.title = 'ID : ' + element.tradeId + '| Market type : ' + element.type;
@@ -72,10 +72,8 @@ const proccesTransactionKucoin = async (mode, userData) => {
     // console.log(lastTransactionKucoin)
     // start = lastTransactionKucoin.createdAt + 1;
     const timeTable = JSON.parse(localStorage.getItem('time-table'))
-    console.log('timeTable', timeTable);
+    // console.log('timeTable', timeTable);
     start = timeTable?.kucoin.trade ? timeTable.kucoin.trade : 1640908800000;
-    console.log('start from last deposit  check saved ', getHumanDateTime(start))
-
   } else {
     console.log('no data : fetch trx from 01/01/22')
     start = 1640908800000;// 1/1/22
@@ -133,7 +131,7 @@ const proccesTransactionKucoin = async (mode, userData) => {
 
     let time = start + (oneWeek * index)
     if (time < now) {
-      console.log('check Trade for this time + 7d:', getHumanDateTime(time));
+      console.log('Start check TRADE for this time + 7d:', getHumanDateTime(time));
       try {
         const data = await fetchTransactionsKucoin(time);
         if (data.items) {
@@ -149,8 +147,8 @@ const proccesTransactionKucoin = async (mode, userData) => {
       await delay(300);
       index++;
     } else {
+      console.log('Time recherched > now : STOP');
       saveLastTimeChecked('kucoin', 'trade', time - oneWeek);
-      console.log('Time recherched > now');
       break;
     }
 

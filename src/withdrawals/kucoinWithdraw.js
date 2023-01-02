@@ -7,13 +7,15 @@ import getHumanDateTime from '../helpers/getHumanDate';
 
 const withdrawalsKucoin = async (mode, userData) => {
 
+  console.log('----------START WITHDRAWALS FETCH---------------')
+
   let savedWithdrawalsKucoin = JSON.parse(localStorage.getItem('withdrawals-kucoin'));
 
   console.log('Withdrawals kucoin saved ', savedWithdrawalsKucoin);
 
-  const rebuildDataKucoin = (deposits) => {
+  const rebuildDataKucoin = (withdrawals) => {
     console.log('rebuild Withdraw kucoin')
-    deposits.forEach(element => {
+    withdrawals.forEach(element => {
 
       element.title = 'Address withdrawals : ' + element.address;
       element.exchange = 'kucoin'
@@ -39,26 +41,20 @@ const withdrawalsKucoin = async (mode, userData) => {
       element.transaction = 'withdrawals'
 
     })
-    return deposits;
+    return withdrawals;
   }
 
   let start = null;
-  let deposits = [];
+  let newWithdrawals = [];
+  let allWithdrawals = []
 
   if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'no-update') {
     return savedWithdrawalsKucoin;
 
   } else if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'start') {
-    // console.log('start from last withdraw') // to do last deposit ceck 
-    // const lastDepositsKucoin = savedWithdrawalsKucoin.reduce((r, o) => new Date(o.createdAt) > new Date(r.createdAt) ? o : r);
-    // console.log(lastDepositsKucoin)
-    // start = lastDepositsKucoin.createdAt + 1;
 
-    const timeTable = JSON.parse(localStorage.getItem('time-table'))
-    console.log('timeTable', timeTable);
+    const timeTable = JSON.parse(localStorage.getItem('time-table'));
     start = timeTable?.kucoin.withdrawals ? timeTable.kucoin.withdrawals : 1640908800000;
-    console.log('start from last withdrawals check saved ', getHumanDateTime(start))
-    // deposits = savedDepositsKucoin
 
   } else {
     console.log('no data :start fetch trx from 01/01/22')
@@ -116,16 +112,22 @@ const withdrawalsKucoin = async (mode, userData) => {
 
   let index = 0;
   while (index < sevenDayPeriode) {
-    console.log('index', index);
+    // console.log('index', index);
 
     let time = start + (oneWeek * index)
     index++;
     if (time < now) {
-      console.log('check Withdraw for this time + 7d:', getHumanDateTime(time));
+      console.log('Start to fetch WITHDRAWALS for this time : ', getHumanDateTime(time));
       try {
         const data = await fetchDepositsKucoin(time);
         if (data.items) {
-          deposits = deposits.concat(data.items);
+          const result = data.items;
+          if (result.length === 0) {
+            console.log('No new withdrawals')
+          } else {
+            console.log('New withdrawals : ', result.length)
+          }
+          newWithdrawals = newWithdrawals.concat(data.items);
         } else {
           console.log('result raw', data)
         }
@@ -137,24 +139,25 @@ const withdrawalsKucoin = async (mode, userData) => {
       await delay(300);
 
     } else {
-      console.log('Time recherched > now');
+      console.log('Time recherched > now: STOP');
       // enregister le dernier time checké 
       saveLastTimeChecked('kucoin', 'withdrawals', time - oneWeek);
       break;
     }
   }
 
+  console.log('NEW deposit', newWithdrawals)
 
+  if (newWithdrawals.length > 0) {
+    newWithdrawals = await addUrlImage(newWithdrawals, 'kucoin', 'withdrawals');
+    newWithdrawals = await rebuildDataKucoin(newWithdrawals)
+  }
 
-  let res = await addUrlImage(deposits, 'kucoin', 'deposits')
-  res = await rebuildDataKucoin(deposits)
+  allWithdrawals = [...newWithdrawals, ...savedWithdrawalsKucoin]
 
-  res = [...res, ...savedWithdrawalsKucoin]
-  res = await rebuildDataKucoin(res)
-
-  console.log('Withdrawals parsed', res);
-  localStorage.setItem('withdrawals-kucoin', JSON.stringify(res));
-  return res;
+  console.log('Withdrawals parsed', allWithdrawals);
+  localStorage.setItem('withdrawals-kucoin', JSON.stringify(allWithdrawals));
+  return allWithdrawals;
 }
 
 export default withdrawalsKucoin;

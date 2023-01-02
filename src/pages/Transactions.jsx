@@ -12,10 +12,15 @@ import TableTransactions from '../components/Transactions/TableTransactions';
 import eraseDoublon from '../helpers/eraseDoublon';
 import depositKucoin from '../deposits/kucoin'
 import withdrawalsKucoin from '../withdrawals/kucoinWithdraw'
+// import queryString from 'query-string';
+import { useLocation } from 'react-router-dom';
+
+
+
 
 const Transactions = () => {
 
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('user'));
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState('none');
@@ -36,16 +41,16 @@ const Transactions = () => {
         let allTrx = []
         let allCoinbaseTrx = []
         let allTrxKucoin = []
-        allCoinbaseTrx = await proccesTransactionCoinbase(mode, userData);
+        // allCoinbaseTrx = await proccesTransactionCoinbase(mode, userData);
         const allTrxCoinbase = [...allCoinbaseTrx];
 
-        console.log('all TrxCoinbase', allTrxCoinbase);
+        console.log('all Trx Coinbase', allTrxCoinbase.length);
         // setIsLoading('none');
         // setTransactions(coinbaseTrx);
 
         const currentKucoinTrx = JSON.parse(localStorage.getItem('transactions-kucoin')) ? JSON.parse(localStorage.getItem('transactions-kucoin')) : [];
         let newKucoinTrx = []
-        newKucoinTrx = await proccesTransactionKucoin('start', userData);
+        // newKucoinTrx = await proccesTransactionKucoin('start', userData);
 
 
         const mouvements = await getMouvements();
@@ -57,17 +62,19 @@ const Transactions = () => {
 
 
         allTrx = [...allTrxKucoin, ...allTrxCoinbase]
-        console.log('all trx ', allTrx)
+        console.log('All exchanges trx ', allTrx.length)
+        console.log('-----------------------------------------')
         setTransactions(allTrx);
+
     }
 
     const getMouvements = async () => {
         let deposits = (await depositKucoin('start', userData));
-        console.log('deposits', deposits)
+        console.log('Deposits ', deposits.length)
 
 
         let withdrawals = (await withdrawalsKucoin('start', userData));
-        console.log('deposits', withdrawals)
+        console.log('Withdrawals ', withdrawals.length)
 
         let mouvements = [...deposits, ...withdrawals]
         return mouvements;
@@ -77,20 +84,28 @@ const Transactions = () => {
 
     // 1672170593001
     // 1672775393001
+    // let prevLocation = useLocation();
+
+    // let navigate = useNavigate();
 
     React.useEffect(() => {
 
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
+        } else {
+            console.log('________TRX START PROCCESS_______')
+            processAllTransactions('no-update');
         }
-        processAllTransactions('no-update');
 
+        // navigate("/");
+        // history.push(`/login?redirectTo=${prevLocation}`);
         // const savedTrxKucoin = JSON.parse(localStorage.getItem('transactions-kucoin'));
         // const lastTransactionKucoin = savedTrxKucoin.reduce((r, o) => new Date(o.createdAt) > new Date(r.createdAt) ? o : r);
         // console.log(lastTransactionKucoin)
 
         // let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
         // setTransactions(savedDepositsKucoin);
+
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

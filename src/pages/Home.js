@@ -81,7 +81,8 @@ const Home = () => {
                 setCoinsData(res.data);
                 // set in  LocalStorage
                 // localStorage.setItem('GekocoinsData', JSON.stringify(res.data));
-                console.log(res.data);
+                const dataGecko = res.data
+                console.log('api GECKO DATA', dataGecko.length);
             }
             ).catch
             (err => {

@@ -7,7 +7,7 @@ const eraseDoublon = (transactions) => {
   })).values()];
   console.log('After erase ', r.length)
   if (transactions.length > r.length) {
-    alert("erase transac");
+    // alert("erase transac");
   }
   return r;
 }
