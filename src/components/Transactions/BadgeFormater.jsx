@@ -3,20 +3,24 @@ import LogoUSD from '../../images/usd.svg';
 import LogoEUR from '../../images/eur.svg'
 import LogoUSDT from '../../images/usdt.svg';
 import LogoKCS from '../../images/kcs.svg';
+import LogoUSDC from '../../images/usdc.svg';
+import LogoETH from '../../images/eth.png';
+
 
 const BadgeFormater = (props) => {
   // console.log('props', props);
   if (props) {
     // 2022-08-03T08:53:58Z
-    const amount = props.value.amount;
+    const amount = props.value?.amount;
     const currency = props.value.currency;
-    const url = props.value.urlLogo;
+    let url = props.value.urlLogo;
+
 
 
     let value = (parseFloat(amount));
     if (value === 0) {
       return (
-        <span > </span >
+        <span></span>
       )
     }
     if (value < 0.1 && value > -0.1) {
@@ -42,51 +46,31 @@ const BadgeFormater = (props) => {
       height: '1.9rem'
     }
 
-    if (currency === 'EUR') {
-      return (
-        <div style={style}>
-          <span >{value} {currency}</span >
-          <img
-            className="logo-transac"
-            src={LogoEUR}
-            alt="Token" />
-        </div>
-      )
-    }
-    if (currency === 'USD') {
-      return (
-        <div style={style}>
-          <span > {value} {currency}</span >
-          <img
-            className="logo-transac"
-            src={LogoUSD}
-            alt="Token" />
-        </div>
-      )
-    }
+    switch (currency) {
+      case 'EUR':
+        url = LogoEUR
+        break
+      case 'USD':
+        url = LogoUSD
+        break
 
-    if (currency === 'USDT') {
-      return (
-        <div style={style}>
-          <span > {value} {currency}</span >
-          <img
-            className="logo-transac"
-            src={LogoUSDT}
-            alt="Token" />
-        </div>
-      )
-    }
+      case 'USDT':
+        url = LogoUSDT
+        break
 
-    if (currency === 'KCS') {
-      return (
-        <div style={style}>
-          <span > {value} {currency}</span >
-          <img
-            className="logo-transac"
-            src={LogoKCS}
-            alt="Token" />
-        </div>
-      )
+      case 'USDC':
+        url = LogoUSDC
+        break
+
+      case 'KCS':
+        url = LogoKCS
+        break
+      case 'ETH':
+        url = LogoETH
+        break
+
+      default:
+        break
     }
 
     return (
@@ -98,6 +82,8 @@ const BadgeFormater = (props) => {
           alt="Token" />
       </div>
     )
+
+
 
   }
 

@@ -12,35 +12,34 @@ const TransacFormater = (props) => {
     // let logo = '';
     switch (type) {
       case 'deposit':
+      case 'Deposit':
         return (
           <React.Fragment>
             <img
               className="logo-transac"
               src={LogoDeposit}
-              alt="Token" />
-            <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Deposit</div>
+              alt="Token" /><div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Deposit</div>
           </React.Fragment>
-
         )
 
       case 'withdraw':
-
+      case 'withdrawals':
         return (
           <React.Fragment>
             <img
               className="logo-transac"
               src={LogoWithdraw}
-              alt="Token" />   <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Withdraw</div>
+              alt="Token" /><div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Withdraw</div>
           </React.Fragment>
         )
-      case 'trade':
 
+      case 'trade':
         return (
           <React.Fragment>
             <img
               className="logo-transac"
               src={LogoSwap}
-              alt="Token" />   <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Trade</div>
+              alt="Token" /><div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Trade</div>
           </React.Fragment>
         )
 

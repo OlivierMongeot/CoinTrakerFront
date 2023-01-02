@@ -9,6 +9,9 @@ import TrxLoader from '../components/TrxLoader';
 import proccesTransactionKucoin from '../transactions/kucoin';
 import proccesTransactionCoinbase from '../transactions/coinbase';
 import TableTransactions from '../components/Transactions/TableTransactions';
+import eraseDoublon from '../helpers/eraseDoublon';
+import depositKucoin from '../deposits/kucoin'
+import withdrawalsKucoin from '../withdrawals/kucoinWithdraw'
 
 const Transactions = () => {
 
@@ -19,7 +22,8 @@ const Transactions = () => {
     const [pourcentLoad] = React.useState(0);
 
     const quickUpdate = () => {
-        proccesTransactionCoinbase('quick')
+        processAllTransactions('quick');
+
     }
 
     const fullUpdateCurrentAccountTrx = () => {
@@ -28,26 +32,65 @@ const Transactions = () => {
     }
 
 
-
-    const processAllTransactions = async () => {
+    const processAllTransactions = async (mode) => {
         let allTrx = []
-        const coinbaseTrx = await proccesTransactionCoinbase('start');
-        setIsLoading('none');
-        setTransactions(coinbaseTrx);
+        let allCoinbaseTrx = []
+        let allTrxKucoin = []
+        allCoinbaseTrx = await proccesTransactionCoinbase(mode, userData);
+        const allTrxCoinbase = [...allCoinbaseTrx];
 
-        const kucoinTrx = await proccesTransactionKucoin('start', userData);
-        allTrx = [...coinbaseTrx, ...kucoinTrx];
-        console.log(allTrx)
+        console.log('all TrxCoinbase', allTrxCoinbase);
+        // setIsLoading('none');
+        // setTransactions(coinbaseTrx);
+
+        const currentKucoinTrx = JSON.parse(localStorage.getItem('transactions-kucoin')) ? JSON.parse(localStorage.getItem('transactions-kucoin')) : [];
+        let newKucoinTrx = []
+        newKucoinTrx = await proccesTransactionKucoin('start', userData);
+
+
+        const mouvements = await getMouvements();
+
+
+        allTrxKucoin = [...newKucoinTrx, ...currentKucoinTrx, ...mouvements];
+        allTrxKucoin = eraseDoublon(allTrxKucoin)
+        localStorage.setItem('transactions-kucoin', JSON.stringify(allTrxKucoin));
+
+
+        allTrx = [...allTrxKucoin, ...allTrxCoinbase]
+        console.log('all trx ', allTrx)
         setTransactions(allTrx);
     }
 
+    const getMouvements = async () => {
+        let deposits = (await depositKucoin('start', userData));
+        console.log('deposits', deposits)
+
+
+        let withdrawals = (await withdrawalsKucoin('start', userData));
+        console.log('deposits', withdrawals)
+
+        let mouvements = [...deposits, ...withdrawals]
+        return mouvements;
+        // setTransactions(mouvements);
+
+    }
+
+    // 1672170593001
+    // 1672775393001
 
     React.useEffect(() => {
 
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
         }
-        processAllTransactions();
+        processAllTransactions('no-update');
+
+        // const savedTrxKucoin = JSON.parse(localStorage.getItem('transactions-kucoin'));
+        // const lastTransactionKucoin = savedTrxKucoin.reduce((r, o) => new Date(o.createdAt) > new Date(r.createdAt) ? o : r);
+        // console.log(lastTransactionKucoin)
+
+        // let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
+        // setTransactions(savedDepositsKucoin);
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -84,9 +127,9 @@ const Transactions = () => {
                     Find new account
                 </Button> */}
 
-                {/* <Button variant="outlined" onClick={deleteLastTrx} >
-                    Delete  Last transactions
-                </Button> */}
+                <Button variant="outlined" onClick={processAllTransactions} >
+                    Deposit test
+                </Button>
                 <div style={{ display: 'flex', width: '200px', alignContent: "center", justifyContent: "center" }}>
                     <TrxLoader display={isLoading} >
                     </TrxLoader>

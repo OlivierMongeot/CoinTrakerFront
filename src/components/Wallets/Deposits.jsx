@@ -69,7 +69,7 @@ export default function Deposits(props) {
           <div className="display-grid-inline">
             <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' />
             <div className='exchange-total'>
-              {formatValues('camelise', wallet.exchange)}
+              {(wallet?.exchange.charAt(0).toUpperCase() + wallet?.exchange.slice(1))}
             </div>
           </div>
           <div>

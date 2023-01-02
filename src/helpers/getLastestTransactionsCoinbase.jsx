@@ -1,14 +1,14 @@
+// get last transaction for each token
 
-
-const getLastestTransactions = (savedTrxs, exchange) => {
+const getLastestTransactionsCoinbase = (savedTrxs) => {
 
   let currentTokensWithTransaction = [];
 
   savedTrxs.forEach((transaction, index) => {
 
-    if (transaction.exchange === exchange) {
-      let resource = transaction.resource_path;
-      let resourceArray = resource.split('/');
+    if (transaction.exchange === 'coinbase') {
+      // let resource = transaction.resource_path;
+      let resourceArray = transaction.resource_path.split('/');
       let idAccount = resourceArray[3]
       if (!currentTokensWithTransaction.includes(idAccount)) {
         currentTokensWithTransaction.push(idAccount)
@@ -19,9 +19,8 @@ const getLastestTransactions = (savedTrxs, exchange) => {
   currentTokensWithTransaction.forEach((id, index) => {
 
     let transactionsByToken = savedTrxs.filter(transaction => {
-
-      const path = transaction.resource_path;
-      const pathArray = path.split('/');
+      // const path = transaction.resource_path;
+      const pathArray = transaction.resource_path.split('/');
       let idAcc = pathArray[3]
       return idAcc === id;
     })
@@ -36,5 +35,5 @@ const getLastestTransactions = (savedTrxs, exchange) => {
 }
 
 
-export default getLastestTransactions;
+export default getLastestTransactionsCoinbase;
 

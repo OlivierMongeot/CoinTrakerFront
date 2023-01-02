@@ -3,7 +3,7 @@ import config from '../config';
 import { toast } from 'react-toastify';
 import addUrlImage from '../helpers/addUrlImage'
 import eraseDoublon from '../helpers/eraseDoublon';
-import getLastestTransactions from '../helpers/getLatestTransactions';
+import getLastestTransactionsCoinbase from '../helpers/getLastestTransactionsCoinbase';
 
 const proccesTransactionCoinbase = async (mode, userData) => {
 
@@ -62,7 +62,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
         }
       }
 
-      async function getDataBuy(path) {
+      async function getDataBuy(path, userData) {
 
         const data = {
           email: userData.email,
@@ -92,7 +92,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       while (index < data.length) {
 
         if (data[index].type === 'buy') {
-          const data_buy = await getDataBuy(data[index].buy.resource_path);
+          const data_buy = await getDataBuy(data[index].buy.resource_path, userData);
           console.log('Buy data', data_buy.data);
           data[index].data_buy = data_buy.data;
         }
@@ -202,12 +202,10 @@ const proccesTransactionCoinbase = async (mode, userData) => {
         }
         // TODO
         if (element.type === "buy") {
-          // element.buy_data = { price: 'eur' };
 
           element.exit = {
             amount: element.data_buy.subtotal.amount,
             currency: element.data_buy.subtotal.currency,
-            // urlLogo: "http://localhost:4000/images/eur.svg"
             urlLogo: ""
           }
         }
@@ -222,7 +220,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     if (result.length > 0) {
       result = await rebuildDataCoinbase(result, exchange);
       // setTransactions(result);
-      localStorage.setItem('transactions', JSON.stringify(result))
+      localStorage.setItem('transactions-coinbsae', JSON.stringify(result))
       return result
     } else {
       toast('Proccess error')
@@ -232,9 +230,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
   }
 
 
-
   const fetchAllAccountCoinbase = async () => {
-
 
     let nexPageAccounUri = null;
     let accounts = [];
@@ -361,12 +357,10 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
   const fetchAllTransactions = async (accounts) => {
 
-    // Boucle sur tous les accounts
     let index = 0;
     let transactions = [];
     while (index < accounts.length) {
 
-      // console.log(accounts[index]);
       let account = accounts[index];
       try {
         let path = '/v2/accounts/' + account.id + "/transactions";
@@ -382,10 +376,9 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     return transactions;
   }
 
-  const updateCurentTransactions = async (lastTrx) => {
+  const fetchCurentTransactions = async (lastTrx) => {
 
     // Boucle sur les accounts activé avec la derbiere trx
-
     let index = 0;
     let transactions = [];
     while (index < lastTrx.length) {
@@ -403,7 +396,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
       index++;
       // setPourcentLoad(index * 100 / (lastTrx.length))
-      // console.log(index * 100 / (lastTrx.length) + '%');
+      console.log(index * 100 / (lastTrx.length) + '%');
     }
 
     if (transactions.length === 0) {
@@ -416,50 +409,60 @@ const proccesTransactionCoinbase = async (mode, userData) => {
   // setIsLoading('');
   const accountSaved = JSON.parse(localStorage.getItem('accounts-coinbase'));
   let accounts = []
-  if ((accountSaved && accountSaved.length > 0 && mode === "quick") ||
-    (accountSaved && accountSaved.length > 0 && mode === "start")) {
-    console.log('get account saved LS')
-    accounts = accountSaved;
-  } else {
+  let currentTransactions = []
+  let newTransactions = []
+  let restartAllFetch = false;
+
+  if ((accountSaved && !accountSaved.length > 0) || (mode === 'force')) {
     accounts = await fetchAllAccountCoinbase();
+  } else {
+    accounts = accountSaved;
   }
 
-  // recupere la liste des account ( wallet + fault );
-  const trxSaved = JSON.parse(localStorage.getItem('transactions'));
-  // const trxSaved = false;
-  let transactions = null;
-  if ((trxSaved && trxSaved.length > 0 && mode === "quick") ||
-    (trxSaved && trxSaved.length > 0 && mode === "start")) {
-    transactions = trxSaved;
-    console.log('Trx saved Coinbase: ', transactions);
+  let trxSaved = JSON.parse(localStorage.getItem('transactions-coinbase'));
+
+  // trxSaved = await postProcess(trxSaved, "coinbase");
+
+  console.log('trx saved', trxSaved)
+  if (trxSaved === null || (mode === 'force')) {
+    console.log('no trx in ls : restart all')
+    newTransactions = await fetchAllTransactions(accounts);
+    restartAllFetch = true;
   } else {
-    transactions = await fetchAllTransactions(accounts)
-    console.log('Final trx fetched Coinbase: ', transactions.length);
+    currentTransactions = trxSaved;
   }
 
+  let totalTrx = []
 
-  //Update only last 
-  if (mode === "quick") {
-    let lastTrx = getLastestTransactions(trxSaved, 'coinbase');
-    console.log('last TRX', lastTrx);
+  console.log('mode ', mode);
 
-    let updatedTrx = await updateCurentTransactions(lastTrx)
-    console.log('New trx : ', updatedTrx);
-    // add to current trx 
-    let totalTrx = [...trxSaved, ...updatedTrx];
+  switch (mode) {
+    case 'quick':
+      if (!restartAllFetch) {
+        let lastTrx = getLastestTransactionsCoinbase(currentTransactions);
+        // console.log('last TRX', lastTrx);
+        let updatedTrx = await fetchCurentTransactions(lastTrx);
 
-    if (totalTrx.length > 0) {
-      return await postProcess(totalTrx, "coinbase");
-    }
-  } else if (mode === 'start') {
+        if (updatedTrx.length > 0) {
+          updatedTrx = await postProcess(updatedTrx, "coinbase");
+        }
 
-    return transactions;
+        console.log('New trx : ', updatedTrx);
+        totalTrx = [...currentTransactions, ...updatedTrx];
+        localStorage.setItem('transactions-coinbase', JSON.stringify(totalTrx));
+        return totalTrx;
+      } else {
+        newTransactions = await postProcess(newTransactions, "coinbase");
+        localStorage.setItem('transactions-coinbase', JSON.stringify(newTransactions));
+        return newTransactions
+      }
 
-  } else {
-    if (transactions.length > 0) {
+    case 'no-update':
+      return currentTransactions;
 
-      return await postProcess(transactions, "coinbase");
-    }
+    default:
+      return currentTransactions;
+
   }
 
 

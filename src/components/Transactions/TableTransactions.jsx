@@ -15,7 +15,7 @@ const TableTransactions = (props) => {
     {
       field: 'exchange', headerName: 'Exchange', align: 'center', headerAlign: 'center', minWidth: 90,
       flex: 1, maxWidth: 120,
-      renderCell: (params) => (params.value)
+      renderCell: (params) => (params.value.charAt(0).toUpperCase() + params.value.slice(1))
     },
     {
       field: 'token', headerName: 'Token', width:
@@ -29,6 +29,7 @@ const TableTransactions = (props) => {
     {
       field: 'smartType', headerName: 'Info', minWidth: 140, align: 'center', flex: 1,
       headerAlign: 'center',
+      renderCell: (params) => (params.value.charAt(0).toUpperCase() + params.value.slice(1))
       // renderCell: (params) => <DescriptionFormater value={params.value} />
     }
     ,
@@ -65,7 +66,6 @@ const TableTransactions = (props) => {
   ];
 
   return (
-
     <Paper
       sx={{
         p: 2,
@@ -85,15 +85,6 @@ const TableTransactions = (props) => {
       )}
     </Paper>
   )
-
-
-
-
-
-
-
-
-
 }
 
 

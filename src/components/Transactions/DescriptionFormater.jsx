@@ -4,7 +4,7 @@ import InfoIcon from '@mui/icons-material/Info';
 
 const Formater = (props) => {
 
-  // console.log(props.value)
+  // console.log(props)
   if (props.value) {
 
     return (

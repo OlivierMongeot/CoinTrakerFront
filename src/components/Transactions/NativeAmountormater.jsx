@@ -4,8 +4,10 @@ import LogoEur from '../../images/eur.svg';
 import LogoKCS from '../../images/kcs.svg';
 import LogoETH from '../../images/eth.png';
 import LogoUSDT from '../../images/usdt.svg';
+import LogoUSDC from '../../images/usdc.svg';
 
 const nativeAmountFormater = (props) => {
+
 
   if (props) {
 
@@ -26,6 +28,8 @@ const nativeAmountFormater = (props) => {
       logo = LogoKCS;
     } else if (currency === 'ETH') {
       logo = LogoETH;
+    } else if (currency === 'USDC') {
+      logo = LogoUSDC;
     } else {
       console.log('nativeAmountFormater : no logo for this FIAT ', currency)
       logo = '';

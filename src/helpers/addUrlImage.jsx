@@ -1,8 +1,8 @@
 
 import getIdsCMC from '../api/getIdsCMC';
 
-const addUrlImage = async (data, exchange) => {
-  console.log('add Url image', exchange)
+const addUrlImage = async (data, exchange, type) => {
+  // console.log('add Url image', exchange)
 
   const seturlLogo = (tokenCode, tokenId) => {
     if (tokenCode === 'ETH2') {
@@ -13,14 +13,27 @@ const addUrlImage = async (data, exchange) => {
 
   const cmcTokensList = await getIdsCMC();
 
+
   for (let i = 0; i < data.length; i++) {
+    let currency = null;
     cmcTokensList.filter(token => {
       switch (exchange) {
         case 'kucoin':
-          let currency = data[i].symbol.split('-');
-          if (token.symbol.toLowerCase() === currency[0].toLowerCase()) {
-            data[i].urlLogo = seturlLogo(token.symbol, token.id);
+
+          if (type === 'transactions') {
+            currency = data[i].symbol.split('-');
+            if (token.symbol.toLowerCase() === currency[0].toLowerCase()) {
+              data[i].urlLogo = seturlLogo(token.symbol, token.id);
+            }
+
+          } else {
+            currency = data[i].currency;
+            if (token.symbol.toLowerCase() === currency.toLowerCase()) {
+              data[i].urlLogo = seturlLogo(token.symbol, token.id);
+            }
           }
+
+
           return token.symbol.toLowerCase() === currency[0].toLowerCase();
 
         case 'coinbase':

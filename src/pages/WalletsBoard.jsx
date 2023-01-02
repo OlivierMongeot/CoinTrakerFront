@@ -24,6 +24,7 @@ const WalletsBoard = () => {
     const localStorageWalletsAmmount = JSON.parse(localStorage.getItem('wallets-amount'));
     const navigate = useNavigate();
     const [arrayAmountWallets, setArrayAmountWallets] = React.useState(localStorageWalletsAmmount ? localStorageWalletsAmmount : []);
+    // TODO replace by config
     const [exchangesUser] = React.useState(
         ['all',
             'crypto-com',
@@ -34,6 +35,7 @@ const WalletsBoard = () => {
     );
 
     const [value, setValue] = React.useState('0');
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };

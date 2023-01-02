@@ -2,8 +2,12 @@
 import config from '../config';
 import { toast } from 'react-toastify';
 import addUrlImage from '../helpers/addUrlImage'
+import saveLastTimeChecked from '../helpers/saveLastTimeChecked';
+import getHumanDateTime from '../helpers/getHumanDate';
 
 const proccesTransactionKucoin = async (mode, userData) => {
+
+  console.log('proccesTransactionKucoin');
 
   const savedTrxKucoin = JSON.parse(localStorage.getItem('transactions-kucoin'));
 
@@ -11,7 +15,7 @@ const proccesTransactionKucoin = async (mode, userData) => {
     console.log('rebuild kucoin')
     transactions.forEach(element => {
 
-      element.title = 'ID : ' + element.id + '| Market type : ' + element.type;
+      element.title = 'ID : ' + element.tradeId + '| Market type : ' + element.type;
       element.exchange = 'kucoin'
       element.id = element.tradeId;
       element.amount = element.size;
@@ -55,12 +59,33 @@ const proccesTransactionKucoin = async (mode, userData) => {
     return transactions;
   }
 
-  if (savedTrxKucoin.length > 0 && mode === 'start') {
+  let start = null;
+
+  if (savedTrxKucoin && savedTrxKucoin.length > 0 && mode === 'no-update') {
+
+    console.log('No update');
     return savedTrxKucoin;
+
+  } else if (savedTrxKucoin && savedTrxKucoin.length > 0 && mode === 'start') {
+    // console.log('Start from last trx')
+    // const lastTransactionKucoin = savedTrxKucoin.reduce((r, o) => new Date(o.createdAt) > new Date(r.createdAt) ? o : r);
+    // console.log(lastTransactionKucoin)
+    // start = lastTransactionKucoin.createdAt + 1;
+    const timeTable = JSON.parse(localStorage.getItem('time-table'))
+    console.log('timeTable', timeTable);
+    start = timeTable?.kucoin.trade ? timeTable.kucoin.trade : 1640908800000;
+    console.log('start from last deposit  check saved ', getHumanDateTime(start))
+
+  } else {
+    console.log('no data : fetch trx from 01/01/22')
+    start = 1640908800000;// 1/1/22
   }
-  const start = 1645776000000; // fev 22 
+
+
+  // 1640908800000  1/1/22
+  // const start = 1645776000000; // fev 22 
   const oneWeek = 604800000;
-  const sevenDayPeriode = 20;
+  const sevenDayPeriode = 54;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
   let transactions = [];
   const now = Date.now();
@@ -75,7 +100,7 @@ const proccesTransactionKucoin = async (mode, userData) => {
     };
 
 
-    const response = await fetch('http://' + config.urlServer + '/kucoin/orders', {
+    const response = await fetch('http://' + config.urlServer + '/kucoin/fills', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -108,7 +133,7 @@ const proccesTransactionKucoin = async (mode, userData) => {
 
     let time = start + (oneWeek * index)
     if (time < now) {
-      console.log('check trx for this time + 7d:', time);
+      console.log('check Trade for this time + 7d:', getHumanDateTime(time));
       try {
         const data = await fetchTransactionsKucoin(time);
         if (data.items) {
@@ -124,17 +149,18 @@ const proccesTransactionKucoin = async (mode, userData) => {
       await delay(300);
       index++;
     } else {
+      saveLastTimeChecked('kucoin', 'trade', time - oneWeek);
       console.log('Time recherched > now');
       break;
     }
 
   }
 
-  let res = await addUrlImage(transactions, 'kucoin')
+  let res = await addUrlImage(transactions, 'kucoin', 'transactions')
   res = await rebuildDataKucoin(transactions)
 
   console.log('res parsed', res);
-  localStorage.setItem('transactions-kucoin', JSON.stringify(res));
+  // localStorage.setItem('transactions-kucoin', JSON.stringify(res));
   return res;
 }
 
