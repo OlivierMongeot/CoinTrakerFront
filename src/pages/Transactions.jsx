@@ -6,14 +6,15 @@ import Button from '@mui/material/Button';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TrxLoader from '../components/TrxLoader';
-import proccesTransactionKucoin from '../transactions/kucoin';
-import proccesTransactionCoinbase from '../transactions/coinbase';
+
+import proccesTransactionCoinbase from '../trades/coinbase';
 import TableTransactions from '../components/Transactions/TableTransactions';
 import eraseDoublon from '../helpers/eraseDoublon';
+import proccesTradesKucoin from '../trades/kucoin';
 import depositKucoin from '../deposits/kucoin'
 import withdrawalsKucoin from '../withdrawals/kucoinWithdraw'
 // import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 
 
@@ -50,34 +51,33 @@ const Transactions = () => {
 
         const currentKucoinTrx = JSON.parse(localStorage.getItem('transactions-kucoin')) ? JSON.parse(localStorage.getItem('transactions-kucoin')) : [];
         let newKucoinTrx = []
-        // newKucoinTrx = await proccesTransactionKucoin('start', userData);
 
+        newKucoinTrx = await proccesTradesKucoin('start', userData);
+        console.log(newKucoinTrx);
 
-        const mouvements = await getMouvements();
+        const newMouvements = await getMouvementsKucoin();
+        console.log('all mouvement to add', newMouvements.length);
 
-
-        allTrxKucoin = [...newKucoinTrx, ...currentKucoinTrx, ...mouvements];
+        allTrxKucoin = [...newKucoinTrx, ...currentKucoinTrx, ...newMouvements];
         allTrxKucoin = eraseDoublon(allTrxKucoin)
         localStorage.setItem('transactions-kucoin', JSON.stringify(allTrxKucoin));
-
 
         allTrx = [...allTrxKucoin, ...allTrxCoinbase]
         console.log('All exchanges trx ', allTrx.length)
         console.log('-----------------------------------------')
         setTransactions(allTrx);
-
     }
 
-    const getMouvements = async () => {
+    const getMouvementsKucoin = async () => {
         let deposits = (await depositKucoin('start', userData));
-        console.log('Deposits ', deposits.length)
+        console.log('Deposits to add ', deposits.length)
 
 
         let withdrawals = (await withdrawalsKucoin('start', userData));
-        console.log('Withdrawals ', withdrawals.length)
+        console.log('Withdrawals to add ', withdrawals.length)
 
-        let mouvements = [...deposits, ...withdrawals]
-        return mouvements;
+        let newMouvements = [...deposits, ...withdrawals]
+        return newMouvements;
         // setTransactions(mouvements);
 
     }
@@ -135,7 +135,7 @@ const Transactions = () => {
                 <Button sx={style} variant="outlined" onClick={fullUpdateCurrentAccountTrx} >
                     Full Update
                 </Button>
-                <Button sx={style} variant="outlined" onClick={proccesTransactionKucoin} >
+                <Button sx={style} variant="outlined" onClick={proccesTradesKucoin} >
                     Kucoin Test
                 </Button>
                 {/* <Button sx={style} variant="outlined" onClick={findNewAccount} >

@@ -5,15 +5,15 @@ import addUrlImage from '../helpers/addUrlImage'
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked';
 import getHumanDateTime from '../helpers/getHumanDate';
 
-const proccesTransactionKucoin = async (mode, userData) => {
+const proccesTradesKucoin = async (mode, userData) => {
 
-  console.log('Start fetch Transaction Kucoin');
+  console.log('____Start fetch TRADE Kucoin____');
 
   const savedTrxKucoin = JSON.parse(localStorage.getItem('transactions-kucoin'));
 
-  const rebuildDataKucoin = (transactions) => {
-    console.log('Rebuild kucoin data')
-    transactions.forEach(element => {
+  const rebuildDataKucoin = (trades) => {
+    console.log('Rebuild kucoin TRADE')
+    trades.forEach(element => {
 
       element.title = 'ID : ' + element.tradeId + '| Market type : ' + element.type;
       element.exchange = 'kucoin'
@@ -56,7 +56,7 @@ const proccesTransactionKucoin = async (mode, userData) => {
         element.currency = currencyTab[0]
       }
     })
-    return transactions;
+    return trades;
   }
 
   let start = null;
@@ -85,7 +85,8 @@ const proccesTransactionKucoin = async (mode, userData) => {
   const oneWeek = 604800000;
   const sevenDayPeriode = 54;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
-  let transactions = [];
+  let newTrades = [];
+  let allTrades = []
   const now = Date.now();
 
   async function fetchTransactionsKucoin(start) {
@@ -135,7 +136,7 @@ const proccesTransactionKucoin = async (mode, userData) => {
       try {
         const data = await fetchTransactionsKucoin(time);
         if (data.items) {
-          transactions = transactions.concat(data.items);
+          newTrades = newTrades.concat(data.items);
         } else {
           console.log(data)
         }
@@ -153,13 +154,14 @@ const proccesTransactionKucoin = async (mode, userData) => {
     }
 
   }
+  console.log('NEW Trades', newTrades)
 
-  let res = await addUrlImage(transactions, 'kucoin', 'transactions')
-  res = await rebuildDataKucoin(transactions)
-
-  console.log('res parsed', res);
-  // localStorage.setItem('transactions-kucoin', JSON.stringify(res));
-  return res;
+  if (newTrades.length > 0) {
+    newTrades = await addUrlImage(newTrades, 'kucoin', 'transactions')
+    newTrades = await rebuildDataKucoin(newTrades)
+  }
+  console.log('New Trades ', newTrades);
+  return newTrades;
 }
 
-export default proccesTransactionKucoin;
+export default proccesTradesKucoin;

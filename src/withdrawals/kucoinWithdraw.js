@@ -155,9 +155,9 @@ const withdrawalsKucoin = async (mode, userData) => {
 
   allWithdrawals = [...newWithdrawals, ...savedWithdrawalsKucoin]
 
-  console.log('Withdrawals parsed', allWithdrawals);
+  // console.log('Withdrawals parsed', allWithdrawals);
   localStorage.setItem('withdrawals-kucoin', JSON.stringify(allWithdrawals));
-  return allWithdrawals;
+  return newWithdrawals;
 }
 
 export default withdrawalsKucoin;

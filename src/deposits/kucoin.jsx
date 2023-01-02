@@ -152,7 +152,7 @@ const depositKucoin = async (mode, userData) => {
 
   console.log('All Kucoin Deposits', allDeposits.length);
   localStorage.setItem('deposits-kucoin', JSON.stringify(allDeposits));
-  return allDeposits;
+  return newDeposits;
 }
 
 export default depositKucoin;
