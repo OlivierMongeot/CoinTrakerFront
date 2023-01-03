@@ -25,13 +25,14 @@ const getListCurrencies = (wallet) => {
 
 
 const getPricesQuotesCMC = async (wallet, exchange, ip) => {
+    console.log('getPricesQuotesCMC')
 
     const url = 'http://' + ip + '/cmc/prices?symbol=' + getListCurrencies(wallet);
     const response = await axios.get(url);
 
     // Parse response.data to simplify the data
     let prices = response.data;
-    // console.log('Prices CMC API ', prices);
+    console.log('Prices CMC API ', prices);
     let pricesMap = {};
     let quoteMap = {};
     for (let i = 0; i < prices.length; i++) {

@@ -13,34 +13,70 @@ const withdrawalsKucoin = async (mode, userData) => {
 
   console.log('Withdrawals kucoin saved ', savedWithdrawalsKucoin);
 
-  const rebuildDataKucoin = (withdrawals) => {
+  const rebuildDataKucoin = async (withdrawals) => {
     console.log('rebuild Withdraw kucoin')
-    withdrawals.forEach(element => {
 
-      element.title = 'Address withdrawals : ' + element.address;
-      element.exchange = 'kucoin'
-      element.id = element.walletTxId;
-      element.smartType = 'Blockchain : ' + element.chain.toUpperCase();
-      element.updated_at = new Date(element.createdAt)
-      element.token = element.currency;
+    // withdrawals.forEach(element => {
 
-      let currencyTab = element.currency;
+    //   element.title = 'Address withdrawals : ' + element.address;
+    //   element.exchange = 'kucoin'
+    //   element.id = element.walletTxId;
+    //   element.smartType = 'Blockchain : ' + element.chain.toUpperCase();
+    //   element.updated_at = new Date(element.createdAt)
+    //   element.token = element.currency;
 
-      element.exit = {
-        amount: element.amount,
-        currency: currencyTab,
-        urlLogo: element.urlLogo
+    //   element.exit = {
+    //     amount: element.amount,
+    //     currency: element.currency,
+    //     urlLogo: element.urlLogo
+    //   }
+    //   element.entry = {
+    //     amount: 0,
+    //     currency: ''
+
+    //   }
+
+    //   element.native_amount = { amount: element.amount, currency: element.currency };
+
+    //   element.transaction = 'withdrawals'
+
+    // })
+
+    let index = 0;
+    while (index < withdrawals.length) {
+      console.log(index);
+
+      withdrawals[index].title = 'Address withdrawals : ' + withdrawals[index].address;
+      withdrawals[index].exchange = 'kucoin'
+      withdrawals[index].id = withdrawals[index].walletTxId;
+      withdrawals[index].smartType = 'Blockchain : ' + withdrawals[index].chain.toUpperCase();
+      withdrawals[index].updated_at = new Date(withdrawals[index].createdAt)
+      withdrawals[index].token = withdrawals[index].currency;
+
+      withdrawals[index].exit = {
+        amount: withdrawals[index].amount,
+        currency: withdrawals[index].currency,
+        urlLogo: withdrawals[index].urlLogo
       }
-      element.entry = {
+      withdrawals[index].entry = {
         amount: 0,
         currency: ''
 
       }
-      // element.native_amount = { amount: element.amount, currency: currencyTab };
-      element.native_amount = getFiatValue(element.amount, currencyTab);
-      element.transaction = 'withdrawals'
 
-    })
+      withdrawals[index].native_amount = { amount: withdrawals[index].amount, currency: withdrawals[index].currency };
+
+      withdrawals[index].transaction = 'withdrawals'
+
+
+      withdrawals[index].quote_transaction = {
+        amount: withdrawals[index].amount,
+        devises: await getFiatValue(withdrawals[index].currency, withdrawals[index].createdAt)
+      };
+      index++;
+    }
+
+
     return withdrawals;
   }
 
@@ -146,7 +182,7 @@ const withdrawalsKucoin = async (mode, userData) => {
     }
   }
 
-  console.log('NEW deposit', newWithdrawals)
+  console.log('NEW withdrawals', newWithdrawals)
 
   if (newWithdrawals.length > 0) {
     newWithdrawals = await addUrlImage(newWithdrawals, 'kucoin', 'withdrawals');
@@ -154,9 +190,10 @@ const withdrawalsKucoin = async (mode, userData) => {
   }
 
   allWithdrawals = [...newWithdrawals, ...savedWithdrawalsKucoin]
-
+  allWithdrawals = await rebuildDataKucoin(allWithdrawals)
   // console.log('Withdrawals parsed', allWithdrawals);
   localStorage.setItem('withdrawals-kucoin', JSON.stringify(allWithdrawals));
+  // return allWithdrawals;
   return newWithdrawals;
 }
 

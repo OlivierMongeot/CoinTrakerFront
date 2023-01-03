@@ -19,6 +19,7 @@ const totalExchange = (result) => {
     // console.log('totalExchange value ' + element.currency, value)
     arrayTotals.push(value);
   });
+
   return arrayTotals.reduce((acc, val) => acc + val, 0);
 }
 

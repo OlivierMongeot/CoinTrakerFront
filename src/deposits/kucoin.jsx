@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 import addUrlImage from '../helpers/addUrlImage'
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked'
 import getHumanDateTime from '../helpers/getHumanDate';
+import getFiatValue from '../helpers/getFiatValue';
+import eraseDoublon from '../helpers/eraseDoublon';
 
 const depositKucoin = async (mode, userData) => {
 
@@ -11,33 +13,42 @@ const depositKucoin = async (mode, userData) => {
   let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
   console.log('Deposit kucoin saved ', savedDepositsKucoin.length);
 
-  const rebuildDataKucoin = (deposits) => {
+  const rebuildDataKucoin = async (deposits) => {
     console.log('rebuild Deposit kucoin')
-    deposits.forEach(element => {
 
-      element.title = 'Address deposit : ' + element.address;
-      element.exchange = 'kucoin'
-      element.id = element.walletTxId;
-      element.smartType = 'Blockchain : ' + element.chain.toUpperCase();
-      element.updated_at = new Date(element.createdAt)
-      element.token = element.currency;
+    let index = 0;
+    while (index < deposits.length) {
+      deposits[index].title = 'Address deposit : ' + deposits[index].address;
+      deposits[index].exchange = 'kucoin'
+      deposits[index].id = deposits[index].walletTxId;
+      deposits[index].smartType = 'Blockchain : ' + deposits[index].chain.toUpperCase();
+      deposits[index].updated_at = new Date(deposits[index].createdAt)
+      deposits[index].token = deposits[index].currency;
 
-      let currencyTab = element.currency;
+      let currencyTab = deposits[index].currency;
 
-      element.entry = {
-        amount: element.amount,
+      deposits[index].entry = {
+        amount: deposits[index].amount,
         currency: currencyTab,
-        urlLogo: element.urlLogo
+        urlLogo: deposits[index].urlLogo
       }
-      element.exit = {
+      deposits[index].exit = {
         amount: 0,
         currency: ''
 
       }
-      element.native_amount = { amount: element.amount, currency: currencyTab };
-      element.transaction = element.remark;
+      deposits[index].native_amount = { amount: deposits[index].amount, currency: currencyTab };
+      deposits[index].transaction = deposits[index].remark;
 
-    })
+      deposits[index].quote_transaction = {
+        amount: deposits[index].amount,
+        devises: await getFiatValue(deposits[index].currency, deposits[index].createdAt)
+      };
+      index++
+    }
+
+
+
     return deposits;
   }
 
@@ -151,8 +162,12 @@ const depositKucoin = async (mode, userData) => {
   // allDeposits = await rebuildDataKucoin(allDeposits)
 
   console.log('All Kucoin Deposits', allDeposits.length);
+
+  allDeposits = eraseDoublon(allDeposits)
+  // allDeposits = await rebuildDataKucoin(allDeposits)
   localStorage.setItem('deposits-kucoin', JSON.stringify(allDeposits));
-  return newDeposits;
+  return allDeposits
+  // return newDeposits;
 }
 
 export default depositKucoin;

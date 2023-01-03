@@ -15,11 +15,11 @@ import AuthenticationService from '../../helpers/AuthService';
 import updateProcess from '../../api/updateProcess';
 
 export default function Wallet(props) {
-  console.log('props', props);
+  // console.log('props', props);
   const navigate = useNavigate();
   // const userData = JSON.parse(localStorage.getItem('user'));
   let wallet = props.wallet;
-  console.log('wallet ', wallet)
+  // console.log('wallet ', wallet)
   let setWallet = props.setWallet
   // const [wallet, setWallet] = React.useState([]);
   const exchangeName = props.exchange;

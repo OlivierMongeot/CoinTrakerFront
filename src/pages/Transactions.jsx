@@ -38,10 +38,12 @@ const Transactions = () => {
     }
 
 
+
     const processAllTransactions = async (mode) => {
         let allTrx = []
         let allCoinbaseTrx = []
-        let allTrxKucoin = []
+        let transactionsKucoin = []
+        let mouvements = []
         // allCoinbaseTrx = await proccesTransactionCoinbase(mode, userData);
         const allTrxCoinbase = [...allCoinbaseTrx];
 
@@ -49,24 +51,27 @@ const Transactions = () => {
         // setIsLoading('none');
         // setTransactions(coinbaseTrx);
 
-        const currentKucoinTrx = JSON.parse(localStorage.getItem('transactions-kucoin')) ? JSON.parse(localStorage.getItem('transactions-kucoin')) : [];
-        let newKucoinTrx = []
+        // let currentKucoinTrx = JSON.parse(localStorage.getItem('transactions-kucoin')) ? JSON.parse(localStorage.getItem('transactions-kucoin')) : [];
+        // currentKucoinTrx = await rebuildDataKucoin(currentKucoinTrx)
+        let kucoinTrade = []
 
-        newKucoinTrx = await proccesTradesKucoin('start', userData);
-        console.log(newKucoinTrx);
+        kucoinTrade = await proccesTradesKucoin('start', userData);
+        console.log('kucoinTrx ', kucoinTrade);
 
-        const newMouvements = await getMouvementsKucoin();
-        console.log('all mouvement to add', newMouvements.length);
+        // newMouvements = await getMouvementsKucoin();
+        console.log('all mouvement to add', mouvements.length);
 
-        allTrxKucoin = [...newKucoinTrx, ...currentKucoinTrx, ...newMouvements];
-        allTrxKucoin = eraseDoublon(allTrxKucoin)
-        localStorage.setItem('transactions-kucoin', JSON.stringify(allTrxKucoin));
+        transactionsKucoin = [...kucoinTrade, ...mouvements];
 
-        allTrx = [...allTrxKucoin, ...allTrxCoinbase]
+        // allTrxKucoin = eraseDoublon(allTrxKucoin)
+        localStorage.setItem('transactions-kucoin', JSON.stringify(transactionsKucoin));
+
+        allTrx = [...transactionsKucoin, ...allTrxCoinbase]
         console.log('All exchanges trx ', allTrx.length)
         console.log('-----------------------------------------')
         setTransactions(allTrx);
     }
+
 
     const getMouvementsKucoin = async () => {
         let deposits = (await depositKucoin('start', userData));
@@ -93,7 +98,7 @@ const Transactions = () => {
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
         } else {
-            console.log('________TRX START PROCCESS_______')
+            console.log(' ___ALL_TRANSACTION__START PROCCESS____')
             processAllTransactions('no-update');
         }
 

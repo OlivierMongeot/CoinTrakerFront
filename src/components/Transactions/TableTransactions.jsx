@@ -43,15 +43,24 @@ const TableTransactions = (props) => {
       renderCell: (params) => <BadgeFormater value={params.value} type='cashout' />
     },
     {
-      field: 'createdAt', headerName: 'Date', align: 'center', flex: 2, minWidth: 200,
+      field: 'createdAt', headerName: 'Date', align: 'center', flex: 2, minWidth: 180,
       headerAlign: 'center',
       renderCell: (params) => <DateFormater value={params.value} />
     },
+    // {
+    //   field: 'quote_transaction', headerName: 'Amount', minWidth: 180, align: 'right',
+    //   headerAlign: 'center', flex: 1,
+    //   renderCell: (params) => { value={params.value}} 
+    // },
     {
-      field: 'native_amount', headerName: 'Amount', minWidth: 180, align: 'right',
+      field: 'quote_transaction', headerName: 'Amount', minWidth: 180, align: 'right',
       headerAlign: 'center', flex: 1,
       renderCell: (params) => <NativeAmountormater value={params.value} />
     },
+    // {
+    //   field: 'quoteUSD', headerName: 'QUOTE USD', minWidth: 180, align: 'right',
+    //   headerAlign: 'center', flex: 1
+    // },
     {
       field: 'title', headerName: 'Details', minWidth: 40, align: 'center',
       headerAlign: 'center',
