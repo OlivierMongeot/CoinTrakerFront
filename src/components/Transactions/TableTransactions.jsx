@@ -29,21 +29,21 @@ const TableTransactions = (props) => {
     {
       field: 'smartType', headerName: 'Info', minWidth: 140, align: 'center', flex: 1,
       headerAlign: 'center',
-      renderCell: (params) => (params.value.charAt(0).toUpperCase() + params.value.slice(1))
+      renderCell: (params) => (params?.value.charAt(0).toUpperCase() + params?.value.slice(1))
       // renderCell: (params) => <DescriptionFormater value={params.value} />
     }
     ,
     {
       field: 'entry', headerName: 'Entrée(+)',
-      minWidth: 170, align: 'right', headerAlign: 'center', flex: 1,
+      minWidth: 160, align: 'right', headerAlign: 'center', flex: 1,
       renderCell: (params) => <BadgeFormater value={params.value} type='cashin' />
     },
     {
-      field: 'exit', headerName: 'Sortie(-)', minWidth: 170, flex: 1, align: 'right', headerAlign: 'center',
+      field: 'exit', headerName: 'Sortie(-)', minWidth: 160, flex: 1, align: 'right', headerAlign: 'center',
       renderCell: (params) => <BadgeFormater value={params.value} type='cashout' />
     },
     {
-      field: 'createdAt', headerName: 'Date', align: 'center', flex: 2, minWidth: 180,
+      field: 'createdAt', headerName: 'Date', align: 'center', flex: 2, minWidth: 140,
       headerAlign: 'center',
       renderCell: (params) => <DateFormater value={params.value} />
     },
@@ -53,7 +53,7 @@ const TableTransactions = (props) => {
     //   renderCell: (params) => { value={params.value}} 
     // },
     {
-      field: 'quote_transaction', headerName: 'Amount', minWidth: 180, align: 'right',
+      field: 'quote_transaction', headerName: 'Amount', minWidth: 200, align: 'right',
       headerAlign: 'center', flex: 1,
       renderCell: (params) => <NativeAmountormater value={params.value} />
     },
@@ -68,9 +68,8 @@ const TableTransactions = (props) => {
     }
     ,
     // {
-    //     field: 'id', headerName: 'ID', width:
-    //         300, align: 'center', headerAlign: 'center',
-    //     renderCell: (params) => <TokenFormater value={params.value} />
+    // field: 'id', headerName: 'ID', width:
+    //     300, align: 'center', headerAlign: 'center'
     // }
   ];
 

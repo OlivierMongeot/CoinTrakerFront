@@ -2,8 +2,14 @@
 
 const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
 
+
+/**
+ * @param currency ex : eth
+ * @param  date ex : 20-10-22
+ * @returns 
+ */
 const getFiatValue = async (currency, date) => {
-  // console.log('get Fiat price for date for ', currency, date)
+  console.log('get Fiat price for date for ', currency, date)
 
   let tokenGecko = JSON.parse(localStorage.getItem('GekocoinsData'))
   // console.log(currency)
@@ -18,19 +24,19 @@ const getFiatValue = async (currency, date) => {
   if (idGeko.length === 0) {
 
     url = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=" + date;
+    console.log('error : id CoinGecko non available')
     return { usd: 1, error: 'id CoinGecko non available' }
   } else {
 
     url = "https://api.coingecko.com/api/v3/coins/"
       + (idGeko[0].id).toLowerCase() + "/history?date=" + date;
-
   }
 
 
   const historyPrice = async (url) => {
     try {
-      console.log('await 7000ms')
-      await delay(7000);
+      console.log('await 8000ms')
+      await delay(8000);
       const response = await fetch(url, {
         method: 'get',
         headers: {
@@ -58,7 +64,7 @@ const getFiatValue = async (currency, date) => {
     return prices.market_data.current_price
   }
   else {
-    console.log('return usd 1')
+    console.log('Error price hisroric ')
     return { usd: 1 };
   }
 

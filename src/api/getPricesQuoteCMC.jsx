@@ -17,10 +17,7 @@ const getListCurrencies = (wallet) => {
             currencies += currency + ',';
         }
     }
-    currencies = currencies.slice(0, -1);
-
-    console.log('List Token to search CMC API :', currencies);
-    return currencies;
+    return currencies.slice(0, -1);
 }
 
 
@@ -56,6 +53,7 @@ const getPricesQuotesCMC = async (wallet, exchange, ip) => {
                 wallet[i].live_price = parseFloat(live_price);
                 wallet[i].quoteCMC = quoteMap['ETH'];
             } else {
+                // Because Kucoin ETH2 is a different token that ETH2 Coinbase 
                 console.log('getPricesCMCApi ETH2', wallet[i].currency);
                 live_price = pricesMap['ETH'];
                 wallet[i].live_price = wallet[i].quoteAPIorigin.averagePrice * parseFloat(live_price)

@@ -31,7 +31,7 @@ const checkParticularName = (walletElement, token, exchange) => {
 
 
 const addCoinMarketCapIds = async (wallet, exchange, ip) => {
-  console.log('addCoinMarketCapIds', exchange);
+  // console.log('addCoinMarketCapIds', exchange);
   const cmcTokensList = await getIdsCMC(ip);
 
   for (let i = 0; i < wallet.length; i++) {

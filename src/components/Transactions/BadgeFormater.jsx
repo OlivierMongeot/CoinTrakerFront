@@ -1,10 +1,13 @@
 import * as React from 'react';
-import LogoUSD from '../../images/usd.svg';
-import LogoEUR from '../../images/eur.svg'
-import LogoUSDT from '../../images/usdt.svg';
 import LogoKCS from '../../images/kcs.svg';
-import LogoUSDC from '../../images/usdc.svg';
-import LogoETH from '../../images/eth.png';
+// import LogoUSDC from '../../images/usdc.svg';
+
+import IconeEur from '../Icones/IconeEur';
+import IconeUsd from '../Icones/IconeUsd';
+import IconeUsdt from '../Icones/IconeUsdt';
+import IconeBitcoin from '../Icones/IconeBitcoin';
+import IconeEtherum from '../Icones/IconeEtherum';
+import IconeUSDC from '../Icones/IconeUSDC';
 
 
 const BadgeFormater = (props) => {
@@ -23,7 +26,9 @@ const BadgeFormater = (props) => {
         <span></span>
       )
     }
-    if (value < 0.1 && value > -0.1) {
+    if (value < 0.01 && value > -0.01) {
+      value = value.toFixed(6)
+    } else if (value < 0.1 && value > -0.1) {
       value = value.toFixed(5)
     } else {
       value = value.toFixed(2)
@@ -42,32 +47,62 @@ const BadgeFormater = (props) => {
       padding: '8px',
       display: 'flex',
       alignItems: 'center',
-      boxShadow: '2px 2px 5px ' + color,
+      boxShadow: '1px 1px 3px ' + color,
       height: '1.9rem'
     }
 
     switch (currency) {
       case 'EUR':
-        url = LogoEUR
-        break
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeEur></IconeEur>
+          </div>
+        )
+
       case 'USD':
-        url = LogoUSD
-        break
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeUsd></IconeUsd>
+          </div>
+        )
 
       case 'USDT':
-        url = LogoUSDT
-        break
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeUsdt></IconeUsdt>
+          </div>
+        )
+
+      case 'BTC':
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeBitcoin></IconeBitcoin>
+          </div>
+        )
 
       case 'USDC':
-        url = LogoUSDC
-        break
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeUSDC></IconeUSDC>
+          </div>
+        )
 
       case 'KCS':
         url = LogoKCS
         break
       case 'ETH':
-        url = LogoETH
-        break
+      case 'ETH2':
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeEtherum></IconeEtherum>
+          </div>
+        )
 
       default:
         break
@@ -77,7 +112,7 @@ const BadgeFormater = (props) => {
       <div style={style}>
         <span > {value} {currency}</span >
         <img
-          className="logo-transac"
+          className="logo-transac" style={{ height: '20px', width: '20px' }}
           src={url}
           alt="Token" />
       </div>

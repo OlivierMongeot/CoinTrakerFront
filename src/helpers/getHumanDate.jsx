@@ -10,7 +10,9 @@ const getHumanDateTime = (timeStamp) => {
     " " + (months[dateFormat.getMonth()]) +
     " " + dateFormat.getFullYear(),
   " " + dateFormat.getHours().toString().padStart(2, "0") +
-  ":" + dateFormat.getMinutes().toString().padStart(2, "0")];
+  ":" + dateFormat.getMinutes().toString().padStart(2, "0") +
+  ":" + dateFormat.getSeconds().toString().padStart(2, "0")
+  ];
 }
 
 

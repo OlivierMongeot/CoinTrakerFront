@@ -85,10 +85,8 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
       exchange: exchange
     });
 
-    console.log('user to fetch ', data);
-    // console.log('usertoken ', user.token);
+
     try {
-      console.log('try fetch')
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -98,7 +96,7 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         body: data
       })
 
-      console.log('result response ', response)
+      // console.log('result response ', response)
       const result = await response.json();
 
       if (!result) {
@@ -106,7 +104,7 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
         // toast('Token is expired : please login');
         throw new Error('no data : check token pls ');
       }
-      console.log('result row', result);
+      // console.log('result row', result);
 
       return result;
 
@@ -125,7 +123,7 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
     case true:
       rotateSpinner(exchange, arrayAmountWallets);
 
-      console.log('API CALL');
+      // console.log('API CALL');
       const user = JSON.parse(localStorage.getItem('user'));
 
       if (user && user.token) {

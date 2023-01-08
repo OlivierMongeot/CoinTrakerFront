@@ -1,8 +1,8 @@
 import * as React from 'react';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import LogoDeposit from '../images/deposit.png';
-import LogoWithdraw from '../images/withdraw.png';
-import LogoSwap from '../images/swap.png';
+import IconeDeposit from '../components/Icones/IconeDeposit';
+import IconeWithdraw from '../components/Icones/IconeWidthdraw';
+import IconeSwap from '../components/Icones/IconeSwap';
 
 const TransacFormater = (props) => {
   // console.log('props', props);
@@ -15,10 +15,8 @@ const TransacFormater = (props) => {
       case 'Deposit':
         return (
           <React.Fragment>
-            <img
-              className="logo-transac"
-              src={LogoDeposit}
-              alt="Token" /><div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Deposit</div>
+            <IconeDeposit></IconeDeposit>
+            <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Deposit</div>
           </React.Fragment>
         )
 
@@ -26,20 +24,16 @@ const TransacFormater = (props) => {
       case 'withdrawals':
         return (
           <React.Fragment>
-            <img
-              className="logo-transac"
-              src={LogoWithdraw}
-              alt="Token" /><div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Withdraw</div>
+            <IconeWithdraw></IconeWithdraw>
+            <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Withdraw</div>
           </React.Fragment>
         )
 
       case 'trade':
         return (
           <React.Fragment>
-            <img
-              className="logo-transac"
-              src={LogoSwap}
-              alt="Token" /><div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Trade</div>
+            <IconeSwap></IconeSwap>
+            <div style={{ marginLeft: '5px', fontSize: '0.8rem' }}>Trade</div>
           </React.Fragment>
         )
 

@@ -5,13 +5,11 @@ import saveLastTimeChecked from '../helpers/saveLastTimeChecked'
 import getHumanDateTime from '../helpers/getHumanDate';
 import getFiatValue from '../helpers/getFiatValue';
 import eraseDoublon from '../helpers/eraseDoublon';
+import getSimpleDate from '../helpers/getSimpleDate';
 
 const depositKucoin = async (mode, userData) => {
 
   console.log('----------START DEPOSITS FETCH---------------')
-
-  let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
-  console.log('Deposit kucoin saved ', savedDepositsKucoin.length);
 
   const rebuildDataKucoin = async (deposits) => {
     console.log('rebuild Deposit kucoin')
@@ -42,12 +40,11 @@ const depositKucoin = async (mode, userData) => {
 
       deposits[index].quote_transaction = {
         amount: deposits[index].amount,
-        devises: await getFiatValue(deposits[index].currency, deposits[index].createdAt)
+        devises: await getFiatValue(deposits[index].currency,
+          getSimpleDate(deposits[index].createdAt))
       };
       index++
     }
-
-
 
     return deposits;
   }
@@ -56,33 +53,27 @@ const depositKucoin = async (mode, userData) => {
   let newDeposits = [];
   let allDeposits = []
 
+  let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
+
   if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'no-update') {
     return savedDepositsKucoin;
 
   } else if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'start') {
-    // console.log('start from last deposit') // to do last deposit ceck 
-    // const fetchDepositsKucoin = savedDepositsKucoin.reduce((r, o) => new Date(o.createdAt) > new Date(r.createdAt) ? o : r);
-    // console.log(fetchDepositsKucoin)
-    // start = fetchDepositsKucoin.createdAt + 1;
-
+    console.log('start from last deposit') // to do last deposit ceck 
     const timeTable = JSON.parse(localStorage.getItem('time-table'))
-    // console.log('timeTable', timeTable);
     start = timeTable?.kucoin.deposit ? timeTable.kucoin.deposit : 1640908800000
-    // console.log('start from last Deposit check saved ', getHumanDateTime(start))
 
   } else {
-    console.log('no data : fetch trx from 01/01/22')
+    console.log('No data deposits : fetch deposit from 01/01/22')
     start = 1640908800000;// 1/1/22
     savedDepositsKucoin = []
   }
 
   // 1640908800000  1/1/22
-  // const start = 1645776000000; // fev 22 
   const oneWeek = 604800000;
   const sevenDayPeriode = 54;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
   const now = Date.now();
-
 
   async function fetchDepositsKucoin(start) {
 
@@ -113,6 +104,7 @@ const depositKucoin = async (mode, userData) => {
       console.log(' error catched here');
       throw new Error(trx.error.message);
     }
+    saveLastTimeChecked('kucoin', 'deposit', start + oneWeek);
     if (trx.data && trx.data.data.items && trx.data.data.items.length > 0) {
       // console.log(getHumanDateTime(start))
       console.log('Deposit found on 7 days ', trx.data.data.items);

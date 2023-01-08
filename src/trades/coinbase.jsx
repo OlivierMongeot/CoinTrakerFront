@@ -6,221 +6,251 @@ import eraseDoublon from '../helpers/eraseDoublon';
 import getLastestTransactionsCoinbase from '../helpers/getLastestTransactionsCoinbase';
 
 const proccesTransactionCoinbase = async (mode, userData) => {
+
   console.log('process Coinbase trx ')
 
-  const postProcess = async (trx, exchange) => {
 
-    const rebuildDataCoinbase = async (data, exchange) => {
+  const rebuildDataCoinbase = async (transactions) => {
 
-      console.log('rebuild data');
-      function getSmartType(type, amount, description) {
+    console.log('rebuild transactions', transactions.length);
 
-        switch (type) {
-          case 'send':
-            if (description === 'Earn Task') {
-              return 'Earn'
-            }
-            if (parseFloat(amount) < 0) {
-              return 'Withdraw'
-            } else {
-              return 'Deposit'
-            }
+    function getSmartType(type, amount, description) {
 
-          case 'trade':
-            return 'Swap'
+      switch (type) {
+        case 'send':
+          if (description === 'Earn Task') {
+            return 'Earn'
+          }
+          if (parseFloat(amount) < 0) {
+            return 'Withdraw'
+          } else {
+            return 'Deposit'
+          }
 
-          case 'interest':
-            return 'Interest'
-          case 'inflation_reward':
-            return 'Reward'
+        case 'trade':
+          return 'Swap'
 
-          case 'reward':
-            return 'Inflation reward'
+        case 'interest':
+          return 'Interest'
+        case 'inflation_reward':
+          return 'Reward'
 
-          case 'staking_reward':
-            return 'Staking Reward'
+        case 'reward':
+          return 'Inflation reward'
 
-          case 'vault_withdrawal':
-            return 'Withdraw externe'
+        case 'staking_reward':
+          return 'Staking Reward'
 
-          case 'advanced_trade_fill':
-            return 'Trade'
+        case 'vault_withdrawal':
+          return 'Withdraw externe'
 
-          case 'buy':
-            return 'Buy'
+        case 'advanced_trade_fill':
+          return 'Trade'
 
-          case 'fiat_deposit':
-            return 'Deposit FIAT'
+        case 'buy':
+          return 'Buy'
 
-          case 'transfer':
-            return 'Transfer'
+        case 'fiat_deposit':
+          return 'Deposit FIAT'
 
-          default:
-            console.log('unknow type ', type, amount)
-            return 'unknow Type'
+        case 'transfer':
+          return 'Transfer'
 
-        }
+        default:
+          console.log('unknow type ', type, amount)
+          return 'unknow Type'
+
       }
+    }
 
-      async function getDataBuy(path, userData) {
+    async function getDataBuy(path, userData) {
 
-        const data = {
-          email: userData.email,
-          exchange: 'coinbase',
-          path: path
-        };
+      const data = {
+        email: userData.email,
+        exchange: 'coinbase',
+        path: path
+      };
 
-        const response = await fetch('http://' + config.urlServer + '/coinbase/buy', {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': userData.token
-          },
-          body: JSON.stringify(data)
-        })
+      const response = await fetch('http://' + config.urlServer + '/coinbase/buy', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userData.token
+        },
+        body: JSON.stringify(data)
+      })
 
-        if (!response.ok) {
-          const message = `An error has occured: ${response.status}`;
-          throw new Error(message);
-        }
-        // const buy = await response.json();
-        return await response.json();
+      if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
       }
-
-      // add euro data for buy 
-      let index = 0;
-      while (index < data.length) {
-
-        if (data[index].type === 'buy') {
-          const data_buy = await getDataBuy(data[index].buy.resource_path, userData);
-          console.log('Buy data', data_buy.data);
-          data[index].data_buy = data_buy.data;
-        }
-        index++;
-      }
+      // const buy = await response.json();
+      return await response.json();
+    }
 
 
-      data.forEach(element => {
+    // add euro data for buy 
+    let index = 0;
+    let idDataBuyArray = [];
+    while (index < transactions.length) {
 
-        element.exchange = exchange;
-        element.createdAt = new Date(element.created_at).getTime();
-        if (element.details.subtitle !== null) {
-          element.title = element.details.title + ' ' + (element.details?.subtitle).toLowerCase();
+      if (transactions[index].type === 'buy'
+        //  && !transactions[index].data_buy
+        && !transactions[index].hasOwnProperty('data_buy')) {
+
+        // const data_buy = { data: { usd: 1 } };
+        const data_buy = await getDataBuy(transactions[index].buy.resource_path, userData);
+        console.log('Buy data', data_buy.data);
+        transactions[index].data_buy = data_buy.data;
+
+        if (idDataBuyArray.includes(data_buy.data.id)) {
+          // déja entre donc delete elem
+          console.log('delete a faire', transactions[index])
+
         } else {
-          element.title = element.details.title;
+          idDataBuyArray.push(data_buy.data.id)
         }
-        if (element.details.header !== null) {
-          element.title = element.title + ' (' + element.details.header + ')';
+        console.log(idDataBuyArray)
+
+      } else if (transactions[index].type === 'buy') {
+        console.log('Trx Buy avec data buy déjà entré')
+      }
+      index++;
+    }
+
+
+    transactions.forEach(element => {
+
+      element.exchange = 'coinbase';
+      element.createdAt = new Date(element.created_at).getTime();
+
+      if (element.details.subtitle !== null) {
+        element.title = element.details.title + ' ' + (element.details?.subtitle).toLowerCase();
+      } else {
+        element.title = element.details.title;
+      }
+      if (element.details.header !== null) {
+        element.title = element.title + ' (' + element.details.header + ')';
+      }
+      element.title = element.title + ' | ID: ' + element.id;
+
+
+
+      element.smartType = getSmartType(element.type, element.amount.amount, element.description);
+      // element.smartTitle = { info: element.title, type: element.smartType }
+      element.token = element.amount.currency;
+
+      if (parseFloat(element.amount.amount) > 0) {
+
+        element.entry = {
+          amount: element.amount.amount,
+          currency: element.amount.currency,
+          urlLogo: element.urlLogo
+          // urlLogo: ''
         }
-        element.title = element.title + ' | ID: ' + element.id;
-
-        element.smartType = getSmartType(element.type, element.amount.amount, element.description);
-        element.smartTitle = { info: element.title, type: element.smartType }
-        element.token = element.amount.currency;
-
-        if (parseFloat(element.amount.amount) > 0) {
-
-          element.entry = {
-            amount: element.amount.amount,
-            currency: element.amount.currency,
-            urlLogo: element.urlLogo
-            // urlLogo: ''
-          }
-          element.exit = {
-            amount: element.native_amount.amount,
-            currency: element.native_amount.currency
-          }
-          element.transaction = 'trade'
-        } else {
-          element.entry = {
-            amount: -element.native_amount.amount,
-            currency: element.native_amount.currency,
-          }
-          element.exit = {
-            amount: -element.amount.amount,
-            currency: element.amount.currency,
-            urlLogo: element.urlLogo
-            // urlLogo: ''
-          }
-          element.transaction = 'trade'
+        element.exit = {
+          amount: element.native_amount.amount,
+          currency: element.native_amount.currency
         }
-
-        // Supprime les sorties du wallet sur les cas suivants:
-        // !!!! depend des message coinbase !!!! Trouveer une meilleur soluce 
-        if ((element.details.subtitle && (element.details.subtitle).includes('De Coinbase')) ||
-          (element.type === "fiat_deposit")
-          || (element.type === "interest")
-          || (element.type === 'reward')
-          || (element.type === 'inflation_reward')
-          || (element.type === 'staking_reward')
-        ) {
-          element.exit = { amount: 0, currency: '' };
-          element.transaction = 'deposit';
+        element.transaction = 'trade'
+      } else {
+        element.entry = {
+          amount: -element.native_amount.amount,
+          currency: element.native_amount.currency,
         }
-
-        if ((
-          element.description && (element.description).includes('Earn'))
-          || (element.details.subtitle && (element.details.subtitle).includes('Earn'))
-        ) {
-          element.exit = { amount: 0, currency: '' };
-          element.transaction = 'deposit';
-          element.smartType = 'Earn'
+        element.exit = {
+          amount: -element.amount.amount,
+          currency: element.amount.currency,
+          urlLogo: element.urlLogo
+          // urlLogo: ''
         }
+        element.transaction = 'trade'
+      }
 
-        if (element.type === 'send' && parseFloat(element.amount.amount) < 0) {
+      if (
+        (element.type === "fiat_deposit")
+        || (element.type === "interest")
+        || (element.type === 'reward')
+        || (element.type === 'inflation_reward')
+        || (element.type === 'staking_reward')
+      ) {
+        element.exit = { amount: 0, currency: '' };
+        element.transaction = 'deposit';
+      }
+
+      if ((
+        element.description && (element.description).includes('Earn'))
+        || (element.details.subtitle && (element.details.subtitle).includes('Earn'))
+      ) {
+        element.exit = { amount: 0, currency: '' };
+        element.transaction = 'deposit';
+        element.smartType = 'Earn'
+      }
+
+      if (element.type === 'send' && parseFloat(element.amount.amount) < 0) {
+        element.entry = {
+          amount: 0,
+          currency: ''
+        }
+        element.transaction = 'withdraw'
+
+      } else if (element.type === 'send') {
+        element.exit = {
+          amount: 0,
+          currency: ''
+        }
+        element.transaction = 'deposit'
+      }
+
+      if (element.type === "vault_withdrawal" || element.type === "transfer") {
+        if (parseFloat(element.amount.amount) < 0) {
+          // Retrait sur wallet extern
           element.entry = {
             amount: 0,
             currency: ''
           }
           element.transaction = 'withdraw'
 
-        } else if (element.type === 'send') {
+        } else {
+          // depot du wallet externe 
           element.exit = {
             amount: 0,
             currency: ''
           }
           element.transaction = 'deposit'
         }
+      }
 
-        if (element.type === "vault_withdrawal" || element.type === "transfer") {
-          if (parseFloat(element.amount.amount) < 0) {
-            // Retrait sur wallet extern
-            element.entry = {
-              amount: 0,
-              currency: ''
-            }
-            element.transaction = 'withdraw'
+      // TODO 
+      element.modal = {
+        id_transaction: element.id,
+        title: element.details.title,
+        subtitle: element.details.subtitle,
+        header: element.details.header,
+        fee: element?.data_buy?.fee ? element?.data_buy?.fee : null,
+        subtotal: element?.data_buy?.subtotal ? element?.data_buy?.subtotal : null,
+        total: element?.data_buy?.total ? element?.data_buy?.total : null,
+        unit_price: element?.data_buy?.unit_price ? element?.data_buy?.unit_price : null,
+      }
+    })
 
-          } else {
-            // depot du wallet externe 
-            element.exit = {
-              amount: 0,
-              currency: ''
-            }
-            element.transaction = 'deposit'
-          }
-        }
-        // TODO
-        if (element.type === "buy") {
+    transactions.sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    })
 
-          element.exit = {
-            amount: element.data_buy.subtotal.amount,
-            currency: element.data_buy.subtotal.currency,
-            urlLogo: ""
-          }
-        }
-      })
+    return transactions;
+  }
 
-      return data;
-    }
+  const postProcess = async (transactions) => {
 
-    const data = eraseDoublon(trx)
-    let result = await addUrlImage(data, exchange)
+    const data = eraseDoublon(transactions)
+    let result = await addUrlImage(data, 'coinbase')
     // rebuild data for table datagrid
     if (result.length > 0) {
-      result = await rebuildDataCoinbase(result, exchange);
+
+      result = await rebuildDataCoinbase(result);
       // setTransactions(result);
-      localStorage.setItem('transactions-coinbsae', JSON.stringify(result))
+      localStorage.setItem('transactions-coinbase', JSON.stringify(result))
       return result
     } else {
       toast('Proccess error')
@@ -257,8 +287,8 @@ const proccesTransactionCoinbase = async (mode, userData) => {
         throw new Error(message);
       }
       const accountsPage = await response.json();
-      console.log('Account Page', accountsPage);
-      console.log('Account Page', accountsPage.pagination);
+      console.log('Get new Account : ', accountsPage.data.length);
+      // console.log('Account Page', accountsPage.pagination);
       nexPageAccounUri = accountsPage.pagination.next_uri;
       return accountsPage;
 
@@ -283,7 +313,6 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     localStorage.setItem('accounts-coinbase', JSON.stringify(accounts));
     return accounts;
   }
-
 
   async function fetchAllTransacPath(path, searchDirection) {
 
@@ -376,11 +405,12 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     return transactions;
   }
 
-  const fetchCurentTransactions = async (lastTrx) => {
+  const fetchNewTransactions = async (lastTrx) => {
 
-    // Boucle sur les accounts activé avec la derbiere trx
+
     let index = 0;
     let transactions = [];
+
     while (index < lastTrx.length) {
 
       let account = lastTrx[index];
@@ -396,7 +426,8 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
       index++;
       // setPourcentLoad(index * 100 / (lastTrx.length))
-      console.log(index * 100 / (lastTrx.length) + '%');
+      console.log(parseInt(index * 100 / (lastTrx.length)) + '%');
+      console.log('token', account?.token);
     }
 
     if (transactions.length === 0) {
@@ -406,66 +437,132 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     return transactions;
   }
 
-  // setIsLoading('');
-  const accountSaved = JSON.parse(localStorage.getItem('accounts-coinbase'));
-  let accounts = []
-  let currentTransactions = []
-  let newTransactions = []
-  let restartAllFetch = false;
 
-  if ((accountSaved && !accountSaved.length > 0) || (mode === 'force')) {
+  let accounts = []
+  let allTransactions = []
+  let makePostProcess = false;
+
+  // setIsLoading('');
+
+  const accountSaved = JSON.parse(localStorage.getItem('accounts-coinbase'));
+
+  if (accountSaved && !accountSaved.length > 0) {
     accounts = await fetchAllAccountCoinbase();
   } else {
     accounts = accountSaved;
   }
 
-  let trxSaved = JSON.parse(localStorage.getItem('transactions-coinbase'));
-
-  // trxSaved = await postProcess(trxSaved, "coinbase");
+  const trxSaved = JSON.parse(localStorage.getItem('transactions-coinbase'));
 
   // console.log('trx saved', trxSaved)
-  if (trxSaved === null || (mode === 'force')) {
+  if (trxSaved === null || !trxSaved.length > 0) {
     console.log('no trx in ls : restart all')
-    newTransactions = await fetchAllTransactions(accounts);
-    restartAllFetch = true;
+    allTransactions = await fetchAllTransactions(accounts);
+    makePostProcess = true
+    // restartAllFetch = true;
   } else {
-    currentTransactions = trxSaved;
+    allTransactions = trxSaved;
+    makePostProcess = false;
   }
 
-  let totalTrx = []
+  // let totalTrx = []
 
   console.log('Mode ', mode);
 
   switch (mode) {
+
+    case 'force':
+      accounts = await fetchAllAccountCoinbase();
+      allTransactions = await fetchAllTransactions(accounts);
+      return await postProcess(allTransactions);
+
+    case 'start':
+      allTransactions = await postProcess(allTransactions);
+
+      return allTransactions
+
+
     case 'quick':
-      if (!restartAllFetch) {
-        let lastTrx = getLastestTransactionsCoinbase(currentTransactions);
-        // console.log('last TRX', lastTrx);
-        let updatedTrx = await fetchCurentTransactions(lastTrx);
 
-        if (updatedTrx.length > 0) {
-          updatedTrx = await postProcess(updatedTrx, "coinbase");
+      // console.log('quick')
+      accounts = await fetchAllAccountCoinbase();
+      console.log('New account lenght ', accounts.length)
+      // get account with amount positive
+      let positiveAccount = accounts.filter(account => {
+        return parseFloat(account.balance.amount) > 0
+
+      })
+      console.log('New account filtred ', positiveAccount);
+      console.log('New account lenght filtred ', positiveAccount.length);
+
+
+      const lastTrx = getLastestTransactionsCoinbase(allTransactions);
+      console.log('Last current TRX', lastTrx);
+      console.log('Last current TRX lenght', lastTrx.length);
+      // Check if  new token are available
+      // comparer deux teb  
+      // chef if new token 
+      let newAccount = []
+      let newTrx = [];
+      let newAcountTrx = [];
+      positiveAccount.forEach((account, index) => {
+
+        // const ObjIdToFind = account.balance.currency;
+        const isObjectPresent = lastTrx.find((o) => o.token === account.balance.currency);
+
+        if (isObjectPresent === undefined) {
+          // console.log(ObjIdToFind, ' - ', isObjectPresent)
+          toast(positiveAccount[index].balance.currency + " trouvé")
+          newAccount.push(positiveAccount[index]);
         }
+      })
 
-        console.log('New trx : ', updatedTrx);
-        totalTrx = [...currentTransactions, ...updatedTrx];
-        localStorage.setItem('transactions-coinbase', JSON.stringify(totalTrx));
-        return totalTrx;
-      } else {
-        newTransactions = await postProcess(newTransactions, "coinbase");
-        localStorage.setItem('transactions-coinbase', JSON.stringify(newTransactions));
-        return newTransactions
+      console.log('newAccount ', newAccount);
+      if (newAccount.length === 0) {
+        toast("Pas de nouveau token trouvé")
       }
 
+      if (newAccount.length > 0) {
+
+        newAcountTrx = await fetchAllTransactions(newAccount);
+        console.log('new account trx', newAcountTrx);
+        if (newAcountTrx.length > 0) {
+          newAcountTrx = await postProcess(newAcountTrx);
+        }
+      }
+
+      newTrx = await fetchNewTransactions(lastTrx);
+
+      if (newTrx.length > 0) {
+        console.log('New trx : ', newTrx);
+        toast("Nouvelle transaction Coinbase trouvée")
+        newTrx = await postProcess(newTrx);
+      } else {
+        toast("Pas de nouvelle transaction Coinbase")
+        // console.log('no new transaction Coinbase')
+      }
+
+
+      allTransactions = [...allTransactions, ...newTrx, ...newAcountTrx];
+      // totalTrx = await rebuildDataCoinbase(totalTrx, 'coinbase');
+      localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
+      return allTransactions;
+
+
     case 'no-update':
-      return currentTransactions;
+      // currentTransactions = await rebuildDataCoinbase(currentTransactions, 'coinbase');
+      // allTransactions = await postProcess(allTransactions);
+      if (makePostProcess) {
+        allTransactions = await postProcess(allTransactions);
+        localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
+      }
+
+      return allTransactions;
 
     default:
-      return currentTransactions;
+      return allTransactions;
 
   }
-
-
 }
 
 

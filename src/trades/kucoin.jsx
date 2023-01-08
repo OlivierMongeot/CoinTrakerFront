@@ -76,9 +76,7 @@ const proccesTradesKucoin = async (mode, userData) => {
 
         trades[index].quote_transaction = {
           amount: trades[index].funds,
-          // devises: await getFiatValue(trades[index].entry.currency, trades[index].createdAt),
-          devises: { devises: { usd: 1 } },
-          // currency: trades[index].exit.currency,
+          devises: { devises: { usd: null } },
           currency: 'usd',
           diplayedFiat: 'usd',
           from: trades[index].entry.currency
@@ -86,16 +84,13 @@ const proccesTradesKucoin = async (mode, userData) => {
       }
 
       trades[index].date = getSimpleDate(trades[index].createdAt)
+      trades[index].quoteUSD = null
 
-      trades[index].quoteUSD = trades[index].quote_transaction.devises.usd
       index++;
     }
-
     // Fetch historic price  
     let tabToken = [];
-
     trades.forEach(element => {
-      // console.log(element);
       let token = element.symbol.split('-');
       tabToken.push({ token: token[1], date: element.date })
     });
@@ -133,28 +128,28 @@ const proccesTradesKucoin = async (mode, userData) => {
 
     console.log('unique Tokens', uniqueTokens);
 
-    // after must take only new trade
+
     trades.forEach(trade => {
 
-      let token = null;
-      let dateWanted = null;
+      // let token = null;
+      // let dateWanted = null;
       let devises = null;
 
       switch (trade.side) {
         case 'sell':
-          token = trade.entry.currency;
-          dateWanted = trade.date;
+          // token = trade.entry.currency;
+          // dateWanted = trade.date;
           devises = uniqueTokens.filter(element => {
-            return (element.token === token && element.date === dateWanted);
+            return (element.token === trade.entry.currency && element.date === trade.date);
           })
           trade.quote_transaction.devises = devises[0].devises;
           break;
 
         case 'buy':
-          token = trade.exit.currency;
-          dateWanted = trade.date;
+          // token = trade.exit.currency;
+          // dateWanted = trade.date;
           devises = uniqueTokens.filter(element => {
-            return (element.token === token && element.date === dateWanted);
+            return (element.token === trade.exit.currency && element.date === trade.date);
           })
           trade.quote_transaction.devises = devises[0].devises;
           break;
@@ -178,28 +173,19 @@ const proccesTradesKucoin = async (mode, userData) => {
 
   } else if (savedTradeKucoin && savedTradeKucoin.length > 0 && mode === 'start') {
     console.log('Start from last trx')
-    // const lastTransactionKucoin = savedTradeKucoin.reduce((r, o) => new Date(o.createdAt) > new Date(r.createdAt) ? o : r);
-    // console.log(lastTransactionKucoin)
-    // start = lastTransactionKucoin.createdAt + 1;
 
-    // console.log('timeTable', timeTable);
     start = timeTable?.kucoin.trade ? timeTable.kucoin.trade : 1640908800000;
   } else {
     console.log('no data : fetch trx from 01/01/22')
-    // start = 1640908800000;// 1/1/22
-    // const timeTable = JSON.parse(localStorage.getItem('time-table'))
-    // console.log('timeTable', timeTable);
     start = timeTable?.kucoin.trade ? timeTable.kucoin.trade : 1640908800000;
-    console.log('start at last time check')
     savedTradeKucoin = [];
   }
 
   // 1640908800000  1/1/22
-  // const start = 1645776000000; // fev 22 
   const oneWeek = 604800000;
   const sevenDayPeriode = 10;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
-  // let newTrades = [];
+
   const now = Date.now();
 
   async function fetchTransactionsKucoin(start) {
@@ -283,14 +269,11 @@ const proccesTradesKucoin = async (mode, userData) => {
   }
   // ajout provosoire pour rebuilder
   allTrades = [...newTrades, ...savedTradeKucoin]
-  allTrades = eraseDoublon(allTrades)
-  // const fallTrades = await rebuildDataKucoin(allTrades)
-  console.log('All Trades ', allTrades);
-
-
+  allTrades = eraseDoublon(allTrades) // au cas ou 
+  // console.log('All Trades ', allTrades);
 
   localStorage.setItem('trades-kucoin', JSON.stringify(allTrades));
-  console.log('New Trades ', newTrades);
+  console.log('New Trades Kucoin ', newTrades);
   return allTrades;
 }
 

@@ -13,7 +13,6 @@ const addUrlImage = async (data, exchange, type) => {
 
   const cmcTokensList = await getIdsCMC();
 
-
   for (let i = 0; i < data.length; i++) {
     let currency = null;
     cmcTokensList.filter(token => {
@@ -32,7 +31,6 @@ const addUrlImage = async (data, exchange, type) => {
               data[i].urlLogo = seturlLogo(token.symbol, token.id);
             }
           }
-
 
           return token.symbol.toLowerCase() === currency[0].toLowerCase();
 
