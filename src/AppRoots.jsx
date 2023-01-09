@@ -1,8 +1,8 @@
 import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import SideMenu from './layout/SideMenu';
-import TopBar from './layout/TopBar';
+// import SideMenu from './layout/SideMenu';
+// import TopBar from './layout/TopBar';
 import WalletsBoard from './pages/WalletsBoard';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -13,23 +13,18 @@ import Account from './pages/Account';
 import Exchanges from './pages/Exchanges';
 import Withdraws from './pages/Withdraws';
 import Transactions from './pages/Transactions'
+import TopAndSideMenu from './layout/TopAndSideMenu';
 
 export default function AppRoots(props) {
 
-  const [open, setOpen] = React.useState(true);
   const page = props.page.page;
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
 
   return (
 
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <TopBar open={open} toggleDrawer={toggleDrawer}
-      />
-      <SideMenu open={open} toggleDrawer={toggleDrawer} />
+
+      <TopAndSideMenu />
       <Box
         component="main"
         sx={{

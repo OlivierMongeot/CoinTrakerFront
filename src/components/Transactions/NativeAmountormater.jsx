@@ -37,8 +37,8 @@ const nativeAmountFormater = (props) => {
     // console.log(' amount', amount, 'curency', currency);
     // console.log('curency', currency)
     let fixed = 2
-    if (amount < 0.001) {
-      fixed = 4
+    if (amount * swap < 0.01) {
+      fixed = 5
     }
 
 

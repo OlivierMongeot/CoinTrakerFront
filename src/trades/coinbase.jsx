@@ -428,7 +428,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     }
 
     if (transactions.length === 0) {
-      toast('No new transaction found')
+      toast('Pas de nouvelles transactions trouvées');
     }
     // setPourcentLoad(0);
     return transactions;
@@ -545,10 +545,10 @@ const proccesTransactionCoinbase = async (mode, userData) => {
         // console.log('no new transaction Coinbase')
       }
 
-
       allTransactions = [...allTransactions, ...newTrx, ...newAcountTrx];
       // totalTrx = await rebuildDataCoinbase(totalTrx, 'coinbase');
-      localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
+      console.log('lenght', allTransactions.length);
+      // localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
       return allTransactions;
 
 
@@ -557,7 +557,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       // allTransactions = await postProcess(allTransactions);
       if (makePostProcess) {
         allTransactions = await postProcess(allTransactions);
-        localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
+        // localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
       }
 
       return allTransactions;

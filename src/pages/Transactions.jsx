@@ -50,53 +50,52 @@ const Transactions = () => {
     const backgroundFetchQuote = async (transactions) => {
 
         console.log('Background Fetch Quote')
-        let index = 0;
+        let index = 94;
 
-        while (index < 10) {
-            // console.log('transactions n°' + index, transactions[index])
+        while (index < 95) {
 
             let currency = null;
             let date = getSimpleDate(transactions[index].createdAt);
-            // let currencyUsed = null;
 
-            if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
-
+            if (transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
+                console.log('Transactions n°' + index, transactions[index])
                 console.log('Get quotation for ', transactions[index].native_amount.currency)
                 let amount = null;
                 switch (transactions[index].exchange) {
 
                     case 'kucoin':
                         amount = transactions[index].native_amount.amount
-
+                        currency = transactions[index].native_amount.currency
                         break
                     case 'coinbase':
                         const nativeAmount = parseFloat(transactions[index].native_amount.amount);
                         if (nativeAmount > 0) {
                             amount = transactions[index].native_amount.amount
+                            currency = transactions[index].native_amount.currency
                         } else {
                             amount = transactions[index].amount.amount
+                            currency = transactions[index].amount.currency
                         }
                         break;
-
-
 
                     default:
                         break;
                 }
 
                 // // Part 2 : gestion du token 
-                if (index > 0 && getSimpleDate(transactions[index - 1].createdAt) === date
-                    && transactions[index].currency === transactions[index - 1].currency) {
 
-                    let prevDevises = transactions[index - 1].quote_transaction.devises;
+                if (index > 0 && getSimpleDate(transactions[index - 1].createdAt) === date
+                    && transactions[index].native_amount.currency === transactions[index - 1].native_amount.currency) {
+                    console.log('take prev data quotation')
+                    let prevDevises = transactions[index - 1]?.quote_transaction.devises;
                     if (prevDevises) {
-                        transactions[index].quote_transaction = { devises: prevDevises, amount: amount, currency: transactions[index].currency };
+                        transactions[index].quote_transaction = { devises: prevDevises, amount: amount, currency: currency };
                     }
 
                 } else {
 
-                    // console.log('id trx ', transactions[index].id)
-                    currency = transactions[index].native_amount.currency;
+                    console.log('id trx ', transactions[index].id)
+                    // currency = transactions[index].native_amount.currency;
                     let quoteFiat = null;
 
                     switch (currency) {
@@ -131,6 +130,8 @@ const Transactions = () => {
                         prevIndex === rowToUpdateIndex ? { ...trx } : trx
                     );
                 })
+            } else {
+                console.log('Ever in place transactions n°' + index, transactions[index])
             }
             index++;
         }

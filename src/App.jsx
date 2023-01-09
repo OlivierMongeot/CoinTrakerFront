@@ -10,6 +10,7 @@ function App() {
   return (
 
     <Router>
+
       <Routes>
         <Route path="/" element={<Theme page="home" />} />
         <Route path="/login" element={<Theme page="login" />} />

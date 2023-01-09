@@ -50,9 +50,9 @@ const proccesTradesKucoin = async (mode, userData) => {
           currency: currencyTab[1],
           urlLogo: ''
         }
-        trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] };
-        trades[index].currency = currencyTab[0];
-        trades[index].transaction = 'trade';
+        // trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] };
+        // trades[index].currency = currencyTab[0];
+        // trades[index].transaction = 'trade';
 
 
       } else {
@@ -66,11 +66,13 @@ const proccesTradesKucoin = async (mode, userData) => {
           currency: currencyTab[0],
           urlLogo: trades[index].urlLogo
         }
-        trades[index].transaction = 'trade'
-        trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] }
-        trades[index].currency = currencyTab[0]
+
 
       }
+
+      trades[index].transaction = 'trade'
+      trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] }
+      trades[index].currency = currencyTab[0]
 
       trades[index].date = getSimpleDate(trades[index].createdAt)
       // trades[index].quoteUSD = null
