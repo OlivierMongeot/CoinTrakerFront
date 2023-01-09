@@ -53,7 +53,7 @@ const TableTransactions = (props) => {
     //   renderCell: (params) => { value={params.value}} 
     // },
     {
-      field: 'quote_transaction', headerName: 'Amount', minWidth: 200, align: 'right',
+      field: 'quote_transaction', headerName: 'Amount', minWidth: 230, align: 'right',
       headerAlign: 'center', flex: 1,
       renderCell: (params) => <NativeAmountormater value={params.value} />
     },

@@ -192,7 +192,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
           amount: 0,
           currency: ''
         }
-        element.transaction = 'withdraw'
+        element.transaction = 'withdrawals'
 
       } else if (element.type === 'send') {
         element.exit = {
@@ -209,7 +209,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
             amount: 0,
             currency: ''
           }
-          element.transaction = 'withdraw'
+          element.transaction = 'withdrawals'
 
         } else {
           // depot du wallet externe 
@@ -234,9 +234,6 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       }
     })
 
-    transactions.sort((a, b) => {
-      return b.createdAt - a.createdAt;
-    })
 
     return transactions;
   }
@@ -250,7 +247,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
       result = await rebuildDataCoinbase(result);
       // setTransactions(result);
-      localStorage.setItem('transactions-coinbase', JSON.stringify(result))
+      // localStorage.setItem('transactions-coinbase', JSON.stringify(result))
       return result
     } else {
       toast('Proccess error')
@@ -446,15 +443,22 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
   const accountSaved = JSON.parse(localStorage.getItem('accounts-coinbase'));
 
+
   if (accountSaved && !accountSaved.length > 0) {
     accounts = await fetchAllAccountCoinbase();
   } else {
     accounts = accountSaved;
   }
 
-  const trxSaved = JSON.parse(localStorage.getItem('transactions-coinbase'));
+  // const trxSaved = JSON.parse(localStorage.getItem('transactions-coinbase'));
 
-  // console.log('trx saved', trxSaved)
+
+  const allTransactionsSaved = JSON.parse(localStorage.getItem('transactions-all'))
+  const trxSaved = allTransactionsSaved.filter(transaction => {
+    return transaction.exchange === 'coinbase'
+  })
+
+
   if (trxSaved === null || !trxSaved.length > 0) {
     console.log('no trx in ls : restart all')
     allTransactions = await fetchAllTransactions(accounts);
@@ -480,7 +484,6 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       allTransactions = await postProcess(allTransactions);
 
       return allTransactions
-
 
     case 'quick':
 

@@ -9,7 +9,7 @@ import getSimpleDate from '../helpers/getSimpleDate';
 
 const depositKucoin = async (mode, userData) => {
 
-  console.log('----------START DEPOSITS FETCH---------------')
+  console.log('----------START DEPOSITS KUCOIN ---------------')
 
   const rebuildDataKucoin = async (deposits) => {
     console.log('rebuild Deposit kucoin')
@@ -21,31 +21,22 @@ const depositKucoin = async (mode, userData) => {
       deposits[index].id = deposits[index].walletTxId;
       deposits[index].smartType = 'Blockchain : ' + deposits[index].chain.toUpperCase();
       deposits[index].updated_at = new Date(deposits[index].createdAt)
-      deposits[index].token = deposits[index].currency;
-
-      let currencyTab = deposits[index].currency;
 
       deposits[index].entry = {
         amount: deposits[index].amount,
-        currency: currencyTab,
+        currency: deposits[index].currency,
         urlLogo: deposits[index].urlLogo
       }
       deposits[index].exit = {
         amount: 0,
         currency: ''
-
       }
-      deposits[index].native_amount = { amount: deposits[index].amount, currency: currencyTab };
-      deposits[index].transaction = deposits[index].remark;
 
-      deposits[index].quote_transaction = {
-        amount: deposits[index].amount,
-        devises: await getFiatValue(deposits[index].currency,
-          getSimpleDate(deposits[index].createdAt))
-      };
+      deposits[index].native_amount = { amount: deposits[index].amount, currency: deposits[index].currency };
+      deposits[index].transaction = (deposits[index]?.remark).toLowerCase();
+
       index++
     }
-
     return deposits;
   }
 
@@ -53,7 +44,12 @@ const depositKucoin = async (mode, userData) => {
   let newDeposits = [];
   let allDeposits = []
 
-  let savedDepositsKucoin = JSON.parse(localStorage.getItem('deposits-kucoin'));
+  const allTransactions = JSON.parse(localStorage.getItem('transactions-all'))
+  let savedDepositsKucoin = allTransactions.filter(transaction => {
+    return transaction.exchange === 'kucoin' && transaction.transaction === 'deposit'
+  })
+  console.log('Deposit kucoin saved ', savedDepositsKucoin);
+
 
   if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'no-update') {
     return savedDepositsKucoin;
@@ -157,7 +153,7 @@ const depositKucoin = async (mode, userData) => {
 
   allDeposits = eraseDoublon(allDeposits)
   // allDeposits = await rebuildDataKucoin(allDeposits)
-  localStorage.setItem('deposits-kucoin', JSON.stringify(allDeposits));
+  // localStorage.setItem('deposits-kucoin', JSON.stringify(allDeposits));
   return allDeposits
   // return newDeposits;
 }

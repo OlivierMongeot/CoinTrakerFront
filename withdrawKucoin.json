@@ -1,0 +1,17 @@
+[
+  {
+      "id": "627ac1e12429dd0001e13dd1",
+      "currency": "AVAX",
+      "chain": "avaxc",
+      "status": "SUCCESS",
+      "address": "0x11921F6eE564D7A087d02208fDC6947C30557B10",
+      "memo": "",
+      "isInner": false,
+      "amount": "0.29000000",
+      "fee": "0.01000000",
+      "walletTxId": "0x8f571b46a67007675198dda424534e5432466f9f81160dceb9b149e00b9550d9",
+      "createdAt": 1652212193000,
+      "updatedAt": 1652212312000,
+      "remark": ""
+  }
+]

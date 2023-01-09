@@ -7,9 +7,9 @@
       "side": "buy",
       "liquidity": "taker",
       "forceTaker": true,
-      "price": "1.38471", // prise usdt
-      "size": "7.92456747", // amount uos 
-      "funds": "10.9732278213837", // total usdt
+      "price": "1.38471", 
+      "size": "7.92456747",
+      "funds": "10.9732278213837",
       "fee": "0.0219464556427674",
       "feeRate": "0.002",
       "feeCurrency": "USDT",

@@ -10,7 +10,12 @@ import getSimpleDate from '../helpers/getSimpleDate';
 const withdrawalsKucoin = async (mode, userData) => {
 
   console.log('----------START WITHDRAWALS FETCH---------------')
-  let savedWithdrawalsKucoin = JSON.parse(localStorage.getItem('withdrawals-kucoin'));
+
+  const allTransactions = JSON.parse(localStorage.getItem('transactions-all'))
+  let savedWithdrawalsKucoin = allTransactions.filter(transaction => {
+    return transaction.exchange === 'kucoin' && transaction.transaction === 'withdrawals'
+  })
+
   console.log('Withdrawals kucoin saved ', savedWithdrawalsKucoin);
 
   const rebuildDataKucoin = async (withdrawals) => {
@@ -18,12 +23,12 @@ const withdrawalsKucoin = async (mode, userData) => {
 
     let index = 0;
     while (index < withdrawals.length) {
-      withdrawals[index].title = 'Address withdrawals : ' + withdrawals[index].address;
-      withdrawals[index].exchange = 'kucoin'
-      withdrawals[index].id = withdrawals[index].walletTxId;
+      withdrawals[index].title = 'Address withdrawals : ' + withdrawals[index].address; // For datagrid
+      withdrawals[index].exchange = 'kucoin' // For datagrid
+      withdrawals[index].id = withdrawals[index].walletTxId; // For datagrid
       withdrawals[index].smartType = 'Blockchain : ' + withdrawals[index].chain.toUpperCase();
-      withdrawals[index].updated_at = new Date(withdrawals[index].createdAt)
-      withdrawals[index].token = withdrawals[index].currency;
+      withdrawals[index].updated_at = new Date(withdrawals[index].createdAt) // For datagrid
+
       withdrawals[index].exit = {
         amount: withdrawals[index].amount,
         currency: withdrawals[index].currency,
@@ -33,19 +38,11 @@ const withdrawalsKucoin = async (mode, userData) => {
         amount: 0,
         currency: ''
       }
+
       withdrawals[index].native_amount = { amount: withdrawals[index].amount, currency: withdrawals[index].currency };
       withdrawals[index].transaction = 'withdrawals'
-      withdrawals[index].quote_transaction = {
-        amount: withdrawals[index].amount,
-        devises: await getFiatValue(
-          withdrawals[index].currency,
-          //  withdrawals[index].createdAt
-          getSimpleDate(withdrawals[index].createdAt)
-        )
-      };
       index++;
     }
-
     return withdrawals;
   }
 
@@ -68,14 +65,11 @@ const withdrawalsKucoin = async (mode, userData) => {
     savedWithdrawalsKucoin = []
   }
 
-  // 1640908800000  1/1/22
-  // const start = 1645776000000; // fev 22 
   const oneWeek = 604800000;
-  const sevenDayPeriode = 15;
+  const sevenDayPeriode = 52;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
 
   const now = Date.now();
-
 
   async function fetchDepositsKucoin(start) {
 
@@ -108,11 +102,9 @@ const withdrawalsKucoin = async (mode, userData) => {
     }
     saveLastTimeChecked('kucoin', 'withdrawals', start + oneWeek);
     if (trx.data && trx.data.data.items && trx.data.data.items.length > 0) {
-      // console.log(getHumanDateTime(start))
-      console.log('Withdrawals found on 7 days ', trx.data.data.items);
-      console.log('Withdrawals lenght ', trx.data.data.items.length);
+      console.log('Withdrawals found on 7 days ', trx.data.data.items.length);
     }
-    // console.log('DATA on data ', trx.data.data);
+
     return trx.data.data;
   }
 
@@ -147,7 +139,6 @@ const withdrawalsKucoin = async (mode, userData) => {
 
     } else {
       console.log('Time recherched > now: STOP');
-      // enregister le dernier time checké 
       saveLastTimeChecked('kucoin', 'withdrawals', time - oneWeek);
       break;
     }
@@ -159,12 +150,7 @@ const withdrawalsKucoin = async (mode, userData) => {
     newWithdrawals = await addUrlImage(newWithdrawals, 'kucoin', 'withdrawals');
     newWithdrawals = await rebuildDataKucoin(newWithdrawals)
   }
-
   allWithdrawals = [...newWithdrawals, ...savedWithdrawalsKucoin]
-  // allWithdrawals = await rebuildDataKucoin(allWithdrawals)
-  // console.log('Withdrawals parsed', allWithdrawals);
-  localStorage.setItem('withdrawals-kucoin', JSON.stringify(allWithdrawals));
-  // return allWithdrawals;
   return allWithdrawals;
 }
 

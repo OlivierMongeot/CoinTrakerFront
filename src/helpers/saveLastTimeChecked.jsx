@@ -4,8 +4,8 @@ import getHumanDateTime from './getHumanDate';
 
 const saveLastTimeChecked = (exchange, type, time) => {
 
-  console.log('save Last Time Checked', exchange, type);
-  console.log(getHumanDateTime(time))
+  // console.log('save Last Time Checked', exchange, type);
+  // console.log(getHumanDateTime(time))
   const exchangesList = config.exchanges;
   // console.log(exchangesList);
 
