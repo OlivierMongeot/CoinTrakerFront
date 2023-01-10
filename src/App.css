@@ -11,25 +11,12 @@
   margin-right: 5px;
 }
 
-.title-wallet {
-  text-transform: capitalize;
-}
-
-.display-top-table {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.space-line {
-  height: 45px;
-}
 
 
 .table-wallet {
   display: flex !important;
   flex-direction: column;
-  height: 74vh !important;
+  height: 75vh !important;
   scrollbar-width: thin !important;
   overflow-y: auto !important;
 }
@@ -130,27 +117,10 @@
 }
 
 .logo-market {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 
 }
-
-.logo-transac {
-  width: 25px;
-  height: 25px;
-  margin-left: 7px;
-  border-radius: 50%;
-}
-
-
-.red-btn {
-  background-color: brown !important;
-}
-
-.red-btn:hover {
-  background-color: rgb(206, 175, 175);
-}
-
 
 /* Chart */
 
@@ -241,7 +211,6 @@
 }
 
 /* Chart End */
-
 
 .custom-tooltip {
   color: azure;

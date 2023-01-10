@@ -1,28 +1,87 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Theme from './Theme';
-
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import WalletsBoard from './pages/WalletsBoard';
+import Customize from './pages/Customize';
+// import SignUp from '../Trash/SignUp';
+import Registration from './pages/Registration';
+import Account from './pages/Account';
+import Exchanges from './pages/Exchanges';
+import Withdraws from './pages/Withdraws';
+import Transactions from './pages/Transactions'
+import TopAndSideMenu from './layout/TopAndSideMenu';
+import Box from '@mui/material/Box';
+export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 function App() {
+
+  const [mode, setMode] = React.useState(
+    (localStorage.getItem('colorMode')) ?
+      JSON.parse(localStorage.getItem('colorMode')) :
+      'light');
+
+
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        console.log('toggle');
+      },
+    }),
+    [],
+  );
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: { mode },
+      }), [mode],
+  );
+
+  localStorage.setItem('colorMode', JSON.stringify(mode));
 
 
   return (
 
     <Router>
-
-      <Routes>
-        <Route path="/" element={<Theme page="home" />} />
-        <Route path="/login" element={<Theme page="login" />} />
-        <Route path="/exchanges" element={<Theme page="exchanges" />} />
-        <Route path="/transactions" element={<Theme page="transactions" />} />
-        <Route path="/withdraws" element={<Theme page="withdraws" />} />
-        <Route path="/account" element={<Theme page="account" />} />
-        <Route path="/customize" element={<Theme page="customize" />} />
-        <Route path="/registration" element={<Theme page="registration" />} />
-        <Route path="/wallets" element={<Theme page="wallets" />} />
-      </Routes>
-    </Router>
+      <ThemeProvider theme={theme}>
+        <ColorModeContext.Provider value={colorMode}>
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <TopAndSideMenu />
+            <Box
+              component="main"
+              sx={{
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light'
+                    ? theme.palette.grey[200]
+                    : theme.palette.grey[800],
+                flexGrow: 1,
+                height: '100vh - 64px',
+                overflow: 'auto',
+                marginTop: '64px'
+              }}
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login ></Login>} />
+                <Route path="/exchanges" element={<Exchanges />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/withdraws" element={<Withdraws />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/customize" element={<Customize />} />
+                <Route path="/registration" element={<Registration />} />
+                <Route path="/wallets" element={<WalletsBoard />} />
+              </Routes>
+            </Box >
+          </Box >
+        </ColorModeContext.Provider >
+      </ThemeProvider>
+    </Router >
   );
 }
 

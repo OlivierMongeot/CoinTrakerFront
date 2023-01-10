@@ -8,6 +8,7 @@ import IconeUsdt from '../Icones/IconeUsdt';
 import IconeBitcoin from '../Icones/IconeBitcoin';
 import IconeEtherum from '../Icones/IconeEtherum';
 import IconeUSDC from '../Icones/IconeUSDC';
+import IconeKCS from '../Icones/IconeKCS'
 
 
 const BadgeFormater = (props) => {
@@ -93,8 +94,13 @@ const BadgeFormater = (props) => {
         )
 
       case 'KCS':
-        url = LogoKCS
-        break
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeKCS></IconeKCS>
+          </div>
+        )
+
       case 'ETH':
       case 'ETH2':
         return (
@@ -111,8 +117,7 @@ const BadgeFormater = (props) => {
     return (
       <div style={style}>
         <span > {value} {currency}</span >
-        <img
-          className="logo-transac" style={{ height: '20px', width: '20px' }}
+        <img style={{ height: '20px', width: '20px', marginLeft: '5px' }}
           src={url}
           alt="Token" />
       </div>

@@ -82,7 +82,6 @@ export default function Wallet(props) {
 
     if (AuthenticationService.isAuthenticated) {
 
-
       walletProccess();
     } else {
       console.log('Non loggé retour page login');
@@ -98,18 +97,19 @@ export default function Wallet(props) {
       <Table className="table-wallet" size="small" >
         <TableHead>
           <TableRow align="right" >
-
-            <TableCell align="right" >Balance</TableCell>
             <TableCell >Token</TableCell>
+            <TableCell align="right" >Balance</TableCell>
+
             <TableCell align="right">Live Price</TableCell>
 
-            {/* <TableCell align="right">1h %</TableCell> */}
+            <TableCell align="right">1h %</TableCell>
             <TableCell align="right">24h %</TableCell>
             {/* <TableCell align="right">7j % </TableCell> */}
             <TableCell align="right">30j % </TableCell>
             <TableCell align="right">Total </TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody className={exchangeName + ' table-wallet'}>
           {wallet && wallet.length > 0 && wallet
             .filter(token => token.balance > 0)
@@ -119,7 +119,6 @@ export default function Wallet(props) {
             })
             .map((walletElement, key) => (
               <TableRow key={key}>
-                <TableCell align="right" className="table-row">{formatValues('price', walletElement.balance)} {walletElement.currency}</TableCell>
 
                 <TableCell
 
@@ -148,12 +147,15 @@ export default function Wallet(props) {
                     </div>
                   </Tooltip>
                 </TableCell>
+                <TableCell align="right" className="table-row">{formatValues('price', walletElement.balance)} {walletElement.currency}</TableCell>
+
+
 
 
                 <TableCell align="right" className="table-row">
                   {formatValues('price', walletElement.live_price)} $
                 </TableCell>
-                {/* <TableCell
+                <TableCell
                   style={{
                     textAlign: 'right',
                     color: `${formatValues('switch-color', walletElement.quoteCMC ?
@@ -165,7 +167,7 @@ export default function Wallet(props) {
                     (formatValues('pourcent', walletElement.quoteCMC.USD.percent_change_1h)) :
                     (walletElement.quoteAPIorigin ? formatValues('pourcent', walletElement.quoteAPIorigin.changeRate) :
                       ('...'))} %
-                </TableCell> */}
+                </TableCell>
 
                 <TableCell
                   style={{

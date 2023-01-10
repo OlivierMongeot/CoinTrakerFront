@@ -26,6 +26,8 @@ const nativeAmountFormater = (props) => {
 
     let swapEur = props.value.devises.eur;
     let swap = props.value.devises.usd;
+    // let swapDIRAM = props.value.devises['usd'];
+    // console.log(swapDIRAM)
     // console.log('native value ', props.value)
     // console.log('devise swap : ', swap)
 
@@ -45,10 +47,10 @@ const nativeAmountFormater = (props) => {
 
     return (
       <div style={main}>
-        {/* <div style={style}>
+        <div style={style}>
           <span > {(amount * swapEur).toFixed(fixed)} </span >
           <IconeEur></IconeEur>
-        </div> */}
+        </div>
         <div style={style}>
           <span > {(amount * swap).toFixed(fixed)} </span >
           <IconeUsd></IconeUsd>

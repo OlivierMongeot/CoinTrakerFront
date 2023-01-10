@@ -14,8 +14,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AuthenticationService from '../helpers/AuthService';
 import { Link } from 'react-router-dom';
-// import Profile from './Profile';
-import { ColorModeContext } from '../Theme';
+import { ColorModeContext } from '../App';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 
@@ -98,7 +97,6 @@ export default function TopBar(props) {
           <Stack spacing={2} direction="row">
             <Tooltip title='Logout'>
               <LogoutIcon variant="contained" onClick={logout}>
-
               </LogoutIcon>
             </Tooltip>
           </Stack>

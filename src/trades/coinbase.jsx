@@ -427,9 +427,6 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       console.log('token', account?.token);
     }
 
-    if (transactions.length === 0) {
-      toast('Pas de nouvelles transactions trouvées');
-    }
     // setPourcentLoad(0);
     return transactions;
   }
@@ -463,13 +460,12 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     console.log('no trx in ls : restart all')
     allTransactions = await fetchAllTransactions(accounts);
     makePostProcess = true
-    // restartAllFetch = true;
+
   } else {
     allTransactions = trxSaved;
     makePostProcess = false;
   }
 
-  // let totalTrx = []
 
   console.log('Mode ', mode);
 
@@ -502,9 +498,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       const lastTrx = getLastestTransactionsCoinbase(allTransactions);
       console.log('Last current TRX', lastTrx);
       console.log('Last current TRX lenght', lastTrx.length);
-      // Check if  new token are available
-      // comparer deux teb  
-      // chef if new token 
+
       let newAccount = []
       let newTrx = [];
       let newAcountTrx = [];
@@ -557,7 +551,6 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       // allTransactions = await postProcess(allTransactions);
       if (makePostProcess) {
         allTransactions = await postProcess(allTransactions);
-        // localStorage.setItem('transactions-coinbase', JSON.stringify(allTransactions));
       }
 
       return allTransactions;

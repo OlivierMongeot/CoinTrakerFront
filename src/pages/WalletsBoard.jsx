@@ -41,7 +41,6 @@ const WalletsBoard = () => {
     };
 
     const [orders, setOrders] = React.useState([]);
-
     const [wallet, setWallet] = React.useState([]);
 
     const lastOrdersDisplay = async () => {
@@ -65,7 +64,7 @@ const WalletsBoard = () => {
         }
 
         const orders = await response.json();
-        console.log('orders', orders)
+        console.log('orders Coinbase', orders)
         setOrders(orders)
         localStorage.setItem('last-orders', JSON.stringify(orders));
     }
@@ -87,7 +86,8 @@ const WalletsBoard = () => {
 
     return (
         <Container className="container" maxWidth="xlg"
-            sx={{ mt: 4, mb: 4 }}>
+            sx={{ mt: 4, mb: 0 }}
+        >
 
             <Grid container spacing={2} columns={12}>
 
@@ -112,7 +112,6 @@ const WalletsBoard = () => {
                                                 setWallet={setWallet}
                                             />
                                         </WalletsContext.Provider>
-
                                     </TabContext>
                                 </Box>
                             </Paper >

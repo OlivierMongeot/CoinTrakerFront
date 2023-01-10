@@ -23,8 +23,9 @@ const Transactions = () => {
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('user'));
     const [transactions, setTransactions] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState('none');
+    const [isLoading, setIsLoading] = React.useState(true);
     const [pourcentLoad] = React.useState(0);
+
 
     const quickUpdate = () => {
         processAllTransactions('quick');
@@ -50,14 +51,14 @@ const Transactions = () => {
     const backgroundFetchQuote = async (transactions) => {
 
         console.log('Background Fetch Quote')
-        let index = 94;
+        let index = 0;
 
-        while (index < 95) {
+        while (index < transactions.length && index < 4555555555555555) {
 
             let currency = null;
             let date = getSimpleDate(transactions[index].createdAt);
 
-            if (transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
+            if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
                 console.log('Transactions n°' + index, transactions[index])
                 console.log('Get quotation for ', transactions[index].native_amount.currency)
                 let amount = null;
@@ -69,7 +70,7 @@ const Transactions = () => {
                         break
                     case 'coinbase':
                         const nativeAmount = parseFloat(transactions[index].native_amount.amount);
-                        if (nativeAmount > 0) {
+                        if (nativeAmount !== 0) {
                             amount = transactions[index].native_amount.amount
                             currency = transactions[index].native_amount.currency
                         } else {
@@ -83,10 +84,15 @@ const Transactions = () => {
                 }
 
                 // // Part 2 : gestion du token 
+                if (index > 0
+                    && getSimpleDate(transactions[index - 1].createdAt) === date
 
-                if (index > 0 && getSimpleDate(transactions[index - 1].createdAt) === date
-                    && transactions[index].native_amount.currency === transactions[index - 1].native_amount.currency) {
+                    && transactions[index].native_amount.currency === transactions[index - 1].native_amount.currency
+
+                    && parseFloat(transactions[index].native_amount.amount) !== 0) {
+
                     console.log('take prev data quotation')
+
                     let prevDevises = transactions[index - 1]?.quote_transaction.devises;
                     if (prevDevises) {
                         transactions[index].quote_transaction = { devises: prevDevises, amount: amount, currency: currency };
@@ -131,7 +137,7 @@ const Transactions = () => {
                     );
                 })
             } else {
-                console.log('Ever in place transactions n°' + index, transactions[index])
+                // console.log('Ever in place transactions n°' + index, transactions[index])
             }
             index++;
         }
@@ -140,6 +146,7 @@ const Transactions = () => {
 
 
     const processAllTransactions = async (mode) => {
+        setIsLoading(true);
         let allTrx = []
         let allCoinbaseTrx = []
         // COINBASE 
@@ -166,12 +173,21 @@ const Transactions = () => {
         allTrx.sort((a, b) => {
             return b.createdAt - a.createdAt;
         })
-
+        // ADD Number for devlopment 
+        console.log('add index')
+        allTrx.forEach((transaction, ix) => {
+            transaction.range = ix;
+        })
         localStorage.setItem('transactions-all', JSON.stringify(allTrx));
         console.log('All exchanges trx ', allTrx.length)
         console.log('-----------------------------------------')
+
+
         setTransactions(allTrx);
+
+        setIsLoading(false)
         backgroundFetchQuote(allTrx)
+
     }
 
 
@@ -217,17 +233,17 @@ const Transactions = () => {
                 <Button variant="outlined" onClick={processAllTransactions} >
                     Deposit test
                 </Button>
-                <div style={{ display: 'flex', width: '200px', alignContent: "center", justifyContent: "center" }}>
+                {/* <div style={{ display: 'flex', width: '200px', alignContent: "center", justifyContent: "center" }}>
                     <TrxLoader display={isLoading} >
                     </TrxLoader>
                     <div style={{ display: isLoading }}>
                         {pourcentLoad} %
                     </div>
-                </div>
+                </div> */}
             </Grid>
 
             <Grid item xs={12} md={8} lg={9}>
-                <TableTransactions transactions={transactions}>
+                <TableTransactions transactions={transactions} isLoading={isLoading}>
                 </TableTransactions>
             </Grid>
         </div >

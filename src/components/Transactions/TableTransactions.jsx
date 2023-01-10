@@ -11,6 +11,8 @@ const TableTransactions = (props) => {
 
   const transactions = props.transactions
 
+  const isLoading = props.isLoading
+
   const columns: GridColDef[] = [
     {
       field: 'exchange', headerName: 'Exchange', align: 'center', headerAlign: 'center', minWidth: 90,
@@ -67,10 +69,10 @@ const TableTransactions = (props) => {
       renderCell: (params) => <DescriptionFormater value={params.value} />
     }
     ,
-    // {
-    // field: 'id', headerName: 'ID', width:
-    //     300, align: 'center', headerAlign: 'center'
-    // }
+    {
+      field: 'range', headerName: 'Range', width:
+        80, align: 'center', headerAlign: 'center'
+    }
   ];
 
   return (
@@ -84,11 +86,12 @@ const TableTransactions = (props) => {
       }} >
       {transactions && (
         <div style={{ height: '100%', width: '100%' }}>
-          <DataGrid components={{ Toolbar: GridToolbar }} initialState={{
-            sorting: {
-              sortModel: [{ field: 'updated_at', sort: 'desc' }],
-            },
-          }} rows={transactions} columns={columns} />
+          <DataGrid
+            components={{ Toolbar: GridToolbar }} initialState={{
+              sorting: {
+                sortModel: [{ field: 'updated_at', sort: 'desc' }],
+              },
+            }} rows={transactions} columns={columns} loading={isLoading} />
         </div>
       )}
     </Paper>
