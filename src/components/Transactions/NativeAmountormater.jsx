@@ -7,7 +7,7 @@ import IconeEur from '../Icones/IconeEur';
 
 const nativeAmountFormater = (props) => {
 
-  console.log(props)
+  // console.log(props)
 
   const style = {
     border: '1px solid black',

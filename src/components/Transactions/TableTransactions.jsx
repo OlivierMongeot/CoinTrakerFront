@@ -56,7 +56,7 @@ const TableTransactions = (props) => {
     {
       field: 'quote_transaction', headerName: 'Amount', minWidth: 230, align: 'right',
       headerAlign: 'center', flex: 1,
-      renderCell: (params) => <NativeAmountormater value={params.value} />
+      renderCell: (params) => <NativeAmountormater value={params.row.quote_transaction} />
     },
     // {
     //   field: 'quoteUSD', headerName: 'QUOTE USD', minWidth: 180, align: 'right',
