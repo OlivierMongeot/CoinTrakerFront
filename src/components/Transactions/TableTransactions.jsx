@@ -1,4 +1,3 @@
-
 import Paper from '@mui/material/Paper';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import TransactionFormater from '../../helpers/TransactionFormater';
@@ -82,7 +81,7 @@ const TableTransactions = (props) => {
         display: 'flex',
         flexDirection: 'column',
         height: '80vh',
-        marginTop: 3
+        marginTop: 2
       }} >
       {transactions && (
         <div style={{ height: '100%', width: '100%' }}>

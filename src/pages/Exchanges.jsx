@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import AuthenticationService from '../helpers/AuthService';
 import { useNavigate } from "react-router-dom";
 
-import CardExchange from '../components/CardExchange';
+import CardExchange from '../components/Exchanges/CardExchange';
 
 const Exchanges = () => {
 

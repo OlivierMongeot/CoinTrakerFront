@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../config';
+import config from '../../config';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 // import CardContent from '@mui/material/CardContent';
@@ -25,7 +25,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import AuthenticationService from '../helpers/AuthService';
+import AuthenticationService from '../../helpers/AuthService';
 
 const CardExchange = (props) => {
   console.log('props', props);

@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
-// import Tooltip from '@mui/material/Tooltip';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TabWalletsTitle from '../components/Wallets/TabWalletsTitle';
@@ -12,8 +11,8 @@ import Deposits from '../components/Wallets/Deposits';
 import AuthenticationService from '../helpers/AuthService';
 import { useNavigate } from "react-router-dom";
 import config from '../config';
-import LastOrders from '../components/LastOrders';
-import Loader from '../components/Loader';
+import LastOrders from '../components/Wallets/LastOrders';
+import Loader from '../components/Wallets/Loader';
 
 export const WalletsContext = React.createContext();
 

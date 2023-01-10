@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../../helpers/formatValues';
-import Loader from '../../components/Loader';
+import Loader from './Loader';
 import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
 // import updateProcess from '../../api/updateProcess';

@@ -3,7 +3,6 @@ import Icon from '@mui/material/Icon';
 
 export default function Loader(props) {
 
-
   const style = {
     width: '40px',
     display: props.display

@@ -5,8 +5,6 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TrxLoader from '../components/TrxLoader';
-
 import proccesTransactionCoinbase from '../trades/coinbase';
 import TableTransactions from '../components/Transactions/TableTransactions';
 // import eraseDoublon from '../helpers/eraseDoublon';
@@ -15,8 +13,7 @@ import depositKucoin from '../deposits/kucoin'
 import getWithdrawalsKucoin from '../withdrawals/kucoinWithdraw'
 import getSimpleDate from '../helpers/getSimpleDate';
 import getFiatValue from '../helpers/getFiatValue';
-import getQuoteHistoric from '../api/getQuoteHistoric';
-
+import updateLocalStorageTransaction from '../helpers/updateLocalStorageTransactions';
 
 const Transactions = () => {
 
@@ -24,41 +21,20 @@ const Transactions = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const [pourcentLoad] = React.useState(0);
 
 
-    const quickUpdate = () => {
-        processAllTransactions('quick');
-    }
-
-    const fullUpdateCurrentAccountTrx = () => {
-        proccesTransactionCoinbase('full-current')
-    }
-
-    const updateLocalStorageTransaction = (transaction) => {
-
-        let exchange = transaction.exchange;
-        console.log('update LOCAL STORAGE  trade', exchange)
-        let transactions = JSON.parse(localStorage.getItem('transactions-all'))
-        transactions.forEach((element, index) => {
-            if (element.id === transaction.id) {
-                transactions[index].quote_transaction = transaction.quote_transaction
-            }
-        });
-        localStorage.setItem('transactions-all', JSON.stringify(transactions))
-    }
 
     const backgroundFetchQuote = async (transactions) => {
 
         console.log('Background Fetch Quote')
-        let index = 0;
+        let index = 413;
 
-        while (index < transactions.length && index < 4555555555555555) {
+        while (index < transactions.length && index < 413) {
 
             let currency = null;
             let date = getSimpleDate(transactions[index].createdAt);
 
-            if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
+            if (transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
                 console.log('Transactions n°' + index, transactions[index])
                 console.log('Get quotation for ', transactions[index].native_amount.currency)
                 let amount = null;
@@ -167,29 +143,24 @@ const Transactions = () => {
         console.log('Withdrawals total ', withdrawalsKucoin.length)
         mouvements = [...depositsKucoin, ...withdrawalsKucoin]
         transactionsKucoin = [...kucoinTrade, ...mouvements];
-        // allTrxKucoin = eraseDoublon(allTrxKucoin)
 
         allTrx = [...transactionsKucoin, ...allCoinbaseTrx];
         allTrx.sort((a, b) => {
             return b.createdAt - a.createdAt;
         })
         // ADD Number for devlopment 
-        console.log('add index')
+        console.log('add index for dev')
         allTrx.forEach((transaction, ix) => {
             transaction.range = ix;
         })
         localStorage.setItem('transactions-all', JSON.stringify(allTrx));
         console.log('All exchanges trx ', allTrx.length)
-        console.log('-----------------------------------------')
-
 
         setTransactions(allTrx);
-
         setIsLoading(false)
         backgroundFetchQuote(allTrx)
 
     }
-
 
 
     React.useEffect(() => {
@@ -202,7 +173,8 @@ const Transactions = () => {
     }, []);
 
     const style = {
-        marginLeft: '10px'
+        marginRight: '10px',
+        marginTop: '0px'
     }
 
     return (
@@ -218,28 +190,19 @@ const Transactions = () => {
                 draggable
                 theme="dark"
             />
-            <Grid item xs={12} md={8} lg={9} mt={5} sx={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
+            <Grid item xs={12} md={8} lg={9} mt={2} sx={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
 
-                <Button sx={style} variant="outlined" onClick={quickUpdate} >
+                <Button sx={style} variant="outlined" onClick={() => {
+                    processAllTransactions('quick')
+                }} >
                     Quick Update
                 </Button>
-                <Button sx={style} variant="outlined" onClick={fullUpdateCurrentAccountTrx} >
+                <Button sx={style} variant="outlined" onClick={() => {
+                    processAllTransactions('full-current')
+                }} >
                     Full Update
                 </Button>
-                <Button sx={style} variant="outlined" onClick={proccesTradesKucoin} >
-                    Kucoin Test
-                </Button>
 
-                <Button variant="outlined" onClick={processAllTransactions} >
-                    Deposit test
-                </Button>
-                {/* <div style={{ display: 'flex', width: '200px', alignContent: "center", justifyContent: "center" }}>
-                    <TrxLoader display={isLoading} >
-                    </TrxLoader>
-                    <div style={{ display: isLoading }}>
-                        {pourcentLoad} %
-                    </div>
-                </div> */}
             </Grid>
 
             <Grid item xs={12} md={8} lg={9}>

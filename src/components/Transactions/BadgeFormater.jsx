@@ -1,7 +1,4 @@
 import * as React from 'react';
-import LogoKCS from '../../images/kcs.svg';
-// import LogoUSDC from '../../images/usdc.svg';
-
 import IconeEur from '../Icones/IconeEur';
 import IconeUsd from '../Icones/IconeUsd';
 import IconeUsdt from '../Icones/IconeUsdt';
@@ -18,7 +15,6 @@ const BadgeFormater = (props) => {
     const amount = props.value?.amount;
     const currency = props.value.currency;
     let url = props.value.urlLogo;
-
 
 
     let value = (parseFloat(amount));
