@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function Icone() {
+export default function IconeUSCD() {
   const style = {
     height: '20px',
     width: '20px',

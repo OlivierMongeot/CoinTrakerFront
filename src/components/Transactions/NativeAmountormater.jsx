@@ -7,6 +7,8 @@ import IconeEur from '../Icones/IconeEur';
 
 const nativeAmountFormater = (props) => {
 
+  console.log(props)
+
   const style = {
     border: '1px solid black',
     borderRadius: '50px',
@@ -32,8 +34,6 @@ const nativeAmountFormater = (props) => {
     if (amount * swap < 0.01) {
       fixed = 5
     }
-
-
 
     return (
       <div style={main}>
