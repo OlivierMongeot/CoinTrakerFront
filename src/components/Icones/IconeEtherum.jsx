@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Icone() {
+export default function IconeEtherum() {
   const style = {
     height: '20px',
     width: '20px',

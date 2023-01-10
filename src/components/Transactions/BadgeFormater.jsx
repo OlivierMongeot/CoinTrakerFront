@@ -50,6 +50,7 @@ const BadgeFormater = (props) => {
 
     switch (currency) {
       case 'EUR':
+      case 'eur':
         return (
           <div style={style}>
             <span > {value} {currency}</span >

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../../helpers/formatValues';
-import Loader from './Loader';
+// import Loader from './Loader';
 import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
 // import updateProcess from '../../api/updateProcess';
@@ -67,7 +67,7 @@ export default function Deposits(props) {
 
         <div key={index} className="display-grid-amount">
           <div className="display-grid-inline">
-            <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' />
+            {/* <Loader fontSize='30' exchange={wallet.exchange} className='spinner-loader' /> */}
             <div className='exchange-total'>
               {(wallet?.exchange.charAt(0).toUpperCase() + wallet?.exchange.slice(1))}
             </div>

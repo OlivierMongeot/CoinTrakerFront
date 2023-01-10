@@ -42,12 +42,7 @@ const TransacFormater = (props) => {
           <SwapHorizIcon></SwapHorizIcon>
         )
     }
-
-
-
   }
-
-
 };
 
 export default TransacFormater;

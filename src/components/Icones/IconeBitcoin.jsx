@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function IconeSwap() {
+export default function IconeBitcoin() {
   const style = {
     height: '20px',
     width: '20px',

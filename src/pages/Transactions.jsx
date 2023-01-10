@@ -23,7 +23,6 @@ const Transactions = () => {
     const [isLoading, setIsLoading] = React.useState(true);
 
 
-
     const backgroundFetchQuote = async (transactions) => {
 
         console.log('Background Fetch Quote')
