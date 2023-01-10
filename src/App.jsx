@@ -24,7 +24,6 @@ function App() {
       JSON.parse(localStorage.getItem('colorMode')) :
       'light');
 
-
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
