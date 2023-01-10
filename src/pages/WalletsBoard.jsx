@@ -10,11 +10,11 @@ import Chart from '../components/Wallets/Chart';
 import Deposits from '../components/Wallets/Deposits';
 import AuthenticationService from '../helpers/AuthService';
 import { useNavigate } from "react-router-dom";
-import config from '../config';
 import LastOrders from '../components/Wallets/LastOrders';
 import Loader from '../components/Wallets/Loader';
-
-export const WalletsContext = React.createContext();
+import getCoinbaseOrders from '../api/getCoinbaseOrders';
+import getGateIoOrders from '../api/getGateIoOrders';
+// export const WalletsContext = React.createContext();
 
 const WalletsBoard = () => {
 
@@ -42,32 +42,21 @@ const WalletsBoard = () => {
     const [orders, setOrders] = React.useState([]);
     const [wallet, setWallet] = React.useState([]);
 
+
     const lastOrdersDisplay = async () => {
 
-        const data = {
-            email: userData.email,
-            exchange: 'coinbase'
-        };
+        let orders = [];
+        const coinbaseOrders = await getCoinbaseOrders(userData);
+        console.log('coinbase Orders ', coinbaseOrders);
+        const gateioOrders = await getGateIoOrders(userData)
+        console.log('gate io Orders ', gateioOrders);
+        orders = [...coinbaseOrders, ...gateioOrders]
 
-        const response = await fetch('http://' + config.urlServer + '/coinbase/orders', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': userData.token
-            },
-            body: JSON.stringify(data)
-        })
-        if (!response.ok) {
-            const message = `An error has occured: ${response.status}`;
-            throw new Error(message);
-        }
-
-        const orders = await response.json();
-        console.log('orders Coinbase', orders)
+        console.log('orders All', orders)
         setOrders(orders)
         localStorage.setItem('last-orders', JSON.stringify(orders));
-    }
 
+    }
 
 
     React.useEffect(() => {
@@ -102,15 +91,15 @@ const WalletsBoard = () => {
                                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                             <TabWalletsTitle exchanges={exchangesUser} handleChange={handleChange} />
                                         </Box>
-                                        <WalletsContext.Provider value={{}}>
-                                            <TabWalletContent
-                                                exchanges={exchangesUser}
-                                                arrayAmountWallets={arrayAmountWallets}
-                                                setArrayAmountWallets={setArrayAmountWallets}
-                                                wallet={wallet}
-                                                setWallet={setWallet}
-                                            />
-                                        </WalletsContext.Provider>
+                                        {/* <WalletsContext.Provider value={{}}> */}
+                                        <TabWalletContent
+                                            exchanges={exchangesUser}
+                                            arrayAmountWallets={arrayAmountWallets}
+                                            setArrayAmountWallets={setArrayAmountWallets}
+                                            wallet={wallet}
+                                            setWallet={setWallet}
+                                        />
+                                        {/* </WalletsContext.Provider> */}
                                     </TabContext>
                                 </Box>
                             </Paper >
@@ -125,12 +114,10 @@ const WalletsBoard = () => {
                         <Deposits arrayAmountWallets={arrayAmountWallets} wallet={wallet} setWallet={setWallet} />
                     </Paper>
 
-
                     <Paper
                         sx={{ p: 2, height: 200, flex: '1 1', paddingBottom: '50px', mt: 2 }}>
                         <Chart />
                     </Paper>
-
 
                     <Paper
                         sx={{ p: 2, flex: '2 1', height: "auto", marginTop: 2 }}>

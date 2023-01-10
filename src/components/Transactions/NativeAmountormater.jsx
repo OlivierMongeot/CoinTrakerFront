@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Loader from '../TrxLoader';
+import Loader from './TrxLoader';
 import IconeUsd from '../Icones/IconeUsd';
 import IconeEur from '../Icones/IconeEur';
 

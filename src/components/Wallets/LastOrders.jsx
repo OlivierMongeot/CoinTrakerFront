@@ -17,28 +17,31 @@ export default function DenseTable(props) {
       <Table sx={{ minWidth: 200 }} size="small" >
         <TableHead>
           <TableRow>
+            <TableCell>Exchange</TableCell>
             <TableCell>Type</TableCell>
             <TableCell align="right">Produits</TableCell>
-            <TableCell align="right">Price</TableCell>
+            <TableCell align="right">Target</TableCell>
             <TableCell align="right">Size</TableCell>
-
           </TableRow>
         </TableHead>
         <TableBody>
           {data.filter(order => {
-            return order.status === 'OPEN';
+            return (order.status === 'OPEN' || order.status === 'open');
+            // return true
           })
+
             .map((row) => (
               <TableRow
-                key={row.order_id}
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
+                <TableCell align="right">{row.exchange}</TableCell>
                 <TableCell component="th" scope="row">
-                  {row.product_type}
+                  {row.type}
                 </TableCell>
-                <TableCell align="right">{row.product_id}</TableCell>
-                <TableCell align="right">{row.order_configuration.limit_limit_gtc.limit_price}</TableCell>
-                <TableCell align="right">{row.order_configuration.limit_limit_gtc.base_size * row.order_configuration.limit_limit_gtc.limit_price} $</TableCell>
+                <TableCell align="right">{row.currency}</TableCell>
+                <TableCell align="right">{row.price}</TableCell>
+                <TableCell align="right">{parseFloat(row.valueUSDT).toFixed(2)} $</TableCell>
               </TableRow>
             ))}
         </TableBody>

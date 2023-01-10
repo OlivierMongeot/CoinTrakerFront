@@ -27,14 +27,14 @@ const Transactions = () => {
     const backgroundFetchQuote = async (transactions) => {
 
         console.log('Background Fetch Quote')
-        let index = 413;
+        let index = 0;
 
-        while (index < transactions.length && index < 413) {
+        while (index < transactions.length && index < 400000013) {
 
             let currency = null;
             let date = getSimpleDate(transactions[index].createdAt);
 
-            if (transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
+            if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
                 console.log('Transactions n°' + index, transactions[index])
                 console.log('Get quotation for ', transactions[index].native_amount.currency)
                 let amount = null;

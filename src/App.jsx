@@ -44,31 +44,29 @@ function App() {
 
   localStorage.setItem('colorMode', JSON.stringify(mode));
 
+  const styleMain = {
+    backgroundColor: (theme) =>
+      theme.palette.mode === 'light'
+        ? theme.palette.grey[200]
+        : theme.palette.grey[800],
+    flexGrow: 1,
+    height: '100vh - 64px',
+    overflow: 'auto',
+    marginTop: '64px'
+  }
+
 
   return (
-
     <Router>
       <ThemeProvider theme={theme}>
         <ColorModeContext.Provider value={colorMode}>
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <TopAndSideMenu />
-            <Box
-              component="main"
-              sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? theme.palette.grey[200]
-                    : theme.palette.grey[800],
-                flexGrow: 1,
-                height: '100vh - 64px',
-                overflow: 'auto',
-                marginTop: '64px'
-              }}
-            >
+            <Box component="main" sx={styleMain}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login ></Login>} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/exchanges" element={<Exchanges />} />
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/withdraws" element={<Withdraws />} />
