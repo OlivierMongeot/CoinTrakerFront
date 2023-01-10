@@ -26,18 +26,8 @@ const nativeAmountFormater = (props) => {
 
     let swapEur = props.value.devises.eur;
     let swap = props.value.devises.usd;
-    // let swapDIRAM = props.value.devises['usd'];
-    // console.log(swapDIRAM)
-    // console.log('native value ', props.value)
-    // console.log('devise swap : ', swap)
 
     let amount = parseFloat(props.value.amount) > 0 ? parseFloat(props.value.amount) : - parseFloat(props.value.amount);
-
-
-    // let currency = props.value.currency;
-    // let logo = null;
-    // console.log(' amount', amount, 'curency', currency);
-    // console.log('curency', currency)
     let fixed = 2
     if (amount * swap < 0.01) {
       fixed = 5
