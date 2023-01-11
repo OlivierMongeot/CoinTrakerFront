@@ -15,6 +15,8 @@ import Withdraws from './pages/Withdraws';
 import Transactions from './pages/Transactions'
 import TopAndSideMenu from './layout/TopAndSideMenu';
 import Box from '@mui/material/Box';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { setTheme } from './action/theme.action';
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 function App() {
@@ -24,15 +26,28 @@ function App() {
       JSON.parse(localStorage.getItem('colorMode')) :
       'light');
 
+  // REDUX 
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(setTheme(mode))
+  // }, [mode])
+
+  // const reduxMode = useSelector(state => state.themeReducer);
+  // console.log(' Test reduxMode', reduxMode);
+
+
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
         console.log('toggle');
+
       },
     }),
     [],
   );
+
 
   const theme = React.useMemo(
     () =>

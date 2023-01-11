@@ -1,5 +1,5 @@
 import config from '../config';
-import getHumanDateTime from './getHumanDate';
+// import getHumanDateTime from './getHumanDate';
 
 
 const saveLastTimeChecked = (exchange, type, time) => {

@@ -18,7 +18,7 @@ const getFiatValue = async (currency, date) => {
     return (element.symbol).toLowerCase() === currency.toLowerCase();
   }))
 
-  // console.log('Filtred geko ', idGeko)
+  console.log('Filtred geko ', idGeko)
   let url = '';
 
   if (idGeko.length === 0) {
@@ -64,7 +64,7 @@ const getFiatValue = async (currency, date) => {
     return prices.market_data.current_price
   }
   else {
-    console.log('Error price hisroric ')
+    console.log('Error price historic ')
     return { usd: 1 };
   }
 

@@ -75,18 +75,17 @@ export default function Wallet(props) {
   }
 
 
-
   React.useEffect(() => {
 
     console.log('Wallet useEffect exchange : ', 'wallet-' + exchangeName);
 
     if (AuthenticationService.isAuthenticated) {
-
       walletProccess();
-    } else {
-      console.log('Non loggé retour page login');
-      navigate("/login");
     }
+    // else {
+    //   console.log('Non loggé retour page login');
+    //   navigate("/login");
+    // }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeName]);

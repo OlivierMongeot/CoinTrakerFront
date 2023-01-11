@@ -5,6 +5,7 @@ import NativeAmountormater from '../../components/Transactions/NativeAmountormat
 import DescriptionFormater from '../../components/Transactions/DescriptionFormater';
 import BadgeFormater from '../../components/Transactions/BadgeFormater';
 import DateFormater from '../../components/Transactions/DateFormater';
+// import InfoFormater from '../../components/Transactions/InfoFormater'
 
 const TableTransactions = (props) => {
 
@@ -19,21 +20,20 @@ const TableTransactions = (props) => {
       renderCell: (params) => (params.value.charAt(0).toUpperCase() + params.value.slice(1))
     },
     {
-      field: 'token', headerName: 'Token', width:
-        160, align: 'left', headerAlign: 'center', hide: true
+      field: 'currency', headerName: 'Token', width: 160, align: 'left', headerAlign: 'center', hide: true
     },
     {
       field: 'transaction', headerName: 'Type', align: 'left', headerAlign: 'center', minWidth: 110,
       flex: 1,
       renderCell: (params) => <TransactionFormater value={params.value} />
     },
-    {
-      field: 'smartType', headerName: 'Info', minWidth: 140, align: 'center', flex: 1,
-      headerAlign: 'center',
-      renderCell: (params) => (params?.value.charAt(0).toUpperCase() + params?.value.slice(1))
-      // renderCell: (params) => <DescriptionFormater value={params.value} />
-    }
-    ,
+    // {
+    //   field: 'info', headerName: 'Info', minWidth: 140, align: 'center', flex: 1,
+    //   headerAlign: 'center',
+    //   // renderCell: (params) => (params?.value.charAt(0).toUpperCase() + params?.value.slice(1))
+    //   renderCell: (params) => <InfoFormater value={params.value} />
+    // }
+    // ,
     {
       field: 'entry', headerName: 'Entrée(+)',
       minWidth: 160, align: 'right', headerAlign: 'center', flex: 1,
@@ -44,26 +44,17 @@ const TableTransactions = (props) => {
       renderCell: (params) => <BadgeFormater value={params.value} type='cashout' />
     },
     {
-      field: 'createdAt', headerName: 'Date', align: 'center', flex: 2, minWidth: 140,
+      field: 'created_at', headerName: 'Date', align: 'center', flex: 2, minWidth: 140,
       headerAlign: 'center',
       renderCell: (params) => <DateFormater value={params.value} />
     },
-    // {
-    //   field: 'quote_transaction', headerName: 'Amount', minWidth: 180, align: 'right',
-    //   headerAlign: 'center', flex: 1,
-    //   renderCell: (params) => { value={params.value}} 
-    // },
     {
       field: 'quote_transaction', headerName: 'Amount', minWidth: 230, align: 'right',
       headerAlign: 'center', flex: 1,
       renderCell: (params) => <NativeAmountormater value={params.row.quote_transaction} />
     },
-    // {
-    //   field: 'quoteUSD', headerName: 'QUOTE USD', minWidth: 180, align: 'right',
-    //   headerAlign: 'center', flex: 1
-    // },
     {
-      field: 'title', headerName: 'Details', minWidth: 40, align: 'center',
+      field: 'info', headerName: 'Details', minWidth: 40, align: 'center',
       headerAlign: 'center',
       renderCell: (params) => <DescriptionFormater value={params.value} />
     }

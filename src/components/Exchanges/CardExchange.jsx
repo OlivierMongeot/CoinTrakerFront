@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import AuthenticationService from '../../helpers/AuthService';
 
 const CardExchange = (props) => {
-  console.log('props', props);
+  // console.log('props', props);
   const navigate = useNavigate();
 
   const exchangeData = props.exchange;

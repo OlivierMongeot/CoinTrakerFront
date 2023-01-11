@@ -5,15 +5,19 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import proccesTransactionCoinbase from '../trades/coinbase';
+// import proccesTransactionCoinbase from '../trades/coinbase';
 import TableTransactions from '../components/Transactions/TableTransactions';
 // import eraseDoublon from '../helpers/eraseDoublon';
-import proccesTradesKucoin from '../trades/kucoin';
+// import proccesTradesKucoin from '../trades/kucoin';
 import depositKucoin from '../deposits/kucoin'
-import getWithdrawalsKucoin from '../withdrawals/kucoinWithdraw'
-import getSimpleDate from '../helpers/getSimpleDate';
-import getFiatValue from '../helpers/getFiatValue';
-import updateLocalStorageTransaction from '../helpers/updateLocalStorageTransactions';
+// import getWithdrawalsKucoin from '../withdrawals/kucoinWithdraw'
+// import getSimpleDate from '../helpers/getSimpleDate';
+// import getFiatValue from '../helpers/getFiatValue';
+// import updateLocalStorageTransaction from '../helpers/updateLocalStorageTransactions';
+// import { useDispatch } from 'react-redux';
+// import { setTransactionsState } from '../action/transactions.action';
+
+
 
 const Transactions = () => {
 
@@ -22,102 +26,107 @@ const Transactions = () => {
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
+    // const dispatch = useDispatch();
 
-    const backgroundFetchQuote = async (transactions) => {
+    // const backgroundFetchQuote = async (transactions) => {
 
-        console.log('Background Fetch Quote')
-        let index = 0;
+    //     console.log('Background Fetch Quote')
+    //     let index = 0;
 
-        while (index < transactions.length && index < 400000013) {
+    //     while (index < transactions.length
+    //         && index < 0
+    //     ) {
 
-            let currency = null;
-            let date = getSimpleDate(transactions[index].createdAt);
+    //         let currency = null;
+    //         let date = getSimpleDate(transactions[index].createdAt);
 
-            if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
-                console.log('Transactions n°' + index, transactions[index])
-                console.log('Get quotation for ', transactions[index].native_amount.currency)
-                let amount = null;
-                switch (transactions[index].exchange) {
+    //         if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
+    //             console.log('Transactions n°' + index, transactions[index])
+    //             console.log('Get quotation for ', transactions[index].native_amount.currency)
+    //             let amount = null;
+    //             switch (transactions[index].exchange) {
 
-                    case 'kucoin':
-                        amount = transactions[index].native_amount.amount
-                        currency = transactions[index].native_amount.currency
-                        break
-                    case 'coinbase':
-                        const nativeAmount = parseFloat(transactions[index].native_amount.amount);
-                        if (nativeAmount !== 0) {
-                            amount = transactions[index].native_amount.amount
-                            currency = transactions[index].native_amount.currency
-                        } else {
-                            amount = transactions[index].amount.amount
-                            currency = transactions[index].amount.currency
-                        }
-                        break;
+    //                 case 'kucoin':
+    //                     amount = transactions[index].native_amount.amount
+    //                     currency = transactions[index].native_amount.currency
+    //                     break
+    //                 case 'coinbase':
+    //                     const nativeAmount = parseFloat(transactions[index].native_amount.amount);
+    //                     if (nativeAmount !== 0) {
+    //                         amount = transactions[index].native_amount.amount
+    //                         currency = transactions[index].native_amount.currency
+    //                     } else {
+    //                         amount = transactions[index].amount.amount
+    //                         currency = transactions[index].amount.currency
+    //                     }
+    //                     break;
 
-                    default:
-                        break;
-                }
+    //                 default:
+    //                     break;
+    //             }
 
-                // // Part 2 : gestion du token 
-                if (index > 0
-                    && getSimpleDate(transactions[index - 1].createdAt) === date
+    //             // // Part 2 : gestion du token 
+    //             if (index > 0
+    //                 && getSimpleDate(transactions[index - 1].createdAt) === date
 
-                    && transactions[index].native_amount.currency === transactions[index - 1].native_amount.currency
+    //                 && transactions[index].native_amount.currency === transactions[index - 1].native_amount.currency
 
-                    && parseFloat(transactions[index].native_amount.amount) !== 0) {
+    //                 && parseFloat(transactions[index].native_amount.amount) !== 0) {
 
-                    console.log('take prev data quotation')
+    //                 console.log('take prev data quotation')
 
-                    let prevDevises = transactions[index - 1]?.quote_transaction.devises;
-                    if (prevDevises) {
-                        transactions[index].quote_transaction = { devises: prevDevises, amount: amount, currency: currency };
-                    }
+    //                 let prevDevises = transactions[index - 1]?.quote_transaction.devises;
+    //                 if (prevDevises) {
+    //                     transactions[index].quote_transaction = { devises: prevDevises, amount: amount, currency: currency };
+    //                 }
 
-                } else {
+    //             } else {
 
-                    console.log('id trx ', transactions[index].id)
-                    // currency = transactions[index].native_amount.currency;
-                    let quoteFiat = null;
+    //                 console.log('id trx ', transactions[index].id)
+    //                 // currency = transactions[index].native_amount.currency;
+    //                 let quoteFiat = null;
 
-                    switch (currency) {
-                        case 'USD':
-                            console.log('Hack quote Fiat for usd')
-                            quoteFiat = await getFiatValue('USDT', date);
-                            for (let element in quoteFiat) {
-                                quoteFiat[element] = quoteFiat[element] / quoteFiat["usd"]
-                            }
-                            break;
+    //                 switch (currency) {
+    //                     case 'USD':
+    //                         console.log('Hack quote Fiat for usd')
+    //                         quoteFiat = await getFiatValue('USDT', date);
+    //                         for (let element in quoteFiat) {
+    //                             quoteFiat[element] = quoteFiat[element] / quoteFiat["usd"]
+    //                         }
+    //                         break;
 
-                        default:
-                            quoteFiat = await getFiatValue(currency, date);
-                            break;
-                    }
+    //                     default:
+    //                         console.log('Get quote Fiat for ', currency)
+    //                         quoteFiat = await getFiatValue(currency, date);
+    //                         break;
+    //                 }
 
-                    console.log('Quote fiat for ' + currency + ' / ' + transactions[index].exchange, quoteFiat)
+    //                 console.log('Quote fiat for ' + currency + ' / ' + transactions[index].exchange, quoteFiat)
+    //                 transactions[index].quote_transaction = {};
+    //                 transactions[index].quote_transaction = {
+    //                     amount: amount,
+    //                     currency: currency,
+    //                     devises: quoteFiat
+    //                 }
 
-                    transactions[index].quote_transaction = {
-                        amount: amount,
-                        currency: currency,
-                        devises: quoteFiat
-                    }
-                }
+    //             }
 
-                console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
-                updateLocalStorageTransaction(transactions[index]);
-                const rowToUpdateIndex = index;
+    //             console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
+    //             updateLocalStorageTransaction(transactions[index]);
+    //             const rowToUpdateIndex = index;
 
-                setTransactions(prevTransactions => {
-                    return prevTransactions.map((trx, prevIndex) =>
-                        prevIndex === rowToUpdateIndex ? { ...trx } : trx
-                    );
-                })
-            } else {
-                // console.log('Ever in place transactions n°' + index, transactions[index])
-            }
-            index++;
-        }
+    //             setTransactions(prevTransactions => {
+    //                 return prevTransactions.map((trx, prevIndex) =>
+    //                     prevIndex === rowToUpdateIndex ? { ...trx } : trx
+    //                 );
+    //             })
+    //         } else {
+    //             // console.log('Ever in place transactions n°' + index, transactions[index])
+    //         }
+    //         index++;
+    //     }
 
-    }
+    // }
 
 
     const processAllTransactions = async (mode) => {
@@ -125,20 +134,20 @@ const Transactions = () => {
         let allTrx = []
         let allCoinbaseTrx = []
         // COINBASE 
-        allCoinbaseTrx = await proccesTransactionCoinbase(mode, userData);
+        // allCoinbaseTrx = await proccesTransactionCoinbase(mode, userData);
         console.log('all Trx Coinbase', allCoinbaseTrx.length);
 
         // KUCOIN
         let kucoinTrade = []
         let transactionsKucoin = []
         let mouvements = []
-        kucoinTrade = await proccesTradesKucoin('start', userData);
+        // kucoinTrade = await proccesTradesKucoin('start', userData);
         console.log('Kucoin Trx : ', kucoinTrade.length);
         let depositsKucoin = []
         let withdrawalsKucoin = []
         depositsKucoin = (await depositKucoin('start', userData));
         console.log('Deposits total ', depositsKucoin.length)
-        withdrawalsKucoin = await getWithdrawalsKucoin('start', userData);
+        // withdrawalsKucoin = await getWithdrawalsKucoin('start', userData);
         console.log('Withdrawals total ', withdrawalsKucoin.length)
         mouvements = [...depositsKucoin, ...withdrawalsKucoin]
         transactionsKucoin = [...kucoinTrade, ...mouvements];
@@ -156,8 +165,9 @@ const Transactions = () => {
         console.log('All exchanges trx ', allTrx.length)
 
         setTransactions(allTrx);
+        // dispatch(setTransactionsState(allTrx))
         setIsLoading(false)
-        backgroundFetchQuote(allTrx)
+        // backgroundFetchQuote(allTrx)
 
     }
 

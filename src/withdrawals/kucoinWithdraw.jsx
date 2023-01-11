@@ -1,10 +1,10 @@
 import config from '../config';
 import { toast } from 'react-toastify';
 import addUrlImage from '../helpers/addUrlImage'
-import getFiatValue from '../helpers/getFiatValue';
+// import getFiatValue from '../helpers/getFiatValue';
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked';
 import getHumanDateTime from '../helpers/getHumanDate';
-import getSimpleDate from '../helpers/getSimpleDate';
+// import getSimpleDate from '../helpers/getSimpleDate';
 
 
 const withdrawalsKucoin = async (mode, userData) => {
@@ -23,11 +23,20 @@ const withdrawalsKucoin = async (mode, userData) => {
 
     let index = 0;
     while (index < withdrawals.length) {
-      withdrawals[index].title = 'Address withdrawals : ' + withdrawals[index].address; // For datagrid
+      // withdrawals[index].title = 'Address withdrawals : ' + withdrawals[index].address; // For datagrid
       withdrawals[index].exchange = 'kucoin' // For datagrid
       withdrawals[index].id = withdrawals[index].walletTxId; // For datagrid
-      withdrawals[index].smartType = 'Blockchain : ' + withdrawals[index].chain.toUpperCase();
-      withdrawals[index].updated_at = new Date(withdrawals[index].createdAt) // For datagrid
+      // withdrawals[index].smartType = 'Blockchain : ' + withdrawals[index].chain.toUpperCase();
+      // withdrawals[index].updated_at = new Date(withdrawals[index].createdAt) // For datagrid
+      withdrawals[index].info = {
+        address: withdrawals[index].address,
+        blockchain: withdrawals[index].chain,
+        memo: withdrawals[index]?.memo,
+        idTx: withdrawals[index]?.walletTxId,
+        fee: withdrawals[index].fee,
+        remark: withdrawals[index].remark,
+        type: 'withdrawals'
+      }
 
       withdrawals[index].exit = {
         amount: withdrawals[index].amount,
@@ -41,6 +50,13 @@ const withdrawalsKucoin = async (mode, userData) => {
 
       withdrawals[index].native_amount = { amount: withdrawals[index].amount, currency: withdrawals[index].currency };
       withdrawals[index].transaction = 'withdrawals'
+
+      delete withdrawals[index].currency
+      delete withdrawals[index].isInner
+      delete withdrawals[index].updatedAt
+      delete withdrawals[index].updated_at
+      delete withdrawals[index].walletTxId
+
       index++;
     }
     return withdrawals;
@@ -50,7 +66,7 @@ const withdrawalsKucoin = async (mode, userData) => {
   let start = null;
   let newWithdrawals = [];
   let allWithdrawals = []
-
+  // savedWithdrawalsKucoin = null
   if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'no-update') {
     return savedWithdrawalsKucoin;
 

@@ -5,87 +5,115 @@ import addUrlImage from '../helpers/addUrlImage'
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked';
 import getHumanDateTime from '../helpers/getHumanDate';
 
-import getSimpleDate from '../helpers/getSimpleDate';
+// import getSimpleDate from '../helpers/getSimpleDate';
 import eraseDoublon from '../helpers/eraseDoublon';
 
 
+const rebuildDataKucoin = async (trades) => {
+  console.log('Rebuild kucoin TRADE', trades)
+
+  let index = 0;
+
+  while (index < trades.length) {
+
+    // trades[index].title = 'ID : ' + trades[index].tradeId + '| Market type : ' + trades[index].type;
+    trades[index].exchange = 'kucoin'
+    trades[index].id = trades[index].tradeId;
+
+    // trades[index].smartType = trades[index]?.type + ' ' + trades[index]?.side;
+    // trades[index].updated_at = new Date(trades[index].createdAt)
+
+    trades[index].info = {
+      // address: null,
+      // blockchain: null,
+      // memo: trades[index]?.memo,
+      // idTx: trades[index]?.walletTxId,
+      idTrx: trades[index]?.counterOrderId,
+      // remark: trades[index].remark,
+      type: 'trades',
+      fee: trades[index]?.fee,
+      status: trades[index].status,
+      feeRate: trades[index].feeRate,
+      feeCurrency: trades[index].feeCurrency,
+      priceOrder: trades[index].price,
+      side: trades[index].side,
+      typeTrade: trades[index].type,
+    }
+
+
+    let currencyTab = trades[index].symbol.split('-');
+
+    if (trades[index].side === "buy") {
+
+      trades[index].entry = {
+        amount: trades[index].size,
+        currency: currencyTab[0],
+        urlLogo: trades[index].urlLogo
+      }
+      trades[index].exit = {
+        amount: trades[index].funds,
+        currency: currencyTab[1],
+        urlLogo: ''
+      }
+
+
+
+    } else {
+      trades[index].entry = {
+        amount: trades[index].funds,
+        currency: currencyTab[1],
+        urlLogo: ''
+      }
+      trades[index].exit = {
+        amount: trades[index].size,
+        currency: currencyTab[0],
+        urlLogo: trades[index].urlLogo
+      }
+
+    }
+
+    trades[index].transaction = 'trade'
+    trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] }
+    trades[index].currency = currencyTab[0]
+    // trades[index].date = getSimpleDate(trades[index].createdAt)
+    delete trades[index].counterOrderId
+    delete trades[index].funds
+    delete trades[index].side
+    delete trades[index].size
+    delete trades[index].forceTaker
+    delete trades[index].symbol
+    delete trades[index].updated_at
+    delete trades[index].type
+    delete trades[index].fee
+    delete trades[index].status
+    delete trades[index].feeRate
+    delete trades[index].feeCurrency
+    delete trades[index].price
+    delete trades[index].side
+    delete trades[index].tradetype
+    delete trades[index].tradeId
+    delete trades[index].chain
+    index++;
+  }
+
+  return trades;
+}
+
 const proccesTradesKucoin = async (mode, userData) => {
 
-  console.log('____Start fetch TRADE Kucoin____');
-
-  // let savedTradeKucoin = JSON.parse(localStorage.getItem('trades-kucoin'));
+  console.log('____START TRADE KUCOIN____');
 
   const allTransactions = JSON.parse(localStorage.getItem('transactions-all'))
   let savedTradeKucoin = allTransactions.filter(transaction => {
     return transaction.exchange === 'kucoin' && transaction.transaction === 'trade'
   })
 
-
-  const rebuildDataKucoin = async (trades) => {
-    console.log('Rebuild kucoin TRADE', trades)
-
-    let index = 0;
-
-    while (index < trades.length) {
-
-      trades[index].title = 'ID : ' + trades[index].tradeId + '| Market type : ' + trades[index].type;
-      trades[index].exchange = 'kucoin'
-      trades[index].id = trades[index].tradeId;
-
-      trades[index].smartType = trades[index]?.type + ' ' + trades[index]?.side;
-      trades[index].updated_at = new Date(trades[index].createdAt)
-
-
-      let currencyTab = trades[index].symbol.split('-');
-
-      if (trades[index].side === "buy") {
-
-        trades[index].entry = {
-          amount: trades[index].size,
-          currency: currencyTab[0],
-          urlLogo: trades[index].urlLogo
-        }
-        trades[index].exit = {
-          amount: trades[index].funds,
-          currency: currencyTab[1],
-          urlLogo: ''
-        }
-        // trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] };
-        // trades[index].currency = currencyTab[0];
-        // trades[index].transaction = 'trade';
-
-
-      } else {
-        trades[index].entry = {
-          amount: trades[index].funds,
-          currency: currencyTab[1],
-          urlLogo: ''
-        }
-        trades[index].exit = {
-          amount: trades[index].size,
-          currency: currencyTab[0],
-          urlLogo: trades[index].urlLogo
-        }
-
-
-      }
-
-      trades[index].transaction = 'trade'
-      trades[index].native_amount = { amount: trades[index].funds, currency: currencyTab[1] }
-      trades[index].currency = currencyTab[0]
-
-      trades[index].date = getSimpleDate(trades[index].createdAt)
-      // trades[index].quoteUSD = null
-
-      index++;
-    }
-
-    return trades;
-  }
+  // savedTradeKucoin = null
 
   let start = null;
   let allTrades = [];
   let newTrades = [];
+
   const timeTable = JSON.parse(localStorage.getItem('time-table'))
   if (savedTradeKucoin && savedTradeKucoin.length > 0 && mode === 'no-update') {
 
@@ -104,7 +132,7 @@ const proccesTradesKucoin = async (mode, userData) => {
 
 
   const oneWeek = 604800000;
-  const sevenDayPeriode = 10;
+  const sevenDayPeriode = 52;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
 
   const now = Date.now();
@@ -182,7 +210,7 @@ const proccesTradesKucoin = async (mode, userData) => {
   }
   // ajout provosoire pour rebuilder
   allTrades = [...newTrades, ...savedTradeKucoin]
-  allTrades = eraseDoublon(allTrades) // au cas ou 
+  allTrades = eraseDoublon(allTrades) // a supprimer 
 
 
   return allTrades;

@@ -3,24 +3,60 @@ import { toast } from 'react-toastify';
 import addUrlImage from '../helpers/addUrlImage'
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked'
 import getHumanDateTime from '../helpers/getHumanDate';
-import getFiatValue from '../helpers/getFiatValue';
+
 import eraseDoublon from '../helpers/eraseDoublon';
-import getSimpleDate from '../helpers/getSimpleDate';
+
+// const saveNewDeposit = async (newDeposits, userData) => {
+
+//   let baseUrl = "http://" + config.urlServer;
+
+//   const data = {
+//     email: userData.email,
+//     data: newDeposits
+//   };
+
+//   const response = await fetch(baseUrl + '/set-transaction', {
+//     method: 'post',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': userData.token
+//     },
+//     body: JSON.stringify(data)
+//   })
+
+//   if (!response.ok) {
+//     const message = `An error has occured: ${response.status}`;
+//     throw new Error(message);
+//   }
+//   const transac = await response.json();
+//   console.log('Get new transac : ', transac);
+// }
 
 const depositKucoin = async (mode, userData) => {
 
   console.log('----------START DEPOSITS KUCOIN ---------------')
 
   const rebuildDataKucoin = async (deposits) => {
-    console.log('rebuild Deposit kucoin')
+    console.log('rebuild Deposit kucoin', deposits)
 
     let index = 0;
     while (index < deposits.length) {
-      deposits[index].title = 'Address deposit : ' + deposits[index].address;
+
       deposits[index].exchange = 'kucoin'
       deposits[index].id = deposits[index].walletTxId;
+      deposits[index].created_at = deposits[index].createdAt;
       deposits[index].smartType = 'Blockchain : ' + deposits[index].chain.toUpperCase();
       deposits[index].updated_at = new Date(deposits[index].createdAt)
+      // deposits[index].info = {
+      //   address: deposits[index]?.address,
+      //   blockchain: deposits[index]?.chain,
+      //   memo: deposits[index]?.memo,
+      //   idTx: deposits[index]?.walletTxId,
+      //   remark: deposits[index]?.remark,
+      //   type: 'deposits',
+      //   fee: deposits[index]?.fee,
+      //   status: deposits[index]?.status
+      // }
 
       deposits[index].entry = {
         amount: deposits[index].amount,
@@ -33,10 +69,19 @@ const depositKucoin = async (mode, userData) => {
       }
 
       deposits[index].native_amount = { amount: deposits[index].amount, currency: deposits[index].currency };
-      deposits[index].transaction = (deposits[index]?.remark).toLowerCase();
+      deposits[index].transaction = 'deposit';
 
-      index++
+      // delete deposits[index].arrears
+      // delete deposits[index].updatedAt
+      // delete deposits[index].isInner
+      // delete deposits[index].walletTxId;
+      // delete deposits[index]?.remark;
+      // delete deposits[index].createdAt;
+      // delete deposits[index].chain;
+      // delete deposits[index].fee;
+      // delete deposits[index]?.memo
     }
+    console.log(deposits)
     return deposits;
   }
 
@@ -50,7 +95,7 @@ const depositKucoin = async (mode, userData) => {
   })
   console.log('Deposit kucoin saved ', savedDepositsKucoin);
 
-
+  // savedDepositsKucoin = null
   if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'no-update') {
     return savedDepositsKucoin;
 
@@ -58,7 +103,6 @@ const depositKucoin = async (mode, userData) => {
     console.log('start from last deposit') // to do last deposit ceck 
     const timeTable = JSON.parse(localStorage.getItem('time-table'))
     start = timeTable?.kucoin.deposit ? timeTable.kucoin.deposit : 1640908800000
-
   } else {
     console.log('No data deposits : fetch deposit from 01/01/22')
     start = 1640908800000;// 1/1/22
@@ -67,7 +111,7 @@ const depositKucoin = async (mode, userData) => {
 
   // 1640908800000  1/1/22
   const oneWeek = 604800000;
-  const sevenDayPeriode = 54;
+  const sevenDayPeriode = 10;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
   const now = Date.now();
 
@@ -110,7 +154,6 @@ const depositKucoin = async (mode, userData) => {
     return trx.data.data;
   }
 
-
   let index = 0;
   while (index < sevenDayPeriode) {
     // console.log('index', index);
@@ -144,6 +187,8 @@ const depositKucoin = async (mode, userData) => {
   if (newDeposits.length > 0) {
     newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposit')
     newDeposits = await rebuildDataKucoin(newDeposits)
+    // save in DB 
+    // saveNewDeposit(newDeposits, userData)
   }
 
   allDeposits = [...newDeposits, ...savedDepositsKucoin]
@@ -153,7 +198,7 @@ const depositKucoin = async (mode, userData) => {
 
   allDeposits = eraseDoublon(allDeposits)
   // allDeposits = await rebuildDataKucoin(allDeposits)
-  // localStorage.setItem('deposits-kucoin', JSON.stringify(allDeposits));
+
   return allDeposits
   // return newDeposits;
 }
