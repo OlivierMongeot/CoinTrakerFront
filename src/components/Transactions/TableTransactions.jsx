@@ -58,11 +58,11 @@ const TableTransactions = (props) => {
       headerAlign: 'center',
       renderCell: (params) => <DescriptionFormater value={params.value} />
     }
-    ,
-    {
-      field: 'range', headerName: 'Range', width:
-        80, align: 'center', headerAlign: 'center'
-    }
+    // ,
+    // {
+    //   field: 'range', headerName: 'Range', width:
+    //     80, align: 'center', headerAlign: 'center'
+    // }
   ];
 
   return (
@@ -81,7 +81,10 @@ const TableTransactions = (props) => {
               sorting: {
                 sortModel: [{ field: 'updated_at', sort: 'desc' }],
               },
-            }} rows={transactions} columns={columns} loading={isLoading} />
+            }} rows={transactions}
+            columns={columns}
+            loading={isLoading}
+          />
         </div>
       )}
     </Paper>

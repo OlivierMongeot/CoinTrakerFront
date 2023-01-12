@@ -9,6 +9,7 @@ const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
  * @returns 
  */
 const getFiatValue = async (currency, date) => {
+
   console.log('get Fiat price for date for ', currency, date)
 
   let tokenGecko = JSON.parse(localStorage.getItem('GekocoinsData'))
@@ -64,8 +65,8 @@ const getFiatValue = async (currency, date) => {
     return prices.market_data.current_price
   }
   else {
-    console.log('Error price historic ')
-    return { usd: 1 };
+    console.log('Error price historic, Keep origin value ')
+    return { currency: 1 };
   }
 
 

@@ -4,6 +4,7 @@ import addUrlImage from '../helpers/addUrlImage'
 // import getFiatValue from '../helpers/getFiatValue';
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked';
 import getHumanDateTime from '../helpers/getHumanDate';
+import eraseDoublon from '../helpers/eraseDoublon';
 // import getSimpleDate from '../helpers/getSimpleDate';
 
 
@@ -11,12 +12,6 @@ const withdrawalsKucoin = async (mode, userData) => {
 
   console.log('----------START WITHDRAWALS FETCH---------------')
 
-  const allTransactions = JSON.parse(localStorage.getItem('transactions-all'))
-  let savedWithdrawalsKucoin = allTransactions.filter(transaction => {
-    return transaction.exchange === 'kucoin' && transaction.transaction === 'withdrawals'
-  })
-
-  console.log('Withdrawals kucoin saved ', savedWithdrawalsKucoin);
 
   const rebuildDataKucoin = async (withdrawals) => {
     console.log('rebuild Withdraw kucoin')
@@ -27,7 +22,7 @@ const withdrawalsKucoin = async (mode, userData) => {
       withdrawals[index].exchange = 'kucoin' // For datagrid
       withdrawals[index].id = withdrawals[index].walletTxId; // For datagrid
       // withdrawals[index].smartType = 'Blockchain : ' + withdrawals[index].chain.toUpperCase();
-      // withdrawals[index].updated_at = new Date(withdrawals[index].createdAt) // For datagrid
+      withdrawals[index].created_at = withdrawals[index].createdAt // For datagrid
       withdrawals[index].info = {
         address: withdrawals[index].address,
         blockchain: withdrawals[index].chain,
@@ -35,7 +30,8 @@ const withdrawalsKucoin = async (mode, userData) => {
         idTx: withdrawals[index]?.walletTxId,
         fee: withdrawals[index].fee,
         remark: withdrawals[index].remark,
-        type: 'withdrawals'
+        type: 'withdrawals',
+        status: withdrawals[index].status
       }
 
       withdrawals[index].exit = {
@@ -56,30 +52,58 @@ const withdrawalsKucoin = async (mode, userData) => {
       delete withdrawals[index].updatedAt
       delete withdrawals[index].updated_at
       delete withdrawals[index].walletTxId
+      delete withdrawals[index].createdAt;
+      delete withdrawals[index].chain;
+      delete withdrawals[index].fee;
+      delete withdrawals[index].memo;
+      delete withdrawals[index]?.remark;
+      delete withdrawals[index].status;
+      delete withdrawals[index].urlLogo
+      delete withdrawals[index].amount
 
       index++;
     }
     return withdrawals;
   }
 
-
   let start = null;
   let newWithdrawals = [];
   let allWithdrawals = []
-  // savedWithdrawalsKucoin = null
-  if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'no-update') {
-    return savedWithdrawalsKucoin;
 
-  } else if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'start') {
+  let allTransactions = JSON.parse(localStorage.getItem('transactions-all'))
+  let savedWithdrawalsKucoin = []
+  // allTransactions = []
+  if (allTransactions && allTransactions.length > 0) {
 
-    const timeTable = JSON.parse(localStorage.getItem('time-table'));
-    start = timeTable?.kucoin.withdrawals ? timeTable.kucoin.withdrawals : 1640908800000;
+    savedWithdrawalsKucoin = allTransactions.filter(transaction => {
+      return transaction.exchange === 'kucoin' && transaction.transaction === 'withdrawals'
+    })
+    console.log('Withdrawals kucoin saved ', savedWithdrawalsKucoin);
+
+
+    // savedWithdrawalsKucoin = null
+    if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'no-update') {
+      return savedWithdrawalsKucoin;
+
+    } else if (savedWithdrawalsKucoin && savedWithdrawalsKucoin.length > 0 && mode === 'start') {
+
+      const timeTable = JSON.parse(localStorage.getItem('time-table'));
+      start = timeTable?.kucoin.withdrawals ? timeTable.kucoin.withdrawals : 1640908800000;
+
+    } else {
+      console.log('no data :start fetch trx from 01/01/22')
+      start = 1640908800000;// 1/1/22
+      savedWithdrawalsKucoin = []
+    }
+
 
   } else {
     console.log('no data :start fetch trx from 01/01/22')
     start = 1640908800000;// 1/1/22
     savedWithdrawalsKucoin = []
+
   }
+
 
   const oneWeek = 604800000;
   const sevenDayPeriode = 52;
@@ -115,6 +139,7 @@ const withdrawalsKucoin = async (mode, userData) => {
     if (trx.error) {
       console.log(' error catched here');
       throw new Error(trx.error.message);
+      // return false;
     }
     saveLastTimeChecked('kucoin', 'withdrawals', start + oneWeek);
     if (trx.data && trx.data.data.items && trx.data.data.items.length > 0) {
@@ -148,10 +173,11 @@ const withdrawalsKucoin = async (mode, userData) => {
         }
 
       } catch (error) {
-        toast('error.error');
+        // toast('error', error );
         console.log('error catched :', error);
+        return false;
       }
-      await delay(300);
+      await delay(400);
 
     } else {
       console.log('Time recherched > now: STOP');
@@ -167,6 +193,8 @@ const withdrawalsKucoin = async (mode, userData) => {
     newWithdrawals = await rebuildDataKucoin(newWithdrawals)
   }
   allWithdrawals = [...newWithdrawals, ...savedWithdrawalsKucoin]
+  // allWithdrawals = await rebuildDataKucoin(allWithdrawals)
+
   return allWithdrawals;
 }
 

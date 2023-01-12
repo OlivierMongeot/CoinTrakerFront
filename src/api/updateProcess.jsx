@@ -119,7 +119,6 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
 
   switch (shoudIUpdate) {
 
-
     case true:
       rotateSpinner(exchange, arrayAmountWallets);
 

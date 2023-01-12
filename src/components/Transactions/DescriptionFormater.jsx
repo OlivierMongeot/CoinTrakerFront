@@ -41,33 +41,33 @@ const Formater = (props) => {
         >
           <Box sx={style}>
             {props.value?.type && (
-              <Typography id="modal-modal-title" variant="h6" component="h2">
+              <Typography id="modal-modal-title" variant="h5" component="h2" sx={{ textAlign: 'center', mb: 5 }}>
                 {props.value?.type.toUpperCase()}
               </Typography>
             )}
-            {props.value?.idTrx && (
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                ID : {props.value?.idTrx}
+            {/* {props.value?.idTx && (
+              <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.8rem' }}>
+                ID : {props.value.idTx}
               </Typography>
-            )}
+            )} */}
             {props.value?.side && (
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Side : {props.value?.side.toUpperCase()}
+              <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                Side : {props.value.side.toUpperCase()}
               </Typography>
             )}
             {props.value?.typeTrade && (
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Type : {props.value?.typeTrade.toUpperCase()}
+              <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                Type : {props.value.typeTrade.toUpperCase()}
               </Typography>
             )}
             {props.value?.blockchain && (
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                BlockChain : {props.value?.blockchain.toUpperCase()}
+              <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                BlockChain : {props.value.blockchain.toUpperCase()}
               </Typography>
             )}
             {props.value?.address && (
-              <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.8rem' }}>
-                Address : {props.value?.address}
+              <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                Address : {props.value.address}
               </Typography>
             )}
 

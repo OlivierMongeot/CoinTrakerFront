@@ -27,7 +27,7 @@ const rebuildDataKucoin = async (trades) => {
       // address: null,
       // blockchain: null,
       // memo: trades[index]?.memo,
-      // idTx: trades[index]?.walletTxId,
+      idTx: trades[index]?.walletTxId,
       idTrx: trades[index]?.counterOrderId,
       // remark: trades[index].remark,
       type: 'trades',
