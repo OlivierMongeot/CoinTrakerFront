@@ -1,8 +1,10 @@
+// import React, { useEffect } from 'react';
 import config from '../config';
 import { toast } from 'react-toastify';
 import addUrlImage from '../helpers/addUrlImage'
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked'
 import getHumanDateTime from '../helpers/getHumanDate';
+// import { useSelector } from 'react-redux';
 
 
 const saveNewDeposit = async (newDeposits, userData) => {
@@ -31,138 +33,115 @@ const saveNewDeposit = async (newDeposits, userData) => {
   console.log('Rotour data new transac : ', transac);
 }
 
+const rebuildDataKucoin = async (deposits) => {
+  console.log('rebuild Deposit kucoin', deposits)
 
+  let index = 0;
+  while (index < deposits.length) {
 
-const depositKucoin = async (mode, userData) => {
-
-  console.log('----------START DEPOSITS KUCOIN ---------------')
-
-  const rebuildDataKucoin = async (deposits) => {
-    console.log('rebuild Deposit kucoin', deposits)
-
-    let index = 0;
-    while (index < deposits.length) {
-
-      deposits[index].exchange = 'kucoin'
-      deposits[index].id = deposits[index].walletTxId;
-      deposits[index].created_at = deposits[index].createdAt;
-      deposits[index].native_amount = { amount: deposits[index].amount, currency: deposits[index].currency };
-      deposits[index].transaction = 'deposit';
-      deposits[index].info = {
-        address: deposits[index]?.address,
-        blockchain: deposits[index]?.chain,
-        memo: deposits[index]?.memo,
-        idTx: deposits[index]?.walletTxId,
-        remark: deposits[index]?.remark,
-        type: 'deposits',
-        fee: deposits[index]?.fee,
-        status: deposits[index]?.status
-      }
-      deposits[index].entry = {
-        amount: deposits[index].amount,
-        currency: deposits[index].currency,
-        urlLogo: deposits[index].urlLogo
-      }
-      deposits[index].exit = {
-        amount: 0,
-        currency: ''
-      }
-      delete deposits[index].arrears
-      delete deposits[index].updatedAt
-      delete deposits[index].isInner
-      delete deposits[index].walletTxId;
-      delete deposits[index]?.remark;
-      delete deposits[index].createdAt;
-      delete deposits[index].chain;
-      delete deposits[index].fee;
-      delete deposits[index]?.memo;
-      delete deposits[index].status;
-      delete deposits[index].urlLogo;
-      delete deposits[index].address;
-      delete deposits[index].amount
-      index++
+    deposits[index].exchange = 'kucoin'
+    deposits[index].id = deposits[index].walletTxId;
+    deposits[index].created_at = deposits[index].createdAt;
+    deposits[index].native_amount = { amount: deposits[index].amount, currency: deposits[index].currency };
+    deposits[index].transaction = 'deposit';
+    deposits[index].info = {
+      address: deposits[index]?.address,
+      blockchain: deposits[index]?.chain,
+      memo: deposits[index]?.memo,
+      idTx: deposits[index]?.walletTxId,
+      remark: deposits[index]?.remark,
+      type: 'deposits',
+      fee: deposits[index]?.fee,
+      status: deposits[index]?.status
     }
-    console.log(deposits)
-    return deposits;
-  }
-
-
-  const getDepositsFromDB = async (user) => {
-
-    console.log('getAPIData for ', user);
-
-    const data = JSON.stringify({
-      userId: user.id,
-      email: user.email,
-      type: 'deposits'
-    });
-
-    let url = "http://" + config.urlServer + "/get-transactions";
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': user.token
-        },
-        body: data
-      })
-
-      // console.log('result response ', response)
-      const result = await response.json();
-
-      if (!result) {
-        console.log(result);
-        // toast('Token is expired : please login');
-        throw new Error('no data : check token pls ');
-      }
-      // console.log('result row', result);
-
-      return result.transactions;
-
-    } catch (error) {
-      console.log('catch error', error);
-      throw new Error("HTTP error " + error.message);
+    deposits[index].entry = {
+      amount: deposits[index].amount,
+      currency: deposits[index].currency,
+      urlLogo: deposits[index].urlLogo
     }
+    deposits[index].exit = {
+      amount: 0,
+      currency: ''
+    }
+    delete deposits[index].arrears
+    delete deposits[index].updatedAt
+    delete deposits[index].isInner
+    delete deposits[index].walletTxId;
+    delete deposits[index]?.remark;
+    delete deposits[index].createdAt;
+    delete deposits[index].chain;
+    delete deposits[index].fee;
+    delete deposits[index]?.memo;
+    delete deposits[index].status;
+    delete deposits[index].urlLogo;
+    delete deposits[index].address;
+    delete deposits[index].amount
+    index++
   }
+  console.log(deposits)
+  return deposits;
+}
 
+const getDepositsFromDB = async (user) => {
 
-  let start = null;
-  let newDeposits = [];
-  let allDeposits = []
-  let savedDepositsKucoin = []
-  // const allTransactions = JSON.parse(localStorage.getItem('transactions-all'))
+  console.log('getAPIData for ', user);
 
+  const data = JSON.stringify({
+    userId: user.id,
+    email: user.email,
+    type: 'deposits'
+  });
 
-  savedDepositsKucoin = await getDepositsFromDB(userData)
-  console.log('DB DEPOSITS', savedDepositsKucoin)
+  let url = "http://" + config.urlServer + "/get-transactions";
 
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': user.token
+      },
+      body: data
+    })
 
-  // savedDepositsKucoin = allTransactions.filter(transaction => {
-  //   return transaction.exchange === 'kucoin' && transaction.transaction === 'deposit'
-  // })
-  console.log('Deposit kucoin saved ', savedDepositsKucoin);
+    // console.log('result response ', response)
+    const result = await response.json();
 
-  // savedDepositsKucoin = null
-  if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'no-update') {
-    return savedDepositsKucoin;
+    if (!result) {
+      console.log(result);
+      // toast('Token is expired : please login');
+      throw new Error('no data : check token pls ');
+    }
+    // console.log('result row', result);
 
-  } else if (savedDepositsKucoin && savedDepositsKucoin.length > 0 && mode === 'start') {
-    console.log('start from last deposit') // to do last deposit ceck 
-    const timeTable = JSON.parse(localStorage.getItem('time-table'))
-    start = timeTable?.kucoin.deposit ? timeTable.kucoin.deposit : 1640908800000
-  } else {
-    console.log('No data deposits : fetch deposit from 01/01/22')
-    start = 1640908800000;// 1/1/22
-    savedDepositsKucoin = []
+    return result.transactions;
+
+  } catch (error) {
+    console.log('catch error', error);
+    throw new Error("HTTP error " + error.message);
   }
+}
 
+const fetchNewDeposits = async (userData) => {
 
+  console.log('Start Fetch New DEposits')
+
+  // start = 1640908800000;// 1/1/22
+  // }
 
   // 1640908800000  1/1/22
+
+  // return newDeposits;
+
+
+  // let start = null;
+  let newDeposits = [];
+
+  const timeTable = JSON.parse(localStorage.getItem('time-table'))
+  let start = timeTable?.kucoin.deposit ? timeTable.kucoin.deposit : 1640908800000
+
   const oneWeek = 604800000;
-  const sevenDayPeriode = 10;
+  const sevenDayPeriode = 20;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
   const now = Date.now();
 
@@ -236,6 +215,8 @@ const depositKucoin = async (mode, userData) => {
   }
   // let newDeposits = []
   console.log('NEW deposit', newDeposits)
+
+
   if (newDeposits.length > 0) {
     newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposit')
     newDeposits = await rebuildDataKucoin(newDeposits)
@@ -243,16 +224,30 @@ const depositKucoin = async (mode, userData) => {
     saveNewDeposit(newDeposits, userData)
   }
 
-  allDeposits = [...newDeposits, ...savedDepositsKucoin]
-  // allDeposits = await rebuildDataKucoin(allDeposits)
-  // saveNewDeposit(allDeposits, userData)
-  console.log('All Kucoin Deposits', allDeposits.length);
-
-  // allDeposits = eraseDoublon(allDeposits)
-  // allDeposits = await rebuildDataKucoin(allDeposits)
-
-  return allDeposits
-  // return newDeposits;
+  return newDeposits
 }
 
-export default depositKucoin;
+
+
+const DepositKucoin = async (mode, userData) => {
+
+  console.log('----------START GET DEPOSITS KUCOIN TEST ---------------')
+
+  let savedDepositsKucoin = await getDepositsFromDB(userData);
+  console.log('Data Base all DEPOSITS', savedDepositsKucoin)
+
+  // savedDepositsKucoin = null
+  if (!savedDepositsKucoin.length > 0) {
+    savedDepositsKucoin = [];
+  }
+  // Cherche les nouvelles data 
+  const newDeposits = await fetchNewDeposits()
+  console.log('new deposits ', newDeposits);
+  // ajoute les quotes 
+
+  return [...savedDepositsKucoin, ...newDeposits]
+}
+
+
+
+export default DepositKucoin;

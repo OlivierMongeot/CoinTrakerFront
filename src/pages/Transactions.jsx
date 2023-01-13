@@ -9,14 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import TableTransactions from '../components/Transactions/TableTransactions';
 // import eraseDoublon from '../helpers/eraseDoublon';
 // import proccesTradesKucoin from '../trades/kucoin';
-import depositKucoin from '../deposits/kucoin'
+import DepositKucoin from '../deposits/kucoin'
 import getWithdrawalsKucoin from '../withdrawals/kucoinWithdraw'
 import eraseDoublon from '../helpers/eraseDoublon';
 import getSimpleDate from '../helpers/getSimpleDate';
 import getFiatValue from '../helpers/getFiatValue';
 import updateLocalStorageTransaction from '../helpers/updateLocalStorageTransactions';
-// import { useDispatch } from 'react-redux';
-// import { setTransactionsState } from '../action/transactions.action';
+import { useDispatch } from 'react-redux';
+import { setTransactionsState } from '../action/transactions.action';
 
 
 
@@ -27,7 +27,7 @@ const Transactions = () => {
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const backgroundFetchQuote = async (transactions) => {
 
@@ -116,6 +116,7 @@ const Transactions = () => {
                 updateLocalStorageTransaction(transactions[index]);
                 const rowToUpdateIndex = index;
 
+
                 setTransactions(prevTransactions => {
                     return prevTransactions.map((trx, prevIndex) =>
                         prevIndex === rowToUpdateIndex ? { ...trx } : trx
@@ -128,7 +129,8 @@ const Transactions = () => {
     }
 
 
-    const processAllTransactions = async (mode) => {
+
+    const ProcessAllTransactions = async (mode) => {
         setIsLoading(true);
         let allTrx = []
         let allCoinbaseTrx = []
@@ -144,7 +146,7 @@ const Transactions = () => {
         console.log('Kucoin Trx : ', kucoinTrade.length);
         let depositsKucoin = []
         let withdrawalsKucoin = []
-        depositsKucoin = (await depositKucoin('start', userData));
+        depositsKucoin = await DepositKucoin(mode, userData);
         console.log('Deposits total ', depositsKucoin.length)
         // withdrawalsKucoin = await getWithdrawalsKucoin('start', userData);
         console.log('Withdrawals total ', withdrawalsKucoin.length)
@@ -160,13 +162,13 @@ const Transactions = () => {
         // allTrx.forEach((transaction, ix) => {
         //     transaction.range = ix;
         // })
-        localStorage.setItem('transactions-all', JSON.stringify(allTrx));
+        // localStorage.setItem('transactions-all', JSON.stringify(allTrx));
         console.log('All exchanges trx ', allTrx.length)
         allTrx = eraseDoublon(allTrx)
         setTransactions(allTrx);
-        // dispatch(setTransactionsState(allTrx))
+        dispatch(setTransactionsState(allTrx))
         setIsLoading(false)
-        backgroundFetchQuote(allTrx)
+        // backgroundFetchQuote(allTrx)
 
     }
 
@@ -201,17 +203,17 @@ const Transactions = () => {
             <Grid item xs={12} md={8} lg={9} mt={2} sx={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
 
                 <Button sx={style} variant="outlined" onClick={() => {
-                    processAllTransactions('quick')
+                    ProcessAllTransactions('quick')
                 }} >
                     Quick Update
                 </Button>
                 <Button sx={style} variant="outlined" onClick={() => {
-                    processAllTransactions('no-update')
+                    ProcessAllTransactions('no-update')
                 }} >
                     Start
                 </Button>
                 <Button sx={style} variant="outlined" onClick={() => {
-                    processAllTransactions('full-current')
+                    ProcessAllTransactions('full-current')
                 }} >
                     Full Update
                 </Button>
