@@ -5,7 +5,8 @@ import addUrlImage from '../helpers/addUrlImage'
 import saveLastTimeChecked from '../helpers/saveLastTimeChecked'
 import getHumanDateTime from '../helpers/getHumanDate';
 // import { useSelector } from 'react-redux';
-
+import getSimpleDate from '../helpers/getSimpleDate';
+import getFiatValue from '../helpers/getFiatValue';
 
 const saveNewDeposit = async (newDeposits, userData) => {
 
@@ -122,26 +123,21 @@ const getDepositsFromDB = async (user) => {
   }
 }
 
-const fetchNewDeposits = async (userData) => {
+const fetchNewDeposits = async (userData, reset) => {
 
-  console.log('Start Fetch New DEposits')
-
-  // start = 1640908800000;// 1/1/22
-  // }
-
-  // 1640908800000  1/1/22
-
-  // return newDeposits;
-
-
-  // let start = null;
-  let newDeposits = [];
+  console.log('Start Fetch New DEposit')
 
   const timeTable = JSON.parse(localStorage.getItem('time-table'))
   let start = timeTable?.kucoin.deposit ? timeTable.kucoin.deposit : 1640908800000
 
+  if (reset) {
+    start = 1640908800000
+    console.log('reset start')
+  }
+  let newDeposits = [];
+
   const oneWeek = 604800000;
-  const sevenDayPeriode = 20;
+  const sevenDayPeriode = 15;
   const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
   const now = Date.now();
 
@@ -179,11 +175,110 @@ const fetchNewDeposits = async (userData) => {
       // console.log(getHumanDateTime(start))
       console.log('Deposit found ', trx.data.data.items);
       console.log('Deposit lenght ', trx.data.data.items.length);
-
-
     }
     // console.log('DATA on data ', trx.data.data);
     return trx.data.data;
+  }
+
+
+  const fetchQuote = async (transactions) => {
+    console.log('Fetch Quote')
+
+    let index = 0;
+
+    while (index < transactions.length
+      && index < 10000000
+    ) {
+
+      let currency = null;
+      let date = getSimpleDate(transactions[index].created_at);
+
+      if (!transactions[index].quote_transaction || transactions[index].quote_transaction.devises === null) {
+        console.log('Transactions n°' + index, transactions[index])
+        console.log('Get quotation for ', transactions[index].native_amount.currency)
+        let amount = null;
+        switch (transactions[index].exchange) {
+
+          case 'kucoin':
+            amount = transactions[index].native_amount.amount
+            currency = transactions[index].native_amount.currency
+            break
+          case 'coinbase':
+            const nativeAmount = parseFloat(transactions[index].native_amount.amount);
+            if (nativeAmount !== 0) {
+              amount = transactions[index].native_amount.amount
+              currency = transactions[index].native_amount.currency
+            } else {
+              amount = transactions[index].amount.amount
+              currency = transactions[index].amount.currency
+            }
+            break;
+
+          default:
+            break;
+        }
+
+        // // Part 2 : gestion du token 
+        if (index > 0
+          && getSimpleDate(transactions[index - 1].created_at) === date
+
+          && transactions[index].native_amount.currency === transactions[index - 1].native_amount.currency
+
+          && parseFloat(transactions[index].native_amount.amount) !== 0) {
+
+          console.log('take prev data quotation')
+
+          let prevDevises = transactions[index - 1]?.quote_transaction.devises;
+          if (prevDevises) {
+            transactions[index].quote_transaction = { devises: prevDevises, amount: amount, currency: currency };
+          }
+
+        } else {
+
+          // console.log('id trx ', transactions[index].id)
+          // currency = transactions[index].native_amount.currency;
+          let quoteFiat = null;
+
+          switch (currency) {
+            case 'USD':
+              console.log('Hack quote Fiat for usd')
+              quoteFiat = await getFiatValue('USDT', date);
+              for (let element in quoteFiat) {
+                quoteFiat[element] = quoteFiat[element] / quoteFiat["usd"]
+              }
+              break;
+
+            default:
+              console.log('Get quote Fiat for ', currency)
+              quoteFiat = await getFiatValue(currency, date);
+              break;
+          }
+
+          console.log('Quote fiat for ' + currency + ' / ' + transactions[index].exchange, quoteFiat)
+          transactions[index].quote_transaction = {};
+          transactions[index].quote_transaction = {
+            amount: amount,
+            currency: currency,
+            devises: quoteFiat
+          }
+
+        }
+
+        // console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
+        // updateLocalStorageTransaction(transactions[index]);
+        // const rowToUpdateIndex = index;
+
+
+        // setTransactions(prevTransactions => {
+        //   return prevTransactions.map((trx, prevIndex) =>
+        //     prevIndex === rowToUpdateIndex ? { ...trx } : trx
+        //   );
+        // })
+      }
+      index++;
+    }
+
+    return transactions
   }
 
   let index = 0;
@@ -220,6 +315,7 @@ const fetchNewDeposits = async (userData) => {
   if (newDeposits.length > 0) {
     newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposit')
     newDeposits = await rebuildDataKucoin(newDeposits)
+    newDeposits = await fetchQuote(newDeposits)
     // save in DB 
     saveNewDeposit(newDeposits, userData)
   }
@@ -228,8 +324,7 @@ const fetchNewDeposits = async (userData) => {
 }
 
 
-
-const DepositKucoin = async (mode, userData) => {
+const depositsKucoin = async (mode, userData) => {
 
   console.log('----------START GET DEPOSITS KUCOIN TEST ---------------')
 
@@ -241,7 +336,7 @@ const DepositKucoin = async (mode, userData) => {
     savedDepositsKucoin = [];
   }
   // Cherche les nouvelles data 
-  const newDeposits = await fetchNewDeposits()
+  const newDeposits = await fetchNewDeposits(userData, false)
   console.log('new deposits ', newDeposits);
   // ajoute les quotes 
 
@@ -249,5 +344,4 @@ const DepositKucoin = async (mode, userData) => {
 }
 
 
-
-export default DepositKucoin;
+export default depositsKucoin;

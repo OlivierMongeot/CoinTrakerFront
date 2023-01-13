@@ -13,7 +13,7 @@ const getFiatValue = async (currency, date) => {
   console.log('get Fiat price for date for ', currency, date)
 
   let tokenGecko = JSON.parse(localStorage.getItem('GekocoinsData'))
-  // console.log(currency)
+  // console.log(tokenGecko)
 
   let idGeko = tokenGecko.filter((element => {
     return (element.symbol).toLowerCase() === currency.toLowerCase();

@@ -79,6 +79,7 @@ const Home = () => {
             .then(res => {
                 setCoinsData(res.data);
                 console.log('api GECKO DATA', res.data.length);
+                localStorage.setItem('GekocoinsData', JSON.stringify(res.data))
                 setIsLoading(false)
             }
             ).catch
