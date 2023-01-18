@@ -1,242 +1,15 @@
 
-import config from '../config';
+import config from '../../config';
 import { toast } from 'react-toastify';
-import addUrlImage from '../helpers/addUrlImage'
-import eraseDoublon from '../helpers/eraseDoublon';
-import getLastestTransactionsCoinbase from '../helpers/getLastestTransactionsCoinbase';
+import addUrlImage from '../../helpers/addUrlImage'
+import eraseDoublon from '../../helpers/eraseDoublon';
+import getLastestTransactionsCoinbase from './getLastestTransactionsCoinbase';
+import rebuildDataCoinbase from './rebuildDataCoinbase';
 
 const proccesTransactionCoinbase = async (mode, userData) => {
 
   console.log('process Coinbase trx ')
 
-
-  const rebuildDataCoinbase = async (transactions) => {
-
-    console.log('rebuild transactions', transactions.length);
-
-    function getSmartType(type, amount, description) {
-
-      switch (type) {
-        case 'send':
-          if (description === 'Earn Task') {
-            return 'Earn'
-          }
-          if (parseFloat(amount) < 0) {
-            return 'Withdraw'
-          } else {
-            return 'Deposit'
-          }
-
-        case 'trade':
-          return 'Swap'
-
-        case 'interest':
-          return 'Interest'
-        case 'inflation_reward':
-          return 'Reward'
-
-        case 'reward':
-          return 'Inflation reward'
-
-        case 'staking_reward':
-          return 'Staking Reward'
-
-        case 'vault_withdrawal':
-          return 'Withdraw externe'
-
-        case 'advanced_trade_fill':
-          return 'Trade'
-
-        case 'buy':
-          return 'Buy'
-
-        case 'fiat_deposit':
-          return 'Deposit FIAT'
-
-        case 'transfer':
-          return 'Transfer'
-
-        default:
-          console.log('unknow type ', type, amount)
-          return 'unknow Type'
-
-      }
-    }
-
-    async function getDataBuy(path, userData) {
-
-      const data = {
-        email: userData.email,
-        exchange: 'coinbase',
-        path: path
-      };
-
-      const response = await fetch('http://' + config.urlServer + '/coinbase/buy', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': userData.token
-        },
-        body: JSON.stringify(data)
-      })
-
-      if (!response.ok) {
-        const message = `An error has occured: ${response.status}`;
-        throw new Error(message);
-      }
-      // const buy = await response.json();
-      return await response.json();
-    }
-
-
-    // add euro data for buy 
-    let index = 0;
-    let idDataBuyArray = [];
-    while (index < transactions.length) {
-
-      if (transactions[index].type === 'buy'
-        //  && !transactions[index].data_buy
-        && !transactions[index].hasOwnProperty('data_buy')) {
-
-        // const data_buy = { data: { usd: 1 } };
-        const data_buy = await getDataBuy(transactions[index].buy.resource_path, userData);
-        console.log('Buy data', data_buy.data);
-        transactions[index].data_buy = data_buy.data;
-
-        if (idDataBuyArray.includes(data_buy.data.id)) {
-          // déja entre donc delete elem
-          console.log('delete a faire', transactions[index])
-
-        } else {
-          idDataBuyArray.push(data_buy.data.id)
-        }
-        console.log(idDataBuyArray)
-
-      } else if (transactions[index].type === 'buy') {
-        console.log('Trx Buy avec data buy déjà entré')
-      }
-      index++;
-    }
-
-
-    transactions.forEach(element => {
-
-      element.exchange = 'coinbase';
-      element.createdAt = new Date(element.created_at).getTime();
-
-      if (element.details.subtitle !== null) {
-        element.title = element.details.title + ' ' + (element.details?.subtitle).toLowerCase();
-      } else {
-        element.title = element.details.title;
-      }
-      if (element.details.header !== null) {
-        element.title = element.title + ' (' + element.details.header + ')';
-      }
-      element.title = element.title + ' | ID: ' + element.id;
-
-
-
-      element.smartType = getSmartType(element.type, element.amount.amount, element.description);
-      // element.smartTitle = { info: element.title, type: element.smartType }
-      element.token = element.amount.currency;
-
-      if (parseFloat(element.amount.amount) > 0) {
-
-        element.entry = {
-          amount: element.amount.amount,
-          currency: element.amount.currency,
-          urlLogo: element.urlLogo
-          // urlLogo: ''
-        }
-        element.exit = {
-          amount: element.native_amount.amount,
-          currency: element.native_amount.currency
-        }
-        element.transaction = 'trade'
-      } else {
-        element.entry = {
-          amount: -element.native_amount.amount,
-          currency: element.native_amount.currency,
-        }
-        element.exit = {
-          amount: -element.amount.amount,
-          currency: element.amount.currency,
-          urlLogo: element.urlLogo
-          // urlLogo: ''
-        }
-        element.transaction = 'trade'
-      }
-
-      if (
-        (element.type === "fiat_deposit")
-        || (element.type === "interest")
-        || (element.type === 'reward')
-        || (element.type === 'inflation_reward')
-        || (element.type === 'staking_reward')
-      ) {
-        element.exit = { amount: 0, currency: '' };
-        element.transaction = 'deposit';
-      }
-
-      if ((
-        element.description && (element.description).includes('Earn'))
-        || (element.details.subtitle && (element.details.subtitle).includes('Earn'))
-      ) {
-        element.exit = { amount: 0, currency: '' };
-        element.transaction = 'deposit';
-        element.smartType = 'Earn'
-      }
-
-      if (element.type === 'send' && parseFloat(element.amount.amount) < 0) {
-        element.entry = {
-          amount: 0,
-          currency: ''
-        }
-        element.transaction = 'withdrawals'
-
-      } else if (element.type === 'send') {
-        element.exit = {
-          amount: 0,
-          currency: ''
-        }
-        element.transaction = 'deposit'
-      }
-
-      if (element.type === "vault_withdrawal" || element.type === "transfer") {
-        if (parseFloat(element.amount.amount) < 0) {
-          // Retrait sur wallet extern
-          element.entry = {
-            amount: 0,
-            currency: ''
-          }
-          element.transaction = 'withdrawals'
-
-        } else {
-          // depot du wallet externe 
-          element.exit = {
-            amount: 0,
-            currency: ''
-          }
-          element.transaction = 'deposit'
-        }
-      }
-
-      // TODO 
-      element.modal = {
-        id_transaction: element.id,
-        title: element.details.title,
-        subtitle: element.details.subtitle,
-        header: element.details.header,
-        fee: element?.data_buy?.fee ? element?.data_buy?.fee : null,
-        subtotal: element?.data_buy?.subtotal ? element?.data_buy?.subtotal : null,
-        total: element?.data_buy?.total ? element?.data_buy?.total : null,
-        unit_price: element?.data_buy?.unit_price ? element?.data_buy?.unit_price : null,
-      }
-    })
-
-
-    return transactions;
-  }
 
   const postProcess = async (transactions) => {
 
@@ -245,7 +18,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     // rebuild data for table datagrid
     if (result.length > 0) {
 
-      result = await rebuildDataCoinbase(result);
+      result = await rebuildDataCoinbase(result, userData);
       // setTransactions(result);
       // localStorage.setItem('transactions-coinbase', JSON.stringify(result))
       return result
@@ -311,7 +84,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     return accounts;
   }
 
-  async function fetchAllTransacPath(path, searchDirection) {
+  async function fetchAllTransacWithPath(path, searchDirection) {
 
     let nexPageTrxUri = null;
     let previousTrxUri = null;
@@ -351,7 +124,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
     let accountTransactions = [];
 
-    // let path = '/v2/accounts/' + accountId + "/transactions";
+
     const data = await fetchTransac(path);
     accountTransactions = accountTransactions.concat(data.data);
 
@@ -374,12 +147,12 @@ const proccesTransactionCoinbase = async (mode, userData) => {
 
       default:
         break;
-
     }
 
 
     return accountTransactions;
   }
+
 
   const fetchAllTransactions = async (accounts) => {
 
@@ -390,7 +163,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       let account = accounts[index];
       try {
         let path = '/v2/accounts/' + account.id + "/transactions";
-        const data = await fetchAllTransacPath(path, 'next');
+        const data = await fetchAllTransacWithPath(path, 'next');
         transactions = [...transactions, ...data]
 
       } catch (error) {
@@ -414,7 +187,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       let query = "?ending_before=" + account.id_last_trx;
       try {
         let path = '/v2/accounts/' + account.id_account + "/transactions" + query;
-        const data = await fetchAllTransacPath(path, 'previous');
+        const data = await fetchAllTransacWithPath(path, 'previous');
         transactions = [...transactions, ...data]
 
       } catch (error) {
@@ -447,13 +220,11 @@ const proccesTransactionCoinbase = async (mode, userData) => {
     accounts = accountSaved;
   }
 
-  // const trxSaved = JSON.parse(localStorage.getItem('transactions-coinbase'));
-
-
   const allTransactionsSaved = JSON.parse(localStorage.getItem('transactions-all'))
   const trxSaved = allTransactionsSaved.filter(transaction => {
     return transaction.exchange === 'coinbase'
   })
+
 
 
   if (trxSaved === null || !trxSaved.length > 0) {
@@ -494,7 +265,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       console.log('New account filtred ', positiveAccount);
       console.log('New account lenght filtred ', positiveAccount.length);
 
-
+      // Return array with last transaction by token 
       const lastTrx = getLastestTransactionsCoinbase(allTransactions);
       console.log('Last current TRX', lastTrx);
       console.log('Last current TRX lenght', lastTrx.length);
@@ -502,6 +273,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
       let newAccount = []
       let newTrx = [];
       let newAcountTrx = [];
+      // Fetch new account token trx
       positiveAccount.forEach((account, index) => {
 
         // const ObjIdToFind = account.balance.currency;
@@ -528,6 +300,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
         }
       }
 
+      // Fetch existant token 
       newTrx = await fetchNewTransactions(lastTrx);
 
       if (newTrx.length > 0) {
@@ -535,7 +308,7 @@ const proccesTransactionCoinbase = async (mode, userData) => {
         toast("Nouvelle transaction Coinbase trouvée")
         newTrx = await postProcess(newTrx);
       } else {
-        toast("Pas de nouvelle transaction Coinbase")
+        toast("Pas de nouvelle transaction Coinbase avec ce nouveau token")
         // console.log('no new transaction Coinbase')
       }
 

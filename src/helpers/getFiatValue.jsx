@@ -19,7 +19,7 @@ const getFiatValue = async (currency, date) => {
     return (element.symbol).toLowerCase() === currency.toLowerCase();
   }))
 
-  console.log('Filtred geko ', idGeko)
+  // console.log('Filtred geko ', idGeko)
   let url = '';
 
   if (idGeko.length === 0) {
@@ -36,8 +36,8 @@ const getFiatValue = async (currency, date) => {
 
   const historyPrice = async (url) => {
     try {
-      console.log('await 8000ms')
-      await delay(8000);
+      console.log('await 10000ms')
+      await delay(10000);
       const response = await fetch(url, {
         method: 'get',
         headers: {
@@ -68,8 +68,6 @@ const getFiatValue = async (currency, date) => {
     console.log('Error price historic, Keep origin value ')
     return { currency: 1 };
   }
-
-
 }
 
 

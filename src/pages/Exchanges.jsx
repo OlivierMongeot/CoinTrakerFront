@@ -15,7 +15,6 @@ const Exchanges = () => {
 
   const userData = JSON.parse(localStorage.getItem('user'));
 
-
   const [allExchanges, setAllExchanges] = React.useState([]);
 
   console.log('exchanges');
