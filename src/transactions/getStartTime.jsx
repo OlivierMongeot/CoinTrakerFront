@@ -8,7 +8,7 @@ const getStartTime = async (userData, exchange, type, reset = false) => {
   }
 
   let currentTimesTable = await getTimeTable(userData)
-  console.log('currentTimesTable', currentTimesTable)
+  // console.log('currentTimesTable', currentTimesTable)
   let start = null;
 
   if (currentTimesTable === undefined) {
@@ -18,7 +18,7 @@ const getStartTime = async (userData, exchange, type, reset = false) => {
   } else {
     start = currentTimesTable[exchange][type]
   }
-  console.log('start time ', start)
+  // console.log('start time ', start)
   return start
 }
 

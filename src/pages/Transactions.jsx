@@ -7,123 +7,171 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TableTransactions from '../components/Transactions/TableTransactions';
 import getNewWithdrawals from '../transactions/kucoin/withdrawals/getNewWithdraws'
-import eraseDoublon from '../helpers/eraseDoublon';
+// import eraseDoublon from '../helpers/eraseDoublon';
 import getNewDeposits from '../transactions/kucoin/deposits/getNewDeposits';
 
 import getNewTradesKucoin from '../transactions/kucoin/trades/getNewTradesKucoin';
 
 
 import getTransactionsDB from '../transactions/getTransactionsDB';
-import getNewTransactions from '../transactions/coinbase/getNewTransactions';
+import getNewTransactionsCoinbase from '../transactions/coinbase/getNewTransactions';
+import getSingleQuote from '../transactions/getSingleQuote';
+// import getQuote from '../transactions/getQuoteHistory';
+// import getSingleQuote from '../transactions/getSingleQuote';
+// import { useCallback } from 'react';
 
 
 const Transactions = () => {
+
+    // const updateQuote = async (transactions) => {
+    //     console.log('Update Quote ', transactions)
+    //     let index = 0
+
+    //     while (index < transactions.length) {
+    //         console.log('check ', index)
+    //         if (transactions[index].quote_transaction === null) {
+
+    //             let newTransacQuoted = await getSingleQuote(transactions[index], userData)
+
+    //             if (newTransacQuoted !== null) {
+    //                 console.log('update state')
+    //                 const rowToUpdateIndex = index;
+
+    //                 setTransactions(prevTransactions => {
+    //                     return prevTransactions.map((trx, prevIndex) =>
+    //                         prevIndex === rowToUpdateIndex ? { ...newTransacQuoted } : trx
+    //                     );
+    //                 })
+
+    //             }
+
+    //             // setTransactions(newTransacQuoted)
+    //             console.log('New trx qoted ', newTransacQuoted)
+    //         }
+    //         index++
+
+    //     }
+
+    // }
+
 
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('user'));
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const [coinbaseTrxDB, setCoinbaseTrxDB] = React.useState([])
+    // const [coinbaseTrxDB, setCoinbaseTrxDB] = React.useState([])
 
-    const updateAllTransactions = async (currentTransactions) => {
+    const getNewTransactions = async (coinbaseTransactionsDB) => {
 
-        // let state = null
-        // // KUCOIN PART
-        // do {
-        //     let [newDeposits, st] = await getNewDeposits(userData, false);
-        //     let newDepots = newDeposits
-        //     state = st
-        //     if (newDeposits.length > 0) {
-        //         setTransactions(previousTransactions => {
-        //             return [...previousTransactions, ...newDepots]
-        //         })
-        //     }
-        // } while (state === 'continue');
+        let state = null
+        // KUCOIN PART
+        do {
+            let [newDeposits, st] = await getNewDeposits(userData);
+            let newDepots = newDeposits
+            state = st
+            if (newDeposits.length > 0) {
+                setTransactions(previousTransactions => {
+                    return [...previousTransactions, ...newDepots]
+                })
+            }
+        } while (state === 'continue');
 
-        // state = null
-        // do {
-        //     let [newWithdrawals, st] = await getNewWithdrawals(userData, false);
-        //     let newWithdraws = newWithdrawals
-        //     state = st
-        //     if (newWithdraws.length > 0) {
-        //         setTransactions(previousTransactions => {
-        //             return [...previousTransactions, ...newWithdraws]
-        //         })
-        //     }
-        // } while (state === 'continue');
-        // state = null
+        do {
+            let [newWithdrawals, st] = await getNewWithdrawals(userData, false);
+            let newWithdraws = newWithdrawals
+            state = st
+            if (newWithdraws.length > 0) {
+                setTransactions(previousTransactions => {
+                    return [...previousTransactions, ...newWithdraws]
+                })
+            }
+        } while (state === 'continue');
 
 
-        // do {
-        //     let [newTrades, st] = await getNewTradesKucoin(userData, false);
-        //     let newTrs = newTrades
-        //     // index++
-        //     state = st
-        //     if (newTrs.length > 0) {
-        //         setTransactions(previousTransactions => {
-        //             return [...previousTransactions, ...newTrs]
-        //         })
-        //     }
-        // } while (state === 'continue');
+        do {
+            let [newTrades, st] = await getNewTradesKucoin(userData, false);
+            let newTrs = newTrades
+            // index++
+            state = st
+            if (newTrs.length > 0) {
+                setTransactions(previousTransactions => {
+                    return [...previousTransactions, ...newTrs]
+                })
+            }
+        } while (state === 'continue');
 
         // COINBASE PART
 
-        let newTrs = await getNewTransactions(coinbaseTrxDB, userData);
-        setTransactions(previousTransactions => {
-            return [...previousTransactions, ...newTrs]
-        })
+        let newTrsCoinbase = await getNewTransactionsCoinbase(coinbaseTransactionsDB, userData);
 
+
+
+        // setTransactions(previousTransactions => {
+        //     return [...previousTransactions, ...newTrsCoinbase]
+        // })
+        // console.log('TRANSACTION ', transactions)
+
+
+        // console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
+        // // updateLocalStorageTransaction(transactions[index]);
+        // const rowToUpdateIndex = index;
+
+        // setTransactions(prevTransactions => {
+        //     return prevTransactions.map((trx, prevIndex) =>
+        //         prevIndex === rowToUpdateIndex ? { ...trx } : trx
+        //     );
+        // })
     }
+
+
 
     const getAllTransactionsDB = async () => {
         setIsLoading(true)
-        let coinbaseTransactions = []
-
+        let coinbaseTransactionsDB = []
 
         // COINBASE 
-        coinbaseTransactions = await getTransactionsDB(userData, null, 'coinbase');
-        setCoinbaseTrxDB(coinbaseTransactions)
-        console.log('all Trx Coinbase', coinbaseTransactions.length);
+        coinbaseTransactionsDB = await getTransactionsDB(userData, null, 'coinbase');
+        // console.log('all Trx Coinbase In DB', coinbaseTransactionsDB);
 
         // KUCOIN
-        let transactionsKucoin = []
-        //  transactionsKucoin = await getTransactionsDB(userData, null, 'kucoin')
+        let transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
 
-        // console.log('Kucoin Trx : ', tradesKucoin.length);
-        // let depositsKucoin = await getTransactionsDB(userData, 'deposit', 'kucoin')
-        // console.log('Deposits total ', depositsKucoin.length)
-        // let withdrawalsKucoin = await getTransactionsDB(userData, 'withdrawals', 'kucoin')
-        // console.log('Withdrawals total ', withdrawalsKucoin.length)
-        // let mouvements = [...depositsKucoin, ...withdrawalsKucoin]
-        // let transactionsKucoin = [...tradesKucoin, ...mouvements];
-
-        let allTrx = [...transactionsKucoin, ...coinbaseTransactions];
+        let allTrx = [...transactionsKucoinDB, ...coinbaseTransactionsDB];
 
         allTrx.sort((a, b) => {
             return b.created_at - a.created_at;
         })
-        // ADD Number for devlopment 
-        // console.log('add index for dev')
-        // allTrx.forEach((transaction, ix) => {
-        //     transaction.range = ix;
-        // })
-        console.log('All exchanges trx ', allTrx.length)
-        // allTrx = eraseDoublon(allTrx)
-        setTransactions(allTrx);
-        // dispatch(setTransactionsState(allTrx))
-        setIsLoading(false)
-        // backgroundFetchQuote(allTrx)
 
-        updateAllTransactions(allTrx)
+        console.log('All Exchanges trx in DB', allTrx.length)
+
+        if (allTrx.length > 0) {
+            setTransactions(allTrx);
+        }
+
+        setIsLoading(false)
+        return [coinbaseTransactionsDB]
+
     }
 
 
+    const process = async () => {
+
+        let [trxDBCoinbase] = await getAllTransactionsDB()
+        await getNewTransactions(trxDBCoinbase)
+        console.log('State trx', transactions)
+    }
+
+
+
     React.useEffect(() => {
+        console.clear()
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
         } else {
-            // getAllTransactionsDB('no-update');
+            // process()
+
         }
+
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -148,7 +196,7 @@ const Transactions = () => {
             <Grid item xs={12} md={8} lg={9} mt={2} sx={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
 
                 <Button sx={style} variant="outlined" onClick={() => {
-                    getAllTransactionsDB()
+                    process()
                 }} >
                     Start
                 </Button>

@@ -1,12 +1,12 @@
 
-import addUrlImage from '../helpers/addUrlImage'
+import addUrlImage from '../../src/helpers/addUrlImage'
 import rebuildDepositKucoin from './rebuildDepositKucoin';
 import fetchQuote from './fetchQuote';
-import saveLastTimeChecked from '../transactions/setTimeTable'
-import getHumanDateTime from '../helpers/getHumanDate';
-import config from '../config';
+import saveLastTimeChecked from '../../src/transactions/setTimeTable'
+import getHumanDateTime from '../../src/helpers/getHumanDate';
+import config from '../../src/config';
 import saveNewDeposit from './saveNewDeposits';
-import getTimeTable from '../transactions/getTimeTable';
+import getTimeTable from '../../src/transactions/getTimeTable';
 
 
 const getNewDeposits = async (userData, reset) => {

@@ -1,10 +1,11 @@
 // import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import config from '../config';
 
 
 const getTransactionsDB = async (user, type, exchange) => {
 
-  console.log('------START GET TRX ' + exchange + ' -- ' + type + ' ------')
+  console.log('-- GET TRX in Database ' + exchange + ' -- ' + type + ' --')
 
   const data = JSON.stringify({
     userId: user.id,
@@ -38,7 +39,9 @@ const getTransactionsDB = async (user, type, exchange) => {
     return savedTradesKucoin
 
   } catch (error) {
+    toast('Erreur ' + error.message)
     console.log('catch error', error);
+
     throw new Error("HTTP error " + error.message);
   }
 

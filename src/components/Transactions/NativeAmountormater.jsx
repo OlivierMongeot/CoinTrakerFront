@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import Loader from './TrxLoader';
-import IconeUsd from '../Icones/IconeUsd';
-import IconeEur from '../Icones/IconeEur';
+import IconeUsd from '../IconesSVG/IconeUsd';
+import IconeEur from '../IconesSVG/IconeEur';
 
 
 const nativeAmountFormater = (props) => {

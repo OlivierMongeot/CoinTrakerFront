@@ -1,8 +1,14 @@
 import config from '../config';
 
-const saveNewTransactions = async (transactions, userData) => {
-
+const saveNewTransactions = async (transactions: [], userData: []): void => {
+  console.log('Save in DB')
   let baseUrl = "http://" + config.urlServer;
+
+
+  // Separae les envois si il y a + 5 transactions
+  if (transactions.length > 5) {
+    console.log('DATA > 5 : split the data not work for the momment')
+  }
 
   const data = {
     email: userData.email,

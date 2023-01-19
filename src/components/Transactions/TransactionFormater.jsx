@@ -1,8 +1,8 @@
 import * as React from 'react';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import IconeDeposit from '../components/Icones/IconeDeposit';
-import IconeWithdraw from '../components/Icones/IconeWidthdraw';
-import IconeSwap from '../components/Icones/IconeSwap';
+import IconeDeposit from '../IconesSVG/IconeDeposit';
+import IconeWithdraw from '../IconesSVG/IconeWidthdraw';
+import IconeSwap from '../IconesSVG/IconeSwap';
 
 const TransacFormater = (props) => {
   // console.log('props', props);

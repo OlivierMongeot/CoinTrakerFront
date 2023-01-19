@@ -62,7 +62,6 @@ const Home = () => {
             field: 'market_cap_change_percentage_24h', headerName: 'Mc %', width: 90, align: 'center', headerAlign: 'center',
             renderCell: (params) => <PourcentFormater value={params.value} />
         },
-
         {
             field: 'circulating_supply', headerName: 'Suply', width: 110, align: 'right', headerAlign: 'right',
             renderCell: (params) => <BigNumberFormater value={params.value} />
@@ -74,19 +73,21 @@ const Home = () => {
     ];
 
     React.useEffect(() => {
-
-        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C14d%2C30d%2C200d%2C1y`)
-            .then(res => {
-                setCoinsData(res.data);
-                console.log('api GECKO DATA', res.data.length);
-                localStorage.setItem('GekocoinsData', JSON.stringify(res.data))
-                setIsLoading(false)
-            }
-            ).catch
-            (err => {
-                console.log(err);
-            }
-            )
+        let dt = JSON.parse(localStorage.getItem('GekocoinsData'))
+        setCoinsData(dt);
+        setIsLoading(false)
+        // axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C14d%2C30d%2C200d%2C1y`)
+        //     .then(res => {
+        //         setCoinsData(res.data);
+        //         console.log('api GECKO DATA', res.data.length);
+        //         localStorage.setItem('GekocoinsData', JSON.stringify(res.data))
+        //         setIsLoading(false)
+        //     }
+        //     ).catch
+        //     (err => {
+        //         console.log(err);
+        //     }
+        //     )
     }, [])
 
 

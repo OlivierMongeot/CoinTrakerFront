@@ -1,12 +1,15 @@
 import * as React from 'react';
-import IconeEur from '../Icones/IconeEur';
-import IconeUsd from '../Icones/IconeUsd';
-import IconeUsdt from '../Icones/IconeUsdt';
-import IconeBitcoin from '../Icones/IconeBitcoin';
-import IconeEtherum from '../Icones/IconeEtherum';
-import IconeUSDC from '../Icones/IconeUSDC';
-import IconeKCS from '../Icones/IconeKCS'
-
+import IconeEur from '../IconesSVG/IconeEur';
+import IconeUsd from '../IconesSVG/IconeUsd';
+import IconeUsdt from '../IconesSVG/IconeUsdt';
+import IconeBitcoin from '../IconesSVG/IconeBitcoin';
+import IconeEtherum from '../IconesSVG/IconeEtherum';
+import IconeUSDC from '../IconesSVG/IconeUSDC';
+import IconeKCS from '../IconesSVG/IconeKCS'
+import IconeNear from '../IconesSVG/IconeNear';
+import IconeSolana from '../IconesSVG/IconeSolana';
+import IconeJPG from '../IconesJPG/IconeJPG';
+import IconeXRP from '../IconesSVG/IconXrp';
 
 const BadgeFormater = (props) => {
   // console.log('props', props);
@@ -73,7 +76,6 @@ const BadgeFormater = (props) => {
             <IconeUsdt></IconeUsdt>
           </div>
         )
-
       case 'BTC':
         return (
           <div style={style}>
@@ -81,7 +83,6 @@ const BadgeFormater = (props) => {
             <IconeBitcoin></IconeBitcoin>
           </div>
         )
-
       case 'USDC':
         return (
           <div style={style}>
@@ -89,7 +90,6 @@ const BadgeFormater = (props) => {
             <IconeUSDC></IconeUSDC>
           </div>
         )
-
       case 'KCS':
         return (
           <div style={style}>
@@ -106,6 +106,35 @@ const BadgeFormater = (props) => {
             <IconeEtherum></IconeEtherum>
           </div>
         )
+
+      case 'NEAR':
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeNear></IconeNear>
+          </div>
+        )
+
+      case 'SOL':
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            {/* <IconeJPG></IconeJPG> */}
+            <IconeSolana></IconeSolana>
+
+          </div>
+        )
+
+      case 'XRP':
+        return (
+          <div style={style}>
+            <span > {value} {currency}</span >
+            <IconeXRP></IconeXRP>
+          </div>
+        )
+
+
+
 
       default:
         break

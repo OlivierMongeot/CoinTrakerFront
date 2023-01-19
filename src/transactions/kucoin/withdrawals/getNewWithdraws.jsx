@@ -2,14 +2,12 @@ import config from '../../../config';
 import addUrlImage from '../../../helpers/addUrlImage';
 import getHumanDateTime from '../../../helpers/getHumanDate';
 import fetchQuote from '../../getQuoteHistory';
-import saveNewTransactions from '../../saveNewTransactions';
+import saveNewTransactions from '../../saveNewTransactionsDB';
 import getStartTime from '../../getStartTime';
 import setTimeTable from '../../setTimeTable';
 import rebuildKucoinData from '../rebuildKucoinData';
 
 const getNewWithdrawals = async (userData, reset) => {
-
-  console.log('----------START WITHDRAWALS FETCH---------------')
 
   let start = await getStartTime(userData, 'kucoin', 'withdrawals')
 
@@ -60,12 +58,12 @@ const getNewWithdrawals = async (userData, reset) => {
     try {
       const data = await fetchWithdrawalsKucoin(start);
       if (data.items) {
-        const result = data.items;
-        if (result.length === 0) {
-          console.log('No new withdrawals')
-        } else {
-          console.log('New withdrawals : ', result.length)
-        }
+        // const result = data.items;
+        // if (result.length === 0) {
+
+        // } else {
+        //   console.log('New withdrawals : ', result.length)
+        // }
         newWithdrawals = newWithdrawals.concat(data.items);
       } else {
         console.log('result raw', data)
@@ -81,7 +79,7 @@ const getNewWithdrawals = async (userData, reset) => {
     return [[], 'stop'];
   }
 
-  console.log('NEW withdrawals', newWithdrawals)
+  // console.log('NEW withdrawals', newWithdrawals)
 
   if (newWithdrawals.length > 0) {
     newWithdrawals = await addUrlImage(newWithdrawals, 'kucoin', 'withdrawals');

@@ -5,8 +5,6 @@ const shouldIUpdateFromAPI = (exchangeName) => {
 
   if ('wallet-' + exchangeName in localStorage && (typeof (localStorage.getItem('wallet-' + exchangeName)) === 'string')) {
 
-
-
     let walletLocalStorage = JSON.parse(localStorage.getItem('wallet-' + exchangeName));
     if (!walletLocalStorage) {
       console.log('Wallet vide Trouvé en local Store');

@@ -1,6 +1,6 @@
 import Paper from '@mui/material/Paper';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
-import TransactionFormater from '../../helpers/TransactionFormater';
+import TransactionFormater from './TransactionFormater';
 import NativeAmountormater from '../../components/Transactions/NativeAmountormater';
 import DescriptionFormater from '../../components/Transactions/DescriptionFormater';
 import BadgeFormater from '../../components/Transactions/BadgeFormater';

@@ -1,10 +1,10 @@
 
 const rebuildKucoinData = async (transactions: [], type: string): [] => {
-
+  let index = 0;
   switch (type) {
     case 'deposit':
       console.log('rebuild Deposit kucoin', transactions)
-      let index = 0;
+
       while (index < transactions.length) {
         transactions[index].exchange = 'kucoin'
         transactions[index].id = transactions[index].walletTxId;
@@ -30,6 +30,8 @@ const rebuildKucoinData = async (transactions: [], type: string): [] => {
           amount: 0,
           currency: ''
         }
+        transactions[index].id_transaction = transactions[index].walletTxId
+
         delete transactions[index].arrears
         delete transactions[index].updatedAt
         delete transactions[index].isInner
@@ -79,7 +81,7 @@ const rebuildKucoinData = async (transactions: [], type: string): [] => {
 
         transactions[index].native_amount = { amount: transactions[index].amount, currency: transactions[index].currency };
         transactions[index].transaction = 'withdrawals'
-
+        transactions[index].id_transaction = transactions[index].walletTxId
         delete transactions[index].isInner
         delete transactions[index].updatedAt
         delete transactions[index].updated_at
@@ -99,14 +101,13 @@ const rebuildKucoinData = async (transactions: [], type: string): [] => {
 
     case 'trade':
       console.log('Rebuild kucoin TRADE')
-
       index = 0;
-
       while (index < transactions.length) {
 
         transactions[index].exchange = 'kucoin'
         transactions[index].id = transactions[index].tradeId;
         transactions[index].created_at = transactions[index].createdAt;
+        transactions[index].id_transaction = transactions[index].tradeId
         transactions[index].info = {
 
           idTx: transactions[index]?.walletTxId,

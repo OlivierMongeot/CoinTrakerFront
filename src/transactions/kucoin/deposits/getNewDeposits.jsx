@@ -7,16 +7,17 @@ import config from '../../../config';
 
 // import getTimeTable from '../../transactions/getTimeTable';
 import getStartTime from '../../getStartTime';
-import saveNewTransactions from '../../saveNewTransactions';
+import saveNewTransactions from '../../saveNewTransactionsDB';
 import setTimeTable from '../../setTimeTable';
 import rebuildKucoinData from '../rebuildKucoinData';
 
 
-const getNewDeposits = async (userData, reset) => {
+const getNewDeposits = async (userData) => {
 
-  console.log('Start Fetch New Deposit')
+  let start = null
 
-  let start = await getStartTime(userData, 'kucoin', 'deposit')
+  // start = 1640908800000
+  start = await getStartTime(userData, 'kucoin', 'deposit')
 
   let newDeposits = [];
 
@@ -69,8 +70,6 @@ const getNewDeposits = async (userData, reset) => {
       const data = await fetchDepositsKucoin(start);
       if (data.items) {
         newDeposits = newDeposits.concat(data.items);
-      } else {
-        console.log('result raw', data)
       }
     } catch (error) {
       console.log('error catched :', error);
@@ -83,11 +82,11 @@ const getNewDeposits = async (userData, reset) => {
   }
 
 
-
   if (newDeposits.length > 0) {
     newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposit')
     newDeposits = await rebuildKucoinData(newDeposits, 'deposit')
     newDeposits = await getQuote(newDeposits)
+    console.log('SAVE DEPOSITS IN DB')
     saveNewTransactions(newDeposits, userData)
   }
 

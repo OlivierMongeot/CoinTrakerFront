@@ -7,7 +7,7 @@ import rebuildDataCoinbase from "./rebuildDataCoinbase";
 import { toast } from 'react-toastify';
 
 import getAllAccountsCoinbase from "./getAllAccounts";
-import saveNewTransactions from "../saveNewTransactions";
+import saveNewTransactions from "../saveNewTransactionsDB";
 import getQuote from "../getQuoteHistory";
 
 async function fetchAllTransacWithPath(path, searchDirection, userData) {
@@ -42,6 +42,15 @@ async function fetchAllTransacWithPath(path, searchDirection, userData) {
       console.log('------');
       console.log('Trx Page', trxPage.pagination);
       console.log('New Trx data', trxPage.data);
+      let newTrx = trxPage.data
+
+
+      newTrx = await addUrlImage(newTrx, 'coinbase')
+      newTrx = await rebuildDataCoinbase(newTrx, userData);
+      console.log('after post process + save in DB :', newTrx)
+      // Save in DB 
+      saveNewTransactions(newTrx, userData)
+
     }
     nexPageTrxUri = trxPage.pagination.next_uri;
     previousTrxUri = trxPage.pagination.previous_uri;
@@ -91,16 +100,9 @@ const getAllTransactions = async (accounts, userData) => {
     let account = accounts[index];
     try {
       let path = '/v2/accounts/' + account.id + "/transactions";
+      // console.log('user data ', userData)
+      console.log('account', account)
       let newTrx = await fetchAllTransacWithPath(path, 'next', userData);
-      if (newTrx.length > 0) {
-        console.log('_______!!! new TRX a enregistrer en DB ')
-        console.log(newTrx)
-        newTrx = await postProcess(newTrx, userData);
-
-        // Save in DB 
-        saveNewTransactions(newTrx, userData)
-
-      }
 
       transactions = [...transactions, ...newTrx]
 
@@ -113,18 +115,6 @@ const getAllTransactions = async (accounts, userData) => {
   return transactions;
 }
 
-const postProcess = async (transactions, userData) => {
-
-  // const data = eraseDoublon(transactions)
-  transactions = await addUrlImage(transactions, 'coinbase')
-  // rebuild data for table datagri
-  transactions = await rebuildDataCoinbase(transactions, userData);
-  transactions = getQuote(transactions)
-  // setTransactions(result);
-  // localStorage.setItem('transactions-coinbase', JSON.stringify(result))
-  return transactions
-
-}
 
 const fetchNewCurrentTokenTransactions = async (lastTrx) => {
 
@@ -158,27 +148,24 @@ const fetchNewCurrentTokenTransactions = async (lastTrx) => {
 
 const getAllNewTransactions = async (coinbaseTrxDB, userData, checkIfNewAccount = false) => {
 
-  const accountSaved = JSON.parse(localStorage.getItem('accounts-coinbase'));
 
-  console.log(accountSaved)
   let accounts = []
 
-  // console.log(accounts)
+  console.log('coinbaseTrxDB', coinbaseTrxDB)
   // return []
 
   if (coinbaseTrxDB.length === 0) {
     console.log('Procces all ')
     accounts = await getAllAccountsCoinbase(userData, true);
     let allTransactions = await getAllTransactions(accounts, userData);
-
     return allTransactions
 
   }
   else {
     console.log('Update all ')
-    const lastTrxSaved = getLastestTransactionsCoinbase(coinbaseTrxDB);
-    console.log('Last current TRX', lastTrxSaved);
-    console.log('Last current TRX lenght', lastTrxSaved.length);
+    const lastTrxSavedDB = getLastestTransactionsCoinbase(coinbaseTrxDB);
+    console.log('Last current TRX', lastTrxSavedDB);
+    console.log('Last current TRX lenght', lastTrxSavedDB.length);
 
     // Check if new account
     accounts = await getAllAccountsCoinbase(userData, checkIfNewAccount);
@@ -190,7 +177,7 @@ const getAllNewTransactions = async (coinbaseTrxDB, userData, checkIfNewAccount 
     // dans les account mais ou il n'y a pas encore de transactions présente
     positiveAccount.forEach((account, index) => {
 
-      const isObjectPresent = lastTrxSaved.find((o) => o.token === account.balance.currency);
+      const isObjectPresent = lastTrxSavedDB.find((o) => o.token === account.balance.currency);
 
       if (isObjectPresent === undefined) {
         // console.log(ObjIdToFind, ' - ', isObjectPresent)
@@ -199,37 +186,40 @@ const getAllNewTransactions = async (coinbaseTrxDB, userData, checkIfNewAccount 
       }
     })
 
-    console.log('newAccount ', newAccount);
+    console.log('new Account find ', newAccount.name);
     if (newAccount.length === 0) {
       toast("Pas de nouveau token trouvé")
     }
-    let newAcountTrx = [];
-    if (newAccount.length > 0) {
+    let newTrxForNewAccount = [];
+    // if (newAccount.length > 0) {
 
-      newAcountTrx = await getAllTransactions(newAccount);
-      console.log('New account find with new trx', newAcountTrx);
-      if (newAcountTrx.length > 0) {
-        newAcountTrx = await postProcess(newAcountTrx);
-        // // Save in DB 
-        saveNewTransactions(newAcountTrx, userData)
-      }
+    newTrxForNewAccount = await getAllTransactions(newAccount, userData);
+    //   console.log('New account find with new trx', newAcountTrx);
+    if (newTrxForNewAccount.length > 0) {
+
+      // // Save in DB 
+      console.log('Threre is new account trx', newTrxForNewAccount)
+      // saveNewTransactions(newAcountTrx, userData)
     }
+
 
 
     // Fetch existant token 
     let newTrx = [];
-    newTrx = await fetchNewCurrentTokenTransactions(lastTrxSaved);
+    // newTrx = await fetchNewCurrentTokenTransactions(lastTrxSaved);
 
-    if (newTrx.length > 0) {
-      console.log('New trx : ', newTrx);
-      toast("Nouvelle transaction Coinbase trouvée")
-      newTrx = await postProcess(newTrx);
-      saveNewTransactions(newTrx, userData)
-    } else {
-      toast("Pas de nouvelle transaction Coinbase avec ce nouveau token")
-    }
+    // if (newTrx.length > 0) {
+    //   console.log('New trx : ', newTrx);
+    //   toast("Nouvelle transaction Coinbase trouvée")
 
-    let allTransactions = [...newTrx, ...newAcountTrx];
+    // transactions = await addUrlImage(transactions, 'coinbase')
+    // transactions = await rebuildDataCoinbase(transactions, userData);
+    // //   saveNewTransactions(newTrx, userData)
+    // } else {
+    //   toast("Pas de nouvelle transaction Coinbase avec ce nouveau token")
+    // }
+
+    let allTransactions = [...newTrx, ...newTrxForNewAccount];
     // totalTrx = await rebuildDataCoinbase(totalTrx, 'coinbase');
     console.log('lenght', allTransactions.length);
     return allTransactions;

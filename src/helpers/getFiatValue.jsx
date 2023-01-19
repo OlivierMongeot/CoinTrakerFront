@@ -33,11 +33,30 @@ const getFiatValue = async (currency, date) => {
       + (idGeko[0].id).toLowerCase() + "/history?date=" + date;
   }
 
+  const saveLastTimeQuotation = () => {
+    localStorage.setItem('last_quote_time', JSON.stringify(Date.now()))
+  }
+
+  const getLastTimeQuotation = () => {
+
+    return localStorage.getItem('last_quote_time')
+  }
+
 
   const historyPrice = async (url) => {
     try {
-      console.log('await 10000ms')
-      await delay(10000);
+      let time = getLastTimeQuotation();
+      let delta = Date.now() - parseInt(time)
+      if (delta < 9000) {
+        // add time 
+        let add = 9000 - delta
+        console.log('await ' + add + 'ms')
+        await delay(add);
+      } else {
+        console.log('no await')
+      }
+
+      saveLastTimeQuotation(Date.now())
       const response = await fetch(url, {
         method: 'get',
         headers: {
@@ -66,7 +85,7 @@ const getFiatValue = async (currency, date) => {
   }
   else {
     console.log('Error price historic, Keep origin value ')
-    return { currency: 1 };
+    return null;
   }
 }
 

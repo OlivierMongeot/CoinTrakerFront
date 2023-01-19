@@ -115,21 +115,7 @@ const rebuildDataCoinbase = async (transactions, userData) => {
     element.exchange = 'coinbase';
     element.createdAt = element.created_at;
     element.created_at = new Date(element.created_at).getTime();
-    // if (element.details.subtitle !== null) {
-    //   element.title = element.details.title + ' ' + (element.details?.subtitle).toLowerCase();
-    // } else {
-    //   element.title = element.details.title;
-    // }
-    // if (element.details.header !== null) {
-    //   element.title = element.title + ' (' + element.details.header + ')';
-    // }
-    // element.title = element.title + ' | ID: ' + element.id;
 
-
-
-    // element.smartType = getSmartType(element.type, element.amount.amount, element.description);
-    // element.smartTitle = { info: element.title, type: element.smartType }
-    // element.token = element.amount.currency;
 
     if (parseFloat(element.amount.amount) > 0) {
 
@@ -219,6 +205,7 @@ const rebuildDataCoinbase = async (transactions, userData) => {
     element.info = {
       // address: element?.address,
       // blockchain: element?.chain,
+      details: element?.details,
       memo: element?.type,
       idTx: element.id,
       remark: element?.title + element.subtitle ? element.subtitle : ' ' + element.header ? element.header : ' ',
@@ -227,6 +214,13 @@ const rebuildDataCoinbase = async (transactions, userData) => {
       status: element?.status,
       resource_path: element.resource_path
     }
+    element.id_transaction = element.id
+    element.quote_transaction = null
+    delete element.updated_at
+    delete element.instant_exchange
+    delete element.description
+    delete element.instant_exchange
+    delete element.instant_exchange
   })
 
 

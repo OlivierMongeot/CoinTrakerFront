@@ -3,7 +3,7 @@ import React from "react";
 export default function IconeUsd() {
   const style = {
     // backgroundColor: color,
-    marginLeft: '5px',
+    marginLeft: '10px',
     height: '20px',
     width: '20px',
   }

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const setTable = async (userData, exchange, typeTransaction = null, timestamp = 1640908800000) => {
 
-  console.log('Set TimeTable', exchange)
+  // console.log('Set TimeTable', exchange)
   // console.log('user Data ', userData)
   let baseUrl = "http://" + config.urlServer;
 
@@ -33,7 +33,7 @@ const setTable = async (userData, exchange, typeTransaction = null, timestamp = 
 
 const setTimeTable = async (exchange, type, time, userData) => {
 
-  console.log('Save Last Time Checked : ', exchange, 'type;', type, time, 'user:', userData.id);
+  // console.log('Save Last Time Checked : ', exchange, 'type;', type, time, 'user:', userData.id);
   // console.log(getHumanDateTime(time))
   const exchangesList = config.exchanges;
   // console.log(exchangesList);

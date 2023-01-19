@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import addUrlImage from '../../../helpers/addUrlImage'
 import getHumanDateTime from '../../../helpers/getHumanDate';
 import getStartTime from '../../getStartTime';
-import saveNewTransactions from '../../saveNewTransactions';
+import saveNewTransactions from '../../saveNewTransactionsDB';
 import setTimeTable from '../../setTimeTable';
 import getQuote from '../../getQuoteHistory';
 import rebuildKucoinData from '../rebuildKucoinData';
@@ -11,7 +11,7 @@ import rebuildKucoinData from '../rebuildKucoinData';
 
 const getNewTrades = async (userData, reset) => {
 
-  console.log('____START TRADE KUCOIN____');
+  // console.log('____START TRADE KUCOIN____');
 
   let newTrades = [];
 
@@ -56,8 +56,6 @@ const getNewTrades = async (userData, reset) => {
     return trx.data.data;
   }
 
-
-  console.log('Start at ', start)
 
   if (start < now && start !== undefined) {
     console.log('Start fetch TRADE for ', getHumanDateTime(start) + ' to ' + getHumanDateTime(start + oneWeek));

@@ -6,7 +6,7 @@ const getLastestTransactionsCoinbase = (savedTrxs) => {
 
   savedTrxs.forEach((transaction, index) => {
 
-    console.log(index, ' -- ', transaction)
+    // console.log(index, ' -- ', transaction)
 
     if (transaction.exchange === 'coinbase') {
       // let resource = transaction.resource_path;
@@ -28,7 +28,9 @@ const getLastestTransactionsCoinbase = (savedTrxs) => {
     })
 
     const lastTransaction = transactionsByToken.reduce((r, o) => new Date(o.created_at) > new Date(r.created_at) ? o : r);
-    const token = lastTransaction.amount.currency;
+
+    // console.log('lastTransaction ', lastTransaction)
+    const token = lastTransaction.currency;
     const path = lastTransaction.info.resource_path;
     const pathArray = path.split('/');
     currentTokensWithTransaction[index] = { id_account: pathArray[3], id_last_trx: pathArray[5], token: token }

@@ -4,7 +4,7 @@ export default function IconeUsdt() {
   const style = {
     height: '20px',
     width: '20px',
-    marginLeft: '5px',
+    marginLeft: '10px',
   }
   return (
     <div className="icone-usd" style={style} >
