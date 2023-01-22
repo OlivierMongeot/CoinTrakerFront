@@ -45,11 +45,11 @@ const Formater = (props) => {
                 {props.value?.type.toUpperCase()}
               </Typography>
             )}
-            {/* {props.value?.idTx && (
+            {props.value?.idTx && (
               <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.8rem' }}>
                 ID : {props.value.idTx}
               </Typography>
-            )} */}
+            )}
             {props.value?.side && (
               <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.9rem' }}>
                 Side : {props.value.side.toUpperCase()}
@@ -70,6 +70,21 @@ const Formater = (props) => {
                 Address : {props.value.address}
               </Typography>
             )}
+            {props.value?.details?.title && (
+              <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                Details : {props.value.details.title} {
+                  props.value.details?.subtitle ?
+                    props.value.details.subtitle.toLowerCase() :
+                    ''
+
+                }  {
+                  props.value.details?.header ?
+                    '"' + props.value.details?.header + '"'
+                    : ''
+                }
+              </Typography>
+            )}
+
 
 
             {props.value?.fee && (
@@ -77,10 +92,12 @@ const Formater = (props) => {
                 Fee : {props.value.fee} {props.value.feeCurrency ? props.value.feeCurrency : '$'}
               </Typography>
             )}
-            {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Memo : {props.value?.memo}
-            </Typography> */}
 
+            {props.value?.memo && (
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Memo : {props.value.memo.replaceAll('_', ' ')}
+              </Typography>
+            )}
             {props.value?.status && (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Status : {props.value.status}

@@ -26,7 +26,6 @@ const totalExchange = (result) => {
 
 export default async function updateProcess(exchange, arrayAmountWallets, updateAllWallets, force = false) {
   exchange = exchange.toLowerCase();
-  console.log('Update process', exchange);
 
   const updateGeneralWalletLS = (newExchangeData, exchange) => {
     // console.log('updateGeneralWalletLS ');
@@ -78,8 +77,6 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
 
   const getAPIData = async (url, user, exchange) => {
 
-    console.log('getAPIData for ', user.email);
-
     const data = JSON.stringify({
       email: user.email,
       exchange: exchange
@@ -121,18 +118,14 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
 
     case true:
       rotateSpinner(exchange, arrayAmountWallets);
-
-      // console.log('API CALL');
       const user = JSON.parse(localStorage.getItem('user'));
 
       if (user && user.token) {
-        // jws = user.token;'
         const ip = config.urlServer;
         const url = "http://" + ip + "/" + exchange + "/wallet";
-        // let url = "http://192.168.0.46:4000/" + exchange + "/wallet";
         let result = await getAPIData(url, user, exchange);
         let data = null;
-        console.log('result getAPIData ', result)
+        console.log('result getAPIData ' + exchange, result)
 
         if (result.data && result.data.name === 'TokenExpiredError') {
           console.log('message ', result.data.name)
@@ -144,32 +137,18 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
           stopSpinner(exchange, arrayAmountWallets);
           console.log('authentication_error ' + result[0].message);
           return [];
-
         }
 
-
         else if (result) {
-
-          if (result.message
-            && result.message.label) {
-            console.log('Error : ', result.message.label)
-            toast("API keys not good for " + exchange)
-            throw new Error('INVALID_SIGNATURE for ' + exchange);
-          }
-
-          // console.log('result  await getAPIData', result)
           data = await completeDataWallet(result, exchange, ip)
-          // console.log('await completeDataWallet', data);
         } else {
           toast("No connection");
         }
 
         if (data !== null) {
-
           const total = totalExchange(data);
           updateWalletAmountInLS(arrayAmountWallets, exchange, total);
           localStorage.setItem('wallet-' + exchange, JSON.stringify(data));
-
           stopSpinner(exchange, arrayAmountWallets);
 
           switch (updateAllWallets) {
@@ -178,7 +157,6 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
               return data;
 
             default:
-              // return the result : all wallet 
               return updateGeneralWalletLS(data, exchange);
           }
         } else {
@@ -186,13 +164,11 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
           throw new Error('no data : ', data);
         }
 
-
       } else {
         console.log('no user in ls');
         throw new Error('no user : ', user);
       }
 
-    // break;
 
     // No update : take info from LocalStorage
     case false:

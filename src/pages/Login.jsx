@@ -20,11 +20,10 @@ const Log_in = () => {
 
     const navigate = useNavigate();
 
-    const handleError = (err) => {
-        console.log(err);
-        toast(err.response.data.error);
+    if (!navigator.onLine) {
+        console.log('offline');
+        toast('You are offline')
     }
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,8 +62,29 @@ const Log_in = () => {
                 }
             }
             )
-            .catch(err => {
-                handleError(err);
+            .catch(error => {
+                // console.log(err);
+                // console.log(err.message)
+                // toast(err.message);
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    toast(error.response.status);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    toast("Error : no server response");
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    toast(error.message);
+                }
+                console.log(error.config);
             }
             );
     };

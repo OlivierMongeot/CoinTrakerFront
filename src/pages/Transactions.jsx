@@ -21,6 +21,7 @@ import addUrlImage from '../helpers/addUrlImage';
 import rebuildDataCoinbase from '../transactions/coinbase/rebuildDataCoinbase';
 import saveNewTransactions from '../transactions/saveNewTransactionsDB';
 import getQuote from '../transactions/getQuoteHistory';
+import updateTransactionDB from '../transactions/updateTransactionDB';
 // import getQuote from '../transactions/getQuoteHistory';
 // import { useCallback } from 'react';
 
@@ -92,17 +93,11 @@ const Transactions = () => {
             let index = 0
             newTrxsCoinbase = await addUrlImage(newTrxsCoinbase, 'coinbase')
             newTrxsCoinbase = await rebuildDataCoinbase(newTrxsCoinbase, userData);
-
             console.log('rebuilded element', newTrxsCoinbase)
-            // DELETE FROM `transactions` WHERE `exchange` ='coinbase'
-
-            const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
-
 
             while (index < newTrxsCoinbase.length && index < 5000) {
 
                 let newTrx = await getSingleQuote(newTrxsCoinbase[index])
-                // let newTrx = newTrxsCoinbase[index]
                 // await delay(500)
                 let newCurrencyTrx = JSON.parse(localStorage.getItem('newTokenNotification'))
                 index++
@@ -110,14 +105,15 @@ const Transactions = () => {
                 if (newCurrencyTrx !== newTrx.currency) {
                     toast('New transaction for ' + newTrx.currency)
                 }
-                localStorage.setItem('newTokenNotification', JSON.stringify(false))
+
+
                 saveNewTransactions(tx, userData)
                 setTransactions(previousTransactions => {
                     return [...previousTransactions, ...tx]
                 })
+                localStorage.setItem('newTokenNotification', JSON.stringify(false))
             }
         }
-
 
 
         // console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
@@ -129,6 +125,31 @@ const Transactions = () => {
         //         prevIndex === rowToUpdateIndex ? { ...trx } : trx
         //     );
         // })
+
+
+
+        // Verifie transaction without amount 
+
+        console.log('CHECK IF ALL TRX have quotation ', transactions)
+        let index = 0
+        while (index < transactions.length) {
+            if (transactions[index].quote_transaction === null) {
+
+                let trxQuoted = await getSingleQuote(transactions[index])
+
+                let updatedTrx = trxQuoted
+                console.log('updated trx ', updatedTrx)
+                updateTransactionDB(transactions[index].id_transaction, transactions[index].quote_transaction, userData)
+                const rowToUpdateIndex = index;
+                setTransactions(prevTransactions => {
+                    return prevTransactions.map((trx, prevIndex) =>
+                        prevIndex === rowToUpdateIndex ? { ...updatedTrx } : trx
+                    );
+                })
+            }
+            index++
+        }
+
         setPageLoader(false)
     }
 
@@ -145,7 +166,7 @@ const Transactions = () => {
 
         // KUCOIN
         let transactionsKucoinDB = []
-        // let transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
+        transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
 
         let allTrx = [...transactionsKucoinDB, ...coinbaseTransactionsDB];
 
@@ -168,7 +189,7 @@ const Transactions = () => {
     const process = async () => {
         console.clear()
         let [trxDBCoinbase, trxKuCoin] = await getAllTransactionsDB()
-        await getAllNewTransactions(trxDBCoinbase)
+        getAllNewTransactions(trxDBCoinbase)
         // console.log('State trx', transactions)
     }
 
@@ -179,7 +200,7 @@ const Transactions = () => {
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
         } else {
-            // process()
+            process()
         }
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

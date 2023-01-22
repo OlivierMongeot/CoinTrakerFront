@@ -15,6 +15,7 @@ import Withdraws from './pages/Withdraws';
 import Transactions from './pages/Transactions'
 import TopAndSideMenu from './layout/TopAndSideMenu';
 import Box from '@mui/material/Box';
+import { toast } from 'react-toastify';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { setTheme } from './action/theme.action';
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
