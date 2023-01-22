@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 import formatValues from '../../helpers/formatValues';
-// import Loader from './Loader';
+import Loader from './Loader';
 import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
 // import updateProcess from '../../api/updateProcess';
@@ -28,23 +28,25 @@ export default function Deposits(props) {
   const total = getTotal(props.arrayAmountWallets);
 
 
+  const handleClick = $event => {
+    const exchange = $event.target.outerText;
+    console.log('exchange click ', exchange);
+
+    let classCss = '.' + exchange.toLowerCase();
+    const elementToClick = document.querySelectorAll(classCss);
+    console.log(elementToClick);
+    elementToClick.tabIndex = '-1'
+    // const tabsElements = document.querySelectorAll('.tabs-exchanges');
+    // console.log(tabsElement);
+    // tabsElement.forEach(element => {
+    //   // console.log(element.classList);
+    console.log('index after', elementToClick.tabIndex);
+
+  };
+
+
   useEffect(() => {
 
-    const handleClick = $event => {
-      const exchange = $event.target.outerText;
-      console.log('exchange click ', exchange);
-
-      let classCss = '.' + exchange.toLowerCase();
-      const elementToClick = document.querySelectorAll(classCss);
-      console.log(elementToClick);
-      elementToClick.tabIndex = '-1'
-      // const tabsElements = document.querySelectorAll('.tabs-exchanges');
-      // console.log(tabsElement);
-      // tabsElement.forEach(element => {
-      //   // console.log(element.classList);
-      console.log('index after', elementToClick.tabIndex);
-
-    };
 
     const elements = document.querySelectorAll('.display-grid-inline');
 
@@ -74,7 +76,7 @@ export default function Deposits(props) {
           </div>
           <div>
             <div className="price-loader-content">
-              {/* <Loader fontSize='30' exchange={wallet.exchange} /> */}
+              <Loader fontSize='30' exchange={wallet.exchange} />
               <div>
                 {Math.round(wallet.amount)} $
               </div>

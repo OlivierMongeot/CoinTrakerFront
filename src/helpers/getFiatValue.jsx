@@ -25,7 +25,7 @@ const getFiatValue = async (currency, date) => {
   if (idGeko.length === 0) {
 
     url = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=" + date;
-    console.log('error : id CoinGecko non available')
+    console.log('error : id CoinGecko non available', 'background: #222; color: #bada55');
     return { usd: 1, error: 'id CoinGecko non available' }
   } else {
 
@@ -38,7 +38,6 @@ const getFiatValue = async (currency, date) => {
   }
 
   const getLastTimeQuotation = () => {
-
     return localStorage.getItem('last_quote_time')
   }
 
@@ -47,13 +46,13 @@ const getFiatValue = async (currency, date) => {
     try {
       let time = getLastTimeQuotation();
       let delta = Date.now() - parseInt(time)
-      if (delta < 9000) {
+      if (delta < 9500) {
         // add time 
-        let add = 9000 - delta
-        console.log('await ' + add + 'ms')
+        let add = 9500 - delta
+        console.log('Wait ' + add + 'ms')
         await delay(add);
       } else {
-        console.log('no await')
+        console.log('No wait')
       }
 
       saveLastTimeQuotation(Date.now())

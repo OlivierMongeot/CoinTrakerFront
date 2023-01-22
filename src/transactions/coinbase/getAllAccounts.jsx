@@ -53,8 +53,13 @@ const getAllAccountCoinbase = async (userData, checkIfNewAccount = false) => {
       const dataNextPage = await fetchAccount(nexPageAccounUri);
       accounts = accounts.concat(dataNextPage.data);
     }
+
+
+
     // Lenght of allAccounts
     console.log('Nbr de tokens', accounts.length);
+
+
 
     localStorage.setItem('accounts-coinbase', JSON.stringify(accounts));
     return accounts;

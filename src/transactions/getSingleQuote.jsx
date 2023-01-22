@@ -6,15 +6,15 @@ import updateTransactionDB from "./updateTransactionDB";
 
 const getSingleQuote = async (transaction, userData) => {
 
-  console.log('Get Single quote ', transaction)
+  // console.log('Get Single quote ', transaction)
   // transaction = transaction[0]
-  let currency = null;
-  let date = getSimpleDate(transaction.created_at);
+  let currency = null
+  let date = getSimpleDate(transaction.created_at)
+  let amount = null
 
   if (!transaction.quote_transaction || transaction.quote_transaction.devises === null) {
     console.log('Get Single quote for ', transaction)
-    // console.log('Get quotation for ', transactions[index].native_amount.currency)
-    let amount = null;
+
     switch (transaction.exchange) {
 
       case 'kucoin':
@@ -23,15 +23,20 @@ const getSingleQuote = async (transaction, userData) => {
         break
 
       case 'coinbase':
-        const nativeAmount = parseFloat(transaction.exit.amount);
-        if (nativeAmount === 0) {
-          amount = parseFloat(transaction.entry.amount)
-          currency = transaction.entry.currency
+
+        if (parseFloat(transaction.native_amount.amount) > 0) {
+          amount = transaction.native_amount.amount
+          currency = transaction.native_amount.currency
+        } else {
+          if (parseFloat(transaction.entry.amount) > 0) {
+            amount = parseFloat(transaction.entry.amount)
+            currency = transaction.entry.currency
+          } else {
+            amount = parseFloat(transaction.exit.amount)
+            currency = transaction.exit.currency
+          }
         }
-        else {
-          amount = transaction.entry.amount
-          currency = transaction.entry.currency
-        }
+
         break;
 
       default:
@@ -56,8 +61,8 @@ const getSingleQuote = async (transaction, userData) => {
     // 
     // console.log('id trx ', transactions[index].id)
     // currency = transactions[index].native_amount.currency;
-    let quoteFiat = null;
 
+    let quoteFiat = null;
     switch (currency) {
       case 'USD':
         console.log('Hack quote Fiat for usd')
@@ -80,7 +85,7 @@ const getSingleQuote = async (transaction, userData) => {
       currency: currency,
       devises: quoteFiat
     }
-    updateTransactionDB(transaction.info.idTx, transaction.quote_transaction, userData)
+    // updateTransactionDB(transaction.info.idTx, transaction.quote_transaction, userData)
     return transaction
   } else {
     return null

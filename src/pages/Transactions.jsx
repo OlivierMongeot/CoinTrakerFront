@@ -3,113 +3,121 @@ import AuthenticationService from '../helpers/AuthService';
 import { useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TableTransactions from '../components/Transactions/TableTransactions';
-import getNewWithdrawals from '../transactions/kucoin/withdrawals/getNewWithdraws'
+import getNewWithdrawalsKucoin from '../transactions/kucoin/withdrawals/getNewWithdraws'
 // import eraseDoublon from '../helpers/eraseDoublon';
-import getNewDeposits from '../transactions/kucoin/deposits/getNewDeposits';
+import getNewDepositsKucoin from '../transactions/kucoin/deposits/getNewDeposits';
 
 import getNewTradesKucoin from '../transactions/kucoin/trades/getNewTradesKucoin';
 
 
 import getTransactionsDB from '../transactions/getTransactionsDB';
-import getNewTransactionsCoinbase from '../transactions/coinbase/getNewTransactions';
+import getAllNewTransactionsCoinbase from '../transactions/coinbase/getNewTransactionsCoinbase';
 import getSingleQuote from '../transactions/getSingleQuote';
+import TrxLoader from '../components/Transactions/TrxLoader';
+import addUrlImage from '../helpers/addUrlImage';
+import rebuildDataCoinbase from '../transactions/coinbase/rebuildDataCoinbase';
+import saveNewTransactions from '../transactions/saveNewTransactionsDB';
+import getQuote from '../transactions/getQuoteHistory';
 // import getQuote from '../transactions/getQuoteHistory';
-// import getSingleQuote from '../transactions/getSingleQuote';
 // import { useCallback } from 'react';
 
 
 const Transactions = () => {
-
-    // const updateQuote = async (transactions) => {
-    //     console.log('Update Quote ', transactions)
-    //     let index = 0
-
-    //     while (index < transactions.length) {
-    //         console.log('check ', index)
-    //         if (transactions[index].quote_transaction === null) {
-
-    //             let newTransacQuoted = await getSingleQuote(transactions[index], userData)
-
-    //             if (newTransacQuoted !== null) {
-    //                 console.log('update state')
-    //                 const rowToUpdateIndex = index;
-
-    //                 setTransactions(prevTransactions => {
-    //                     return prevTransactions.map((trx, prevIndex) =>
-    //                         prevIndex === rowToUpdateIndex ? { ...newTransacQuoted } : trx
-    //                     );
-    //                 })
-
-    //             }
-
-    //             // setTransactions(newTransacQuoted)
-    //             console.log('New trx qoted ', newTransacQuoted)
-    //         }
-    //         index++
-
-    //     }
-
-    // }
 
 
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('user'));
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    // const [coinbaseTrxDB, setCoinbaseTrxDB] = React.useState([])
 
-    const getNewTransactions = async (coinbaseTransactionsDB) => {
+    const [pageLoader, setPageLoader] = React.useState(false)
+
+
+    const getAllNewTransactions = async (coinbaseTransactionsDB) => {
 
         let state = null
         // KUCOIN PART
-        do {
-            let [newDeposits, st] = await getNewDeposits(userData);
-            let newDepots = newDeposits
-            state = st
-            if (newDeposits.length > 0) {
-                setTransactions(previousTransactions => {
-                    return [...previousTransactions, ...newDepots]
-                })
-            }
-        } while (state === 'continue');
+        // do {
+        //     let [newDeposits, st] = await getNewDepositsKucoin(userData);
+        //     let newDepots = newDeposits
+        //     state = st
+        //     if (newDeposits.length > 0) {
+        //         setTransactions(previousTransactions => {
+        //             return [...previousTransactions, ...newDepots]
+        //         })
+        //     }
+        // } while (state === 'continue');
 
-        do {
-            let [newWithdrawals, st] = await getNewWithdrawals(userData, false);
-            let newWithdraws = newWithdrawals
-            state = st
-            if (newWithdraws.length > 0) {
-                setTransactions(previousTransactions => {
-                    return [...previousTransactions, ...newWithdraws]
-                })
-            }
-        } while (state === 'continue');
+        // do {
+        //     let [newWithdrawals, st] = await getNewWithdrawalsKucoin(userData, false);
+        //     let newWithdraws = newWithdrawals
+        //     state = st
+        //     if (newWithdraws.length > 0) {
+        //         setTransactions(previousTransactions => {
+        //             return [...previousTransactions, ...newWithdraws]
+        //         })
+        //     }
+        // } while (state === 'continue');
 
 
-        do {
-            let [newTrades, st] = await getNewTradesKucoin(userData, false);
-            let newTrs = newTrades
-            // index++
-            state = st
-            if (newTrs.length > 0) {
-                setTransactions(previousTransactions => {
-                    return [...previousTransactions, ...newTrs]
-                })
-            }
-        } while (state === 'continue');
+        // do {
+        //     let [newTrades, st] = await getNewTradesKucoin(userData, false);
+        //     let newTrs = newTrades
+        //     // index++
+        //     state = st
+        //     if (newTrs.length > 0) {
+        //         setTransactions(previousTransactions => {
+        //             return [...previousTransactions, ...newTrs]
+        //         })
+        //     }
+        // } while (state === 'continue');
+
 
         // COINBASE PART
-
-        let newTrsCoinbase = await getNewTransactionsCoinbase(coinbaseTransactionsDB, userData);
-
-
+        // let newTrxsCoinbase = await getNewTransactionsCoinbase(coinbaseTransactionsDB, userData);
 
         // setTransactions(previousTransactions => {
-        //     return [...previousTransactions, ...newTrsCoinbase]
+        //     return [...previousTransactions, ...newTrxsCoinbase]
         // })
-        // console.log('TRANSACTION ', transactions)
+        console.log('getNewTransactionsCoinbase ')
+
+        let newTrxsCoinbase = await getAllNewTransactionsCoinbase(
+            coinbaseTransactionsDB, userData, false, false);
+        // console.log('new trx coinbase ', newTrxsCoinbase)
+
+        if (newTrxsCoinbase.length > 0) {
+            let index = 0
+            newTrxsCoinbase = await addUrlImage(newTrxsCoinbase, 'coinbase')
+            newTrxsCoinbase = await rebuildDataCoinbase(newTrxsCoinbase, userData);
+
+            console.log('rebuilded element', newTrxsCoinbase)
+            // DELETE FROM `transactions` WHERE `exchange` ='coinbase'
+
+            const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
+
+
+            while (index < newTrxsCoinbase.length && index < 5000) {
+
+                let newTrx = await getSingleQuote(newTrxsCoinbase[index])
+                // let newTrx = newTrxsCoinbase[index]
+                // await delay(500)
+                let newCurrencyTrx = JSON.parse(localStorage.getItem('newTokenNotification'))
+                index++
+                let tx = [newTrx]
+                if (newCurrencyTrx !== newTrx.currency) {
+                    toast('New transaction for ' + newTrx.currency)
+                }
+                localStorage.setItem('newTokenNotification', JSON.stringify(false))
+                saveNewTransactions(tx, userData)
+                setTransactions(previousTransactions => {
+                    return [...previousTransactions, ...tx]
+                })
+            }
+        }
+
 
 
         // console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
@@ -121,12 +129,14 @@ const Transactions = () => {
         //         prevIndex === rowToUpdateIndex ? { ...trx } : trx
         //     );
         // })
+        setPageLoader(false)
     }
 
 
 
     const getAllTransactionsDB = async () => {
         setIsLoading(true)
+        setPageLoader(true)
         let coinbaseTransactionsDB = []
 
         // COINBASE 
@@ -134,7 +144,8 @@ const Transactions = () => {
         // console.log('all Trx Coinbase In DB', coinbaseTransactionsDB);
 
         // KUCOIN
-        let transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
+        let transactionsKucoinDB = []
+        // let transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
 
         let allTrx = [...transactionsKucoinDB, ...coinbaseTransactionsDB];
 
@@ -149,29 +160,27 @@ const Transactions = () => {
         }
 
         setIsLoading(false)
-        return [coinbaseTransactionsDB]
+        return [coinbaseTransactionsDB, transactionsKucoinDB]
 
     }
 
 
     const process = async () => {
-
-        let [trxDBCoinbase] = await getAllTransactionsDB()
-        await getNewTransactions(trxDBCoinbase)
-        console.log('State trx', transactions)
+        console.clear()
+        let [trxDBCoinbase, trxKuCoin] = await getAllTransactionsDB()
+        await getAllNewTransactions(trxDBCoinbase)
+        // console.log('State trx', transactions)
     }
 
 
 
     React.useEffect(() => {
-        console.clear()
+
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
         } else {
             // process()
-
         }
-
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -183,9 +192,9 @@ const Transactions = () => {
     return (
         <div className="app-container">
             <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={true}
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
@@ -194,14 +203,12 @@ const Transactions = () => {
                 theme="dark"
             />
             <Grid item xs={12} md={8} lg={9} mt={2} sx={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
-
+                <TrxLoader fontSize='30' display={pageLoader} />
                 <Button sx={style} variant="outlined" onClick={() => {
                     process()
                 }} >
                     Start
                 </Button>
-
-
             </Grid>
 
             <Grid item xs={12} md={8} lg={9}>

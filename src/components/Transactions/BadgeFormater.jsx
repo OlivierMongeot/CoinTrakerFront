@@ -12,12 +12,16 @@ import IconeJPG from '../IconesJPG/IconeJPG';
 import IconeXRP from '../IconesSVG/IconXrp';
 
 const BadgeFormater = (props) => {
-  // console.log('props', props);
+
   if (props) {
     // 2022-08-03T08:53:58Z
     const amount = props.value?.amount;
     const currency = props.value.currency;
     let url = props.value.urlLogo;
+
+    if (url !== null) {
+      // console.log('props', props);
+    }
 
 
     let value = (parseFloat(amount));
@@ -107,13 +111,13 @@ const BadgeFormater = (props) => {
           </div>
         )
 
-      case 'NEAR':
-        return (
-          <div style={style}>
-            <span > {value} {currency}</span >
-            <IconeNear></IconeNear>
-          </div>
-        )
+      // case 'NEAR':
+      //   return (
+      //     <div style={style}>
+      //       <span > {value} {currency}</span >
+      //       <IconeNear></IconeNear>
+      //     </div>
+      //   )
 
       case 'SOL':
         return (

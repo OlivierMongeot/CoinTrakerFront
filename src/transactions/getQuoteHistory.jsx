@@ -4,7 +4,7 @@ import getFiatValue from '../helpers/getFiatValue';
 
 
 const getQuote = async (transactions, userData) => {
-  console.log('Fetch Quote')
+  console.log('Fetch Quote', transactions)
 
   let index = 0;
 
