@@ -1,6 +1,6 @@
+import config from '../../config';
 
-import config from '../config';
-import modeliseOrders from '../helpers/modeliseOrders';
+import modeliseOrders from '../modeliseOrders';
 
 
 const getOrders = async (userData) => {

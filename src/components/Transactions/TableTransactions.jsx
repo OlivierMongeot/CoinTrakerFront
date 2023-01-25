@@ -35,12 +35,12 @@ const TableTransactions = (props) => {
     // }
     // ,
     {
-      field: 'entry', headerName: 'Entrée(+)',
+      field: 'entry', headerName: 'Entrée (+)',
       minWidth: 160, align: 'right', headerAlign: 'center', flex: 1,
       renderCell: (params) => <BadgeFormater value={params.value} type='cashin' />
     },
     {
-      field: 'exit', headerName: 'Sortie(-)', minWidth: 160, flex: 1, align: 'right', headerAlign: 'center',
+      field: 'exit', headerName: 'Sortie (-)', minWidth: 160, flex: 1, align: 'right', headerAlign: 'center',
       renderCell: (params) => <BadgeFormater value={params.value} type='cashout' />
     },
     {

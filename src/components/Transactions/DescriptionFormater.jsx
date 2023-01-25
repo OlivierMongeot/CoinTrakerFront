@@ -25,8 +25,22 @@ const Formater = (props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+
   // console.log(props)
   if (props.value) {
+
+    let feeCurrency = null
+
+    // if (props.value.transaction === 'withdrawals') {
+    //   feeCurrency = props.value.feeCurrency
+
+    // } else if (props.value.transaction === 'deposits') {
+    feeCurrency = props.value.feeCurrency
+    // } else {
+    //   feeCurrency = props.value.chain
+    // }
+
 
     return (
       // <Tooltip title={props.value}>
@@ -38,6 +52,7 @@ const Formater = (props) => {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+
         >
           <Box sx={style}>
             {props.value?.type && (
@@ -46,7 +61,7 @@ const Formater = (props) => {
               </Typography>
             )}
             {props.value?.idTx && (
-              <Typography id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.8rem' }}>
+              <Typography noWrap id="modal-modal-description" variant="h6" component="h2" sx={{ mt: 2, fontSize: '0.9rem' }}>
                 ID : {props.value.idTx}
               </Typography>
             )}
@@ -87,11 +102,17 @@ const Formater = (props) => {
 
 
 
-            {props.value?.fee && (
+            {props.value?.fee && parseFloat(props.value.fee) > 0 && (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Fee : {props.value.fee} {props.value.feeCurrency ? props.value.feeCurrency : '$'}
+                Fee : {props.value.fee} {feeCurrency}
               </Typography>
             )}
+            {/* 
+            {props.value?.gtFee && parseFloat(props.value.gtFee) > 0 && (
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Fee : {props.value.gtFee} GT}
+              </Typography>
+            )} */}
 
             {props.value?.memo && (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -101,6 +122,22 @@ const Formater = (props) => {
             {props.value?.status && (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Status : {props.value.status}
+              </Typography>
+            )}
+
+            {props.value?.dollarPrice && (
+              <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                1 {props.value.native_currency}  = {props.value.dollarPrice} $
+              </Typography>
+            )}
+            {props.value?.euroPrice && (
+              <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                1 {props.value.native_currency}  = {props.value.euroPrice} €
+              </Typography>
+            )}
+            {props.value?.usdtPrice && (
+              <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.9rem' }}>
+                1 {props.value?.currency} = {props.value.usdtPrice} $
               </Typography>
             )}
 

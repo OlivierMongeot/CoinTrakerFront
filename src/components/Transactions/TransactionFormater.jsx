@@ -11,8 +11,8 @@ const TransacFormater = (props) => {
     const type = props.value;
     // let logo = '';
     switch (type) {
-      case 'deposit':
-      case 'Deposit':
+      case 'deposits':
+      case 'Deposits':
         return (
           <React.Fragment>
             <IconeDeposit></IconeDeposit>
@@ -29,7 +29,7 @@ const TransacFormater = (props) => {
           </React.Fragment>
         )
 
-      case 'trade':
+      case 'trades':
         return (
           <React.Fragment>
             <IconeSwap></IconeSwap>

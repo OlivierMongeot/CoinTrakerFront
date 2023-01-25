@@ -12,7 +12,7 @@ const config = {
     'binance':
       { trade: 1640908800000 },
     'gateio':
-      { trade: 1640908800000 },
+      { deposit: 1640908800000, withdrawals: 1640908800000, trade: 1640908800000 },
     'crytpo-com':
       { trade: 1640908800000 }
   }

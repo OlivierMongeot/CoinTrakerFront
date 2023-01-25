@@ -12,8 +12,8 @@ import AuthenticationService from '../helpers/AuthService';
 import { useNavigate } from "react-router-dom";
 import LastOrders from '../components/Wallets/LastOrders';
 import Loader from '../components/Wallets/Loader';
-import getCoinbaseOrders from '../api/getCoinbaseOrders';
-import getGateIoOrders from '../api/getGateIoOrders';
+import getCoinbaseOrders from '../transactions/coinbase/getCoinbaseOrders';
+import getGateIoOrders from '../transactions/gateio/getGateIoOrders';
 // export const WalletsContext = React.createContext();
 
 const WalletsBoard = () => {
@@ -73,21 +73,15 @@ const WalletsBoard = () => {
     }, []);
 
     return (
-        <Container className="container" maxWidth="xlg"
-            sx={{ mt: 4, mb: 0 }}
-        >
-
+        <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 0 }}>
             <Grid container spacing={2} columns={12}>
-
                 <Grid item xs={12} md={8} lg={8}>
                     <Paper>
-
                         <Grid item xs={12}>
                             <Paper sx={{ p: 2 }}>
                                 <Box id="box-wallet" sx={{ width: '100%', height: '100%', typography: 'body1' }}>
 
                                     <TabContext value={value} >
-
                                         <Box className="tabMenuWallets" sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                             <TabWalletsTitle exchanges={exchangesUser} handleChange={handleChange} />
                                         </Box>

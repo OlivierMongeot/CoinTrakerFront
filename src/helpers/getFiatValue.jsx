@@ -25,8 +25,8 @@ const getFiatValue = async (currency, date) => {
   if (idGeko.length === 0) {
 
     url = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=" + date;
-    console.log('error : id CoinGecko non available', 'background: #222; color: #bada55');
-    return { usd: 1, error: 'id CoinGecko non available' }
+    console.log('error : id CoinGecko non available');
+    return false
   } else {
 
     url = "https://api.coingecko.com/api/v3/coins/"

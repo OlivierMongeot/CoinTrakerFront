@@ -49,10 +49,18 @@ const nativeAmountFormater = (props) => {
     )
 
 
-  } else {
+  } else if (props.value?.devises === false) {
+    return (
+      < React.Fragment >
+        Entrer data manually
+      </React.Fragment>
+    )
+  }
+  else {
     return (
       < React.Fragment >
         <Loader />
+
       </React.Fragment>
     )
   }

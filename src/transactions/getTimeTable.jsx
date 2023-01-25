@@ -3,7 +3,7 @@ import config from '../config';
 
 const getTimeTable = async (userData) => {
 
-  let baseUrl = "http://" + config.urlServer + '/get-time-update';
+  let baseUrl = "http://" + config.urlServer + '/get-time-table';
 
   const data = {
     email: userData.email,

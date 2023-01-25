@@ -79,7 +79,8 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
 
     const data = JSON.stringify({
       email: user.email,
-      exchange: exchange
+      exchange: exchange,
+      id: user.id
     });
 
 

@@ -7,7 +7,7 @@ import axios from 'axios';
 const setTable = async (userData, exchange, typeTransaction = null, timestamp = 1640908800000) => {
 
   // console.log('Set TimeTable', exchange)
-  // console.log('user Data ', userData)
+  // console.log('user Data ', userData.lastName)
   let baseUrl = "http://" + config.urlServer;
 
   let newTimeTable = null

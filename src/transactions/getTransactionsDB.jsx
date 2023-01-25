@@ -8,11 +8,14 @@ const getTransactionsDB = async (user, type, exchange) => {
   console.log('-- GET TRX in Database ' + exchange + ' -- ' + type + ' --')
 
   const data = JSON.stringify({
-    userId: user.id,
+    id: user.id,
     email: user.email,
     type: type,
     exchange
   });
+
+  console.log('data send for DB trx ', data)
+  console.log('user', user)
 
   let url = "http://" + config.urlServer + "/get-transactions";
 

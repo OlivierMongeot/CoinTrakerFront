@@ -22,9 +22,10 @@ import rebuildDataCoinbase from '../transactions/coinbase/rebuildDataCoinbase';
 import saveNewTransactions from '../transactions/saveNewTransactionsDB';
 import getQuote from '../transactions/getQuoteHistory';
 import updateTransactionDB from '../transactions/updateTransactionDB';
-// import getQuote from '../transactions/getQuoteHistory';
-// import { useCallback } from 'react';
+import getAllNewTransactionsGateIo from '../transactions/gateio/getNewtransactionGateIo';
+import rebuildGateIoData from '../transactions/gateio/rebuildDataGateIo';
 
+const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
 
 const Transactions = () => {
 
@@ -37,9 +38,9 @@ const Transactions = () => {
     const [pageLoader, setPageLoader] = React.useState(false)
 
 
-    const getAllNewTransactions = async (coinbaseTransactionsDB) => {
+    const getAllNewTransactions = async (coinbaseTransactionsDB, kucointrx, gateIoTrx) => {
 
-        let state = null
+        // let state = null
         // KUCOIN PART
         // do {
         //     let [newDeposits, st] = await getNewDepositsKucoin(userData);
@@ -83,73 +84,100 @@ const Transactions = () => {
         // setTransactions(previousTransactions => {
         //     return [...previousTransactions, ...newTrxsCoinbase]
         // })
-        console.log('getNewTransactionsCoinbase ')
+        // console.log('getNewTransactionsCoinbase ')
 
-        let newTrxsCoinbase = await getAllNewTransactionsCoinbase(
-            coinbaseTransactionsDB, userData, false, false);
-        // console.log('new trx coinbase ', newTrxsCoinbase)
+        // let newTrxsCoinbase = await getAllNewTransactionsCoinbase(
+        //     coinbaseTransactionsDB, userData, false, false);
+        // // console.log('new trx coinbase ', newTrxsCoinbase)
 
-        if (newTrxsCoinbase.length > 0) {
+        // if (newTrxsCoinbase.length > 0) {
+        //     let index = 0
+        //     newTrxsCoinbase = await addUrlImage(newTrxsCoinbase, 'coinbase')
+        //     newTrxsCoinbase = await rebuildDataCoinbase(newTrxsCoinbase, userData);
+        //     console.log('rebuilded element', newTrxsCoinbase)
+
+        //     while (index < newTrxsCoinbase.length && index < 5000) {
+
+        //         let newTrx = await getSingleQuote(newTrxsCoinbase[index])
+        //         // await delay(500)
+        //         let newCurrencyTrx = JSON.parse(localStorage.getItem('newTokenNotification'))
+        //         index++
+        //         let tx = [newTrx]
+        //         if (newCurrencyTrx !== newTrx.currency) {
+        //             toast('New transaction for ' + newTrx.currency)
+        //         }
+
+
+        //         saveNewTransactions(tx, userData)
+        //         setTransactions(previousTransactions => {
+        //             return [...previousTransactions, ...tx]
+        //         })
+        //         localStorage.setItem('newTokenNotification', JSON.stringify(false))
+        //     }
+        // }
+
+        // GATE IO 
+        let newTrxGatio = await getAllNewTransactionsGateIo(userData)
+        console.log('GateIO New Transactions after build', newTrxGatio)
+
+        if (newTrxGatio.length > 0) {
+
+            newTrxGatio = newTrxGatio.filter(trx => trx.currency !== 'POINT')
+
             let index = 0
-            newTrxsCoinbase = await addUrlImage(newTrxsCoinbase, 'coinbase')
-            newTrxsCoinbase = await rebuildDataCoinbase(newTrxsCoinbase, userData);
-            console.log('rebuilded element', newTrxsCoinbase)
+            let previousTransactions = null
+            while (index < newTrxGatio.length) {
 
-            while (index < newTrxsCoinbase.length && index < 5000) {
-
-                let newTrx = await getSingleQuote(newTrxsCoinbase[index])
-                // await delay(500)
-                let newCurrencyTrx = JSON.parse(localStorage.getItem('newTokenNotification'))
-                index++
-                let tx = [newTrx]
-                if (newCurrencyTrx !== newTrx.currency) {
-                    toast('New transaction for ' + newTrx.currency)
+                let tx = []
+                if (index > 0) {
+                    previousTransactions = newTrxGatio[index - 1]
                 }
+                let newQuotedTrx = await getSingleQuote(newTrxGatio[index], previousTransactions)
+                console.log('newQuotedTrx', newQuotedTrx)
+                let lastTokenNotified = JSON.parse(localStorage.getItem('tokenNotification'))
+                if (lastTokenNotified !== newQuotedTrx.currency) {
+                    toast('New transaction for ' + newQuotedTrx.currency)
+                }
+                localStorage.setItem('tokenNotification', JSON.stringify(newQuotedTrx.currency))
+                tx = [newQuotedTrx]
+                await delay(2000)
 
+                console.log('Trx added', tx)
+                if (newTrxGatio[index] !== null) {
+                    saveNewTransactions(tx, userData)
+                    setTransactions(previousTransactions => {
+                        return [...previousTransactions, ...tx]
+                    })
+                }
+                index++
 
-                saveNewTransactions(tx, userData)
-                setTransactions(previousTransactions => {
-                    return [...previousTransactions, ...tx]
-                })
-                localStorage.setItem('newTokenNotification', JSON.stringify(false))
             }
         }
-
-
-        // console.log('Set Transactions  updateLocalStorageTransaction for', transactions[index].exchange)
-        // // updateLocalStorageTransaction(transactions[index]);
-        // const rowToUpdateIndex = index;
-
-        // setTransactions(prevTransactions => {
-        //     return prevTransactions.map((trx, prevIndex) =>
-        //         prevIndex === rowToUpdateIndex ? { ...trx } : trx
-        //     );
-        // })
 
 
 
         // Verifie transaction without amount 
 
-        console.log('CHECK IF ALL TRX have quotation ', transactions)
-        let index = 0
-        while (index < transactions.length) {
-            if (transactions[index].quote_transaction === null) {
+        // console.log('CHECK IF ALL TRX have quotation ', transactions)
+        // let index = 0
+        // while (index < transactions.length) {
+        //     if (transactions[index].quote_transaction === null) {
 
-                let trxQuoted = await getSingleQuote(transactions[index])
+        //         let trxQuoted = await getSingleQuote(transactions[index])
 
-                let updatedTrx = trxQuoted
-                console.log('updated trx ', updatedTrx)
-                updateTransactionDB(transactions[index].id_transaction, transactions[index].quote_transaction, userData)
-                const rowToUpdateIndex = index;
-                setTransactions(prevTransactions => {
-                    return prevTransactions.map((trx, prevIndex) =>
-                        prevIndex === rowToUpdateIndex ? { ...updatedTrx } : trx
-                    );
-                })
-            }
-            index++
-        }
-
+        //         let updatedTrx = trxQuoted
+        //         console.log('updated trx ', updatedTrx)
+        //         updateTransactionDB(transactions[index].id_transaction, transactions[index].quote_transaction, userData)
+        //         const rowToUpdateIndex = index;
+        //         setTransactions(prevTransactions => {
+        //             return prevTransactions.map((trx, prevIndex) =>
+        //                 prevIndex === rowToUpdateIndex ? { ...updatedTrx } : trx
+        //             );
+        //         })
+        //     }
+        //     index++
+        // }
+        setIsLoading(false)
         setPageLoader(false)
     }
 
@@ -161,14 +189,21 @@ const Transactions = () => {
         let coinbaseTransactionsDB = []
 
         // COINBASE 
-        coinbaseTransactionsDB = await getTransactionsDB(userData, null, 'coinbase');
+        // coinbaseTransactionsDB = await getTransactionsDB(userData, null, 'coinbase');
         // console.log('all Trx Coinbase In DB', coinbaseTransactionsDB);
 
         // KUCOIN
         let transactionsKucoinDB = []
-        transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
+        // transactionsKucoinDB = await getTransactionsDB(userData, null, 'kucoin')
 
-        let allTrx = [...transactionsKucoinDB, ...coinbaseTransactionsDB];
+
+        // Gateio 
+        let transactionsGatioDB = []
+        transactionsGatioDB = await getTransactionsDB(userData, null, 'gateio')
+
+        localStorage.setItem('GateIo-transactions', JSON.stringify(transactionsGatioDB))
+
+        let allTrx = [...transactionsKucoinDB, ...coinbaseTransactionsDB, ...transactionsGatioDB];
 
         allTrx.sort((a, b) => {
             return b.created_at - a.created_at;
@@ -181,16 +216,17 @@ const Transactions = () => {
         }
 
         setIsLoading(false)
-        return [coinbaseTransactionsDB, transactionsKucoinDB]
-
+        return [coinbaseTransactionsDB, transactionsKucoinDB, transactionsGatioDB]
     }
 
 
     const process = async () => {
         console.clear()
-        let [trxDBCoinbase, trxKuCoin] = await getAllTransactionsDB()
-        getAllNewTransactions(trxDBCoinbase)
-        // console.log('State trx', transactions)
+        let [trxDBCoinbase, trxKuCoin, trxGateIo] = await getAllTransactionsDB()
+        getAllNewTransactions(trxDBCoinbase, trxKuCoin, trxGateIo)
+
+
+        console.log('trxGateIo trx', trxGateIo)
     }
 
 
@@ -200,7 +236,7 @@ const Transactions = () => {
         if (!AuthenticationService.isAuthenticated) {
             navigate("/login");
         } else {
-            process()
+            // process()
         }
         //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

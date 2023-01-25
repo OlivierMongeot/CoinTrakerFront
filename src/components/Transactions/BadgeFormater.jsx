@@ -34,6 +34,8 @@ const BadgeFormater = (props) => {
       value = value.toFixed(6)
     } else if (value < 0.1 && value > -0.1) {
       value = value.toFixed(5)
+    } else if (value < 0.9 && value > -0.9) {
+      value = value.toFixed(3)
     } else {
       value = value.toFixed(2)
     }

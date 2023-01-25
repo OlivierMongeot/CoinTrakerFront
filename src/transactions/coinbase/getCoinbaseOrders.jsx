@@ -1,6 +1,6 @@
 
-import config from '../config';
-import modeliseOrders from '../helpers/modeliseOrders';
+import config from '../../config';
+import modeliseOrders from '../modeliseOrders';
 
 const getCoinbaseOrders = async (userData) => {
 

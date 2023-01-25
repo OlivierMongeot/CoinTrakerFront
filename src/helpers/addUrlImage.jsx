@@ -19,20 +19,17 @@ const addUrlImage = async (transactions, exchange, type) => {
     cmcTokensList.filter(token => {
       switch (exchange) {
         case 'kucoin':
-
           if (type === 'transactions') {
             currency = transactions[i].symbol.split('-');
             if (token.symbol.toLowerCase() === currency[0].toLowerCase()) {
               transactions[i].urlLogo = seturlLogo(token.symbol, token.id);
             }
-
           } else {
             currency = transactions[i].currency;
             if (token.symbol.toLowerCase() === currency.toLowerCase()) {
               transactions[i].urlLogo = seturlLogo(token.symbol, token.id);
             }
           }
-
           return token.symbol.toLowerCase() === currency[0].toLowerCase();
 
         case 'coinbase':
@@ -43,9 +40,24 @@ const addUrlImage = async (transactions, exchange, type) => {
           return token.symbol.toUpperCase() === transactions[i].amount.currency.toUpperCase();
 
 
+        case 'gateio':
+          // console.log('gateIo Filter')
+
+          let currency = null
+          if (transactions[i]?.currencyPair) {
+            currency = transactions[i]?.currencyPair.split('_')
+            currency = currency[0]
+          } else {
+            currency = transactions[i]?.currency
+          }
+
+          if (token.symbol.toUpperCase() === currency.toUpperCase()) {
+            transactions[i].urlLogo = seturlLogo(token.symbol, token.id);
+          }
+          return token.symbol.toUpperCase() === currency.toUpperCase();
 
         default:
-          return token.symbol.toLowerCase() === transactions[i].amount.currency.toLowerCase();
+          return token.symbol.toLowerCase() === transactions[i].currency.toLowerCase();
       }
     })
   }
