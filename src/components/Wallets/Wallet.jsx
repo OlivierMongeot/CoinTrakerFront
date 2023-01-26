@@ -92,15 +92,12 @@ export default function Wallet(props) {
 
   return (
     <React.Fragment>
-      <ToastContainer />
       <Table className="table-wallet" size="small" >
         <TableHead>
           <TableRow align="right" >
             <TableCell >Token</TableCell>
             <TableCell align="right" >Balance</TableCell>
-
             <TableCell align="right">Live Price</TableCell>
-
             <TableCell align="right">1h %</TableCell>
             <TableCell align="right">24h %</TableCell>
             {/* <TableCell align="right">7j % </TableCell> */}

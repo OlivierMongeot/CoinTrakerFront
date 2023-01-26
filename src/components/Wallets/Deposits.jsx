@@ -7,8 +7,6 @@ import Divider from '@mui/material/Divider';
 import { useEffect } from 'react';
 // import updateProcess from '../../api/updateProcess';
 // import { useNavigate } from "react-router-dom";
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Deposits(props) {
@@ -64,7 +62,6 @@ export default function Deposits(props) {
 
   return (
     <React.Fragment>
-      {/* <ToastContainer /> */}
       {props.arrayAmountWallets && props.arrayAmountWallets.map((wallet, index) => (
 
         <div key={index} className="display-grid-amount">

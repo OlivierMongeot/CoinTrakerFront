@@ -29,14 +29,11 @@ const delay = (ms = 500) => new Promise(r => setTimeout(r, ms));
 
 const Transactions = () => {
 
-
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('user'));
     const [transactions, setTransactions] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-
     const [pageLoader, setPageLoader] = React.useState(false)
-
 
     const getAllNewTransactions = async (coinbaseTransactionsDB, kucointrx, gateIoTrx) => {
 
@@ -153,6 +150,18 @@ const Transactions = () => {
 
             }
         }
+
+        // do {
+        //     let [newTrades, st] = await getNewTradesKucoin(userData, false);
+        //     let newTrs = newTrades
+        //     // index++
+        //     state = st
+        //     if (newTrs.length > 0) {
+        //         setTransactions(previousTransactions => {
+        //             return [...previousTransactions, ...newTrs]
+        //         })
+        //     }
+        // } while (state === 'continue');
 
 
 

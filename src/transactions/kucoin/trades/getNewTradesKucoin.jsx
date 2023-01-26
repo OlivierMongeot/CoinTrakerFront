@@ -88,11 +88,11 @@ const getNewTrades = async (userData, reset) => {
   if (start + oneWeek > Date.now()) {
     console.log('STOP time + oneWeek > now ')
     await setTimeTable('kucoin', 'trade', Date.now(), userData);
-    return [newTrades, 'stop', start]
+    return [newTrades, 'stop']
   } else {
     console.log('continue time + oneWeek < now ')
     await setTimeTable('kucoin', 'trade', start + oneWeek, userData);
-    return [newTrades, 'continue', start + oneWeek]
+    return [newTrades, 'continue']
   }
 }
 

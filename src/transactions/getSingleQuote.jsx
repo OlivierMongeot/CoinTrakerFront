@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import getFiatValue from "../helpers/getFiatValue";
 import getSimpleDate from "../helpers/getSimpleDate";
 
@@ -46,6 +47,7 @@ const getSingleQuote = async (transaction, prevTransaction) => {
     && transaction.native_amount.currency === prevTransaction.native_amount.currency
     && parseFloat(prevTransaction.native_amount.amount) > 0) {
 
+    toast('get last quotation')
     console.log('Get last devise')
     let prevDevises = prevTransaction?.quote_transaction.devises;
     if (prevDevises) {

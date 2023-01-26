@@ -68,23 +68,23 @@ const getAllNewTransactionsGateIo = async (userData) => {
 
   // WITHDRAWAL 
   let totalWithdrawals = []
-  let startWithdrawals = timeStart.gateio.withdrawals
-  while (startWithdrawals < (Date.now() / 1000)) {
-    console.log('current fetch withdrawals ', startWithdrawals)
-    let withdrawals = await getTransactionGateIo(userData, startWithdrawals, 'withdrawals')
-    startWithdrawals = startWithdrawals + oneMonth
-    if (withdrawals.length > 0) {
-      totalWithdrawals.push(withdrawals)
-    }
-  }
-  totalWithdrawals = totalWithdrawals.flat()
-  if (totalWithdrawals.length > 0) {
-    totalWithdrawals = await addUrlImage(totalWithdrawals, 'gateio')
-    totalWithdrawals = await rebuildGateIoData(totalWithdrawals, 'withdrawals');
-    console.log('NEW WITHDRAWAL', totalWithdrawals)
+  // let startWithdrawals = timeStart.gateio.withdrawals
+  // while (startWithdrawals < (Date.now() / 1000)) {
+  //   console.log('current fetch withdrawals ', startWithdrawals)
+  //   let withdrawals = await getTransactionGateIo(userData, startWithdrawals, 'withdrawals')
+  //   startWithdrawals = startWithdrawals + oneMonth
+  //   if (withdrawals.length > 0) {
+  //     totalWithdrawals.push(withdrawals)
+  //   }
+  // }
+  // totalWithdrawals = totalWithdrawals.flat()
+  // if (totalWithdrawals.length > 0) {
+  //   totalWithdrawals = await addUrlImage(totalWithdrawals, 'gateio')
+  //   totalWithdrawals = await rebuildGateIoData(totalWithdrawals, 'withdrawals');
+  //   console.log('NEW WITHDRAWAL', totalWithdrawals)
 
-  }
-  setTimeTable('gateio', 'withdrawals', parseInt(startWithdrawals), userData)
+  // }
+  // setTimeTable('gateio', 'withdrawals', parseInt(startWithdrawals), userData)
 
   // TRADES 
   let totalTrades = []

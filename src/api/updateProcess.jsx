@@ -10,7 +10,6 @@ import AuthenticationService from '../helpers/AuthService';
 // import axios from 'axios';
 import config from '../config';
 
-
 const totalExchange = (result) => {
   let arrayTotals = [];
   result.forEach(element => {
@@ -108,7 +107,10 @@ export default async function updateProcess(exchange, arrayAmountWallets, update
 
     } catch (error) {
       console.log('catch error', error);
+      toast('Error server')
+      stopSpinner(exchange, arrayAmountWallets);
       throw new Error("HTTP error " + error.message);
+
     }
   }
 

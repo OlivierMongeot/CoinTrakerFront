@@ -14,6 +14,7 @@ import LastOrders from '../components/Wallets/LastOrders';
 import Loader from '../components/Wallets/Loader';
 import getCoinbaseOrders from '../transactions/coinbase/getCoinbaseOrders';
 import getGateIoOrders from '../transactions/gateio/getGateIoOrders';
+import { ToastContainer } from 'react-toastify';
 // export const WalletsContext = React.createContext();
 
 const WalletsBoard = () => {
@@ -74,6 +75,17 @@ const WalletsBoard = () => {
 
     return (
         <Container className="container" maxWidth="xlg" sx={{ mt: 4, mb: 0 }}>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                theme="dark"
+            />
             <Grid container spacing={2} columns={12}>
                 <Grid item xs={12} md={8} lg={8}>
                     <Paper>
