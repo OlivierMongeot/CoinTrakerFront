@@ -1,18 +1,11 @@
 
 import config from "../../config";
-import addUrlImage from "../../helpers/addUrlImage";
-import eraseDoublon from "../../helpers/eraseDoublon";
 import getLastestTransactionsCoinbase from "./getLastestTransactionsCoinbase";
-import rebuildDataCoinbase from "./rebuildDataCoinbase";
 import { toast } from 'react-toastify';
-
 import getAllAccountsCoinbase from "./getAllAccounts";
-import saveNewTransactions from "../saveNewTransactionsDB";
-import getQuote from "../getQuoteHistory";
 
 
-const FETCHMAX = 30
-
+// const FETCHMAX = 30
 
 async function getAllTransactionsByAccount(path, searchDirection, userData) {
 
@@ -46,7 +39,7 @@ async function getAllTransactionsByAccount(path, searchDirection, userData) {
       console.log('------');
       // console.log('Trx Page', trxPage.pagination);
       console.log('New Trx data', trxPage.data);
-      let newTrx = trxPage.data
+      // let newTrx = trxPage.data
 
       // newTrx = await addUrlImage(newTrx, 'coinbase')
       // newTrx = await rebuildDataCoinbase(newTrx, userData);
@@ -88,12 +81,11 @@ async function getAllTransactionsByAccount(path, searchDirection, userData) {
   return accountTransactions;
 }
 
-
 const getAllTransactionsTheseAccounts = async (accounts, userData) => {
 
   let index = 0;
   let transactions = [];
-  while (index < accounts.length && index < 500) {
+  while (index < accounts.length && index < 5) {
     console.log(index)
     let account = accounts[index];
     try {
@@ -121,16 +113,17 @@ const getAccountZeroWithTransaction = async (accounts, userData) => {
   //  await getAllTransactionsTheseAccounts(accountsToZero, userData)
 }
 
-
-
 const getNewTokenTransactions = async (lastTrxSavedDB, userData, checkIfNewAccount, fetchZero) => {
 
+
   let accounts = await getAllAccountsCoinbase(userData, checkIfNewAccount);
+
   let positiveAccount = accounts.filter(account => {
     return parseFloat(account.balance.amount) > 0
   })
 
   let newAccounts = []
+
   positiveAccount.forEach((account, index) => {
     const isObjectPresent = lastTrxSavedDB.find((o) => o.token === account.balance.currency);
     if (isObjectPresent === undefined) {
@@ -138,6 +131,8 @@ const getNewTokenTransactions = async (lastTrxSavedDB, userData, checkIfNewAccou
     }
   })
   console.log('new Account Amount positive find ', newAccounts);
+
+
 
   // Add account with amount zero but with trx 
   let accountZero = []
@@ -166,14 +161,14 @@ const getNewTokenTransactions = async (lastTrxSavedDB, userData, checkIfNewAccou
 
 }
 
-const getFromDBTransactions = async (lastTrx, userData) => {
+const getFromDBTransactions = async (listLastTrxSavedDB, userData) => {
 
   let index = 0;
   let transactions = [];
 
-  while (index < lastTrx.length) {
+  while (index < listLastTrxSavedDB.length) {
 
-    let account = lastTrx[index];
+    let account = listLastTrxSavedDB[index];
     let query = "?ending_before=" + account.id_last_trx;
     try {
       let accountPath = '/v2/accounts/' + account.id_account + "/transactions" + query;
@@ -185,7 +180,7 @@ const getFromDBTransactions = async (lastTrx, userData) => {
 
     index++;
     // setPourcentLoad(index * 100 / (lastTrx.length))
-    console.log(parseInt(index * 100 / (lastTrx.length)) + '%');
+    console.log(parseInt(index * 100 / (listLastTrxSavedDB.length)) + '%');
     console.log('token', account?.token);
   }
 
@@ -214,7 +209,7 @@ const getAllNewTransactionsCoinbase = async (coinbaseTrxDB, userData, checkIfNew
 
   console.log('---- PART 2 ---')
   let newTrxFromDB = [];
-  newTrxFromDB = await getFromDBTransactions(listLastTrxSavedDB, userData);
+  // newTrxFromDB = await getFromDBTransactions(listLastTrxSavedDB, userData);
 
 
   let allTransactions = [...newTrxFromDB, ...newTrxFromNewAccount];

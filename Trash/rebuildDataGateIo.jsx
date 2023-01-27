@@ -55,7 +55,7 @@ const rebuildGateIoData = async (transactions: [], type: string): [] => {
       return transactions;
 
     case 'withdrawals':
-      console.log('rebuild Withdraw kucoin')
+      console.log('rebuild Withdraw kucoin', transactions)
       index = 0;
       while (index < transactions.length) {
 

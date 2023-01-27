@@ -10,6 +10,9 @@ import IconeNear from '../IconesSVG/IconeNear';
 import IconeSolana from '../IconesSVG/IconeSolana';
 import IconeJPG from '../IconesJPG/IconeJPG';
 import IconeXRP from '../IconesSVG/IconXrp';
+import axios from 'axios';
+import addLogoServer from '../../helpers/addLogoServer';
+
 
 const BadgeFormater = (props) => {
 
@@ -19,8 +22,20 @@ const BadgeFormater = (props) => {
     const currency = props.value.currency;
     let url = props.value.urlLogo;
 
-    if (url !== null) {
-      // console.log('props', props);
+    // https://s2.coinmarketcap.com/static/img/coins/64x64/4030.png
+    // http://localhost:4000/images/logo/1.png
+
+    if (url && url !== null && url !== undefined) {
+      let codeCMC = url.split('/')
+      let codeArray = codeCMC[7]
+      let code = (codeArray.split('.'))
+      code = code[0]
+      // console.log(code)
+      url = 'http://localhost:4000/images/logo/' + code + '.png'
+
+      // let checkExist = axios.get(url);
+      // console.log(code, checkExist)
+      // addLogoServer(code, currency, null)
     }
 
 
@@ -140,8 +155,6 @@ const BadgeFormater = (props) => {
         )
 
 
-
-
       default:
         break
     }
@@ -149,7 +162,7 @@ const BadgeFormater = (props) => {
     return (
       <div style={style}>
         <span > {value} {currency}</span >
-        <img style={{ height: '20px', width: '20px', marginLeft: '5px' }}
+        <img style={{ height: '20px', width: '20px', marginLeft: '5px', borderRadius: '50%' }}
           src={url}
           alt="Token" />
       </div>

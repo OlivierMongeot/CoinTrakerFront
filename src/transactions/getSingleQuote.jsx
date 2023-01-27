@@ -2,11 +2,9 @@ import { toast } from "react-toastify";
 import getFiatValue from "../helpers/getFiatValue";
 import getSimpleDate from "../helpers/getSimpleDate";
 
-
-
 const getSingleQuote = async (transaction, prevTransaction) => {
 
-  console.log('Get Single quote ', transaction)
+  // console.log('Get Single quote ', transaction)
   // console.log('Get Single prevTransaction quote ', prevTransaction)
   let currency = null
   let date = getSimpleDate(transaction.created_at)
@@ -17,6 +15,7 @@ const getSingleQuote = async (transaction, prevTransaction) => {
       amount = transaction.native_amount.amount
       currency = transaction.native_amount.currency
       break
+
     case 'coinbase':
       if (parseFloat(transaction.native_amount.amount) > 0) {
         amount = transaction.native_amount.amount
@@ -41,28 +40,44 @@ const getSingleQuote = async (transaction, prevTransaction) => {
   }
 
 
-
   if (prevTransaction !== null
-    && getSimpleDate(transaction.created_at) === getSimpleDate(prevTransaction.created_at)
-    && transaction.native_amount.currency === prevTransaction.native_amount.currency
-    && parseFloat(prevTransaction.native_amount.amount) > 0) {
+    && getSimpleDate(transaction.created_at) === getSimpleDate(prevTransaction?.created_at)
+    && transaction.native_amount.currency === prevTransaction?.native_amount.currency
+    && parseFloat(prevTransaction?.native_amount.amount) > 0) {
 
-    toast('get last quotation')
-    console.log('Get last devise')
+    // toast('get last quotation')
+    console.log('Get previous devise')
     let prevDevises = prevTransaction?.quote_transaction.devises;
     if (prevDevises) {
       transaction.quote_transaction = { devises: prevDevises, amount: amount, currency: currency };
     } else {
       throw Error('No quotation')
     }
-    let itemInDollarPrice = amount * prevTransaction.quote_transaction.devises.usd
-    let itemInEuroPrice = amount * prevTransaction.quote_transaction.devises.eur
-    transaction.info.dollarPrice = itemInDollarPrice / transaction.native_amount.amount
-    transaction.info.euroPrice = itemInEuroPrice / transaction.native_amount.amount
-    return transaction
+    let itemInDollarPrice = null
+    let itemInEuroPrice = null
+
+    itemInDollarPrice = amount * prevTransaction.quote_transaction.devises.usd
+    itemInEuroPrice = amount * prevTransaction.quote_transaction.devises.eur
+
+
+    switch (transaction.exchange) {
+      case 'coinbase':
+        transaction.info.dollarPrice = itemInDollarPrice / transaction.native_amount.amount
+        transaction.info.euroPrice = itemInEuroPrice / transaction.native_amount.amount
+        transaction.info.usdtPrice = prevTransaction.info.usdtPrice
+        return transaction
+
+      default:
+        transaction.info.dollarPrice = itemInDollarPrice / transaction.native_amount.amount
+        transaction.info.euroPrice = itemInEuroPrice / transaction.native_amount.amount
+
+        return transaction
+
+    }
+
   }
   else {
-    console.log('Get new devise')
+    // console.log('Get new devise')
     // Calcul new data 
     let quoteFiat = null;
     switch (currency) {
@@ -79,7 +94,7 @@ const getSingleQuote = async (transaction, prevTransaction) => {
         break;
     }
 
-    console.log('Set Quote fiat for ' + currency + ' / ' + transaction.exchange, quoteFiat)
+    // console.log('Set Quote fiat for ' + currency + ' / ' + transaction.exchange, quoteFiat)
 
     transaction.quote_transaction = {
       amount: amount,
@@ -87,14 +102,15 @@ const getSingleQuote = async (transaction, prevTransaction) => {
       devises: quoteFiat
     }
 
-
     let itemInDollarPrice = amount * quoteFiat.usd
     let itemInEuroPrice = amount * quoteFiat.eur
     transaction.info.itemInDollarPrice = itemInDollarPrice
     transaction.info.itemInEuroPrice = itemInEuroPrice
-    transaction.info.dollarPrice = itemInDollarPrice / transaction.native_amount.amount
-    transaction.info.euroPrice = itemInEuroPrice / transaction.native_amount.amount
-
+    transaction.info.dollarPrice = Math.abs(itemInDollarPrice / transaction.native_amount.amount)
+    transaction.info.euroPrice = Math.abs(itemInEuroPrice / transaction.native_amount.amount)
+    if (transaction.info.usdtPrice === 0) {
+      transaction.info.usdtPrice = transaction.quote_transaction.devises.usd
+    }
     return transaction
 
   }

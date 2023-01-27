@@ -83,8 +83,8 @@ const getNewDeposits = async (userData) => {
 
 
   if (newDeposits.length > 0) {
-    newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposit')
-    newDeposits = await rebuildKucoinData(newDeposits, 'deposit')
+    newDeposits = await addUrlImage(newDeposits, 'kucoin', 'deposits')
+    newDeposits = await rebuildKucoinData(newDeposits, 'deposits')
     newDeposits = await getQuote(newDeposits)
     console.log('SAVE DEPOSITS IN DB')
     saveNewTransactions(newDeposits, userData)
@@ -92,11 +92,11 @@ const getNewDeposits = async (userData) => {
 
   if (start + oneWeek > Date.now()) {
     console.log('STOP time + oneWeek > now ')
-    await setTimeTable('kucoin', 'deposit', Date.now(), userData);
+    await setTimeTable('kucoin', 'deposits', Date.now(), userData);
     return [newDeposits, 'stop', start]
   } else {
     console.log('continue time + oneWeek < now ')
-    await setTimeTable('kucoin', 'deposit', start + oneWeek, userData);
+    await setTimeTable('kucoin', 'deposits', start + oneWeek, userData);
     return [newDeposits, 'continue', start + oneWeek]
   }
 }

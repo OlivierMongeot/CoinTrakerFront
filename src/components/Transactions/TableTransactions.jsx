@@ -70,12 +70,13 @@ const TableTransactions = (props) => {
       sx={{
         p: 2,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        justifyContent: 'center',
         height: '80vh',
         marginTop: 2
       }} >
       {transactions && (
-        <div style={{ height: '100%', width: '100%' }}>
+        <div style={{ height: '100%', width: '80%' }}>
           <DataGrid
             components={{ Toolbar: GridToolbar }} initialState={{
               sorting: {

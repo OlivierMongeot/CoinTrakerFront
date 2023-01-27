@@ -34,7 +34,7 @@ const addUrlImage = async (transactions, exchange, type) => {
 
         case 'coinbase':
           if (token.symbol.toUpperCase() === transactions[i].amount.currency.toUpperCase()) {
-            console.log('MATCH token', token.symbol.toLowerCase())
+            // console.log('MATCH token', token.symbol.toLowerCase())
             transactions[i].urlLogo = seturlLogo(token.symbol, token.id);
           }
           return token.symbol.toUpperCase() === transactions[i].amount.currency.toUpperCase();

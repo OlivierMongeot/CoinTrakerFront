@@ -32,7 +32,7 @@ const nativeAmountFormater = (props) => {
     let amount = parseFloat(props.value.amount) > 0 ? parseFloat(props.value.amount) : - parseFloat(props.value.amount);
     let fixed = 2
     if (amount * swap < 0.01) {
-      fixed = 5
+      fixed = 6
     }
 
     return (

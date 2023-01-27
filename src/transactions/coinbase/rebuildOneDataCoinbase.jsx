@@ -5,54 +5,6 @@ const rebuildDataCoinbase = async (transactions, userData) => {
 
   console.log('rebuild transactions', transactions.length);
 
-  // function getSmartType(type, amount, description) {
-
-  //   switch (type) {
-  //     case 'send':
-  //       if (description === 'Earn Task') {
-  //         return 'Earn'
-  //       }
-  //       if (parseFloat(amount) < 0) {
-  //         return 'Withdraw'
-  //       } else {
-  //         return 'Deposit'
-  //       }
-
-  //     case 'trade':
-  //       return 'Swap'
-
-  //     case 'interest':
-  //       return 'Interest'
-  //     case 'inflation_reward':
-  //       return 'Reward'
-
-  //     case 'reward':
-  //       return 'Inflation reward'
-
-  //     case 'staking_reward':
-  //       return 'Staking Reward'
-
-  //     case 'vault_withdrawal':
-  //       return 'Withdraw externe'
-
-  //     case 'advanced_trade_fill':
-  //       return 'Trade'
-
-  //     case 'buy':
-  //       return 'Buy'
-
-  //     case 'fiat_deposit':
-  //       return 'Deposit FIAT'
-
-  //     case 'transfer':
-  //       return 'Transfer'
-
-  //     default:
-  //       console.log('unknow type ', type, amount)
-  //       return 'unknow Type'
-
-  //   }
-  // }
 
   async function getDataBuy(path, userData) {
 
@@ -201,7 +153,7 @@ const rebuildDataCoinbase = async (transactions, userData) => {
 
 
     element.info = {
-      // address: element?.address,
+      address: element?.address,
       currency: element.currency,
       details: element?.details,
       memo: element?.type,

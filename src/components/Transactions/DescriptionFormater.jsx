@@ -9,6 +9,10 @@ import Typography from '@mui/material/Typography';
 
 const Formater = (props) => {
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -116,16 +120,16 @@ const Formater = (props) => {
 
             {props.value?.memo && (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Memo : {props.value.memo.replaceAll('_', ' ')}
+                Memo : {capitalizeFirstLetter(props.value.memo.replaceAll('_', ' '))}
               </Typography>
             )}
             {props.value?.status && (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Status : {props.value.status}
+                Status : {capitalizeFirstLetter(props.value.status)}
               </Typography>
             )}
 
-            {props.value?.dollarPrice && (
+            {props.value?.dollarPrice && props.value.native_currency !== 'USD' && (
               <Typography id="modal-modal-description" sx={{ mt: 2, fontSize: '0.9rem' }}>
                 1 {props.value.native_currency}  = {props.value.dollarPrice} $
               </Typography>

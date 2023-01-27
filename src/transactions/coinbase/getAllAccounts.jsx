@@ -1,6 +1,6 @@
 import config from "../../config";
 
-const getAllAccountCoinbase = async (userData, checkIfNewAccount = false) => {
+const getAllAccountCoinbase = async (userData, checkIfNewAccount = true) => {
 
   let nexPageAccounUri = null;
 
@@ -54,12 +54,8 @@ const getAllAccountCoinbase = async (userData, checkIfNewAccount = false) => {
       accounts = accounts.concat(dataNextPage.data);
     }
 
-
-
     // Lenght of allAccounts
     console.log('Nbr de tokens', accounts.length);
-
-
 
     localStorage.setItem('accounts-coinbase', JSON.stringify(accounts));
     return accounts;

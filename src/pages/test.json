@@ -1,0 +1,12 @@
+
+{"currency":"ALGO","details":{"title":"Récompense en Algorand","subtitle":"De Coinbase",
+"header":"0,002001 ALGO reçus (0,00 $)","health":"positive"},
+"memo":"staking_reward","idTx":"6da40c3f-08a5-5223-bf75-d8fac5a57a9b",
+"type":"deposits","status":"completed",
+"resource_path":"/v2/accounts/306062cb-1cfd-56ec-bc0f-9e23a1c339c9/transactions/",
+"native_currency":"USD",
+"usdtPrice":0,
+"itemInDollarPrice":0.0004256301694078451,
+"itemInEuroPrice":0.00039194154149921405,
+"dollarPrice":null,
+"euroPrice":null}
